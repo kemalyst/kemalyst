@@ -1,0 +1,22 @@
+version: 1.0
+shards:
+  amethyst-model:
+    github: drujensen/amethyst-model
+    commit: d401c94fe50e99bb1b91137efd1ab03f2d2e07f1
+
+  kemal:
+    github: sdogruyol/kemal
+    commit: 43d34886c4286452278878f4eb6b6beeeb94c661
+
+  kilt:
+    github: jeromegn/kilt
+    version: 0.3.2
+
+  pool:
+    github: ysbaddaden/pool
+    commit: b2c519adaf4f7ef5a60b2027cd039f932db0b086
+
+  radix:
+    github: luislavena/radix
+    version: 0.1.0
+

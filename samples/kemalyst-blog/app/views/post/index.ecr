@@ -1,0 +1,18 @@
+<% posts.each do |post| %>
+
+<div class="blog-post">
+  <h2 class="blog-post-title"><%= post.name %></h2>
+  <p class="blog-post-meta"><%= post.last_updated %> by <a href="https://github.com/drujensen" target="_blank">Dru Jensen</a></p>
+
+  <p><%= post.markdown_body %></p>
+  
+  <p>
+    <a href="/posts/<%= post.id %>">read</a>
+    | <a href="/posts/<%= post.id %>/edit">edit</a> | 
+    <a href="/posts/<%= post.id %>/delete" onclick="return confirm('Are you sure?');">delete</a>
+  </p>
+            
+</div><!-- /.blog-post -->
+
+<% end %>
+

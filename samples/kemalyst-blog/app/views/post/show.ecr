@@ -1,0 +1,9 @@
+<% if post %>
+  <h2 class="blog-post-title"><%= post.name %></h2>
+  <p class="blog-post-meta"><%= post.last_updated %> by <a href="https://github.com/drujensen" target="_blank">Dru Jensen</a></p>
+  <p><%= post.markdown_body %></p>
+<% else %>
+  <h1>No Record Found</h1>
+<% end %>
+<a href="/posts">Back</a>
+

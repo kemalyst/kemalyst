@@ -1,0 +1,16 @@
+name: kemalyst
+version: 0.1.0
+
+authors:
+  - drujensen <drujensen@gmail.com>
+
+license: MIT
+
+dependencies:
+  kemal:
+    github: sdogruyol/kemal
+    branch: master
+  amethyst-model:
+    github: drujensen/amethyst-model
+    branch: master
+  
