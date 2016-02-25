@@ -1,15 +1,7 @@
 version: 1.0
 shards:
-  amethyst-model:
-    github: drujensen/amethyst-model
-    commit: d401c94fe50e99bb1b91137efd1ab03f2d2e07f1
-
-  kemal:
-    github: sdogruyol/kemal
-    commit: 6929a1b8a94bbe4512242e614f46db38048fada4
-
   kemalyst:
-    path: ../kemalyst
+    path: ../..
     version: 0.1.0
 
   kilt:

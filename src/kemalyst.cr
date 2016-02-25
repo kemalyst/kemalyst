@@ -22,15 +22,15 @@ module Kemalyst
 
     # Handlers are processed in order. Each handler has their own configuration file.
     def setup_handlers
-      @handlers << Logger.instance
-      @handlers << Error.instance
-      @handlers << Static.instance
-      @handlers << Session.instance
-      @handlers << Params.instance
-      @handlers << Router.instance
+      @handlers << Kemalyst::Handler::Logger.instance
+      @handlers << Kemalyst::Handler::Error.instance
+      @handlers << Kemalyst::Handler::Static.instance
+      @handlers << Kemalyst::Handler::Session.instance
+      @handlers << Kemalyst::Handler::Params.instance
+      @handlers << Kemalyst::Handler::Router.instance
     end
 
-    def run
+    def start
       setup_handlers
       server = HTTP::Server.new(@host.to_slice, @port, @handlers)
 

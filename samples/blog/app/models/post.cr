@@ -1,8 +1,7 @@
-require "amethyst-model/mysql_adapter"
+require "../../..//src/kemalyst/adapter/mysql"
 require "markdown/markdown"
-include Amethyst::Model
 
-class Post < Model
+class Post < Kemalyst::Model
   adapter mysql
   
   sql_mapping({ 
@@ -30,4 +29,3 @@ class Post < Model
     return markdown_body
   end
 end
-

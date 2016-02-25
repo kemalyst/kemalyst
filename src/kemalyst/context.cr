@@ -2,7 +2,8 @@
 # information such as params, content_type e.g
 class HTTP::Server
   class Context
-    alias ParamTypes = Nil | String | Int64 | Float64 | Bool
+    alias ParamTypes = Nil | String | Int64 | Float64 | Bool | Hash(String, JSON::Type) | Array(JSON::Type)
+
     
     def clear_params
       @params = {} of String => ParamTypes
@@ -10,6 +11,14 @@ class HTTP::Server
 
     def params
       @params ||= {} of String => ParamTypes
+    end
+
+    def clear_session
+      @session = {} of String => String
+    end
+
+    def session
+      @session ||= {} of String => String
     end
 
     def redirect(url, status_code = 302)

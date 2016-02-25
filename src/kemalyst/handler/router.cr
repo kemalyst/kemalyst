@@ -7,12 +7,15 @@ HTTP_METHODS = %w(get post put patch delete)
   def {{method.id}}(path, &block : HTTP::Server::Context -> _)
     Kemalyst::Handler::Router.instance.add_route({{method}}.upcase, path, &block)
   end
+  def {{method.id}}(path, handler)
+    Kemalyst::Handler::Router.instance.add_route({{method}}.upcase, path, handler)
+  end
 {% end %}
 
-
 module Kemalyst::Handler
+  
   class Router < Base
- 
+
     def initialize
       @tree = Radix::Tree.new
     end
@@ -28,6 +31,10 @@ module Kemalyst::Handler
       add_to_radix_tree method, path, Route.new(method, path, &handler)
       add_to_radix_tree("HEAD", path, Route.new("HEAD", path, &handler)) if method == "GET"
     end
+    def add_route(method, path, handler)
+      add_to_radix_tree method, path, Route.new(method, path, handler)
+      add_to_radix_tree("HEAD", path, Route.new("HEAD", path, handler)) if method == "GET"
+    end
 
     # Check if a route is defined and returns the lookup
     def lookup_route(verb, path)
@@ -39,7 +46,7 @@ module Kemalyst::Handler
       node = lookup_route(context.request.method as String, context.request.path)
       route = node.payload as Route
       node.params.each do |key, value|
-        context.params[key] = value
+        context.params[key.gsub("/", "")] = value
       end
       context.response.print(route.handler.call(context).to_s)
       context

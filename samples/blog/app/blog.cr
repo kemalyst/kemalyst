@@ -6,4 +6,4 @@ module Kemalyst::Blog
   end
 end
 
-Kemalyst::Blog::Application.instance.run
+Kemalyst::Blog::Application.instance.start
