@@ -1,8 +1,14 @@
 require "../../../src/kemalyst"
-require "../config/routes"
+require "../config/*"
 
 module Kemalyst::Blog
   class Application < Kemalyst::Application
+
+    def initialize
+      super
+      @env = "development"
+    end
+
   end
 end
 
