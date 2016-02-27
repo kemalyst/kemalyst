@@ -4,9 +4,10 @@ require "openssl/sha1"
 module Kemalyst::Handler
   class WebSocket < Base
 
-    def initialize(&@proc : WebSocket ->)
+    def self.instance(handler)
+      @@instance ||= new(handler)
     end
-    
+
     def initialize(@proc)
     end
 
