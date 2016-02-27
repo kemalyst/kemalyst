@@ -21,8 +21,6 @@ module Kemalyst::Handler
       parse_part(context, context.request.query)
     end
     
-    
-    
     def parse_body(context)
       return if (context.request.headers["Content-Type"]? =~ /#{URL_ENCODED_FORM}/).nil?
       parse_part(context, context.request.body)
@@ -41,7 +39,6 @@ module Kemalyst::Handler
         context.params["_json"] = json
       end
     end
-
 
     private def parse_part(context, part)
       return unless part

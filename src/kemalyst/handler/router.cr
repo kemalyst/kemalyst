@@ -55,7 +55,10 @@ module Kemalyst::Handler
 
     # Processes the route if it's a match. Otherwise renders 404.
     def process_request(context)
-      node = lookup_route(context.request.method as String, context.request.path)
+      method = context.request.method
+      # Is there an overrided _method parameter?
+      method = context.params["_method"] if context.params.has_key? "_method"
+      node = lookup_route(method as String, context.request.path)
       route = node.payload as Route
       node.params.each do |key, value|
         context.params[key.gsub("/", "")] = value
