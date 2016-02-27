@@ -3,10 +3,10 @@ require "uri"
 
 module Kemalyst::Handler
   class Static < Base
-    property folder
+    property public_folder
 
     def initialize
-      @folder = "./public"
+      @public_folder = "./public"
     end
 
     def call(context)
@@ -24,7 +24,7 @@ module Kemalyst::Handler
         return
       end
 
-      public_dir = File.expand_path(@folder)
+      public_dir = File.expand_path(@public_folder)
       expanded_path = File.expand_path(request_path, "/")
 
       file_path = File.join(public_dir, expanded_path)

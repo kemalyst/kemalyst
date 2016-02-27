@@ -1,12 +1,13 @@
 module Kemalyst::Handler
   class Logger < Base
-    property app, filename
+    property filename
 
     def initialize
       @filename = "logs/development.log"
+    end
 
-      @log = File.new(@filename, "a")
-      @log.flush_on_newline = true
+    def log
+      @log ||= File.new(@filename, "a")
     end
 
     def call(context)
@@ -19,7 +20,10 @@ module Kemalyst::Handler
       elapsed = elapsed_text(Time.now - time)
 
       output_message = "#{time} | #{status_code} | #{method} #{resource} - #{elapsed}\n"
-      @log.write output_message.to_slice
+      if log
+        log.write output_message.to_slice
+        log.flush
+      end
       context
     end
 
