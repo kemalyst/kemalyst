@@ -2,10 +2,11 @@
 
 # Kemalyst
 
-Kemalyst is a Rails like framework that is based on on super fast
-[kemal](https://github.com/sdogruyol/kemal). The framework is based on
-Handlers which are similar to Rack middleware.  The model is a simple ORM
-mapping and supports MySQL, PG and SQLite. 
+Kemalyst is a yarlf (yet another rails like framework) that is based on on
+super fast [kemal](https://github.com/sdogruyol/kemal). The framework
+leverages the middleware handlers which are similar to Rack middleware.  
+
+The model is a simple ORM mapping and supports MySQL, PG and SQLite. 
 
 ## Installation
 
@@ -19,8 +20,8 @@ Currently 0.11.0 is supported.
 2. Create a Crystal App
 
 ```
-crystal init app demo
-cd demo
+crystal init app your_app
+cd your_app
 ```
 3. Add kemalyst dependency to your shard.yml
 ```
@@ -36,16 +37,17 @@ dependencies:
 ```
 and run `crystal deps`.  
 
-To keep a similar structure to rails, 
-rename the `src` directory to `app`.  Also create a `db`, `public`,
-`logs` and `config` directory.
+To keep a similar structure to yarlf, rename the `src` directory to `app`.
+Also create a `db`, `public`, `logs` and `config` directory.
 
 ## Usage
 
 1. Configure App
 
 All config settings are in the `/config` folder.  Each handler has its own
-settings.  You will find the `database.yml` file and routes.cr here.
+settings.  You will find the `database.yml` file and routes.cr here. Checkout
+the samples that demonstrates a traditional blog site and a websocket chat
+app.
 
 -- TO DO --
 
