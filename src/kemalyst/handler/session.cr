@@ -5,7 +5,7 @@ require "openssl/hmac"
 
 module Kemalyst::Handler
   class Session < Base
-    property :key, :domain, :path, :expire, :secret
+    property :key, :secret
 
     def initialize
       @key = "kemalyst.session"
