@@ -21,10 +21,5 @@ class HTTP::Server
       @session ||= {} of String => String
     end
 
-    def redirect(url, status_code = 302)
-      @response.headers.add "Location", url
-      @response.status_code = status_code
-    end
-
   end
 end

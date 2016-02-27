@@ -20,8 +20,7 @@ module SessionController
       if username == "admin" && Crypto::MD5.hex_digest(password as String) == "5f4dcc3b5aa765d61d8327deb882cf99"
         context.session["authorized"] = "true"
       end
-      context.redirect "/"
-      return ""
+      redirect "/"
     end
   end
 
@@ -29,8 +28,7 @@ module SessionController
     def call(context)
       authorized = context.session.has_key?("authorized")
       context.clear_session
-      context.redirect "/"
-      return ""
+      redirect "/"
     end
   end
 

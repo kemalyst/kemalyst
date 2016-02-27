@@ -6,7 +6,7 @@ module PostController
   class Index < Controller
     def call(context)
       authorized = context.session.has_key?("authorized")
-      posts = ::Post.all("ORDER BY created_at DESC")
+      posts = Post.all("ORDER BY created_at DESC")
       render "post/index.ecr", "layout.ecr"
     end
   end
@@ -15,8 +15,12 @@ module PostController
     def call(context)
       authorized = context.session.has_key?("authorized")
       id = context.params["id"]
-      post = ::Post.find(id) 
-      render "post/show.ecr", "layout.ecr"
+      post = Post.find(id)
+      if post
+        render "post/show.ecr", "layout.ecr"
+      else
+        status "Post with id:#{id} could not be found", 404
+      end
     end
   end
 
@@ -26,8 +30,7 @@ module PostController
       if authorized
         render "post/new.ecr", "layout.ecr"
       else
-        context.redirect "/posts"
-        return ""
+        redirect "/posts"
       end
     end
   end
@@ -42,8 +45,7 @@ module PostController
           post.save
         end
       end
-      context.redirect "/posts"
-      return ""
+      redirect "/posts"
     end
   end
 
@@ -52,11 +54,14 @@ module PostController
       authorized = context.session.has_key?("authorized")
       if authorized
         id = context.params["id"]
-        post = ::Post.find(id) 
-        render "post/edit.ecr", "layout.ecr"
+        post = Post.find(id)
+        if post
+          render "post/edit.ecr", "layout.ecr"
+        else
+          status "Post with id:#{id} could not be found", 404
+        end
       else
-        context.redirect "/posts"
-        return ""
+        redirect "/posts"
       end
     end
   end
@@ -68,14 +73,15 @@ module PostController
         id = context.params["id"]
         if post = ::Post.find(id)
           post.name = context.params["name"]
-         post.body = context.params["body"]
-         post.save
+          post.body = context.params["body"]
+          post.save
+        else
+          status "Post with id:#{id} could not be found", 404
         end
-        context.redirect "/posts/#{id}"
+        redirect "/posts/#{id}"
       else
-        context.redirect "/posts"
+        redirect "/posts"
       end
-      return ""
     end
   end
 
@@ -86,10 +92,11 @@ module PostController
         id = context.params["id"]
         if post = ::Post.find(id)
           post.destroy
+        else
+          status "Post with id:#{id} could not be found", 404
         end
       end
-      context.redirect "/posts"
-      return ""
+      redirect "/posts"
     end
   end
 

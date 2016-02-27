@@ -2,17 +2,16 @@
 
 # Kemalyst
 
-Kemalyst is a Rails like framework that runs on super fast [kemal](https://github.com/sdogruyol/kemal). The
-framework is based on Handlers which are similar to Rack middleware.  The
-model is a simple ORM mapping tool and supports MySQL, PG and SQLite.  The
-controllers are thread-safe since each request spawns a new thread.  The
-webserver is using the one Crystal provides.
+Kemalyst is a Rails like framework that is based on on super fast
+[kemal](https://github.com/sdogruyol/kemal). The framework is based on
+Handlers which are similar to Rack middleware.  The model is a simple ORM
+mapping and supports MySQL, PG and SQLite. 
 
 ## Installation
 
 1. Install Crystal
 
-You can find instructions on how to install Crystal from [Crystals
+You can find instructions on how to install Crystal from [Crystal's
 Website](http://crystal-lang.org).  I recommend using
 [crenv](https://github.com/pine613/crenv) to manage your crystal versions.
 Currently 0.11.0 is supported.
