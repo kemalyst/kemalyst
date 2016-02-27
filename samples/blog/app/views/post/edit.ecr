@@ -2,6 +2,7 @@
 
 <% if post %>
   <form action="/posts/<%= post.id %>/update" method="post">
+    <input type="hidden" name="_method" value="put"/>
     <div class="form-group">
       <input type="text" class="form-control" id="title" name="name"
     placeholder="Title"  value="<%= post.name %>">
