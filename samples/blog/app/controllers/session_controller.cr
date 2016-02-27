@@ -21,7 +21,7 @@ module SessionController
         context.session["authorized"] = "true"
       end
       context.redirect "/"
-      return context
+      return ""
     end
   end
 
@@ -30,7 +30,7 @@ module SessionController
       authorized = context.session.has_key?("authorized")
       context.clear_session
       context.redirect "/"
-      return context
+      return ""
     end
   end
 

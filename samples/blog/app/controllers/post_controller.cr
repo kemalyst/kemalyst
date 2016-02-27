@@ -27,6 +27,7 @@ module PostController
         render "post/new.ecr", "layout.ecr"
       else
         context.redirect "/posts"
+        return ""
       end
     end
   end
@@ -42,7 +43,7 @@ module PostController
         end
       end
       context.redirect "/posts"
-      return context
+      return ""
     end
   end
 
@@ -55,6 +56,7 @@ module PostController
         render "post/edit.ecr", "layout.ecr"
       else
         context.redirect "/posts"
+        return ""
       end
     end
   end
@@ -73,7 +75,7 @@ module PostController
       else
         context.redirect "/posts"
       end
-      return context
+      return ""
     end
   end
 
@@ -87,7 +89,7 @@ module PostController
         end
       end
       context.redirect "/posts"
-      return context
+      return ""
     end
   end
 
