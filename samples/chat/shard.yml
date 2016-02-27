@@ -1,0 +1,16 @@
+name: chat
+version: 0.1.0
+
+authors:
+  - Fatih Kadir Akın <fakin@protel.com.tr>
+  - Dru Jensen <drujensen@gmail.com>
+
+license: MIT
+
+dependencies:
+  kemalyst:
+    path: ../..
+    #github: drujensen/kemalyst
+    #branch: master
+
+

@@ -1,0 +1,18 @@
+version: 1.0
+shards:
+  kemalyst:
+    path: ../..
+    version: 0.1.0
+
+  kilt:
+    github: jeromegn/kilt
+    version: 0.3.2
+
+  pool:
+    github: ysbaddaden/pool
+    commit: b2c519adaf4f7ef5a60b2027cd039f932db0b086
+
+  radix:
+    github: luislavena/radix
+    version: 0.1.0
+

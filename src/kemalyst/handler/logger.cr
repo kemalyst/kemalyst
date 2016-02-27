@@ -1,9 +1,9 @@
 module Kemalyst::Handler
   class Logger < Base
-    property filename
+    property app, filename
 
     def initialize
-      @filename = "logs/kemalyst.log"
+      @filename = "logs/development.log"
 
       @log = File.new(@filename, "a")
       @log.flush_on_newline = true

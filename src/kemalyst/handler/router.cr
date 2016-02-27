@@ -5,10 +5,19 @@ HTTP_METHODS = %w(get post put patch delete)
 
 {% for method in HTTP_METHODS %}
   def {{method.id}}(path, &block : HTTP::Server::Context -> _)
-    Kemalyst::Handler::Router.instance.add_route({{method}}.upcase, path, &block)
+    Kemalyst::Handler::Router.instance.add_route({{method}}.upcase, path, block)
   end
-  def {{method.id}}(path, handler)
+  def {{method.id}}(path, handler : HTTP::Handler)
     Kemalyst::Handler::Router.instance.add_route({{method}}.upcase, path, handler)
+  end
+  def {{method.id}}(path, handler : HTTP::Handler, &block : HTTP::Server::Context -> _)
+    Kemalyst::Handler::Router.instance.add_route({{method}}.upcase, path, [handler], block)
+  end
+  def {{method.id}}(path, handlers : Array(HTTP::Handler))
+    Kemalyst::Handler::Router.instance.add_route({{method}}.upcase, path, handlers)
+  end
+  def {{method.id}}(path, handlers : Array(HTTP::Handler), &block : HTTP::Server::Context -> _)
+    Kemalyst::Handler::Router.instance.add_route({{method}}.upcase, path, handlers, block)
   end
 {% end %}
 
@@ -27,13 +36,16 @@ module Kemalyst::Handler
 
     # Adds a given route to routing tree. As an exception each `GET` route additionaly defines
     # a corresponding `HEAD` route.
-    def add_route(method, path, &handler : HTTP::Server::Context -> _)
-      add_to_radix_tree method, path, Route.new(method, path, &handler)
-      add_to_radix_tree("HEAD", path, Route.new("HEAD", path, &handler)) if method == "GET"
-    end
     def add_route(method, path, handler)
       add_to_radix_tree method, path, Route.new(method, path, handler)
       add_to_radix_tree("HEAD", path, Route.new("HEAD", path, handler)) if method == "GET"
+    end
+
+    def add_route(method, path,  handlers : Array(HTTP::Handler), last_handler = nil : HTTP::Server::Context -> _)
+      raise ArgumentError.new "You must specify at least one HTTP Handler." if handlers.empty?
+      0.upto(handlers.size - 2) { |i| handlers[i].next = handlers[i + 1] }
+      handlers.last.next = last_handler if last_handler
+      add_route(method, path, handlers.first)
     end
 
     # Check if a route is defined and returns the lookup

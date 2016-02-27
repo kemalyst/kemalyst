@@ -29,3 +29,6 @@ development_dependencies:
   sqlite3:
     github: manastech/crystal-sqlite3
     branch: master
+
+#scripts:
+#  postinstall:  
