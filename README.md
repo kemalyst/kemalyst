@@ -1,6 +1,8 @@
+# WIP (Work In Progress)
+
 # Kemalyst
 
-Kemalyst is a Rails like framework that runs on super fast Kemal. The
+Kemalyst is a Rails like framework that runs on super fast [kemal](https://github.com/sdogruyol/kemal). The
 framework is based on Handlers which are similar to Rack middleware.  The
 model is a simple ORM mapping tool and supports MySQL, PG and SQLite.  The
 controllers are thread-safe since each request spawns a new thread.  The
@@ -18,7 +20,7 @@ Currently 0.11.0 is supported.
 2. Create a Crystal App
 
 ```
-crystal new app demo
+crystal init app demo
 cd demo
 ```
 3. Add kemalyst dependency to your shard.yml
@@ -27,14 +29,16 @@ dependencies:
   kemalyst:
     github: drujensen/kemalyst
     branch: master
+
+  # optional database
   mysql:
     github: waterlink/crystal-mysql
     branch: master  
 ```
 and run `crystal deps`.  
 
-To keep a similar structure to rails, this will
-rename the `src` directory to `app`.  This will also create a `db`, `public`,
+To keep a similar structure to rails, 
+rename the `src` directory to `app`.  Also create a `db`, `public`,
 `logs` and `config` directory.
 
 ## Usage
@@ -42,22 +46,9 @@ rename the `src` directory to `app`.  This will also create a `db`, `public`,
 1. Configure App
 
 All config settings are in the `/config` folder.  Each handler has its own
-settings.  You will find the `database.yml` file. You will need to create a
-database and setup the permissions. 
+settings.  You will find the `database.yml` file and routes.cr here.
 
-2. Scaffolding
-
-To create your first app, we recommend using scaffold.  This is similar to
-what rails provides.
-```
-crystal util/generate.cr scaffold Customer name:VARCHAR(50) phone:VARCHAR(15) birthday:DATE
-crystal db/migrate.cr
-crystal app/demo.cr
-
-```
-This will create a full MVC application for `Customer` with CRUD
-functionality.  You can hit `http://localhost:3000` to play with the app.
-
+-- TO DO --
 
 2. Create Controller
 
@@ -66,7 +57,6 @@ functionality.  You can hit `http://localhost:3000` to play with the app.
 4. Create Model
 
 5. Create Service
-
 
 ## Contributing
 
