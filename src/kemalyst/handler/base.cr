@@ -11,6 +11,10 @@ module Kemalyst::Handler
       yield self.instance
     end
    
+    def config
+      yield self
+    end
+
     def call(context)
       call_next context
     end

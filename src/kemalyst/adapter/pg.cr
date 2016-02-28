@@ -1,14 +1,14 @@
 require "./base"
 require "pg"
 
-class Adapter::Pg < Adapter::Base
+class Kemalyst::Adapter::Pg < Kemalyst::Adapter::Base
 
   def initialize(settings)
-    host = settings["host"] as String
-    port = settings["port"] as String
-    username = settings["username"] as String
-    password = settings["password"] as String
-    database = settings["database"] as String
+    host = env(settings["host"].to_s)
+    port = env(settings["port"].to_s)
+    username = env(settings["username"].to_s)
+    password = env(settings["password"].to_s)
+    database = env(settings["database"].to_s)
     @pool = ConnectionPool.new(capacity: 20, timeout: 0.01) do
        PG.connect("postgres://#{username}:#{password}@#{host}:#{port}/#{database}")
     end

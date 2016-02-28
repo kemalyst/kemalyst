@@ -1,7 +1,8 @@
 module Kemalyst
   class Route
-    getter handler
     getter method
+    getter path
+    getter handler
 
     def initialize(@method, @path, @handler)
     end

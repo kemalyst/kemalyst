@@ -7,17 +7,12 @@ abstract class Kemalyst::Model
   macro adapter(name)
     unless @@database
       yaml_file = File.read("config/database.yml")
-      yaml = YAML.load(yaml_file) as Hash(YAML::Type, YAML::Type)
-      settings = yaml["{{name.id}}"] as Hash(YAML::Type, YAML::Type)
-      settings.each do |key, value|
-        if value.is_a? String && value.starts_with? "$"
-          settings[key] = env(value)
-        end
-      end
-      @@database = Adapter::{{name.id.capitalize}}.new(settings)
+      yaml = YAML.parse(yaml_file)
+      settings = yaml["{{name.id}}"]
+      @@database = Kemalyst::Adapter::{{name.id.capitalize}}.new(settings)
     end
   end  
- 
+
   # sql_mapping is the mapping between columns in your database and the fields
   # in this model.  proerties will be created for each field.  The type of the
   # field is specific to the database you are using.  You may specify other
@@ -180,15 +175,6 @@ abstract class Kemalyst::Model
     return row
   end
 
-  # private method used to lookup the environment variable if exists
-  private def self.env(value)
-    value = value.gsub("${","").gsub("}", "")
-    if ENV.has_key? value
-      return ENV[value]
-    else
-      return ""
-    end
-  end
 
 end
 

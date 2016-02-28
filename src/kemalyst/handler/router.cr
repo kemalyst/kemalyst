@@ -61,10 +61,11 @@ module Kemalyst::Handler
       result = lookup_route(method as String, context.request.path)
       if result.found?
         route = result.payload as Route
+        # Add routing params to context.params
         result.params.each do |key, value|
           context.params[key.gsub("/", "")] = value
         end
-        context.response.print(route.handler.call(context).to_s)
+        route.handler.call(context)
       else
         raise Kemalyst::Exceptions::RouteNotFound.new("Requested path: '#{method as String}:#{context.request.path}' was not found.")
       end

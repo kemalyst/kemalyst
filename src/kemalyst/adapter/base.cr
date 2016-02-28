@@ -3,7 +3,17 @@ require "pool/connection"
 # The Base Adapter specifies the interface that will be used by the model
 # objects to perform actions against a specific database.  Each adapter needs
 # to implement these methods.
-abstract class Adapter::Base
+abstract class Kemalyst::Adapter::Base
+
+  # method used to lookup the environment variable if exists
+  def env(value)
+    env_var = value.gsub("${","").gsub("}", "")
+    if ENV.has_key? env_var
+      return ENV[env_var]
+    else
+      return value
+    end
+  end
   
   # clear will remove all rows from a table and reset the counter on the id.
   abstract def clear(table_name)
@@ -40,5 +50,5 @@ abstract class Adapter::Base
   # This will delete a row from the database.
   abstract def delete(table_name, id)
 
-  end
+end
 

@@ -2,7 +2,6 @@ require "./kemalyst/*"
 require "http"
 require "option_parser"
 require "./kemalyst/handler/*"
-include Kemalyst::Handler
 
 module Kemalyst
   class Application
@@ -12,13 +11,24 @@ module Kemalyst
       @@instance ||= new
     end
 
+    def self.config
+      yield self.instance
+    end
+
+    def config
+      yield self
+    end
+
     def initialize
       @host = "0.0.0.0"
       @port = 3000
       @env = "development"
       @handlers = [] of HTTP::Handler
       parse_command_line_options
+      setup_handlers
     end
+
+
 
     # Handlers are processed in order. Each handler has their own configuration file.
     def setup_handlers
@@ -31,7 +41,6 @@ module Kemalyst
     end
 
     def start
-      setup_handlers
       server = HTTP::Server.new(@host.to_slice, @port, @handlers)
 
       Signal::INT.trap {

@@ -1,10 +1,10 @@
 require "./base"
 require "sqlite3"
 
-class Adapter::Sqlite < Adapter::Base
+class Kemalyst::Adapter::Sqlite < Kemalyst::Adapter::Base
 
   def initialize(settings)
-    database = settings["database"] as String
+    database = env(settings["database"].to_s)
     @pool = ConnectionPool.new(capacity: 20, timeout: 0.01) do
        SQLite3::Database.new( database )
     end
@@ -92,15 +92,17 @@ class Adapter::Sqlite < Adapter::Base
     return results
   end
 
-  alias SUPPORTED_TYPES = (Nil | String | Int32 | Int16 | Int64 | Float32 |
-                           Float64 | Bool | Time | Char | Slice(UInt8))
+  alias SUPPORTED_TYPES = (Nil  | Int32 | Int64 | Float32 | Float64 | Time | String | Slice(UInt8))
+
   private def scrub_params(params)
     new_params = {} of String => SUPPORTED_TYPES
     params.each do |key, value|
-      if value.is_a? Time
-        new_params[key] = db_time(value)
-      else
-        new_params[key] = value
+      if value.is_a? SUPPORTED_TYPES
+        if value.is_a? Time
+          new_params[key] = db_time(value)
+        else
+          new_params[key] = value
+        end
       end
     end
     return new_params
