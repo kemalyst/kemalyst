@@ -258,3 +258,25 @@
 2016-02-29 09:09:44 -0800 | 200 | GET /stylesheets/application.css - 126µs
 2016-02-29 09:09:44 -0800 | 200 | GET /javascripts/application.js - 62µs
 2016-02-29 09:36:28 -0800 | 500 | GET / - 28.36ms
+I, [2016-02-29 14:11:31 -0800 #36366]  INFO -- : 200 | GET /posts/new | 2.6ms
+
+I, [2016-02-29 14:11:31 -0800 #36366]  INFO -- : 200 | GET /stylesheets/application.css | 170µs
+
+I, [2016-02-29 14:11:31 -0800 #36366]  INFO -- : 200 | GET /javascripts/application.js | 97µs
+
+I, [2016-02-29 14:11:33 -0800 #36366]  INFO -- : 200 | GET /posts/new | 206µs
+
+I, [2016-02-29 14:11:33 -0800 #36366]  INFO -- : 200 | GET /stylesheets/application.css | 109µs
+
+I, [2016-02-29 14:11:33 -0800 #36366]  INFO -- : 200 | GET /javascripts/application.js | 66µs
+
+I, [2016-02-29 14:15:51 -0800 #38271]  INFO -- : 200 | GET /posts/new | 2.45ms
+I, [2016-02-29 14:15:51 -0800 #38271]  INFO -- : 200 | GET /stylesheets/application.css | 109µs
+I, [2016-02-29 14:15:51 -0800 #38271]  INFO -- : 200 | GET /javascripts/application.js | 65µs
+I, [2016-02-29 14:16:02 -0800 #38271]  INFO -- : 302 | POST /posts/create | 27.07ms
+I, [2016-02-29 14:16:02 -0800 #38271]  INFO -- : 200 | GET /posts | 404µs
+I, [2016-02-29 14:16:02 -0800 #38271]  INFO -- : 200 | GET /stylesheets/application.css | 186µs
+I, [2016-02-29 14:16:02 -0800 #38271]  INFO -- : 200 | GET /javascripts/application.js | 72µs
+[2016-02-29 14:21:54 -0800 #38929]  INFO: 200 | GET /posts | 32.17ms
+[2016-02-29 14:21:54 -0800 #38929]  INFO: 200 | GET /stylesheets/application.css | 126µs
+[2016-02-29 14:21:54 -0800 #38929]  INFO: 200 | GET /javascripts/application.js | 66µs
