@@ -28,15 +28,16 @@ module Kemalyst::Handler
 
     def parse_json(context)
       return if context.request.headers["Content-Type"]? != APPLICATION_JSON
-
-      body = context.request.body as String
-      case json = JSON.parse(body).raw
-      when Hash
-        json.each do |key, value|
-          context.params[key as String] = value
+      
+      if body = context.request.body
+        case json = JSON.parse(body).raw
+        when Hash
+          json.each do |key, value|
+            context.params[key as String] = value
+          end
+        when Array
+          context.params["_json"] = json
         end
-      when Array
-        context.params["_json"] = json
       end
     end
 

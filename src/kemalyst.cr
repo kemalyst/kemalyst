@@ -1,11 +1,12 @@
-require "./kemalyst/*"
 require "http"
 require "option_parser"
+require "logger"
+require "./kemalyst/*"
 require "./kemalyst/handler/*"
 
 module Kemalyst
   class Application
-    property host, port, env, handlers
+    property host, port, env, logger, handlers
 
     def self.instance
       @@instance ||= new
@@ -23,16 +24,16 @@ module Kemalyst
       @host = "0.0.0.0"
       @port = 3000
       @env = "development"
+      @logger =  Logger.new(STDOUT)
       @handlers = [] of HTTP::Handler
+
       parse_command_line_options
       setup_handlers
     end
 
-
-
     # Handlers are processed in order. Each handler has their own configuration file.
     def setup_handlers
-      @handlers << Kemalyst::Handler::Logger.instance
+      @handlers << Kemalyst::Handler::Logger.instance @logger
       @handlers << Kemalyst::Handler::Error.instance
       @handlers << Kemalyst::Handler::Static.instance
       @handlers << Kemalyst::Handler::Session.instance

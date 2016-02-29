@@ -1,13 +1,12 @@
 module Kemalyst::Handler
   class Logger < Base
-    property filename
+    property logger
 
-    def initialize
-      @filename = "logs/development.log"
+    def self.instance(logger)
+      @@instance ||= new(logger)
     end
 
-    def log
-      @log ||= File.new(@filename, "a")
+    def initialize(@logger)
     end
 
     def call(context)
@@ -19,11 +18,8 @@ module Kemalyst::Handler
       resource = context.request.resource
       elapsed = elapsed_text(Time.now - time)
 
-      output_message = "#{time} | #{status_code} | #{method} #{resource} - #{elapsed}\n"
-      if log
-        log.write output_message.to_slice
-        log.flush
-      end
+      output_message = "#{status_code} | #{method} #{resource} | #{elapsed}\n"
+      @logger.info output_message
       context
     end
 

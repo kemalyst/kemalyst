@@ -1,10 +1,10 @@
 require "../app/controllers/*"
 
-get  "/login", SessionController::New.instance
-post "/session/create", SessionController::Create.instance
-get  "/logout", SessionController::Delete.instance
+get    "/login", SessionController::New.instance
+post   "/session/create", SessionController::Create.instance
+get    "/logout", SessionController::Delete.instance
 
-get  "/", PostController::Index.instance
+get    "/", PostController::Index.instance
 
 get    "/posts", PostController::Index.instance 
 get    "/posts/:id", PostController::Show.instance

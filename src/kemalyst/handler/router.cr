@@ -1,7 +1,7 @@
 require "http/server"
 require "radix"
 
-HTTP_METHODS = %w(get post put patch delete)
+HTTP_METHODS = %w(get post put patch delete options)
 
 {% for method in HTTP_METHODS %}
   def {{method.id}}(path, &block : HTTP::Server::Context -> _)
@@ -63,7 +63,7 @@ module Kemalyst::Handler
         route = result.payload as Route
         # Add routing params to context.params
         result.params.each do |key, value|
-          context.params[key.gsub("/", "")] = value
+          context.params[key] = value
         end
         route.handler.call(context)
       else

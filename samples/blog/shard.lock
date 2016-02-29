@@ -6,7 +6,7 @@ shards:
 
   kilt:
     github: jeromegn/kilt
-    version: 0.3.2
+    commit: 828a3cb989578e94f3e5cc91bd7134c3735ccfdf
 
   mysql:
     github: waterlink/crystal-mysql
@@ -14,9 +14,9 @@ shards:
 
   pool:
     github: ysbaddaden/pool
-    commit: b2c519adaf4f7ef5a60b2027cd039f932db0b086
+    version: 0.2.1
 
   radix:
     github: luislavena/radix
-    version: 0.1.0
+    version: 0.1.1
 
