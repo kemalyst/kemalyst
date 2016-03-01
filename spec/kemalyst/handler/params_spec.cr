@@ -5,7 +5,6 @@ describe Kemalyst::Handler::Params do
   it "parses query params" do
     request = HTTP::Request.new("GET", "/?test=test")
     context = create_context(request)
-    
     params = Kemalyst::Handler::Params.instance
     params.call(context)
     context.params["test"].should eq "test"
@@ -14,7 +13,6 @@ describe Kemalyst::Handler::Params do
   it "parses multiple query params" do
     request = HTTP::Request.new("GET", "/?test=test&test2=test2")
     context = create_context(request)
-    
     params = Kemalyst::Handler::Params.instance
     params.call(context)
     context.params.size.should eq 2

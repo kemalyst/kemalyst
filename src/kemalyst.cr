@@ -28,7 +28,6 @@ module Kemalyst
       @handlers = [] of HTTP::Handler
 
       parse_command_line_options
-      setup_handlers
     end
 
     # Handlers are processed in order. Each handler has their own configuration file.
@@ -42,6 +41,7 @@ module Kemalyst
     end
 
     def start
+      setup_handlers
       server = HTTP::Server.new(@host.to_slice, @port, @handlers)
 
       Signal::INT.trap {

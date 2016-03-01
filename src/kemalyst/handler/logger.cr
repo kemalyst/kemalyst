@@ -18,7 +18,7 @@ module Kemalyst::Handler
       resource = context.request.resource
       elapsed = elapsed_text(Time.now - time)
 
-      output_message = "#{status_code} | #{method} #{resource} | #{elapsed}\n"
+      output_message = "#{status_code} | #{method} #{resource} | #{elapsed}"
       @logger.info output_message
       context
     end

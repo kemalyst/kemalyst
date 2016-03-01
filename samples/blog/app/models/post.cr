@@ -1,4 +1,4 @@
-require "../../..//src/kemalyst/adapter/mysql"
+require "../../../../src/kemalyst/adapter/mysql"
 require "markdown/markdown"
 
 class Post < Kemalyst::Model
