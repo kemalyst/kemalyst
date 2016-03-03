@@ -1,4 +1,5 @@
 require "spec"
+require "mocks/spec"
 require "../../../src/kemalyst"
 require "../config/*"
 

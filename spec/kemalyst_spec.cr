@@ -20,6 +20,7 @@ describe Kemalyst::Application do
 
     it "sets the default handlers" do
       app = Kemalyst::Application.instance
+      app.setup_handlers
       app.handlers.size.should eq 6
     end
 

@@ -4,7 +4,7 @@ describe Kemalyst::Handler::BasicAuth do
 
   it "returns 401 if no Authorization Header" do
     request = HTTP::Request.new("GET", "/")
-    context = create_context(request)
+    io, context = create_context(request)
     basicauth = Kemalyst::Handler::BasicAuth.instance("username","password")
     basicauth.call(context)
     context.response.status_code.should eq 401
@@ -13,7 +13,7 @@ describe Kemalyst::Handler::BasicAuth do
   it "returns 401 if Authorization Header doesn't start with Basic" do
     request = HTTP::Request.new("GET", "/")
     request.headers["Authorization"] = "BAD"
-    context = create_context(request)
+    io, context = create_context(request)
     basicauth = Kemalyst::Handler::BasicAuth.instance("username","password")
     basicauth.call(context)
     context.response.status_code.should eq 401
@@ -22,7 +22,7 @@ describe Kemalyst::Handler::BasicAuth do
   it "returns 401 if bad:user" do
     request = HTTP::Request.new("GET", "/")
     request.headers["Authorization"] = "Basic YmFkOnVzZXI="
-    context = create_context(request)
+    io, context = create_context(request)
     basicauth = Kemalyst::Handler::BasicAuth.instance("username","password")
     basicauth.call(context)
     context.response.status_code.should eq 401
@@ -31,7 +31,7 @@ describe Kemalyst::Handler::BasicAuth do
   it "continues if username:password" do
     request = HTTP::Request.new("GET", "/")
     request.headers["Authorization"] = "Basic dXNlcm5hbWU6cGFzc3dvcmQ="
-    context = create_context(request)
+    io, context = create_context(request)
     basicauth = Kemalyst::Handler::BasicAuth.instance("username","password")
     basicauth.call(context)
     context.response.status_code.should eq 404

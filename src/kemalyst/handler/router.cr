@@ -65,7 +65,10 @@ module Kemalyst::Handler
         result.params.each do |key, value|
           context.params[key] = value
         end
-        route.handler.call(context)
+        
+        if content = route.handler.call(context) as String
+          context.response.print(content)
+        end
       else
         raise Kemalyst::Exceptions::RouteNotFound.new("Requested path: '#{method as String}:#{context.request.path}' was not found.")
       end

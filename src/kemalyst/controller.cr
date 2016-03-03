@@ -13,14 +13,12 @@ module Kemalyst
     end
 
     macro render(filename, layout)
-      content = Kilt.render("app/views/{{filename.id}}")
-      layout = Kilt.render("app/views/layouts/{{layout.id}}")
-      context.response.print(layout.to_s)
+      content = render({{filename.id}})
+      layout = render("layouts/{{layout.id}}")
     end
 
     macro render(filename, *args)
       content = Kilt.render("app/views/{{filename.id}}", {{*args}})
-      context.response.print(content.to_s)
     end
 
     macro redirect(url, status_code = 302)

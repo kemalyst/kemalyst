@@ -39,10 +39,10 @@ module PostController
     def call(context)
       authorized = context.session.has_key?("authorized")
       if authorized
-        if post = ::Post.new
+        if post = Post.new
           post.name = context.params["name"]
           post.body = context.params["body"]
-          post.save
+          post.save()
         end
       end
       redirect "/posts"

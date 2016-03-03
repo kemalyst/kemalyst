@@ -4,7 +4,7 @@ describe Kemalyst::Handler::Params do
 
   it "parses query params" do
     request = HTTP::Request.new("GET", "/?test=test")
-    context = create_context(request)
+    io, context = create_context(request)
     params = Kemalyst::Handler::Params.instance
     params.call(context)
     context.params["test"].should eq "test"
@@ -12,7 +12,7 @@ describe Kemalyst::Handler::Params do
 
   it "parses multiple query params" do
     request = HTTP::Request.new("GET", "/?test=test&test2=test2")
-    context = create_context(request)
+    io, context = create_context(request)
     params = Kemalyst::Handler::Params.instance
     params.call(context)
     context.params.size.should eq 2
@@ -24,7 +24,7 @@ describe Kemalyst::Handler::Params do
     headers["Content-Type"] = "application/x-www-form-urlencoded"
     body = "test=test"
     request = HTTP::Request.new("POST", "/", headers, body)
-    context = create_context(request)
+    io, context = create_context(request)
     params = Kemalyst::Handler::Params.instance
     params.call(context)
     context.params["test"].should eq "test"
@@ -35,7 +35,7 @@ describe Kemalyst::Handler::Params do
     headers["Content-Type"] = "application/x-www-form-urlencoded"
     body = "test=test&test2=test2"
     request = HTTP::Request.new("POST", "/", headers, body)
-    context = create_context(request)
+    io, context = create_context(request)
     params = Kemalyst::Handler::Params.instance
     params.call(context)
     context.params.size.should eq 2
@@ -47,7 +47,7 @@ describe Kemalyst::Handler::Params do
     headers["Content-Type"] = "application/json"
     body = "{\"test\":\"test\"}"
     request = HTTP::Request.new("POST", "/", headers, body)
-    context = create_context(request)
+    io, context = create_context(request)
     params = Kemalyst::Handler::Params.instance
     params.call(context)
     context.params["test"].should eq "test"
@@ -58,7 +58,7 @@ describe Kemalyst::Handler::Params do
     headers["Content-Type"] = "application/json"
     body = "[\"test\",\"test2\"]"
     request = HTTP::Request.new("POST", "/", headers, body)
-    context = create_context(request)
+    io, context = create_context(request)
     params = Kemalyst::Handler::Params.instance
     params.call(context)
     context.params["_json"].should eq ["test","test2"]
