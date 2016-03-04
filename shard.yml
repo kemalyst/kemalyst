@@ -30,5 +30,5 @@ development_dependencies:
     github: manastech/crystal-sqlite3
     version: 0.1.0
 
-#scripts:
-#  postinstall:  
+scripts:
+  postinstall: crystal install.cr 
