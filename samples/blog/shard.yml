@@ -18,5 +18,4 @@ dependencies:
 development_dependencies:
   mocks:
     github: waterlink/mocks.cr
-    branch: class-level-mocks-and-inheritance
-    # version: 0.7.0
+    version: 0.8.0

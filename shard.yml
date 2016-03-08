@@ -31,4 +31,4 @@ development_dependencies:
     version: 0.1.0
 
 scripts:
-  postinstall: crystal bin/install.cr 
+  postinstall: crystal resources/install.cr 

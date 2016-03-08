@@ -166,9 +166,7 @@ abstract class Kemalyst::Model
       results = db.select_one(table_name, fields, id)
       if results.is_a?(Array)
         if results.size > 0
-          results.each do |result|
-            row = self.from_sql(result)
-          end
+          row = self.from_sql(results.first)
         end
       end
     end

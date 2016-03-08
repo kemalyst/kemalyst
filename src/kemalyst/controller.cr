@@ -13,7 +13,7 @@ module Kemalyst
     end
 
     macro render(filename, layout)
-      content = render({{filename.id}})
+      content = render("{{filename.id}}")
       layout = render("layouts/{{layout.id}}")
     end
 
