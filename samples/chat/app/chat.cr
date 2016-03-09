@@ -1,9 +1,7 @@
 require "../../../src/kemalyst"
-require "../config/routes"
+require "../config/*"
 
-module Kemalyst::Chat
-  class Application < Kemalyst::Application
-  end
+class Chat::Application < Kemalyst::Application
 end
 
-Kemalyst::Chat::Application.instance.start
+Chat::Application.instance.start

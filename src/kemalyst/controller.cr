@@ -24,11 +24,12 @@ module Kemalyst
     macro redirect(url, status_code = 302)
       context.response.headers.add("Location", {{url}})
       context.response.status_code = {{status_code}}
+      return ""
     end
 
-    macro status(body, status_code = 200)
+    macro text(body, status_code = 200)
       context.response.status_code = {{status_code}}
-      context.response.print({{body}})
+      return {{body}}
     end
    
   end

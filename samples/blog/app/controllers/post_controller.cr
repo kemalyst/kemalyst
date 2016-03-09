@@ -7,7 +7,7 @@ module PostController
     def call(context)
       authorized = context.session.has_key?("authorized")
       posts = Post.all("ORDER BY created_at DESC")
-      render "post/index.ecr", "layout.ecr"
+      render "post/index.ecr", "main.ecr"
     end
   end
 
@@ -17,9 +17,9 @@ module PostController
       id = context.params["id"]
       post = Post.find(id)
       if post
-        render "post/show.ecr", "layout.ecr"
+        render "post/show.ecr", "main.ecr"
       else
-        status "Post with id:#{id} could not be found", 404
+        text "Post with id:#{id} could not be found", 404
       end
     end
   end
@@ -28,7 +28,7 @@ module PostController
     def call(context)
       authorized = context.session.has_key?("authorized")
       if authorized
-        render "post/new.ecr", "layout.ecr"
+        render "post/new.ecr", "main.ecr"
       else
         redirect "/posts"
       end
@@ -56,9 +56,9 @@ module PostController
         id = context.params["id"]
         post = Post.find(id)
         if post
-          render "post/edit.ecr", "layout.ecr"
+          render "post/edit.ecr", "main.ecr"
         else
-          status "Post with id:#{id} could not be found", 404
+          text "Post with id:#{id} could not be found", 404
         end
       else
         redirect "/posts"
@@ -76,7 +76,7 @@ module PostController
           post.body = context.params["body"]
           post.save
         else
-          status "Post with id:#{id} could not be found", 404
+          text "Post with id:#{id} could not be found", 404
         end
         redirect "/posts/#{id}"
       else
@@ -93,7 +93,7 @@ module PostController
         if post = ::Post.find(id)
           post.destroy
         else
-          status "Post with id:#{id} could not be found", 404
+          text "Post with id:#{id} could not be found", 404
         end
       end
       redirect "/posts"

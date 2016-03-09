@@ -6,7 +6,7 @@ module SessionController
   class New < Controller
     def call(context)
       authorized = context.session.has_key?("authorized")
-      render "session/new.ecr", "layout.ecr"
+      render "session/new.ecr", "main.ecr"
     end
   end
 
