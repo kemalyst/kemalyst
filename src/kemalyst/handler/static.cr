@@ -15,19 +15,11 @@ module Kemalyst::Handler
         return
       end
 
-      request_path = URI.unescape(context.request.path.not_nil!)
-
-      # File path cannot contains '\0' (NUL) because all filesystem I know
-      # don't accept '\0' character as file name.
-      if request_path.includes? '\0'
-        context.response.status_code = 400
-        return
-      end
-
       public_dir = File.expand_path(@public_folder)
+      request_path = URI.unescape(context.request.path.not_nil!)
       expanded_path = File.expand_path(request_path, "/")
-
       file_path = File.join(public_dir, expanded_path)
+      
       if Dir.exists?(file_path)
         call_next(context)
       elsif File.exists?(file_path)

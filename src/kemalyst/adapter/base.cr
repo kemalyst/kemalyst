@@ -26,7 +26,7 @@ abstract class Kemalyst::Adapter::Base
   abstract def create(table_name, fields)
   
   # migrate is an addative only approach and should be safe to call at any
-  # tiem.  It alter existing columns or add new columns but never delete them
+  # time.  It alters existing columns or add new columns but never delete them
   # to avoid data loss.  If a column cannot be altered without losing data, a
   # new column will be created and the existing one will be renamed to _old.
   # You may need to perform select insert queries if the migration cannot

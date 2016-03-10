@@ -1,9 +1,10 @@
+# This script will install a demo app similar to running a rails scaffold
 base_dir = "../.."
 
 # move /resources to /app
 unless File.exists? "#{base_dir}/app"
 
-  # create structure
+  # directories to move to base directory
   dirs = ["app", "db", "config", "public"]
 
   dirs.each do |dir|

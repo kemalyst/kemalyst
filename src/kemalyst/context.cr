@@ -1,25 +1,22 @@
-# Context is the environment which holds request/response specific
-# information such as params, content_type e.g
-class HTTP::Server
-  class Context
-    alias ParamTypes = Nil | String | Int64 | Float64 | Bool | Hash(String, JSON::Type) | Array(JSON::Type)
+# Extending the HTTP::Server::Context to support params and session 
 
-    
-    def clear_params
-      @params = {} of String => ParamTypes
-    end
+class HTTP::Server::Context
+  alias ParamTypes = Nil | String | Int64 | Float64 | Bool | Hash(String, JSON::Type) | Array(JSON::Type)
 
-    def params
-      @params ||= {} of String => ParamTypes
-    end
-
-    def clear_session
-      @session = {} of String => String
-    end
-
-    def session
-      @session ||= {} of String => String
-    end
-
+  def clear_params
+    @params = {} of String => ParamTypes
   end
+
+  def params
+    @params ||= {} of String => ParamTypes
+  end
+
+  def clear_session
+    @session = {} of String => String
+  end
+
+  def session
+    @session ||= {} of String => String
+  end
+
 end
