@@ -18,7 +18,7 @@ module DemoController
       if demo = Demo.find id
         render "demo/show.ecr", "main.ecr"
       else
-        status "Demo with id:#{id} could not be found", 404
+        text "Demo with id:#{id} could not be found", 404
       end
     end
   end
@@ -39,7 +39,7 @@ module DemoController
         redirect "/demos/#{id}"
         return ""
       else
-        status "Could not create Demo.", 400
+        text "Could not create Demo.", 400
       end
     end
   end
@@ -50,7 +50,7 @@ module DemoController
       if demo = Demo.find id
         render "demo/edit.ecr", "main.ecr"
       else
-        status "Demo with id:#{id} could not be found", 404
+        text "Demo with id:#{id} could not be found", 404
       end
     end
   end
@@ -62,7 +62,7 @@ module DemoController
         demo.name = context.params["name"]
         demo.save
       else
-        status "Demo with id:#{id} could not be found", 404
+        text "Demo with id:#{id} could not be found", 404
       end
       redirect "/demos/#{id}"
       return ""
@@ -75,7 +75,7 @@ module DemoController
       if demo = Demo.find id
         demo.destroy
       else
-        status "Demo with id:#{id} could not be found", 404
+        text "Demo with id:#{id} could not be found", 404
       end
       redirect "/demos"
       return ""
