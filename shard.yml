@@ -7,9 +7,9 @@ authors:
 license: MIT
 
 dependencies:
-  radix:
-    github: luislavena/radix
-    version: 0.1.1
+  delimiter_tree:
+    github: drujensen/delimiter_tree
+    branch: master
   kilt:
     github: jeromegn/kilt
     branch: master

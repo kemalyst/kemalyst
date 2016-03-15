@@ -1,5 +1,5 @@
 require "http/server"
-require "radix"
+require "delimiter_tree"
 
 HTTP_METHODS = %w(get post put patch delete options)
 
@@ -26,7 +26,7 @@ module Kemalyst::Handler
   class Router < Base
 
     def initialize
-      @tree = Radix::Tree.new
+      @tree = Delimiter::Tree.new
     end
 
     def call(context)
@@ -37,8 +37,8 @@ module Kemalyst::Handler
     # Adds a given route to routing tree. As an exception each `GET` route additionaly defines
     # a corresponding `HEAD` route.
     def add_route(method, path, handler)
-      add_to_radix_tree method, path, Route.new(method, path, handler)
-      add_to_radix_tree("HEAD", path, Route.new("HEAD", path, handler)) if method == "GET"
+      add_to_tree method, path, Route.new(method, path, handler)
+      add_to_tree("HEAD", path, Route.new("HEAD", path, handler)) if method == "GET"
     end
 
     def add_route(method, path,  handlers : Array(HTTP::Handler), last_handler = nil : HTTP::Server::Context -> _)
@@ -76,10 +76,10 @@ module Kemalyst::Handler
     end
     
     private def radix_path(method : String, path)
-      "/#{method.downcase}#{path}"
+      "#{method.downcase}/#{path}"
     end
 
-    private def add_to_radix_tree(method, path, route)
+    private def add_to_tree(method, path, route)
       node = radix_path(method, path)
       @tree.add(node, route)
     end

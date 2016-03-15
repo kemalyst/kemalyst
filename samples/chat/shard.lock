@@ -1,5 +1,9 @@
 version: 1.0
 shards:
+  delimiter_tree:
+    github: drujensen/delimiter_tree
+    commit: ec2d041ad2becffcfc6691062bf35fd64e3af179
+
   kemalyst:
     path: ../..
     version: 0.1.0
@@ -11,8 +15,4 @@ shards:
   pool:
     github: ysbaddaden/pool
     version: 0.2.1
-
-  radix:
-    github: luislavena/radix
-    version: 0.1.1
 
