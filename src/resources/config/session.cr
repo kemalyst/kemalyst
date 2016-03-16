@@ -7,6 +7,5 @@ Kemalyst::Handler::Session.config do |config|
   # crystal eval "require \"secure_random\"; puts SecureRandom.hex(64)"
   #
   # config.secret = "change_me"
-  config.secret = "e3e14c7b125d2adcec7b427c7841a"
   
 end

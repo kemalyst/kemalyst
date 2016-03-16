@@ -1,7 +1,7 @@
 <h1>Edit Demo</h1>
 
 <% if demo %>
-  <form action="/demos/<%= demo.id %>/update" method="post">
+  <form action="/demos/<%= demo.id %>" method="post">
     <input type="hidden" name="_method" value="put"/>
     <div class="form-group">
       <input type="text" class="form-control" id="name" name="name"
