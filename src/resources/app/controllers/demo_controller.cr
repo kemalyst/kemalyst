@@ -36,8 +36,7 @@ module DemoController
         demo.save()
       end
       if id = demo.id
-        redirect "/demos/#{id}"
-        return ""
+        redirect "/demos"
       else
         text "Could not create Demo.", 400
       end
@@ -64,8 +63,7 @@ module DemoController
       else
         text "Demo with id:#{id} could not be found", 404
       end
-      redirect "/demos/#{id}"
-      return ""
+      redirect "/demos"
     end
   end
 
@@ -78,7 +76,6 @@ module DemoController
         text "Demo with id:#{id} could not be found", 404
       end
       redirect "/demos"
-      return ""
     end
   end
 
