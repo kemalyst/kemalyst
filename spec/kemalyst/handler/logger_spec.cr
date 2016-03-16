@@ -7,7 +7,8 @@ describe Kemalyst::Handler::Logger do
     io, context = create_context(request)
     
     router = Kemalyst::Handler::Router.new
-    router.add_route("GET", "/", ->(c : HTTP::Server::Context) { "Hello World!" })
+    handler = Kemalyst::Handler::Block.new(->(c : HTTP::Server::Context) { "Hello World!" })
+    router.add_route("GET", "/", handler)
     log_io = MemoryIO.new
     logger = Logger.new(log_io)
     logger.level = Logger::INFO

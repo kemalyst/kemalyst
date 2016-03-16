@@ -5,19 +5,22 @@ HTTP_METHODS = %w(get post put patch delete options)
 
 {% for method in HTTP_METHODS %}
   def {{method.id}}(path, &block : HTTP::Server::Context -> _)
-    Kemalyst::Handler::Router.instance.add_route({{method}}.upcase, path, block)
+    handler = Kemalyst::Handler::Block.new(block)
+    Kemalyst::Handler::Router.instance.add_route({{method}}.upcase, path, handler)
   end
   def {{method.id}}(path, handler : HTTP::Handler)
     Kemalyst::Handler::Router.instance.add_route({{method}}.upcase, path, handler)
   end
   def {{method.id}}(path, handler : HTTP::Handler, &block : HTTP::Server::Context -> _)
-    Kemalyst::Handler::Router.instance.add_route({{method}}.upcase, path, [handler], block)
+    handler = Kemalyst::Handler::Block.new(block)
+    Kemalyst::Handler::Router.instance.add_route({{method}}.upcase, path, [handler, handler])
   end
   def {{method.id}}(path, handlers : Array(HTTP::Handler))
     Kemalyst::Handler::Router.instance.add_route({{method}}.upcase, path, handlers)
   end
   def {{method.id}}(path, handlers : Array(HTTP::Handler), &block : HTTP::Server::Context -> _)
-    Kemalyst::Handler::Router.instance.add_route({{method}}.upcase, path, handlers, block)
+    handlers << Kemalyst::Handler::Block.new(block)
+    Kemalyst::Handler::Router.instance.add_route({{method}}.upcase, path, handlers)
   end
 {% end %}
 
@@ -26,7 +29,7 @@ module Kemalyst::Handler
   class Router < Base
 
     def initialize
-      @tree = Delimiter::Tree.new
+      @tree = Delimiter::Tree(Nil | Kemalyst::Route).new
     end
 
     def call(context)
@@ -41,10 +44,9 @@ module Kemalyst::Handler
       add_to_tree("HEAD", path, Route.new("HEAD", path, handler)) if method == "GET"
     end
 
-    def add_route(method, path,  handlers : Array(HTTP::Handler), last_handler = nil : HTTP::Server::Context -> _)
+    def add_route(method, path,  handlers : Array(HTTP::Handler))
       raise ArgumentError.new "You must specify at least one HTTP Handler." if handlers.empty?
       0.upto(handlers.size - 2) { |i| handlers[i].next = handlers[i + 1] }
-      handlers.last.next = last_handler if last_handler
       add_route(method, path, handlers.first)
     end
 
@@ -60,14 +62,28 @@ module Kemalyst::Handler
       method = context.params["_method"] if context.params.has_key? "_method"
       result = lookup_route(method as String, context.request.path)
       if result.found?
-        route = result.payload as Route
-        # Add routing params to context.params
-        result.params.each do |key, value|
-          context.params[key] = value
-        end
-        
-        if content = route.handler.call(context) as String
-          context.response.print(content)
+        if routes = result.payload
+          # Add routing params to context.params
+          result.params.each do |key, value|
+            context.params[key] = value
+          end
+          
+          # chain the routes
+          0.upto(routes.size - 2) do |i|
+            if route = routes[i]
+              if next_route = routes[i + 1]
+                route.handler.next = next_route.handler
+              end
+            end
+          end
+          
+          if route = routes.first
+            if content = route.handler.call(context) as String
+              context.response.print(content)
+            end
+          end
+        else
+          raise Kemalyst::Exceptions::RouteNotFound.new("Requested payload: '#{method as String}:#{context.request.path}' was not found.")
         end
       else
         raise Kemalyst::Exceptions::RouteNotFound.new("Requested path: '#{method as String}:#{context.request.path}' was not found.")
