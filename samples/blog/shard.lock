@@ -2,7 +2,7 @@ version: 1.0
 shards:
   delimiter_tree:
     github: drujensen/delimiter_tree
-    commit: ec2d041ad2becffcfc6691062bf35fd64e3af179
+    commit: ff00d3f211aa0e6850b04c12941e88522c3a59d7
 
   kemalyst:
     path: ../..

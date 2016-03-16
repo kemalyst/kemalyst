@@ -1,7 +1,7 @@
 <h1>Edit Post</h1>
 
 <% if post %>
-  <form action="/posts/<%= post.id %>/update" method="post">
+  <form action="/posts/<%= post.id %>" method="post">
     <input type="hidden" name="_method" value="put"/>
     <div class="form-group">
       <input type="text" class="form-control" id="title" name="name"

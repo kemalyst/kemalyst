@@ -1,7 +1,7 @@
 require "http/server"
 require "delimiter_tree"
 
-HTTP_METHODS = %w(get post put patch delete options)
+HTTP_METHODS = %w(get post put patch delete)
 
 {% for method in HTTP_METHODS %}
   def {{method.id}}(path, &block : HTTP::Server::Context -> _)
@@ -23,6 +23,14 @@ HTTP_METHODS = %w(get post put patch delete options)
     Kemalyst::Handler::Router.instance.add_route({{method}}.upcase, path, handlers)
   end
 {% end %}
+
+def all(path, handler : HTTP::Handler)
+  get path, handler
+  put path, handler
+  post path, handler
+  patch path, handler
+  delete path, handler
+end
 
 module Kemalyst::Handler
   

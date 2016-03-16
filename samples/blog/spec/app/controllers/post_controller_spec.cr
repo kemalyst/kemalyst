@@ -16,11 +16,8 @@ describe PostController::Index do
 
     request = HTTP::Request.new("GET", "/posts")
     io, context = create_context(request) 
-    PostController::Index.instance.call(context)
-    context.response.close
-    io.rewind
-    response = HTTP::Client::Response.from_io(io)
-    response.body.should contain "sample post"
+    response = PostController::Index.instance.call(context)
+    response.should contain "sample post"
   end
 
 end
@@ -35,11 +32,8 @@ describe PostController::Show do
     request = HTTP::Request.new("GET", "/posts/1")
     io, context = create_context(request) 
     context.params["id"] = "1"
-    PostController::Show.instance.call(context)
-    context.response.close
-    io.rewind
-    response = HTTP::Client::Response.from_io(io)
-    response.body.should contain "sample post"
+    response = PostController::Show.instance.call(context)
+    response.should contain "sample post"
   end
 
 end
@@ -50,11 +44,8 @@ describe PostController::New do
     request = HTTP::Request.new("GET", "/posts/new")
     io, context = create_context(request) 
     context.session["authorized"] = "true"
-    PostController::New.instance.call(context)
-    context.response.close
-    io.rewind
-    response = HTTP::Client::Response.from_io(io)
-    response.body.should contain "<h1>New Post</h1>"
+    response = PostController::New.instance.call(context)
+    response.should contain "<h1>New Post</h1>"
   end
 
 end
@@ -90,11 +81,8 @@ describe PostController::Edit do
     io, context = create_context(request) 
     context.session["authorized"] = "true"
     context.params["id"] = "1"
-    PostController::Edit.instance.call(context)
-    context.response.close
-    io.rewind
-    response = HTTP::Client::Response.from_io(io)
-    response.body.should contain "<h1>Edit Post</h1>"
+    response = PostController::Edit.instance.call(context)
+    response.should contain "<h1>Edit Post</h1>"
   end
 
 end

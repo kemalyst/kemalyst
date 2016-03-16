@@ -11,7 +11,7 @@
     <a href="/posts/<%= post.id %>">read</a>
     <% if authorized %>
     | <a href="/posts/<%= post.id %>/edit">edit</a> | 
-    <a href="/posts/<%= post.id %>/delete?_method=delete" onclick="return confirm('Are you sure?');">delete</a>
+    <a href="/posts/<%= post.id %>?_method=delete" onclick="return confirm('Are you sure?');">delete</a>
     <% end %>
   </p>
             
