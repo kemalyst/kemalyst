@@ -1,5 +1,5 @@
 require "kemalyst"
-require "../../libs/kemalyst/kemalyst/adapter/pg.cr"
+require "kemalyst/adapter/pg"
 
 class Demo < Kemalyst::Model
   adapter pg

@@ -1,5 +1,5 @@
 require "./spec_helper"
-require "../src/kemalyst/adapter/mysql"
+require "../src/adapter/mysql"
 
 class Post < Kemalyst::Model
   adapter mysql

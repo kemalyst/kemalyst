@@ -1,5 +1,5 @@
 require "./spec_helper"
-require "../src/kemalyst/adapter/pg"
+require "../src/adapter/pg"
 
 class User < Kemalyst::Model
   adapter pg

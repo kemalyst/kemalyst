@@ -1,5 +1,5 @@
 require "./spec_helper"
-require "../src/kemalyst/adapter/sqlite"
+require "../src/adapter/sqlite"
 
 class Comment < Kemalyst::Model
   adapter sqlite 
