@@ -36,13 +36,14 @@ dependencies:
   kemalyst:
     github: drujensen/kemalyst
     branch: master
-  sqlite3:
-    github: manastech/crystal-sqlite3
-    version: 0.1.0
+  pg:
+    github: will/crystal-pg
+    branch: master
 ```
 and run `shards update`.
 
 ### Post Install
+
 To keep a similar structure to yarlf, we have generated a demo application
 that you can use as example code in the `/app` directory.  This is our
 recommended pattern but your more than welcome to change this and configure it
@@ -50,12 +51,32 @@ for what works best for you. We left the original `/src` directory as is.
 
 ## Usage
 
-To run the demo app, you will need to run the migrations and then start the
-app.
+To run the demo app, we are including a Dockerfile and docker-compose.yml. If
+you have docker setup, you should be able to run:
 ```
-crystal db/migate.cr
-crystal app/demo.cr
+docker-compose up
 ```
+This will download an ubuntu image and install all the dependencies including
+crystal and mount the demo application.  It will also include a postgres db
+image.  You will need to find the ip address of the docker-machine to hit the
+demo app.  You can find that with:
+```
+docker-machine ip default
+```
+Note: your machine name may not be `default` so you should provide yours.
+
+Next, you will need to set a secret for the session.  run the following
+command:
+```
+crystal eval "require \"secure_random\"; puts SecureRandom.hex(64)"
+```
+copy the secret and set this in `config/session.cr`.
+
+Finally, you will need to run the migrations:
+```
+docker-compose run web crystal db/migrate.cr
+```
+This will run the migration script and generate the tables.
 
 ### Configure App
 
@@ -111,17 +132,31 @@ get "/", BasicAuth.instance("username", "password") do |context|
 end
 ```
 
-And this is how you would configure a WebSocket with BasicAuth:
+This is how you would configure a WebSocket:
 ```
 get "/", [ WebSocket.instance(ChatController::Chat.instance),
-           BasicAuth.instance("username", "password"),
            ChatController::Index.instance ]
 ```
 
-The `Chat.instance` would have a `call` method that is expecting an
+The `Chat` class would have a `call` method that is expecting an
 `HTTP::WebSocket` to be passed which it would maintain and properly handle
 messages to and from it.  Check out the sample Chat application to get an idea
 on how to do this.
+
+You can use any of the following methods: `get, post, put, patch, delete, all`
+
+You can use a `*` to chain a handler for all children of this path:
+```
+all    "/posts/*",   BasicAuth.instance("admin", "password")
+
+# all of these will be secured with the BasicAuth handler.
+get    "/posts/:id", DemoController::Show.instance
+put    "/posts/:id", DemoController::Update.instance
+delete "/posts/:id", DemoController::Delete.instance
+
+```
+You can use `:variable` in the path and it will set a
+context.params["variable"] to the value in the url.
 
 ### Views
 

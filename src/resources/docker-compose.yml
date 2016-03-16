@@ -1,0 +1,13 @@
+version: '2'
+services:
+  db:
+    image: postgres
+  web:
+    build: .
+    command: crystal app/demo.cr
+    volumes:
+      - .:/demo
+    ports:
+      - "80:3000"
+    depends_on:
+      - db

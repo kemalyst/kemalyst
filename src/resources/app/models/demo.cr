@@ -1,8 +1,8 @@
 require "kemalyst"
-require "../../libs/kemalyst/kemalyst/adapter/sqlite.cr"
+require "../../libs/kemalyst/kemalyst/adapter/pg.cr"
 
 class Demo < Kemalyst::Model
-  adapter sqlite
+  adapter pg
   
   # the id, created_at and updated_at columns are automatically mapped for
   # you.

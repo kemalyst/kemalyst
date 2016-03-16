@@ -4,12 +4,12 @@ base_dir = "../.."
 # move /resources to /app
 unless File.exists? "#{base_dir}/app"
 
-  # directories to move to base directory
-  dirs = ["app", "db", "config", "public"]
+  # resources to move to base directory
+  resources = ["app", "db", "config", "public", "Dockerfile", "docker-compose.yml"]
 
-  dirs.each do |dir|
-    unless File.exists? "#{base_dir}/#{dir}"
-      File.rename "resources/#{dir}", "#{base_dir}/#{dir}"
+  resources.each do |resource|
+    unless File.exists? "#{base_dir}/#{resource}"
+      File.rename "resources/#{resource}", "#{base_dir}/#{resource}"
     end
   end
 
