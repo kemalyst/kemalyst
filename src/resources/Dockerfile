@@ -20,8 +20,8 @@ RUN apt-get update && apt-get install -y \
   libssl-dev \
   git \
   crystal
-  
-RUN mkdir /webapps/demo
+
+RUN mkdir -p /webapps/demo
 ADD . /webapps/demo
 WORKDIR /webapps/demo
 
