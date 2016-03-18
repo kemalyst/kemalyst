@@ -19,7 +19,7 @@ module PostController
       if post
         render "post/show.ecr", "main.ecr"
       else
-        text "Post with id:#{id} could not be found", 404
+        html "Post with id:#{id} could not be found", 404
       end
     end
   end
@@ -58,7 +58,7 @@ module PostController
         if post
           render "post/edit.ecr", "main.ecr"
         else
-          text "Post with id:#{id} could not be found", 404
+          html "Post with id:#{id} could not be found", 404
         end
       else
         redirect "/posts"
@@ -76,7 +76,7 @@ module PostController
           post.body = context.params["body"]
           post.save
         else
-          text "Post with id:#{id} could not be found", 404
+          html "Post with id:#{id} could not be found", 404
         end
         redirect "/posts/#{id}"
       else
@@ -93,7 +93,7 @@ module PostController
         if post = ::Post.find(id)
           post.destroy
         else
-          text "Post with id:#{id} could not be found", 404
+          html "Post with id:#{id} could not be found", 404
         end
       end
       redirect "/posts"
