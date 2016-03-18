@@ -2,10 +2,10 @@
 base_dir = "../.."
 
 # move /resources to /src
-unless File.exists? "#{base_dir}/src/demo.cr"
+unless File.exists? "#{base_dir}/src/app.cr"
 
   # resources to move to base directory
-  resources = ["src/controllers", "src/models","src/views", "src/demo.cr", "db", "config", "public", "Dockerfile", "docker-compose.yml"]
+  resources = ["src/controllers", "src/models","src/views", "src/app.cr", "db", "config", "public", "Dockerfile", "docker-compose.yml"]
 
   resources.each do |resource|
     unless File.exists? "#{base_dir}/#{resource}"

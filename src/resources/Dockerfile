@@ -28,4 +28,4 @@ WORKDIR /webapps/demo
 RUN shards update
 
 EXPOSE 3000
-CMD ["crystal", "src/demo.cr"]
+CMD ["crystal", "src/app.cr"]
