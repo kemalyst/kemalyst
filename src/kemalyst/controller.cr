@@ -29,9 +29,21 @@ module Kemalyst
 
     macro text(body, status_code = 200)
       context.response.status_code = {{status_code}}
+      context.response.content_type = "text/plain"
       return {{body}}
     end
    
+    macro html(body, status_code = 200)
+      context.response.status_code = {{status_code}}
+      context.response.content_type = "text/html"
+      return {{body}}
+    end
+
+    macro json(body, status_code = 200)
+      context.response.status_code = {{status_code}}
+      context.response.content_type = "application/json"
+      return {{body}}
+    end
   end
 end
 
