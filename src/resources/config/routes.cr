@@ -1,6 +1,10 @@
 require "../src/controllers/*"
 
-all    "/*",                Kemalyst::Handler::BasicAuth.instance("admin", "password")
+# uncomment the next line to enable Basic Authentication for the whole
+# application.  You can specify a specific path and method types if you want
+# to limit the Basic Authentication to specific routes.  You can also add the
+# BasicAuth to a specific route using an array of handlers.
+# all    "/*",                Kemalyst::Handler::BasicAuth.instance("admin", "password")
 
 get    "/",                 DemoController::Index.instance
 
