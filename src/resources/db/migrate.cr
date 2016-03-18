@@ -1,5 +1,5 @@
 require "kemalyst"
-require "../app/models/*"
+require "../src/models/*"
 
 Demo.drop
 Demo.create

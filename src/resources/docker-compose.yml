@@ -4,7 +4,7 @@ services:
     image: postgres
   web:
     build: .
-    command: crystal app/demo.cr
+    command: crystal src/demo.cr
     volumes:
       - .:/demo
     ports:

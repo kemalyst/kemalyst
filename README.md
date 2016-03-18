@@ -45,9 +45,8 @@ and run `shards update`.
 ### Post Install
 
 To keep a similar structure to yarlf, we have generated a demo application
-that you can use as example code in the `/app` directory.  This is our
-recommended pattern but your more than welcome to change this and configure it
-for what works best for you. We left the original `/src` directory as is.
+that you can use as example code in the `/src` directory.  This is crystal's
+recommended source directory. 
 
 ## Usage
 
@@ -162,9 +161,9 @@ context.params["variable"] to the value in the url.
 
 Views are rendered using ECR format.  This is similar to Rails ERB.
 
-The render method is configured to look in the "app/views" path to keep the
+The render method is configured to look in the "src/views" path to keep the
 controllers simple.  You may also render with a layout which will look for
-this in the "app/views/layouts" directory.
+this in the "src/views/layouts" directory.
 
 ```
 render "demo/index.ecr", "main.ecr" 

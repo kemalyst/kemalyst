@@ -1,4 +1,4 @@
-require "../app/models/*"
+require "../src/models/*"
 
 Post.drop
 Post.create

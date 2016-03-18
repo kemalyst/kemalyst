@@ -18,7 +18,7 @@ module Kemalyst
     end
 
     macro render(filename, *args)
-      content = Kilt.render("app/views/{{filename.id}}", {{*args}})
+      content = Kilt.render("src/views/{{filename.id}}", {{*args}})
     end
 
     macro redirect(url, status_code = 302)

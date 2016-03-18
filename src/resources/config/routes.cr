@@ -1,4 +1,4 @@
-require "../app/controllers/*"
+require "../src/controllers/*"
 
 all    "/*",                Kemalyst::Handler::BasicAuth.instance("admin", "password")
 

@@ -1,4 +1,4 @@
-require "../app/controllers/*"
+require "../src/controllers/*"
 
 get    "/login", SessionController::New.instance
 post   "/session/create", SessionController::Create.instance

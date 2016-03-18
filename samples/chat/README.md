@@ -12,7 +12,7 @@ Kemalyst is written in [Crystal Programming Language](http://crystal-lang.org/) 
 
 ```
 cd samples/chat && shards install
-crystal app/chat.cr
+crystal src/chat.cr
 ```
 
 Go to `http://localhost:3000` to see it in action.
