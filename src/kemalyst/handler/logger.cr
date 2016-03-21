@@ -1,4 +1,7 @@
 module Kemalyst::Handler
+  # The Logger handler logs every request/response to the provided logger.
+  # The logger can be configured as STDIN/STDOUT or as a log file.  A custom
+  # logger can be configured and passed in as well. 
   class Logger < Base
     property logger
 

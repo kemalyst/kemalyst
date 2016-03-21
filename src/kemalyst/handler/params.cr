@@ -1,6 +1,13 @@
 require "json"
 
 module Kemalyst::Handler
+  # The Params handler will parse parameters from a URL, a form post or a JSON
+  # post and provide them in the context params hash.  This unifies access to
+  # parameters into one place to simplify access to them.
+  # Note: other params from the router will be handled in the router handler
+  # instead of here.  This removes a dependency on the router in case it is
+  # replaced or not needed.
+  # TODO: Other content-types need to be supported.
   class Params < Base
     URL_ENCODED_FORM = "application/x-www-form-urlencoded"
     APPLICATION_JSON = "application/json"

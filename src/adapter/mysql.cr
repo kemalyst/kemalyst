@@ -1,6 +1,7 @@
 require "./base"
 require "mysql"
 
+# Mysql implementation of the Adapter
 class Kemalyst::Adapter::Mysql < Kemalyst::Adapter::Base
 
   def initialize(settings)
@@ -14,7 +15,6 @@ class Kemalyst::Adapter::Mysql < Kemalyst::Adapter::Base
     end
   end
 
-  # DDL
   def clear(table_name)
     return self.query("TRUNCATE #{table_name}")
   end

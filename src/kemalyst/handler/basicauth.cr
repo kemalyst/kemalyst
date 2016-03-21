@@ -2,6 +2,8 @@ require "base64"
 require "openssl/sha1"
 
 module Kemalyst::Handler
+  # This class provides Basic Authentication capabilities.  The instance
+  # requires a username and password to be configured at creation.
   class BasicAuth < Base
     BASIC                 = "Basic"
     AUTH                  = "Authorization"
@@ -30,7 +32,7 @@ module Kemalyst::Handler
       ""
     end
 
-    def authorized?(value)
+    private def authorized?(value)
       username, password = Base64.decode_string(value[BASIC.size + 1..-1]).split(":")
       @username == username && @password == password
     end

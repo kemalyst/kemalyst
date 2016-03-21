@@ -1,6 +1,7 @@
 require "./base"
 require "sqlite3"
 
+# Sqlite implementation of the Adapter
 class Kemalyst::Adapter::Sqlite < Kemalyst::Adapter::Base
 
   def initialize(settings)

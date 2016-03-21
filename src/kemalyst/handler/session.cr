@@ -4,6 +4,9 @@ require "json"
 require "openssl/hmac"
 
 module Kemalyst::Handler
+  # The session handler provides a cookie based session.  The handler will
+  # encode and decode the cookie and provide the hash in the context that can
+  # be used to maintain data across requests.
   class Session < Base
     property :key, :secret
 
@@ -23,7 +26,7 @@ module Kemalyst::Handler
       context
     end
 
-    def decode (session, data)
+    private def decode (session, data)
       sha1, data = data.split("--", 2)
       if sha1 == OpenSSL::HMAC.hexdigest(:sha1, @secret, data) 
         json = Base64.decode_string(data)
@@ -34,7 +37,7 @@ module Kemalyst::Handler
       end
     end
 
-    def encode (session)
+    private def encode (session)
       data = Base64.encode(session.to_json)
       sha1 = OpenSSL::HMAC.hexdigest(:sha1, @secret, data)
       return "#{sha1}--#{data}"

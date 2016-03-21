@@ -2,6 +2,8 @@ require "html"
 require "uri"
 
 module Kemalyst::Handler
+  # The static handler returns static assets from the configured public
+  # folder.  The default public folder is `./public`.
   class Static < Base
     property public_folder
 

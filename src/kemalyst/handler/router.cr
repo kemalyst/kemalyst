@@ -33,7 +33,61 @@ def all(path, handler : HTTP::Handler)
 end
 
 module Kemalyst::Handler
-  
+  # The Router Handler redirects traffic to the appropriate Handlers based on
+  # the path and method provided.  This allows for filtering which handlers should
+  # be accessed.  Several macros are provided to help with registering the
+  # path and method handlers.  Routes should be defined in the
+  # `config/routes.cr` file.
+  #
+  # An example of a route would be:
+  # ```
+  # get "/", DemoController::Index.instance
+  # ```
+  #
+  # You may also pass in a block similar to sinatra or kemal:
+  # ```
+  # get "/" do |context|
+  #   text "Great job!", 200
+  # end
+  # ```
+  #
+  # You may chain multiple handlers in a route using an array:
+  # ```
+  # get "/", [ BasicAuth.instance("username", "password"), 
+  #            DemoController::Index.instance ]
+  # ```
+  #
+  # or:
+  # ```
+  # get "/", BasicAuth.instance("username", "password") do |context|
+  #   text "This is secured by BasicAuth!", 200
+  # end
+  # ```
+  #
+  # This is how you would configure a WebSocket:
+  # ```
+  # get "/", [ WebSocket.instance(ChatController::Chat.instance),
+  #            ChatController::Index.instance ]
+  # ```
+  #
+  # The `Chat` class would have a `call` method that is expecting an
+  # `HTTP::WebSocket` to be passed which it would maintain and properly handle
+  # messages to and from it.  Check out the sample Chat application to get an idea
+  # on how to do this.
+  #
+  # You can use any of the following methods: `get, post, put, patch, delete, all`
+  #
+  # You can use a `*` to chain a handler for all children of this path:
+  # ```
+  # all    "/posts/*",   BasicAuth.instance("admin", "password")
+  #
+  # # all of these will be secured with the BasicAuth handler.
+  # get    "/posts/:id", DemoController::Show.instance
+  # put    "/posts/:id", DemoController::Update.instance
+  # delete "/posts/:id", DemoController::Delete.instance
+  # ```
+  # You can use `:variable` in the path and it will set a
+  # context.params["variable"] to the value in the url.
   class Router < Base
 
     def initialize

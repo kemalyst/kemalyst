@@ -5,17 +5,29 @@ require "./kemalyst/*"
 require "./kemalyst/handler/*"
 
 module Kemalyst
+  # The `Application` handles the starting of the server.  There are several
+  # properties that can be configured.  The `host` is the binding ip address.
+  # The `port` is the tcp/ip port that this server will listen on.  The `env`
+  # can be used to reconfigure the handlers.  For example, you may want a
+  # different logger based on the environment.  The `logger` is an application
+  # wide logger.  The `handlers` is the list of handlers used by this server.
+  # You can add other custom handlers other than the ones provided.
   class Application
     property host, port, env, logger, handlers
 
+    # Singleton that will return the single instance of the Application.
     def self.instance
       @@instance ||= new
     end
 
+    # You can configure the application using this method.  It's recommended
+    # to create a `config/application.cr` that will provide you the ability to
+    # configure your application.
     def self.config
       yield self.instance
     end
 
+    # You can configure the instance itself.
     def config
       yield self
     end
@@ -39,7 +51,8 @@ module Kemalyst
       @handlers << Kemalyst::Handler::Params.instance
       @handlers << Kemalyst::Handler::Router.instance
     end
-
+    
+    # Start the server.  This is what will get everything going.
     def start
       setup_handlers
       server = HTTP::Server.new(@host.to_slice, @port, @handlers)

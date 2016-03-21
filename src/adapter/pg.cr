@@ -1,6 +1,7 @@
 require "./base"
 require "pg"
 
+# PostgreSQL implementation of the Adapter
 class Kemalyst::Adapter::Pg < Kemalyst::Adapter::Base
 
   def initialize(settings)
