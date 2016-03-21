@@ -1,6 +1,5 @@
 /doc/
 /libs/
+/config/test.db
 /.crystal/
 /.shards/
-
-
