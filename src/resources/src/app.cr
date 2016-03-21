@@ -1,7 +1,5 @@
 require "kemalyst"
 require "../config/*"
 
-class Demo::Application < Kemalyst::Application
-end
+Kemalyst::Application.instance.start
 
-Demo::Application.instance.start

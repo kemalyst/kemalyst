@@ -1,4 +1,4 @@
-Demo::Application.config do |config|
+Kemalyst::Application.config do |config|
 
   # Set the binding host ip address.  Defaults to "0.0.0.0"
   # config.host = "0.0.0.0"
