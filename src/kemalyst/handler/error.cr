@@ -1,7 +1,7 @@
-class Kemalyst::Exceptions::RouteNotFound < Exception 
-end
-
 module Kemalyst::Handler
+  # The Error Handler catches RouteNotFound and returns a 404.  It will
+  # response based on the `Accepts` header as JSON or HTML.  It also catches
+  # any runtime Exceptions and returns a backtrace in text/plain format.
   class Error < Base
 
     def call(context)
