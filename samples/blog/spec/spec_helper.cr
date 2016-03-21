@@ -1,6 +1,6 @@
 require "spec"
 require "mocks/spec"
-require "../../../src/kemalyst"
+require "kemalyst"
 require "../config/*"
 
 def create_context(request)

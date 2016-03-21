@@ -1,22 +1,28 @@
-# kemalyst-blog
+# blog
 
-TODO: Write a description here
+This is a sample application that shows how to build a crud application.  This
+also provides an example of securing specific pages and leveraging the session
+to maintain authorization.
 
 ## Installation
 
-
-TODO: Write installation instructions here
-
+Create a mysql database called `blog` and configure the `config/database.yml`
+to provide the credentials to access the table.
+Then:
+```
+shards update
+crystal db/migrate.cr
+```
 
 ## Usage
 
-
-
-TODO: Write usage instructions here
-
-## Development
-
-TODO: Write development instructions here
+To run the sample blog:
+```
+crystal build src/app.cr
+./app
+```
+username: admin
+password: password
 
 ## Contributing
 
@@ -28,4 +34,4 @@ TODO: Write development instructions here
 
 ## Contributors
 
-- [[your-github-name]](https://github.com/[your-github-name]) dru.jensen - creator, maintainer
+- [[drujensen]](https://github.com/[drujensen]) dru.jensen - creator, maintainer

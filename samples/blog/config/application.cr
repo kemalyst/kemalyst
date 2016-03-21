@@ -1,4 +1,4 @@
-Blog::Application.config do |config|
+Kemalyst::Application.config do |config|
   config.env = "development"
   
   # create a log file

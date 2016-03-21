@@ -1,4 +1,5 @@
-require "../../../../src/adapter/mysql"
+require "kemalyst"
+require "kemalyst/adapter/mysql"
 require "markdown/markdown"
 
 class Post < Kemalyst::Model
@@ -6,7 +7,7 @@ class Post < Kemalyst::Model
   
   sql_mapping({ 
     name: "VARCHAR(255)", 
-    body: "TEXT" 
+    body: "VARCHAR(2000)" 
   })
 
   def last_updated
