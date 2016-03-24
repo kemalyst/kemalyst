@@ -2,7 +2,7 @@
 
 # Kemalyst
 
-[API](http://kemalyst.drujensen.com) can be found here.
+[Kemalyst API documentation](http://kemalyst.drujensen.com) can be found here.
 
 Kemalyst is a yarlf (yet another rails like framework) that is based on on
 super fast [kemal](https://github.com/sdogruyol/kemal). The framework
@@ -86,22 +86,34 @@ settings.  You will find the `database.yml` and `routes.cr` here. Checkout
 the samples that demonstrates a traditional blog site and a websocket chat
 app.
 
-### Controllers
-
-The Controller inherits from HTTP::Handler which is the middleware similar to
-Rack's middleware.  The handlers are chained together in a linked-list and
-each will perform some action against the HTTP::Server::Context and then call
-the next handler in the chain.  The router will continue this chain for a
-specific route.  The final handler should return the String that will be
-rendered as the body and then the chain will unwind and perform post handling.
+### Middleware HTTP::Handlers
 
 There are 6 handlers that are pre-configured for Kemalyst:
- - Kemalyst::Handler::Logger.instance @logger
- - Kemalyst::Handler::Error.instance
- - Kemalyst::Handler::Static.instance
- - Kemalyst::Handler::Session.instance
- - Kemalyst::Handler::Params.instance
- - Kemalyst::Handler::Router.instance  
+ - Logger.instance(@logger) - Logs all requests/responses to the `@logger` provided
+ - Error.instance - Handles any Exceptions and renders a response.
+ - Static.instance - Delivers any static assets from the `./public` folder.
+ - Session.instance - Provides a Cookie Session that can be accessed from the
+   `context.session`
+ - Params.instance - Unifies the parameters into `context.params`
+ - Router.instance - Routes requests to other handlers\controllers based on the HTTP method and path.
+
+You may want to add, replace or remove handlers based on your situation.  You can do that in the
+Application configuration.
+
+```
+Kemalyst::Application.config do |config|
+  # handlers will be chained in the order provided
+  config.handlers = [
+    Kemalyst::Handler::Logger.instance(config.logger),
+    Kemalyst::Handler::Error.instance,
+    # Disable Static and Session handler since this is a REST Service
+    # Kemalyst::Handler::Static.instance,
+    # Kemalyst::Handler::Session.instance,
+    Kemalyst::Handler::Params.instance,
+    Kemalyst::Handler::Router.instance
+  ]
+end
+```
 
 ### Router
 
@@ -159,6 +171,36 @@ delete "/posts/:id", DemoController::Delete.instance
 You can use `:variable` in the path and it will set a
 context.params["variable"] to the value in the url.
 
+### Controllers
+
+The Controller inherits from HTTP::Handler which is the middleware similar to
+Rack's middleware.  The handlers are chained together in a linked-list and
+each will perform some action against the HTTP::Server::Context and then call
+the next handler in the chain.  The router will continue this chain for a
+specific route.  The final handler should return the String that will be
+rendered as the body and then the chain will unwind and perform post handling.
+
+
+An example of a controller:
+```
+class Index < Kemalyst::Controller
+  def call(context)
+    posts = Post.all("ORDER BY created_at DESC")
+    render "post/index.ecr", "main.ecr"
+  end
+end
+```
+
+There are several helper macros that set content type and response.  
+```
+  render "filename.ecr" # renders an .ecr template
+  render "filename.ecr", "layout.ecr" # renders an .ecr template with layout
+  redirect "path" # redirect to path
+  text "body", 200 #render text/plain response with status code of 200
+  json "{}".to_json, 200 #render application/json with status code of 200
+  html "<html></html>", 200 #render text/html with status code of 200
+```
+
 ### Views
 
 Views are rendered using ECR format.  This is similar to Rails ERB.
@@ -171,7 +213,8 @@ this in the "src/views/layouts" directory.
 render "demo/index.ecr", "main.ecr" 
 
 ```
-This will render the index.ecr template inside the main.ecr layout.
+This will render the index.ecr template inside the main.ecr layout. All local
+variables assigned in the controller are available in the templates.
 
 ### Models
 
