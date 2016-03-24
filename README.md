@@ -2,6 +2,8 @@
 
 # Kemalyst
 
+[API](http://kemalyst.drujensen.com) can be found here.
+
 Kemalyst is a yarlf (yet another rails like framework) that is based on on
 super fast [kemal](https://github.com/sdogruyol/kemal). The framework
 leverages the http handlers which are similar to Rack middleware. The
