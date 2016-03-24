@@ -1,5 +1,150 @@
 require "yaml"
 
+# Base class for a simple ORM mapping to a SQL database.
+# This class looks for a `config/database.yml` for the database configuration.
+# a sample database.yml will look like:
+# ```
+# mysql:
+#   database: blog_test
+#   host: 127.0.0.1
+#   port: 3306
+#   username: blog
+#   password: ${DB_PASSWORD}
+# pg:
+#   database: blog_test
+#   host: 127.0.0.1
+#   port: 3306
+#   username: blog
+#   password: ${DB_PASSWORD}
+# sqlite:
+#   database: config/blog_test.db
+# ```
+# Note: You can leverage environment variables using ${} syntax.
+#
+# ## Usage
+# Here is an example of a Model:
+# ```
+# class Post < Model
+#   adapter mysql
+#   sql_mapping({ 
+#     name: "VARCHAR(255)", 
+#     body: "TEXT" 
+#   })
+# end
+# ```
+#
+# ### Fields
+#
+# To define the fields for this model, you need to provide a hash with the name
+# of the field as a `Symbol` and the MySQL type as a `String`.  This can include
+# any other options that MySQL provides to you.  
+
+# 3 Fields are automatically created for you:  id, created_at, updated_at.
+# These will also be set for you when you use the `save` method.
+
+# MySQL field definitions for id, created_at, updated_at
+
+# ```mysql
+#   id INT NOT NULL AUTO_INCREMENT
+#   # Your fields go here
+#   created_at DATE
+#   updated_at DATE 
+#   PRIMARY KEY (id)
+# ```
+
+# ### DDL Built in
+
+# ```crystal
+# Post.drop #drop the table
+
+# Post.create #create the table
+
+# Post.clear #truncate the table
+# ```
+
+# ### DML
+
+# #### Find All
+
+# ```crystal
+# posts = Post.all
+# if posts
+#   posts.each do |post|
+#     puts post.name
+#   end
+# end
+# ```
+
+# #### Find One
+
+# ```crystal
+# post = Post.find 1
+# if post
+#   puts post.name
+# end
+# ```
+
+# #### Insert
+
+# ```crystal
+# post = Post.new
+# post.name = "Amethyst Rocks!"
+# post.body = "Check this out."
+# post.save
+# ```
+
+# #### Update
+
+# ```crystal
+# post = Post.find 1
+# post.name = "Amethyst Really Rocks!"
+# post.save
+# ```
+
+# #### Delete
+
+# ```crystal
+# post = Post.find 1
+# post.destroy
+# puts "deleted" unless post
+# ```
+
+# ### Where 
+
+# The where clause will give you full control over your query. 
+
+# When using the `all` method, the SQL selected fields will always match the
+# fields specified in the model.  If you need different fields, consider
+# creating a new model.
+
+# Always pass in parameters to avoid SQL Injection.  Use a symbol in your query
+# i.e. `:param` for parameter replacement.  Check out
+# [waterlink/crystal-mysql](https://github.com/waterlink/crystal-mysql) for more
+# details.
+
+# ```crystal
+# posts = Post.all("WHERE name LIKE :name", {"name" => "Joe%"})
+# if posts
+#   posts.each do |post|
+#     puts post.name
+#   end
+# end
+
+# # ORDER BY Example
+# posts = Post.all("ORDER BY created_at DESC")
+
+# # JOIN Example
+# posts = Post.all("JOIN comments c ON c.post_id = post.id 
+#                   WHERE c.name = :name 
+#                   ORDER BY post.created_at DESC", 
+#                   {"name" => "Joe"})
+
+# ``` 
+# 
+# ## Connection Pool
+#
+# A connection pool is leveraged to reduce the cost of opening and closing
+# connections.
 abstract class Kemalyst::Model
 
   # specify the database adapter you will be using for this model. 
