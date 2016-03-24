@@ -5,12 +5,12 @@ shards:
     commit: ff00d3f211aa0e6850b04c12941e88522c3a59d7
 
   kemalyst:
-    path: ../..
-    version: 0.1.0
+    github: drujensen/kemalyst
+    commit: 5fa2502ba45077a7c42f3b4ca19ed60693b1baed
 
   kilt:
     github: jeromegn/kilt
-    commit: 828a3cb989578e94f3e5cc91bd7134c3735ccfdf
+    commit: d50328286f5e718b70f0420ad0c7cb2fa8c499b8
 
   pool:
     github: ysbaddaden/pool
