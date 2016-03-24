@@ -7,7 +7,7 @@ class Post < Kemalyst::Model
   
   sql_mapping({ 
     name: "VARCHAR(255)", 
-    body: "VARCHAR(2000)" 
+    body: "VARCHAR(4000)" 
   })
 
   def last_updated
