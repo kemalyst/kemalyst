@@ -15,7 +15,7 @@ dependencies:
     branch: master
   pool:
     github: ysbaddaden/pool
-    version: 0.2.1
+    branch: master
 
 development_dependencies:
   mysql:
@@ -28,7 +28,7 @@ development_dependencies:
 
   sqlite3:
     github: manastech/crystal-sqlite3
-    version: 0.1.0
+    branch: master
 
 scripts:
   postinstall: crystal resources/install.cr 

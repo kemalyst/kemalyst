@@ -93,7 +93,7 @@ class Kemalyst::Adapter::Sqlite < Kemalyst::Adapter::Base
     return results
   end
 
-  alias SUPPORTED_TYPES = (Nil  | Int32 | Int64 | Float32 | Float64 | Time | String | Slice(UInt8))
+  alias SUPPORTED_TYPES = (Nil | Int32 | Int64 | Float32 | Float64 | String | Slice(UInt8))
 
   private def scrub_params(params)
     new_params = {} of String => SUPPORTED_TYPES
@@ -110,11 +110,8 @@ class Kemalyst::Adapter::Sqlite < Kemalyst::Adapter::Base
   end
 
   private def db_time (time)
-    if time.is_a? Time
-      formatter = Time::Format.new("%F %X")
-      return formatter.format(time)
-    end
-    return time
+    formatter = Time::Format.new("%F %X")
+    return formatter.format(time)
   end
 
 end
