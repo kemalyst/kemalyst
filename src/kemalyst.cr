@@ -55,7 +55,7 @@ module Kemalyst
     # Start the server.  This is what will get everything going.
     def start
       setup_handlers
-      server = HTTP::Server.new(@host.to_slice, @port, @handlers)
+      server = HTTP::Server.new(@host, @port, @handlers)
 
       Signal::INT.trap {
         server.close
