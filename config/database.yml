@@ -6,11 +6,7 @@ mysql:
   password: password
 
 pg:
-  host: 127.0.0.1
-  port: 5432
-  database: blog
-  username: admin
-  password: password
+  database: "postgres://admin:password@127.0.0.1:5432/blog"
 
 sqlite:
   database: config/test.db

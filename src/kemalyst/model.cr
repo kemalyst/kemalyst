@@ -11,11 +11,7 @@ require "yaml"
 #   username: blog
 #   password: ${DB_PASSWORD}
 # pg:
-#   database: blog_test
-#   host: 127.0.0.1
-#   port: 3306
-#   username: blog
-#   password: ${DB_PASSWORD}
+#   database: ${DATABASE_URL} 
 # sqlite:
 #   database: config/blog_test.db
 # ```
