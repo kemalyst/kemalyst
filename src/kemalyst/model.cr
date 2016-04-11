@@ -171,12 +171,13 @@ abstract class Kemalyst::Model
     # Table Name
     @@table_name = "{{table_name}}"
     #Create the properties
-    property :id
+    property id : Int32?
     {% for name, type in names %}
     property {{name}}
     {% end %}
     {% if timestamps %}
-    property :created_at, :updated_at
+    property created_at : Time?
+    property updated_at : Time?
     {% end %}
     
     # Create the from_sql method
@@ -258,7 +259,7 @@ abstract class Kemalyst::Model
       else
         @created_at = Time.now
         @updated_at = Time.now
-        @id = db.insert(@@table_name, self.class.fields, params)
+        @id = db.insert(@@table_name, self.class.fields, params) as Int32?
       end
     end
     return true
