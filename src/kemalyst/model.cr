@@ -183,16 +183,17 @@ abstract class Kemalyst::Model
     # Create the from_sql method
     def self.from_sql(result)
       {{name_space}} = {{@type.name.id}}.new
-      {{name_space}}.id = result[0] 
+      {{name_space}}.id = result[0] as Int32 
       {% i = 1 %}
       {% for name, type in names %}
-        {{name_space}}.{{name.id}} = result[{{i}}]
+        # Need to find a way to map to other types based on SQL type
+        {{name_space}}.{{name.id}} = result[{{i}}] as String
         {% i += 1 %}
       {% end %}
 
       {% if timestamps %}
-        {{name_space}}.created_at = result[{{i}}]
-        {{name_space}}.updated_at = result[{{i + 1}}]
+        {{name_space}}.created_at = result[{{i}}] as Time
+        {{name_space}}.updated_at = result[{{i + 1}}] as Time
       {% end %}
       return {{name_space}}
     end
@@ -259,7 +260,7 @@ abstract class Kemalyst::Model
       else
         @created_at = Time.now
         @updated_at = Time.now
-        @id = db.insert(@@table_name, self.class.fields, params) as Int32?
+        @id = db.insert(@@table_name, self.class.fields, params) as Int32
       end
     end
     return true
