@@ -16,14 +16,14 @@ module Kemalyst::Handler
       begin
         context.response.headers["access-control-allow-origin"] = @allow_origin
         if @allow_credentials
-          context.response.headers["access-control-allow-credentials"] = true
+          context.response.headers["access-control-allow-credentials"] = "true"
         end
         
         if context.request.method.downcase == "options"
           context.response.headers["access-control-allow-headers"] = @allow_headers
           context.response.headers["access-control-allow-methods"] = @allow_methods
           if @max_age > 0
-            context.response.headers["access-control-max-age"] = @max_age
+            context.response.headers["access-control-max-age"] = @max_age.to_s
           end
           context.response.status_code = 200
           context.response.content_type = "text/html; charset=utf-8"
