@@ -2,7 +2,7 @@
 #passed to each handler that will read from the request object and build a
 #response object.  Params and Session hash can be accessed from the Context. 
 class HTTP::Server::Context
-  alias ParamTypes = Nil | String | Int32 | Int64 | Float32 | Float64 | Bool | Hash(String, JSON::Type) | Array(JSON::Type)
+  alias ParamTypes = Nil | String | Int32 | Float32 | | Bool | Hash(String, JSON::Type) | Array(JSON::Type)
 
   # clear the params.
   def clear_params
