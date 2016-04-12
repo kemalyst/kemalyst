@@ -6,8 +6,8 @@ module Kemalyst::Handler
       begin
         context.response.headers["access-control-allow-origin"] = "*"
         context.response.headers["access-control-allow-headers"] = "Accept, Content-Type"
+        context.response.headers["access-control-allow-methods"] = "GET, HEAD, POST, DELETE, OPTIONS, PUT, PATCH"
         if context.request.method.downcase == "options"
-          context.response.headers["access-control-allow-methods"] = "GET, HEAD, POST, DELETE, OPTIONS, PUT, PATCH"
           context.response.status_code = 200
           context.response.content_type = "application/json"
         else
