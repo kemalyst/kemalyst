@@ -4,10 +4,10 @@ require "markdown/markdown"
 
 class Post < Kemalyst::Model
   adapter mysql
-  
+ 
   sql_mapping({ 
-    name: "VARCHAR(255)", 
-    body: "VARCHAR(4000)" 
+    name: { db_type: "VARCHAR(255)", type: (Nil | String) },
+    body: { db_type: "TEXT", type: (Nil | String) }
   })
 
   def last_updated
