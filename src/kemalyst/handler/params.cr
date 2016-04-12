@@ -33,14 +33,16 @@ module Kemalyst::Handler
     end
 
     def parse_json(context)
-      if body = context.request.body && body.size > 2
-        case json = JSON.parse(body).raw
-        when Hash
-          json.each do |key, value|
-            context.params[key as String] = value
+      if body = context.request.body
+        if body.size > 2
+          case json = JSON.parse(body).raw
+          when Hash
+            json.each do |key, value|
+              context.params[key as String] = value
+            end
+          when Array
+            context.params["_json"] = json
           end
-        when Array
-          context.params["_json"] = json
         end
       end
     end
