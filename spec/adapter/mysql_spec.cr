@@ -4,8 +4,8 @@ require "../src/adapter/mysql"
 class Post < Kemalyst::Model
   adapter mysql
   sql_mapping({ 
-    name: "VARCHAR(255)", 
-    body: "TEXT" 
+    name: { db_type: "VARCHAR(255)", type: (Nil | String) },
+    body: { db_type: "TEXT", type: (Nil | String) }
   })
 end
 

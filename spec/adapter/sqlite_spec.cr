@@ -4,8 +4,8 @@ require "../src/adapter/sqlite"
 class Comment < Kemalyst::Model
   adapter sqlite 
   sql_mapping({ 
-    name: "CHAR(255)", 
-    body: "TEXT" 
+    name: { db_type: "TEXT", type: (Nil | String) },
+    body: { db_type: "TEXT", type: (Nil | String) }
   })
 end
 

@@ -23,8 +23,8 @@ require "yaml"
 # class Post < Model
 #   adapter mysql
 #   sql_mapping({ 
-#     name: "VARCHAR(255)", 
-#     body: "TEXT" 
+#     name: { db_type: "VARCHAR(255)", type: String },
+#     body: { db_type: "TEXT", type: String }
 #   })
 # end
 # ```
@@ -167,23 +167,23 @@ abstract class Kemalyst::Model
     # Table Name
     @@table_name = "{{table_name}}"
     #Create the properties
-    property id : Int32?
-    {% for name, type in names %}
-    property {{name}}
+    property id : ( Int32 | Nil)
+    {% for name, types in names %}
+      property {{name.id}} : {{types[:type].id}}
     {% end %}
     {% if timestamps %}
     property created_at : Time?
     property updated_at : Time?
     {% end %}
-    
+   
     # Create the from_sql method
     def self.from_sql(result)
       {{name_space}} = {{@type.name.id}}.new
-      {{name_space}}.id = result[0] as Int32 
+      {{name_space}}.id = result[0] as Int32
       {% i = 1 %}
-      {% for name, type in names %}
+      {% for name, types in names %}
         # Need to find a way to map to other types based on SQL type
-        {{name_space}}.{{name.id}} = result[{{i}}] as String
+        {{name_space}}.{{name.id}} = result[{{i}}] as {{types[:type]}}
         {% i += 1 %}
       {% end %}
 
@@ -196,8 +196,8 @@ abstract class Kemalyst::Model
 
     # keep a hash of the fields to be used for mapping
     def self.fields(fields = {} of String => String)
-        {% for name, type in names %}
-        fields["{{name.id}}"] = "{{type.id}}"
+        {% for name, types in names %}
+        fields["{{name.id}}"] = "{{types[:db_type].id}}"
         {% end %}
         {% if timestamps %}
         fields["created_at"] = "TIMESTAMP"
@@ -206,7 +206,7 @@ abstract class Kemalyst::Model
         return fields
     end
 
-    # keey a hash of the params that will be passed to the adapter.
+    # keep a hash of the params that will be passed to the adapter.
     def params
       return {
           {% for name, type in names %}
