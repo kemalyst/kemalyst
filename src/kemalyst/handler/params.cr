@@ -33,7 +33,7 @@ module Kemalyst::Handler
     end
 
     def parse_json(context)
-      if body = context.request.body
+      if body = context.request.body && body.size > 2
         case json = JSON.parse(body).raw
         when Hash
           json.each do |key, value|
