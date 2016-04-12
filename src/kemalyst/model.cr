@@ -228,6 +228,7 @@ abstract class Kemalyst::Model
     if db = @@database
       db.clear(@@table_name)
     end
+    return true
   end
 
   # Drop will drop the table completely.  This will lose data so be very
@@ -236,6 +237,7 @@ abstract class Kemalyst::Model
     if db = @@database
       db.drop(@@table_name)
     end
+    return true
   end
 
   # Create will create the table for you based on the sql_mapping specified.
@@ -243,6 +245,7 @@ abstract class Kemalyst::Model
     if db = @@database
       db.create(@@table_name, fields)
     end
+    return true
   end
 
   # The save method will check to see if the @id exists yet.  If it does it
@@ -265,8 +268,9 @@ abstract class Kemalyst::Model
   # Destroy will remove this from the database.
   def destroy
     if db = @@database
-      return db.delete(@@table_name, @id)
+      db.delete(@@table_name, @id)
     end
+    return true
   end
   
   # All will return all rows in the database. The clause allows you to specify
