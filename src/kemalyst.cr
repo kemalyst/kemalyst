@@ -44,12 +44,15 @@ module Kemalyst
 
     # Handlers are processed in order. Each handler has their own configuration file.
     def setup_handlers
-      @handlers << Kemalyst::Handler::Logger.instance @logger
-      @handlers << Kemalyst::Handler::Error.instance
-      @handlers << Kemalyst::Handler::Static.instance
-      @handlers << Kemalyst::Handler::Session.instance
-      @handlers << Kemalyst::Handler::Params.instance
-      @handlers << Kemalyst::Handler::Router.instance
+      # only setup handlers if they haven't been setup yet
+      if @handlers.empty?
+        @handlers << Kemalyst::Handler::Logger.instance @logger
+        @handlers << Kemalyst::Handler::Error.instance
+        @handlers << Kemalyst::Handler::Static.instance
+        @handlers << Kemalyst::Handler::Session.instance
+        @handlers << Kemalyst::Handler::Params.instance
+        @handlers << Kemalyst::Handler::Router.instance
+      end
     end
     
     # Start the server.  This is what will get everything going.
