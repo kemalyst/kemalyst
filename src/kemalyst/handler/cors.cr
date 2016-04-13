@@ -1,5 +1,5 @@
 module Kemalyst::Handler
-  # This Handler adds support for Cross Origin Resource Sharing.
+  # The Cors Handler adds support for Cross Origin Resource Sharing.
   class Cors < Base
     property allow_origin, allow_headers, allow_methods, allow_credentials,
       max_age
@@ -12,6 +12,9 @@ module Kemalyst::Handler
       @max_age = 0
     end
 
+    #TODO: Need to implement limitations.  Currently this doesn't check if origin
+    #matcches or headers or methods are allowed.  It just responds with 
+    # needed headers.
     def call(context)
       begin
         context.response.headers["access-control-allow-origin"] = @allow_origin

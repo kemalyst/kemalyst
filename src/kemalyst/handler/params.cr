@@ -7,7 +7,6 @@ module Kemalyst::Handler
   # Note: other params from the router will be handled in the router handler
   # instead of here.  This removes a dependency on the router in case it is
   # replaced or not needed.
-  # TODO: Other content-types need to be supported.
   class Params < Base
     URL_ENCODED_FORM = "application/x-www-form-urlencoded"
     APPLICATION_JSON = "application/json"
