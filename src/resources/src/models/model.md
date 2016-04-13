@@ -1,3 +1,4 @@
+```
 require "kemalyst"
 require "kemalyst/adapter/pg"
 
@@ -21,5 +22,5 @@ class Demo < Kemalyst::Model
     end
     return last_updated
   end
-
 end
+```
