@@ -1,6 +1,6 @@
 spec:
   build: .
-  command: 'crystal spec'
+  command: 'bash -c "cd /app/user && crystal spec"'
   working_dir: /app/user
   environment:
     PG_URL: 'postgres://postgres:@pg:5432/postgres'
@@ -19,8 +19,12 @@ shell:
   command: bash
   working_dir: /app/user
   environment:
-    PG_URL: 'postgres://postgres:@pg:5432/test'
-    MYSQL_URL: 'mysql://mysql:@mysql/test'
+    PG_URL: 'postgres://postgres:@pg:5432/postgres'
+    MYSQL_HOST: 'mysql'
+    MYSQL_PORT: '3306'
+    MYSQL_DATA: 'test'
+    MYSQL_USER: 'user'
+    MYSQL_PASS: 'pass'
   links:
     - pg
     - mysql
@@ -33,7 +37,6 @@ mysql:
     - 3306
   image: mysql:5.6
   environment:
-    MYSQL_ROOT_PASSWORD: pass
     MYSQL_ROOT_PASSWORD: pass
     MYSQL_DATABASE: test
     MYSQL_USER: user
