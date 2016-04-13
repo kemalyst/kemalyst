@@ -60,7 +60,7 @@ class Kemalyst::Adapter::Pg < Kemalyst::Adapter::Base
     end
     results = self.query(statement, params, fields)
     if results
-      return results[0][0]
+      return (results[0][0] as Int32).to_i64
     end
   end
   
@@ -95,6 +95,7 @@ class Kemalyst::Adapter::Pg < Kemalyst::Adapter::Base
     end
     return [] of String
   end
+
 
   alias SUPPORTED_TYPES = (Nil | String | Int32 | Int16 | Int64 | Float32 | Float64 | Bool | Time | Char)
   private def scrub_query_and_params(query, params, fields)

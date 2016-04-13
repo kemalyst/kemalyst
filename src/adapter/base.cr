@@ -14,6 +14,29 @@ abstract class Kemalyst::Adapter::Base
       return value
     end
   end
+
+  # method to perform a reverse mapping of Database Type to Crystal Type.
+  def type_mapping(db_type)
+    case db_type.upcase
+    when .includes?("CHAR"), .includes?("TEXT") 
+      String
+    when .includes?("BIG")
+      Int64
+    when .includes?("INT"), .includes?("SERIAL")
+      Int32
+    when .includes?("DEC"), .includes?("NUM"), .includes?("DOUBLE"), includes?("FIXED")
+      Float64
+    when .includes?("REAL"), .includes?("MONEY"), includes?("FLOAT")
+      Float32
+    when .includes?("BOOL")
+      Bool
+    when .includes?("DATE"), .includes?("TIME")
+      Time
+    else
+      Slice(UInt8) 
+    end
+  end
+
   
   # clear will remove all rows from a table and reset the counter on the id.
   abstract def clear(table_name)
@@ -42,7 +65,7 @@ abstract class Kemalyst::Adapter::Base
   abstract def select_one(table_name, fields, id)
 
   # This will insert a row in the database and return the id generated.
-  abstract def insert(table_name, fields, params)
+  abstract def insert(table_name, fields, params) : Int64
 
   # This will update a row in the database.
   abstract def update(table_name, fields, id, params)

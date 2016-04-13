@@ -4,8 +4,8 @@ require "../src/adapter/sqlite"
 class Comment < Kemalyst::Model
   adapter sqlite 
   sql_mapping({ 
-    name: { db_type: "TEXT", type: (Nil | String) },
-    body: { db_type: "TEXT", type: (Nil | String) }
+    name: "TEXT",
+    body: "TEXT"
   })
 end
 
@@ -57,7 +57,7 @@ describe Kemalyst::Adapter::Sqlite do
       comment.save
       comments = Comment.all
       comments.size.should eq 1
-      comment = Comment.find 1
+      comment = Comment.find comments[0].id
       if comment
         comment.name.should eq "Test Comment 2"
       else

@@ -65,7 +65,7 @@ class Kemalyst::Adapter::Mysql < Kemalyst::Adapter::Base
     self.query(statement, params)
     results = self.query("SELECT LAST_INSERT_ID()")
     if results
-      return results[0][0]
+      return (results[0][0] as Int64)
     end
   end
   
@@ -96,8 +96,7 @@ class Kemalyst::Adapter::Mysql < Kemalyst::Adapter::Base
     return results
   end
 
-  alias SUPPORTED_TYPES = (Nil | String | Float64 | Time | Int32 | Int64 |
-                           Bool | MySQL::Types::Date)
+  alias SUPPORTED_TYPES = (Nil | String | Float64 | Time | Int32 | Int64 | Bool | MySQL::Types::Date)
 
   private def scrub_params(params)
     new_params = {} of String => SUPPORTED_TYPES

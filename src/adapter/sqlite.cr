@@ -60,7 +60,7 @@ class Kemalyst::Adapter::Sqlite < Kemalyst::Adapter::Base
     id = nil
     self.query(statement, params)
     results = self.query("SELECT LAST_INSERT_ROWID()", {} of String => String) as Array
-    id = results[0][0]
+    id = results[0][0] as Int64
     return id
 
   end
@@ -93,7 +93,7 @@ class Kemalyst::Adapter::Sqlite < Kemalyst::Adapter::Base
     return results
   end
 
-  alias SUPPORTED_TYPES = (Nil | Int32 | Int64 | Float32 | Float64 | String | Slice(UInt8))
+  alias SUPPORTED_TYPES = (Float64 | Int64 | Slice(UInt8) | String | Nil)
 
   private def scrub_params(params)
     new_params = {} of String => SUPPORTED_TYPES

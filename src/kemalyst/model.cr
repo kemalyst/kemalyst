@@ -23,8 +23,8 @@ require "yaml"
 # class Post < Model
 #   adapter mysql
 #   sql_mapping({ 
-#     name: { db_type: "VARCHAR(255)", type: String },
-#     body: { db_type: "TEXT", type: String }
+#     name: "VARCHAR(255)" },
+#     body: "TEXT" }
 #   })
 # end
 # ```
@@ -167,37 +167,37 @@ abstract class Kemalyst::Model
     # Table Name
     @@table_name = "{{table_name}}"
     #Create the properties
-    property id : ( Int32 | Nil)
-    {% for name, types in names %}
-      property {{name.id}} : {{types[:type].id}}
+    property id
+    {% for name, type in names %}
+      property {{name.id}}
     {% end %}
     {% if timestamps %}
-    property created_at : Time?
-    property updated_at : Time?
+    property created_at
+    property updated_at
     {% end %}
    
     # Create the from_sql method
     def self.from_sql(result)
       {{name_space}} = {{@type.name.id}}.new
-      {{name_space}}.id = result[0] as Int32
+      {{name_space}}.id = result[0]
       {% i = 1 %}
-      {% for name, types in names %}
+      {% for name, type in names %}
         # Need to find a way to map to other types based on SQL type
-        {{name_space}}.{{name.id}} = result[{{i}}] as {{types[:type]}}
+        {{name_space}}.{{name.id}} = result[{{i}}]
         {% i += 1 %}
       {% end %}
 
       {% if timestamps %}
-        {{name_space}}.created_at = result[{{i}}] as Time
-        {{name_space}}.updated_at = result[{{i + 1}}] as Time
+        {{name_space}}.created_at = result[{{i}}]
+        {{name_space}}.updated_at = result[{{i + 1}}]
       {% end %}
       return {{name_space}}
     end
 
     # keep a hash of the fields to be used for mapping
     def self.fields(fields = {} of String => String)
-        {% for name, types in names %}
-        fields["{{name.id}}"] = "{{types[:db_type].id}}"
+        {% for name, type in names %}
+        fields["{{name.id}}"] = "{{type.id}}"
         {% end %}
         {% if timestamps %}
         fields["created_at"] = "TIMESTAMP"
@@ -259,7 +259,7 @@ abstract class Kemalyst::Model
       else
         @created_at = Time.now
         @updated_at = Time.now
-        @id = db.insert(@@table_name, self.class.fields, params) as Int32
+        @id = db.insert(@@table_name, self.class.fields, params)
       end
     end
     return true
