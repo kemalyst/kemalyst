@@ -20,7 +20,3 @@ shards:
     github: ysbaddaden/pool
     commit: ed6af70886e76de84f440b6efe9bc6f49ab24fbe
 
-  sqlite3:
-    github: manastech/crystal-sqlite3
-    commit: 6e1a6fe2252b4ea3f5d7374797cc1603cf2ac1b2
-

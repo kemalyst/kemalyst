@@ -1,9 +1,3 @@
-sqlite:
-  database: db/demo.db
-pg:
-  host: db
-  port: 5432
-  database: postgres
-  username: postgres
-  password: 
-  pool: 5
+# pg:
+#   database: postgres://user:password@host:port/db
+#   pool: 5

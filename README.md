@@ -1,4 +1,6 @@
-# WIP (Work In Progress)
+### WIP (Work In Progress)
+
+[![Build Status](https://travis-ci.org/drujensen/kemalyst.svg?branch=master)](https://travis-ci.org/drujensen/kemalyst)
 
 # Kemalyst
 
@@ -38,6 +40,7 @@ dependencies:
   kemalyst:
     github: drujensen/kemalyst
     branch: master
+  # optional
   pg:
     github: will/crystal-pg
     branch: master
@@ -46,38 +49,32 @@ and run `shards update`.
 
 ### Post Install
 
-To keep a similar structure to yarlf, we have generated a demo application
-that you can use as example code in the `/src` directory.  This is crystal's
-recommended source directory. 
+To keep a similar structure to yarlf, several directories and files will be
+installed.  This structure should look familiar to you if your coming from a
+Rails background.
 
 ## Usage
 
 To run the demo app, we are including a Dockerfile and docker-compose.yml. If
 you have docker setup, you should be able to run:
 ```
-docker-compose up
+docker-compose build .
+docker-compose run web crystal db/migrate.cr
+docker-compose up web
 ```
-This will download an ubuntu image and install all the dependencies including
-crystal and mount the demo application.  It will also include a postgres db
-image.  You will need to find the ip address of the docker-machine to hit the
-demo app.  You can find that with:
-```
-docker-machine ip default
-```
-Note: your machine name may not be `default` so you should provide yours.
+This will download an ubuntu/cedar image compatible with heroku and install all the
+dependencies including crystal.  It will also include a postgres db image.
 
-Next, you will need to set a secret for the session.  run the following
+Now you should be able to hit the site:
+```
+open "http://$(docker-machine ip default):3000"
+```
+You will need to set a secret for the session.  Run the following
 command:
 ```
 crystal eval "require \"secure_random\"; puts SecureRandom.hex(64)"
 ```
 copy the secret and set this in `config/session.cr`.
-
-Finally, you will need to run the migrations:
-```
-docker-compose run web crystal db/migrate.cr
-```
-This will run the migration script and generate the tables.
 
 ### Configure App
 
@@ -98,7 +95,7 @@ There are 6 handlers that are pre-configured for Kemalyst:
  - Router.instance - Routes requests to other handlers\controllers based on the HTTP method and path.
 
 You may want to add, replace or remove handlers based on your situation.  You can do that in the
-Application configuration.
+Application configuration `config/application.cr`:
 
 ```
 Kemalyst::Application.config do |config|
@@ -183,6 +180,8 @@ rendered as the body and then the chain will unwind and perform post handling.
 
 An example of a controller:
 ```
+require "../models/post"
+
 class Index < Kemalyst::Controller
   def call(context)
     posts = Post.all("ORDER BY created_at DESC")
@@ -210,19 +209,43 @@ controllers simple.  You may also render with a layout which will look for
 this in the "src/views/layouts" directory.
 
 ```
-render "demo/index.ecr", "main.ecr" 
+render "post/index.ecr", "main.ecr" 
 
 ```
 This will render the index.ecr template inside the main.ecr layout. All local
 variables assigned in the controller are available in the templates.
 
+An example `views/post/index.ecr`:
+```
+<% posts.each do |post| %>
+
+<div class="blog-post">
+  <h2 class="blog-post-title"><%= post.name %></h2>
+  <p class="blog-post-body"><%= post.body %></p>
+
+  <p>
+    <a href="/posts/<%= post.id %>">read</a>
+    | <a href="/posts/<%= post.id %>/edit">edit</a> | 
+    <a href="/posts/<%= post.id %>?_method=delete" onclick="return confirm('Are you sure?');">delete</a>
+  </p>
+            
+</div><!-- /.blog-post -->
+
+<% end %>
+```
+
 ### Models
 
 The models are a simple ORM mechanism that will map objects to tuples.  The
-mapping is done using a `sql_mapping` macro:
+mapping is done using a `sql_mapping` macro.
+
+An example models/post.cr`
 ```
+require "kemalyst"
+require "kemalyst/adapter/pg"
+
 class Post < Kemalyst::Model
-  adapter mysql
+  adapter pg
   
   sql_mapping({ 
     name: "VARCHAR(255)", 
@@ -236,14 +259,13 @@ The mapping will automatically create the id, created_at and updated_at column
 mapping that follows the active_record convention in Rails.
 
 There are several methods that are provided in the model.
-- self.clear
-- self.drop
-- self.create
-- save
-- destroy
-- all(where)
-- find(id)
-
+- self.drop - "Drop table..."
+- self.create - "Create table..."
+- self.clear - "DELETE from table;"
+- save - "Insert or Update depending on if ID is set" 
+- destroy - "Delete from table where id = this.id;"
+- all(where) "Select * from table;"
+- find(id) - Select * from table where id = this.id limit 1;"
 
 ## Contributing
 

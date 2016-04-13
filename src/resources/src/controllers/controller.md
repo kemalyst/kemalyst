@@ -1,3 +1,4 @@
+```
 require "../models/demo"
 
 module DemoController
@@ -80,5 +81,4 @@ module DemoController
   end
 
 end
-
-
+```

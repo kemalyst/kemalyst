@@ -1,3 +1,4 @@
+```
 <!DOCTYPE html>
 <html>
   <head>
@@ -53,5 +54,4 @@
     <script src="/javascripts/main.js"></script>
   </body>
 </html>
-
-
+```

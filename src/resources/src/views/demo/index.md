@@ -1,3 +1,4 @@
+```
 <% demos.each do |demo| %>
 
 <div class="blog-post">
@@ -13,4 +14,4 @@
 </div><!-- /.blog-post -->
 
 <% end %>
-
+```

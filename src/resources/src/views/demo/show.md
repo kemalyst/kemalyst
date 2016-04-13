@@ -1,3 +1,4 @@
+```
 <% if demo %>
   <h2 class="blog-post-title"><%= demo.name %></h2>
   <p class="blog-post-meta"><%= demo.last_updated %></p>
@@ -9,4 +10,4 @@
     | <a href="/demos/<%= demo.id %>/edit">edit</a> | 
     <a href="/demos/<%= demo.id %>?_method=delete" onclick="return confirm('Are you sure?');">delete</a>
   </p>
-
+```

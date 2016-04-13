@@ -1,3 +1,4 @@
+```
 <h1>New Demo</h1>
 
 <form action="/demos" method="post">
@@ -9,5 +10,4 @@
 </form>
 
 <a href="/demos">Back</a>
-
-
+```

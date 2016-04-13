@@ -1,3 +1,4 @@
+```
 <h1>Edit Demo</h1>
 
 <% if demo %>
@@ -13,4 +14,4 @@
   <h1>Demo not found</h1>
 <% end %>
 <a href="/demos">back</a>
-
+```

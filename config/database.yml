@@ -1,13 +1,13 @@
 mysql:
-  host: 127.0.0.1
-  port: 3306
-  database: blog
-  username: admin
-  password: password
+  host: "${MYSQL_HOST}"
+  port: "${MYSQL_PORT}"
+  database: "${MYSQL_DATA}"
+  username: "${MYSQL_USER}"
+  password: "${MYSQL_PASS}"
 
 pg:
-  database: "postgres://admin:password@127.0.0.1:5432/blog"
+  database: "${PG_URL}"
 
-sqlite:
-  database: config/test.db
+# sqlite:
+#   database: config/test.db
 
