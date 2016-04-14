@@ -5,7 +5,7 @@ services:
 
 env:
   - DOCKER_VERSION=1.10.3
-- DOCKER_COMPOSE_VERSION: 1.6.2
+  - DOCKER_COMPOSE_VERSION=1.6.2
 
 before_install:
   - sudo apt-get -o Dpkg::Options::="--force-confnew" install -y docker-engine=${DOCKER_VERSION}
