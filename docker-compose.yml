@@ -1,5 +1,4 @@
 version: '2'
-
 services:
   spec:
     build: .
@@ -7,11 +6,14 @@ services:
     working_dir: /app/user
     environment:
       PG_URL: 'postgres://postgres:@pg:5432/postgres'
-      MYSQL_HOST: 'mysql'
+      MYSQL_HOST: 'db'
       MYSQL_PORT: '3306'
       MYSQL_DATA: 'test'
       MYSQL_USER: 'user'
       MYSQL_PASS: 'pass'
+    depends_on:
+      - pg
+      - db
     volumes:
       - '.:/app/user'
   shell:
@@ -20,18 +22,19 @@ services:
     working_dir: /app/user
     environment:
       PG_URL: 'postgres://postgres:@pg:5432/postgres'
-      MYSQL_HOST: 'mysql'
+      MYSQL_HOST: 'db'
       MYSQL_PORT: '3306'
       MYSQL_DATA: 'test'
       MYSQL_USER: 'user'
       MYSQL_PASS: 'pass'
+    depends_on:
+      - pg
+      - db
     volumes:
       - '.:/app/user'
   pg:
     image: postgres
-  mysql:
-    ports: 
-      - 3306
+  db:
     image: mysql:5.6
     environment:
       MYSQL_ROOT_PASSWORD: pass
