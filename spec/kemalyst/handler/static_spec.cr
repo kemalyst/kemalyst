@@ -2,7 +2,7 @@ require "./spec_helper"
 
 describe Kemalyst::Handler::Static do
 
-  it "delivery static html" do
+  it "delivers static html" do
     request = HTTP::Request.new("GET", "/index.html")
     io, context = create_context(request)
     static = Kemalyst::Handler::Static.instance
