@@ -5,23 +5,7 @@ services:
     command: 'bash -c "cd /app/user && crystal spec"'
     working_dir: /app/user
     environment:
-      PG_URL: 'postgres://postgres:@pg:5432/postgres'
-      MYSQL_HOST: 'db'
-      MYSQL_PORT: '3306'
-      MYSQL_DATA: 'test'
-      MYSQL_USER: 'user'
-      MYSQL_PASS: 'pass'
-    depends_on:
-      - pg
-      - db
-    volumes:
-      - '.:/app/user'
-  shell:
-    build: .
-    command: bash
-    working_dir: /app/user
-    environment:
-      PG_URL: 'postgres://postgres:@pg:5432/postgres'
+      DATABASE_URL: 'postgres://postgres:@pg:5432/postgres'
       MYSQL_HOST: 'db'
       MYSQL_PORT: '3306'
       MYSQL_DATA: 'test'

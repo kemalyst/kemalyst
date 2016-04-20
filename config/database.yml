@@ -6,7 +6,7 @@ mysql:
   password: "${MYSQL_PASS}"
 
 pg:
-  database: "${PG_URL}"
+  database: "${DATABASE_URL}"
 
 # sqlite:
 #   database: config/test.db
