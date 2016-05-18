@@ -47,14 +47,14 @@ abstract class Kemalyst::Adapter::Base
   # create will create the table based on the fields specified in the
   # sql_mapping defined in the model.
   abstract def create(table_name, fields)
-  
+
   # migrate is an addative only approach and should be safe to call at any
   # time.  It alters existing columns or add new columns but never delete them
   # to avoid data loss.  If a column cannot be altered without losing data, a
   # new column will be created and the existing one will be renamed to _old.
   # You may need to perform select insert queries if the migration cannot
   # determine how to convert the data for you.
-  #abstract def migrate(table_name, fields)
+  abstract def migrate(table_name, fields)
 
   # select performs a query against a table.  The table_name and fields are
   # configured using the sql_mapping directive in your model.  The clause and

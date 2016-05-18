@@ -43,6 +43,21 @@ class Kemalyst::Adapter::Pg < Kemalyst::Adapter::Base
     return self.query(statement)
   end
 
+  def migrate(table_name, fields)
+    # query the schema and create hash of fields with types
+    # for each field, determine if the field matches the schema
+    # if not, alter the table to rename the field to *_save
+    # then alter the table to add the updated field
+    # finally, migrate the existing data to the new field (if possible?)
+  end
+
+  # We might want a new method to cleanup saved fields after migration is
+  # performed
+  def cleanup(table_name)
+    # query the schema for any fields ending in _save
+    # alter table to remove the fields
+  end
+
   # DML
   def select(table_name, fields, clause = "", params = {} of String => String)
     statement = String.build do |stmt|

@@ -36,6 +36,10 @@ class Kemalyst::Adapter::Mysql < Kemalyst::Adapter::Base
     return self.query(statement)
   end
 
+  def migrate(table_name, fields)
+
+  end
+
   def select(table_name, fields, clause = "", params = {} of String => String)
     statement = String.build do |stmt|
       stmt << "SELECT "
