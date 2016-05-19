@@ -146,12 +146,12 @@ abstract class Kemalyst::Model
   # specify the database adapter you will be using for this model. 
   # mysql, pg, sqlite, etc.
   macro adapter(name)
-    unless @@database
+    def self.settings
       yaml_file = File.read("config/database.yml")
       yaml = YAML.parse(yaml_file)
       settings = yaml["{{name.id}}"]
-      @@database = Kemalyst::Adapter::{{name.id.capitalize}}.new(settings)
     end
+    @@database = Kemalyst::Adapter::{{name.id.capitalize}}.new(settings)
   end  
 
   # sql_mapping is the mapping between columns in your database and the fields
@@ -161,43 +161,43 @@ abstract class Kemalyst::Model
   # allows you to take full advantage of the database of choice.
   # you may also specify a specific table_name and if you want the timestamps
   # or not.  This will help with backward compatibility of existing databases.
-  macro sql_mapping(names, table_name = nil, timestamps = true)
+  macro sql_mapping(fields, table_name = nil, timestamps = true)
     {% name_space = @type.name.downcase.id %}
     {% table_name = name_space + "s" unless table_name %}
     # Table Name
     @@table_name = "{{table_name}}"
     #Create the properties
-    property id
-    {% for name, type in names %}
-      property {{name.id}}
+    property id : Int64?
+    {% for name, types in fields %}
+      property {{name.id}} : {{types[1].id}}?
     {% end %}
     {% if timestamps %}
-    property created_at
-    property updated_at
+    property created_at : Time?
+    property updated_at : Time?
     {% end %}
    
     # Create the from_sql method
     def self.from_sql(result)
       {{name_space}} = {{@type.name.id}}.new
-      {{name_space}}.id = result[0]
+      {{name_space}}.id = result[0] as Int64
       {% i = 1 %}
-      {% for name, type in names %}
+      {% for name, types in fields %}
         # Need to find a way to map to other types based on SQL type
-        {{name_space}}.{{name.id}} = result[{{i}}]
+        {{name_space}}.{{name.id}} = result[{{i}}] as {{types[1].id}}
         {% i += 1 %}
       {% end %}
 
       {% if timestamps %}
-        {{name_space}}.created_at = result[{{i}}]
-        {{name_space}}.updated_at = result[{{i + 1}}]
+        {{name_space}}.created_at = result[{{i}}] as Time
+        {{name_space}}.updated_at = result[{{i + 1}}] as Time
       {% end %}
       return {{name_space}}
     end
 
     # keep a hash of the fields to be used for mapping
     def self.fields(fields = {} of String => String)
-        {% for name, type in names %}
-        fields["{{name.id}}"] = "{{type.id}}"
+        {% for name, types in fields %}
+        fields["{{name.id}}"] = "{{types[0].id}}"
         {% end %}
         {% if timestamps %}
         fields["created_at"] = "TIMESTAMP"
@@ -209,7 +209,7 @@ abstract class Kemalyst::Model
     # keep a hash of the params that will be passed to the adapter.
     def params
       return {
-          {% for name, type in names %}
+          {% for name, types in fields %}
             "{{name.id}}" => {{name.id}},
           {% end %}
           {% if timestamps %}

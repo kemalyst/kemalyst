@@ -3,7 +3,8 @@ require "mysql"
 
 # Mysql implementation of the Adapter
 class Kemalyst::Adapter::Mysql < Kemalyst::Adapter::Base
-
+  @pool : ConnectionPool(MySQL::Connection)
+  
   def initialize(settings)
     host = env(settings["host"].to_s)
     port = env(settings["port"].to_s)

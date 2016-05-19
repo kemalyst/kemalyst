@@ -48,7 +48,7 @@ module Kemalyst::Handler
       @@instance ||= new(proc)
     end
 
-    def initialize(@proc)
+    def initialize(@proc : HTTP::WebSocket -> Nil)
     end
 
     def call(context)

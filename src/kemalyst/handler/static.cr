@@ -7,6 +7,11 @@ module Kemalyst::Handler
   class Static < Base
     property public_folder
 
+    # Provides a singleton instance of this Handler
+    def self.instance
+      @@instance ||= new
+    end
+
     def initialize
       @public_folder = "./public"
     end

@@ -10,6 +10,11 @@ module Kemalyst::Handler
   class Session < Base
     property :key, :secret
 
+    # Provides a singleton instance of this Handler
+    def self.instance
+      @@instance ||= new
+    end
+
     def initialize
       @key = "kemalyst.session"
       @secret = "change_me"

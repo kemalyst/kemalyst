@@ -3,7 +3,8 @@ require "sqlite3"
 
 # Sqlite implementation of the Adapter
 class Kemalyst::Adapter::Sqlite < Kemalyst::Adapter::Base
-
+  @pool : ConnectionPool(SQLite3::Connection)
+  
   def initialize(settings)
     database = env(settings["database"].to_s)
     @pool = ConnectionPool.new(capacity: 20, timeout: 0.01) do

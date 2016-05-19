@@ -2,7 +2,7 @@ version: 1.0
 shards:
   delimiter_tree:
     github: drujensen/delimiter_tree
-    commit: ff00d3f211aa0e6850b04c12941e88522c3a59d7
+    commit: eeddecd0475710adb6414595e6144bfdce3a95f1
 
   kilt:
     github: jeromegn/kilt
@@ -10,13 +10,13 @@ shards:
 
   mysql:
     github: waterlink/crystal-mysql
-    commit: 3d388be7a84f832808c98808540c7237460ff749
+    commit: 26ef2b4aaf2e108f1104a84063fb18434bb65abe
 
   pg:
     github: will/crystal-pg
-    commit: cafe38b532b859122337455aa09afeac4f8deeaa
+    commit: cafe757dafe6b7257c3d0c0192c243df64d43af4
 
   pool:
     github: ysbaddaden/pool
-    commit: ed6af70886e76de84f440b6efe9bc6f49ab24fbe
+    commit: c4ecfad1b87fbd8c6484d1fd536ccfd14c40cc94
 

@@ -8,7 +8,7 @@ class Demo < Kemalyst::Model
   # the id, created_at and updated_at columns are automatically mapped for
   # you.
   sql_mapping({ 
-    name: "TEXT"
+    name: ["TEXT", String]
   })
 
   def last_updated

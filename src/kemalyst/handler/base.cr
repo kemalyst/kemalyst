@@ -5,12 +5,11 @@ module Kemalyst::Handler
   # method and ability to configure each handler.  All configurations should
   # be maintained in the `/config` folder for consistency.
   class Base < HTTP::Handler
-
-    # Provides a singleton instance of this Handler
+     
     def self.instance
-      @@instance ||= new
+      @@instance ||= Kemalyst::Handler::Base.new
     end
-
+    
     # Ability to configure the singleton instance from the class
     def self.config
       yield self.instance

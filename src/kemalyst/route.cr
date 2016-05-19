@@ -5,7 +5,7 @@ class Kemalyst::Route
   getter path
   getter handler
 
-  def initialize(@method, @path, @handler)
+  def initialize(@method : String, @path : String, @handler : HTTP::Handler)
   end
 
 end

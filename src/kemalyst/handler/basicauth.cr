@@ -10,7 +10,10 @@ module Kemalyst::Handler
     AUTH_MESSAGE          = "Could not verify your access level for that URL.\nYou have to login with proper credentials"
     HEADER_LOGIN_REQUIRED = "Basic realm=\"Login Required\""
 
-    def self.instance(username, password)
+    @username : String
+    @password : String
+
+    def self.instance(username : String, password : String)
       @@instance ||= new(username, password)
     end
 

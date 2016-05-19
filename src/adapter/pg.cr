@@ -3,6 +3,7 @@ require "pg"
 
 # PostgreSQL implementation of the Adapter
 class Kemalyst::Adapter::Pg < Kemalyst::Adapter::Base
+  @pool : ConnectionPool(PG::Connection)
 
   def initialize(settings)
     database = env(settings["database"].to_s)

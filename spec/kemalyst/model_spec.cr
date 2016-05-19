@@ -5,7 +5,7 @@ class Todo < Kemalyst::Model
   adapter pg
   
   sql_mapping({ 
-    name: "VARCHAR(255)" 
+    name: ["VARCHAR(255)", String]
   })
 
   def initialize(@name)

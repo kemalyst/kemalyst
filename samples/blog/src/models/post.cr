@@ -6,8 +6,8 @@ class Post < Kemalyst::Model
   adapter mysql
  
   sql_mapping({ 
-    name: "VARCHAR(255)",
-    body: "TEXT"
+    name: ["VARCHAR(255)", String],
+    body: ["TEXT", String]
   })
 
   def last_updated

@@ -4,8 +4,8 @@ require "../src/adapter/pg"
 class User < Kemalyst::Model
   adapter pg
   sql_mapping({ 
-    name: "VARCHAR(255)",
-    pass: "TEXT"
+    name: ["VARCHAR(255)", String],
+    pass: ["TEXT", String]
   })
 end
 
