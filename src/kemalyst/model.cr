@@ -167,7 +167,7 @@ abstract class Kemalyst::Model
     # Table Name
     @@table_name = "{{table_name}}"
     #Create the properties
-    property id : Int64?
+    property id : (Int32 | Int64 | Nil)
     {% for name, types in fields %}
       property {{name.id}} : {{types[1].id}}?
     {% end %}
@@ -179,11 +179,15 @@ abstract class Kemalyst::Model
     # Create the from_sql method
     def self.from_sql(result)
       {{name_space}} = {{@type.name.id}}.new
-      {{name_space}}.id = result[0] as Int64
+      
+      # hack around different types for Pg and Mysql drivers
+      unless {{name_space}}.id = result[0] as? Int32
+        {{name_space}}.id = result[0] as? Int64
+      end
       {% i = 1 %}
       {% for name, types in fields %}
         # Need to find a way to map to other types based on SQL type
-        {{name_space}}.{{name.id}} = result[{{i}}] as {{types[1].id}}
+        {{name_space}}.{{name.id}} = result[{{i}}] as? {{types[1].id}}
         {% i += 1 %}
       {% end %}
 
