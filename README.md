@@ -9,10 +9,12 @@
 Kemalyst is a yarlf (yet another rails like framework) that is based on on
 super fast [kemal](https://github.com/sdogruyol/kemal). The framework
 leverages the http handlers which are similar to Rack middleware. The
-controllers are also HTTP::Handlers that render the response.  You can chain
-handlers in your routes.cr.  For example, you can chain a WebSocket handler
-before your Index handler to allow for upgrading the connection for a specific
-route.  
+controllers are also HTTP::Handlers that render the response.  
+
+One of the main differences Kemalyst provides is the ability to chain
+controllers in your routes.cr.  For example, you can chain a WebSocket handler
+before your Index controller to allow for upgrading the connection for
+a specific route.  
 
 The model is a simple ORM mapping and supports MySQL, PG and SQLite.
 
@@ -89,8 +91,7 @@ There are 6 handlers that are pre-configured for Kemalyst:
  - Logger.instance(@logger) - Logs all requests/responses to the `@logger` provided
  - Error.instance - Handles any Exceptions and renders a response.
  - Static.instance - Delivers any static assets from the `./public` folder.
- - Session.instance - Provides a Cookie Session that can be accessed from the
-   `context.session`
+ - Session.instance - Provides a Cookie Session that can be accessed from the `context.session`
  - Params.instance - Unifies the parameters into `context.params`
  - Router.instance - Routes requests to other handlers\controllers based on the HTTP method and path.
 
@@ -103,10 +104,10 @@ Kemalyst::Application.config do |config|
   config.handlers = [
     Kemalyst::Handler::Logger.instance(config.logger),
     Kemalyst::Handler::Error.instance,
-    # Disable Static and Session handler since this is a REST Service
-    # Kemalyst::Handler::Static.instance,
+    # Kemalyst::Handler::Static.instance, # Disable Static and Session handlers since this is a REST Service
     # Kemalyst::Handler::Session.instance,
     Kemalyst::Handler::Params.instance,
+    Kemalyst::Handler::Cors.instance, # Enable CORS for cross site capabilities
     Kemalyst::Handler::Router.instance
   ]
 end
@@ -218,21 +219,38 @@ variables assigned in the controller are available in the templates.
 An example `views/post/index.ecr`:
 ```
 <% posts.each do |post| %>
-
-<div class="blog-post">
-  <h2 class="blog-post-title"><%= post.name %></h2>
-  <p class="blog-post-body"><%= post.body %></p>
-
-  <p>
-    <a href="/posts/<%= post.id %>">read</a>
-    | <a href="/posts/<%= post.id %>/edit">edit</a> | 
-    <a href="/posts/<%= post.id %>?_method=delete" onclick="return confirm('Are you sure?');">delete</a>
-  </p>
-            
-</div><!-- /.blog-post -->
-
+  <div>
+    <h2><%= post.name %></h2>
+    <p><%= post.body %></p>
+    <p>
+      <a href="/posts/<%= post.id %>">read</a>
+      | <a href="/posts/<%= post.id %>/edit">edit</a> | 
+      <a href="/posts/<%= post.id %>?_method=delete" onclick="return confirm('Are you sure?');">delete</a>
+    </p>
+  </div>
 <% end %>
 ```
+
+And an example of `views/layouts/main.ecr`:
+```
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Example Layout</title>
+    <link rel="stylesheet" href="/stylesheets/main.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <%= content %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+```
+The `<%= content %>` is where the template will be rendered in the layout.
 
 ### Models
 
@@ -264,7 +282,7 @@ There are several methods that are provided in the model.
 - self.clear - "DELETE from table;"
 - save - "Insert or Update depending on if ID is set" 
 - destroy - "Delete from table where id = this.id;"
-- all(where) "Select * from table;"
+- all(where) "Select * from table #{where};"
 - find(id) - Select * from table where id = this.id limit 1;"
 
 ## Contributing
@@ -277,4 +295,4 @@ There are several methods that are provided in the model.
 
 ## Contributors
 
-- [[drujensen]](https://github.com/drujensen) drujensen - creator, maintainer
+- [drujensen](https://github.com/drujensen) drujensen - creator, maintainer
