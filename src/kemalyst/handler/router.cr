@@ -90,11 +90,6 @@ module Kemalyst::Handler
   # context.params["variable"] to the value in the url.
   class Router < Base
 
-    # Provides a singleton instance of this Handler
-    def self.instance
-      @@instance ||= new
-    end
-
     def initialize
       @tree = Delimiter::Tree(Nil | Kemalyst::Route).new
     end

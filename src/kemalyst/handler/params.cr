@@ -11,11 +11,6 @@ module Kemalyst::Handler
     URL_ENCODED_FORM = "application/x-www-form-urlencoded"
     APPLICATION_JSON = "application/json"
     
-    # Provides a singleton instance of this Handler
-    def self.instance
-      @@instance ||= new
-    end
-
     def call(context)
       context.clear_params
       parse(context)

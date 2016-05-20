@@ -10,6 +10,13 @@ class Kemalyst::Controller < HTTP::Handler
     @@instance ||= new
   end
 
+  # class variables are not inherited. You can use macro inherited
+  macro inherited
+    def self.instance
+      @@instance ||= new
+    end
+  end
+
   # Call is the execution method for this controller.  Controllers can be
   # chained together and should `call_next(context)` if they do not provide
   # the final rendering of the response.  If they are the last leaf in the

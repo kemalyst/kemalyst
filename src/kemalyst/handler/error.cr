@@ -4,11 +4,6 @@ module Kemalyst::Handler
   # any runtime Exceptions and returns a backtrace in text/plain format.
   class Error < Base
 
-    # Provides a singleton instance of this Handler
-    def self.instance
-      @@instance ||= new
-    end
-
     def call(context)
       begin
         call_next(context)
