@@ -28,7 +28,6 @@ development.
 You can find instructions on how to install Crystal from [Crystal's
 Website](http://crystal-lang.org).  I recommend using
 [crenv](https://github.com/pine613/crenv) to manage your crystal versions.
-Currently 0.12.0 is supported.
 
 2. Create a Crystal App
 
@@ -46,6 +45,9 @@ dependencies:
   pg:
     github: will/crystal-pg
     branch: master
+  sql:
+    github: waterlink/crystal-mysql
+    branch: master 
 ```
 and run `shards update`.
 

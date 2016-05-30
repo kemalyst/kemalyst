@@ -141,7 +141,7 @@ require "yaml"
 #
 # A connection pool is leveraged to reduce the cost of opening and closing
 # connections.
-abstract class Kemalyst::Model
+class Kemalyst::Model
 
   # specify the database adapter you will be using for this model. 
   # mysql, pg, sqlite, etc.

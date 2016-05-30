@@ -1,38 +1,17 @@
 require "http/server"
 require "delimiter_tree"
 
-HTTP_METHODS = %w(get post put patch delete)
-
-{% for method in HTTP_METHODS %}
-  def {{method.id}}(path, &block : HTTP::Server::Context -> _)
-    handler = Kemalyst::Handler::Block.new(block)
-    Kemalyst::Handler::Router.instance.add_route({{method}}.upcase, path, handler)
-  end
-  def {{method.id}}(path, handler : HTTP::Handler)
-    Kemalyst::Handler::Router.instance.add_route({{method}}.upcase, path, handler)
-  end
-  def {{method.id}}(path, handler : HTTP::Handler, &block : HTTP::Server::Context -> _)
-    handler = Kemalyst::Handler::Block.new(block)
-    Kemalyst::Handler::Router.instance.add_route({{method}}.upcase, path, [handler, handler])
-  end
-  def {{method.id}}(path, handlers : Array(HTTP::Handler))
-    Kemalyst::Handler::Router.instance.add_route({{method}}.upcase, path, handlers)
-  end
-  def {{method.id}}(path, handlers : Array(HTTP::Handler), &block : HTTP::Server::Context -> _)
-    handlers << Kemalyst::Handler::Block.new(block)
-    Kemalyst::Handler::Router.instance.add_route({{method}}.upcase, path, handlers)
-  end
-{% end %}
-
-def all(path, handler : HTTP::Handler)
-  get path, handler
-  put path, handler
-  post path, handler
-  patch path, handler
-  delete path, handler
-end
-
 module Kemalyst::Handler
+  # The Route holds the information for the node in the tree.
+  class Route
+    getter method
+    getter path
+    getter handler
+
+    def initialize(@method : String, @path : String, @handler : HTTP::Handler)
+    end
+  end
+
   # The Router Handler redirects traffic to the appropriate Handlers based on
   # the path and method provided.  This allows for filtering which handlers should
   # be accessed.  Several macros are provided to help with registering the
@@ -89,9 +68,41 @@ module Kemalyst::Handler
   # You can use `:variable` in the path and it will set a
   # context.params["variable"] to the value in the url.
   class Router < Base
+    property tree : Delimiter::Tree(Nil | Kemalyst::Handler::Route)
+
+    HTTP_METHODS = %w(get post put patch delete)
+
+    {% for method in HTTP_METHODS %}
+      def self.{{method.id}}(path, &block : HTTP::Server::Context -> _)
+        handler = Kemalyst::Handler::Block.new(block)
+        Kemalyst::Handler::Router.instance.add_route({{method}}.upcase, path, handler)
+      end
+      def self.{{method.id}}(path, handler : HTTP::Handler)
+        Kemalyst::Handler::Router.instance.add_route({{method}}.upcase, path, handler)
+      end
+      def self.{{method.id}}(path, handler : HTTP::Handler, &block : HTTP::Server::Context -> _)
+        handler = Kemalyst::Handler::Block.new(block)
+        Kemalyst::Handler::Router.instance.add_route({{method}}.upcase, path, [handler, handler])
+      end
+      def self.{{method.id}}(path, handlers : Array(HTTP::Handler))
+        Kemalyst::Handler::Router.instance.add_route({{method}}.upcase, path, handlers)
+      end
+      def self.{{method.id}}(path, handlers : Array(HTTP::Handler), &block : HTTP::Server::Context -> _)
+        handlers << Kemalyst::Handler::Block.new(block)
+        Kemalyst::Handler::Router.instance.add_route({{method}}.upcase, path, handlers)
+      end
+    {% end %}
+
+    def self.all(path, handler : HTTP::Handler)
+      self.get path, handler
+      self.put path, handler
+      self.post path, handler
+      self.patch path, handler
+      self.delete path, handler
+    end
 
     def initialize
-      @tree = Delimiter::Tree(Nil | Kemalyst::Route).new
+      @tree = Delimiter::Tree(Nil | Kemalyst::Handler::Route).new
     end
 
     def call(context)
@@ -114,7 +125,7 @@ module Kemalyst::Handler
 
     # Check if a route is defined and returns the lookup
     def lookup_route(verb, path)
-      @tree.find radix_path(verb, path)
+      @tree.find delimiter_path(verb, path)
     end
 
     # Processes the route if it's a match. Otherwise renders 404.
@@ -153,12 +164,12 @@ module Kemalyst::Handler
       context
     end
     
-    private def radix_path(method : String, path)
+    private def delimiter_path(method : String, path)
       "#{method.downcase}/#{path}"
     end
 
     private def add_to_tree(method, path, route)
-      node = radix_path(method, path)
+      node = delimiter_path(method, path)
       @tree.add(node, route)
     end
 

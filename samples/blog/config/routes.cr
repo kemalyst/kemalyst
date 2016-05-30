@@ -1,4 +1,5 @@
 require "../src/controllers/*"
+include Kemalyst::Handler::Router
 
 get    "/login", SessionController::New.instance
 post   "/session/create", SessionController::Create.instance

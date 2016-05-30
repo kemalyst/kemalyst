@@ -1,5 +1,5 @@
-require "kemalyst"
-require "../config/*"
+# require "kemalyst"
+# require "../config/*"
 
-Kemalyst::Application.instance.start
+# Kemalyst::Application.instance.start
 

@@ -1,7 +1,23 @@
 require "./spec_helper"
 
-describe Kemalyst::Handler::Router do
+describe Kemalyst::Handler::Route do
+  it "returns the method" do
+    route = Kemalyst::Handler::Route.new("GET", "/", Kemalyst::Handler::Base.instance)
+    route.method.should eq "GET"
+  end
 
+  it "returns the path" do
+    route = Kemalyst::Handler::Route.new("GET", "/", Kemalyst::Handler::Base.instance)
+    route.path.should eq "/"
+  end
+  
+  it "returns the handler" do
+    route = Kemalyst::Handler::Route.new("GET", "/", Kemalyst::Handler::Base.instance)
+    route.handler.should eq Kemalyst::Handler::Base.instance
+  end
+end
+
+describe Kemalyst::Handler::Router do
   it "set content_type to text/html" do
     request = HTTP::Request.new("GET", "/")
     io, context = create_context(request)
@@ -41,7 +57,6 @@ describe Kemalyst::Handler::Router do
     client_response = HTTP::Client::Response.from_io(io, decompress: false)
     client_response.body.should eq "Hello World!"
   end
-  
 end
 
 
