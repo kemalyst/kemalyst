@@ -5,32 +5,32 @@ module Kemalyst::Handler
   HTTP_METHODS = %w(get post put patch delete)
 
   {% for method in HTTP_METHODS %}
-    def self.{{method.id}}(path, &block : HTTP::Server::Context -> _)
+    def {{method.id}}(path, &block : HTTP::Server::Context -> _)
       handler = Kemalyst::Handler::Block.new(block)
       Kemalyst::Handler::Router.instance.add_route({{method}}.upcase, path, handler)
     end
-    def self.{{method.id}}(path, handler : HTTP::Handler)
+    def {{method.id}}(path, handler : HTTP::Handler)
       Kemalyst::Handler::Router.instance.add_route({{method}}.upcase, path, handler)
     end
-    def self.{{method.id}}(path, handler : HTTP::Handler, &block : HTTP::Server::Context -> _)
+    def {{method.id}}(path, handler : HTTP::Handler, &block : HTTP::Server::Context -> _)
       handler = Kemalyst::Handler::Block.new(block)
       Kemalyst::Handler::Router.instance.add_route({{method}}.upcase, path, [handler, handler])
     end
-    def self.{{method.id}}(path, handlers : Array(HTTP::Handler))
+    def {{method.id}}(path, handlers : Array(HTTP::Handler))
       Kemalyst::Handler::Router.instance.add_route({{method}}.upcase, path, handlers)
     end
-    def self.{{method.id}}(path, handlers : Array(HTTP::Handler), &block : HTTP::Server::Context -> _)
+    def {{method.id}}(path, handlers : Array(HTTP::Handler), &block : HTTP::Server::Context -> _)
       handlers << Kemalyst::Handler::Block.new(block)
       Kemalyst::Handler::Router.instance.add_route({{method}}.upcase, path, handlers)
     end
   {% end %}
 
-  def self.all(path, handler : HTTP::Handler)
-    self.get path, handler
-    self.put path, handler
-    self.post path, handler
-    self.patch path, handler
-    self.delete path, handler
+  def all(path, handler : HTTP::Handler)
+    get path, handler
+    put path, handler
+    post path, handler
+    patch path, handler
+    delete path, handler
   end
 
   # The Route holds the information for the node in the tree.
