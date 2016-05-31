@@ -1,3 +1,3 @@
-# pg:
-#   database: postgres://user:password@host:port/db
-#   pool: 5
+pg:
+  database: postgres://user:password@host:port/db
+  pool: 5

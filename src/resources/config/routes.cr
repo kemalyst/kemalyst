@@ -1,5 +1,5 @@
-# require "../src/controllers/*"
-# include Kemalyst::Handler
+require "../src/controllers/*"
+include Kemalyst::Handler
 
 # This is an example of how to configure the Basic Authentication handler for
 # a path.  In this example, Basic Authentication is configured for the whole
