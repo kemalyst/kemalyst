@@ -11,7 +11,7 @@ class Kemalyst::Adapter::Mysql < Kemalyst::Adapter::Base
     username = env(settings["username"].to_s)
     password = env(settings["password"].to_s)
     database = env(settings["database"].to_s)
-    @pool = ConnectionPool.new(capacity: 20, timeout: 0.01) do
+    @pool = ConnectionPool.new(capacity: 20) do
        MySQL.connect(host, username, password, database, port.to_u16, nil)
     end
   end

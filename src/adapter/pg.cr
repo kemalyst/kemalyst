@@ -7,7 +7,7 @@ class Kemalyst::Adapter::Pg < Kemalyst::Adapter::Base
 
   def initialize(settings)
     database = env(settings["database"].to_s)
-    @pool = ConnectionPool.new(capacity: 20, timeout: 0.01) do
+    @pool = ConnectionPool.new(capacity: 20) do
        PG.connect(database)
     end
   end
