@@ -32,7 +32,7 @@
 #   class Create < Kemalyst::Controller
 #     def call(context)
 #       if demo = Demo.new
-#         demo.name = context.params["name"]
+#         demo.name = context.params["name"] as String
 #         demo.save()
 #       end
 #       if id = demo.id
@@ -58,7 +58,7 @@
 #     def call(context)
 #       id = context.params["id"]
 #       if demo = Demo.find id 
-#         demo.name = context.params["name"]
+#         demo.name = context.params["name"] as String
 #         demo.save
 #       else
 #         text "Demo with id:#{id} could not be found", 404

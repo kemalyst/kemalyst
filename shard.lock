@@ -6,7 +6,7 @@ shards:
 
   kilt:
     github: jeromegn/kilt
-    commit: 332015badce121b624b757ddc494b3162ac49da9
+    commit: adf515f1212fe985dbc9da561f02ade11bfe8e5f
 
   mysql:
     github: waterlink/crystal-mysql
@@ -19,4 +19,8 @@ shards:
   pool:
     github: ysbaddaden/pool
     commit: c4ecfad1b87fbd8c6484d1fd536ccfd14c40cc94
+
+  sqlite3:
+    github: manastech/crystal-sqlite3
+    commit: b1c6c32ae563d5f4ae9cc1979883a91a18aa5bc4
 

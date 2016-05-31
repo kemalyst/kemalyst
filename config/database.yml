@@ -8,6 +8,6 @@ mysql:
 pg:
   database: "${DATABASE_URL}"
 
-# sqlite:
-#   database: config/test.db
+sqlite:
+  database: config/test.db
 

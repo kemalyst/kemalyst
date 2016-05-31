@@ -26,10 +26,9 @@ development_dependencies:
     github: will/crystal-pg
     branch: master
 
-# currently this doesn't work in a docker container
-#  sqlite3:
-#    github: manastech/crystal-sqlite3
-#    branch: master
+  sqlite3:
+    github: manastech/crystal-sqlite3
+    branch: master
 
 scripts:
   postinstall: crystal resources/install.cr 

@@ -192,8 +192,18 @@ class Kemalyst::Model
       {% end %}
 
       {% if timestamps %}
-        {{name_space}}.created_at = result[{{i}}] as Time
-        {{name_space}}.updated_at = result[{{i + 1}}] as Time
+        unless {{name_space}}.created_at = result[{{i}}] as? Time
+          created_at_string = result[{{i}}] as? String
+          if created_at_string
+            {{name_space}}.created_at = Time::Format.new("%F %X").parse(created_at_string)
+          end
+        end
+        unless {{name_space}}.updated_at = result[{{i + 1}}] as? Time
+          updated_at_string = result[{{i + 1}}] as? String
+          if updated_at_string
+            {{name_space}}.updated_at = Time::Format.new("%F %X").parse(updated_at_string)
+          end
+        end
       {% end %}
       return {{name_space}}
     end
