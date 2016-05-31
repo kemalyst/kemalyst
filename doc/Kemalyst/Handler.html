@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta id="repository-name" content="github.com/drujensen/kemalyst">
+  <link href="../css/style.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="../js/doc.js"></script>
+  <title>Kemalyst::Handler - github.com/drujensen/kemalyst</title>
+</head>
+<body>
+
+<div id="types-list">
+  <div id="search-box">
+    <input type="search" id="search-input" placeholder="Search...">
+  </div>
+
+  <ul>
+    <li><a href="../index.html">README</a></li>
+  </ul>
+
+  <ul>
+  
+  <li class="parent open current" data-id="github.com/drujensen/kemalyst/Kemalyst" data-name="kemalyst">
+      <a href="../Kemalyst.html">Kemalyst</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="github.com/drujensen/kemalyst/Kemalyst/Adapter" data-name="kemalyst::adapter">
+      <a href="../Kemalyst/Adapter.html">Adapter</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Adapter/Base" data-name="kemalyst::adapter::base">
+      <a href="../Kemalyst/Adapter/Base.html">Base</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/drujensen/kemalyst/Kemalyst/Adapter/Mysql" data-name="kemalyst::adapter::mysql">
+      <a href="../Kemalyst/Adapter/Mysql.html">Mysql</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Adapter/Mysql/SUPPORTED_TYPES" data-name="kemalyst::adapter::mysql::supported_types">
+      <a href="../Kemalyst/Adapter/Mysql/SUPPORTED_TYPES.html">SUPPORTED_TYPES</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/drujensen/kemalyst/Kemalyst/Adapter/Pg" data-name="kemalyst::adapter::pg">
+      <a href="../Kemalyst/Adapter/Pg.html">Pg</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Adapter/Pg/SUPPORTED_TYPES" data-name="kemalyst::adapter::pg::supported_types">
+      <a href="../Kemalyst/Adapter/Pg/SUPPORTED_TYPES.html">SUPPORTED_TYPES</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Application" data-name="kemalyst::application">
+      <a href="../Kemalyst/Application.html">Application</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Controller" data-name="kemalyst::controller">
+      <a href="../Kemalyst/Controller.html">Controller</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/drujensen/kemalyst/Kemalyst/Exceptions" data-name="kemalyst::exceptions">
+      <a href="../Kemalyst/Exceptions.html">Exceptions</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Exceptions/RouteNotFound" data-name="kemalyst::exceptions::routenotfound">
+      <a href="../Kemalyst/Exceptions/RouteNotFound.html">RouteNotFound</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent current" data-id="github.com/drujensen/kemalyst/Kemalyst/Handler" data-name="kemalyst::handler">
+      <a href="../Kemalyst/Handler.html">Handler</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Handler/Base" data-name="kemalyst::handler::base">
+      <a href="../Kemalyst/Handler/Base.html">Base</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Handler/BasicAuth" data-name="kemalyst::handler::basicauth">
+      <a href="../Kemalyst/Handler/BasicAuth.html">BasicAuth</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Handler/Block" data-name="kemalyst::handler::block">
+      <a href="../Kemalyst/Handler/Block.html">Block</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Handler/Cors" data-name="kemalyst::handler::cors">
+      <a href="../Kemalyst/Handler/Cors.html">Cors</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Handler/Error" data-name="kemalyst::handler::error">
+      <a href="../Kemalyst/Handler/Error.html">Error</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Handler/Logger" data-name="kemalyst::handler::logger">
+      <a href="../Kemalyst/Handler/Logger.html">Logger</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Handler/Params" data-name="kemalyst::handler::params">
+      <a href="../Kemalyst/Handler/Params.html">Params</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Handler/Route" data-name="kemalyst::handler::route">
+      <a href="../Kemalyst/Handler/Route.html">Route</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Handler/Router" data-name="kemalyst::handler::router">
+      <a href="../Kemalyst/Handler/Router.html">Router</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Handler/Session" data-name="kemalyst::handler::session">
+      <a href="../Kemalyst/Handler/Session.html">Session</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Handler/Static" data-name="kemalyst::handler::static">
+      <a href="../Kemalyst/Handler/Static.html">Static</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Handler/WebSocket" data-name="kemalyst::handler::websocket">
+      <a href="../Kemalyst/Handler/WebSocket.html">WebSocket</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Model" data-name="kemalyst::model">
+      <a href="../Kemalyst/Model.html">Model</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+</div>
+
+<div id="main-content">
+<h1 class="type-name">
+
+  <span class="kind">module</span> Kemalyst::Handler
+
+</h1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/kemalyst/handler/base.cr" target="_blank">kemalyst/handler/base.cr</a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/kemalyst/handler/basicauth.cr" target="_blank">kemalyst/handler/basicauth.cr</a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/kemalyst/handler/block.cr" target="_blank">kemalyst/handler/block.cr</a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/kemalyst/handler/cors.cr" target="_blank">kemalyst/handler/cors.cr</a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/kemalyst/handler/error.cr" target="_blank">kemalyst/handler/error.cr</a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/kemalyst/handler/logger.cr" target="_blank">kemalyst/handler/logger.cr</a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/kemalyst/handler/params.cr" target="_blank">kemalyst/handler/params.cr</a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/kemalyst/handler/router.cr" target="_blank">kemalyst/handler/router.cr</a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/kemalyst/handler/session.cr" target="_blank">kemalyst/handler/session.cr</a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/kemalyst/handler/static.cr" target="_blank">kemalyst/handler/static.cr</a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/kemalyst/handler/websocket.cr" target="_blank">kemalyst/handler/websocket.cr</a>
+    
+    <br/>
+  
+
+
+
+  
+    <h2>Constant Summary</h2>
+  
+  <dl>
+    
+      <dt class="entry-const" id="HTTP_METHODS">
+        <strong>HTTP_METHODS</strong> = <code>[<span class="s">&quot;get&quot;</span>, <span class="s">&quot;post&quot;</span>, <span class="s">&quot;put&quot;</span>, <span class="s">&quot;patch&quot;</span>, <span class="s">&quot;delete&quot;</span>] <span class="k">of</span> <span class="t">::</span><span class="t">String</span></code>
+      </dt>
+      
+    
+  </dl>
+
+
+
+
+
+  <h2>Instance Method Summary</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#all%28path%2Chandler%3AHTTP%3A%3AHandler%29-instance-method" class="signature"><strong>#all</strong>(path, handler : HTTP::Handler)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#delete%28path%2Chandler%3AHTTP%3A%3AHandler%29-instance-method" class="signature"><strong>#delete</strong>(path, handler : HTTP::Handler)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#delete%28path%2Chandlers%3AArray%28HTTP%3A%3AHandler%29%29-instance-method" class="signature"><strong>#delete</strong>(path, handlers : Array(HTTP::Handler))</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#delete%28path%2C%26block%3AHTTP%3A%3AServer%3A%3AContext-%3E_%29-instance-method" class="signature"><strong>#delete</strong>(path, &block : HTTP::Server::Context -> _)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#delete%28path%2Chandler%3AHTTP%3A%3AHandler%2C%26block%3AHTTP%3A%3AServer%3A%3AContext-%3E_%29-instance-method" class="signature"><strong>#delete</strong>(path, handler : HTTP::Handler, &block : HTTP::Server::Context -> _)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#delete%28path%2Chandlers%3AArray%28HTTP%3A%3AHandler%29%2C%26block%3AHTTP%3A%3AServer%3A%3AContext-%3E_%29-instance-method" class="signature"><strong>#delete</strong>(path, handlers : Array(HTTP::Handler), &block : HTTP::Server::Context -> _)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get%28path%2Chandler%3AHTTP%3A%3AHandler%29-instance-method" class="signature"><strong>#get</strong>(path, handler : HTTP::Handler)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get%28path%2Chandlers%3AArray%28HTTP%3A%3AHandler%29%29-instance-method" class="signature"><strong>#get</strong>(path, handlers : Array(HTTP::Handler))</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get%28path%2Chandlers%3AArray%28HTTP%3A%3AHandler%29%2C%26block%3AHTTP%3A%3AServer%3A%3AContext-%3E_%29-instance-method" class="signature"><strong>#get</strong>(path, handlers : Array(HTTP::Handler), &block : HTTP::Server::Context -> _)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get%28path%2C%26block%3AHTTP%3A%3AServer%3A%3AContext-%3E_%29-instance-method" class="signature"><strong>#get</strong>(path, &block : HTTP::Server::Context -> _)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get%28path%2Chandler%3AHTTP%3A%3AHandler%2C%26block%3AHTTP%3A%3AServer%3A%3AContext-%3E_%29-instance-method" class="signature"><strong>#get</strong>(path, handler : HTTP::Handler, &block : HTTP::Server::Context -> _)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#patch%28path%2C%26block%3AHTTP%3A%3AServer%3A%3AContext-%3E_%29-instance-method" class="signature"><strong>#patch</strong>(path, &block : HTTP::Server::Context -> _)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#patch%28path%2Chandlers%3AArray%28HTTP%3A%3AHandler%29%2C%26block%3AHTTP%3A%3AServer%3A%3AContext-%3E_%29-instance-method" class="signature"><strong>#patch</strong>(path, handlers : Array(HTTP::Handler), &block : HTTP::Server::Context -> _)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#patch%28path%2Chandlers%3AArray%28HTTP%3A%3AHandler%29%29-instance-method" class="signature"><strong>#patch</strong>(path, handlers : Array(HTTP::Handler))</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#patch%28path%2Chandler%3AHTTP%3A%3AHandler%29-instance-method" class="signature"><strong>#patch</strong>(path, handler : HTTP::Handler)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#patch%28path%2Chandler%3AHTTP%3A%3AHandler%2C%26block%3AHTTP%3A%3AServer%3A%3AContext-%3E_%29-instance-method" class="signature"><strong>#patch</strong>(path, handler : HTTP::Handler, &block : HTTP::Server::Context -> _)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#post%28path%2Chandler%3AHTTP%3A%3AHandler%2C%26block%3AHTTP%3A%3AServer%3A%3AContext-%3E_%29-instance-method" class="signature"><strong>#post</strong>(path, handler : HTTP::Handler, &block : HTTP::Server::Context -> _)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#post%28path%2Chandlers%3AArray%28HTTP%3A%3AHandler%29%2C%26block%3AHTTP%3A%3AServer%3A%3AContext-%3E_%29-instance-method" class="signature"><strong>#post</strong>(path, handlers : Array(HTTP::Handler), &block : HTTP::Server::Context -> _)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#post%28path%2Chandlers%3AArray%28HTTP%3A%3AHandler%29%29-instance-method" class="signature"><strong>#post</strong>(path, handlers : Array(HTTP::Handler))</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#post%28path%2C%26block%3AHTTP%3A%3AServer%3A%3AContext-%3E_%29-instance-method" class="signature"><strong>#post</strong>(path, &block : HTTP::Server::Context -> _)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#post%28path%2Chandler%3AHTTP%3A%3AHandler%29-instance-method" class="signature"><strong>#post</strong>(path, handler : HTTP::Handler)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#put%28path%2Chandlers%3AArray%28HTTP%3A%3AHandler%29%2C%26block%3AHTTP%3A%3AServer%3A%3AContext-%3E_%29-instance-method" class="signature"><strong>#put</strong>(path, handlers : Array(HTTP::Handler), &block : HTTP::Server::Context -> _)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#put%28path%2Chandler%3AHTTP%3A%3AHandler%2C%26block%3AHTTP%3A%3AServer%3A%3AContext-%3E_%29-instance-method" class="signature"><strong>#put</strong>(path, handler : HTTP::Handler, &block : HTTP::Server::Context -> _)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#put%28path%2C%26block%3AHTTP%3A%3AServer%3A%3AContext-%3E_%29-instance-method" class="signature"><strong>#put</strong>(path, &block : HTTP::Server::Context -> _)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#put%28path%2Chandlers%3AArray%28HTTP%3A%3AHandler%29%29-instance-method" class="signature"><strong>#put</strong>(path, handlers : Array(HTTP::Handler))</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#put%28path%2Chandler%3AHTTP%3A%3AHandler%29-instance-method" class="signature"><strong>#put</strong>(path, handler : HTTP::Handler)</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+<div class="methods-inherited">
+  
+</div>
+
+
+
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail" id="all&#40;path,handler:HTTP::Handler&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>all</strong>(path, handler : HTTP::Handler)
+
+        <a class="method-permalink" href="#all%28path%2Chandler%3AHTTP%3A%3AHandler%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/kemalyst/handler/router.cr#L28" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="delete&#40;path,handler:HTTP::Handler&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>delete</strong>(path, handler : HTTP::Handler)
+
+        <a class="method-permalink" href="#delete%28path%2Chandler%3AHTTP%3A%3AHandler%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/kemalyst/handler/router.cr#L7" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="delete&#40;path,handlers:Array&#40;HTTP::Handler&#41;&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>delete</strong>(path, handlers : Array(HTTP::Handler))
+
+        <a class="method-permalink" href="#delete%28path%2Chandlers%3AArray%28HTTP%3A%3AHandler%29%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/kemalyst/handler/router.cr#L7" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="delete&#40;path,&amp;block:HTTP::Server::Context-&gt;_&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>delete</strong>(path, &block : <a href="../HTTP/Server/Context.html">HTTP::Server::Context</a> -> _)
+
+        <a class="method-permalink" href="#delete%28path%2C%26block%3AHTTP%3A%3AServer%3A%3AContext-%3E_%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/kemalyst/handler/router.cr#L7" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="delete&#40;path,handler:HTTP::Handler,&amp;block:HTTP::Server::Context-&gt;_&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>delete</strong>(path, handler : HTTP::Handler, &block : <a href="../HTTP/Server/Context.html">HTTP::Server::Context</a> -> _)
+
+        <a class="method-permalink" href="#delete%28path%2Chandler%3AHTTP%3A%3AHandler%2C%26block%3AHTTP%3A%3AServer%3A%3AContext-%3E_%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/kemalyst/handler/router.cr#L7" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="delete&#40;path,handlers:Array&#40;HTTP::Handler&#41;,&amp;block:HTTP::Server::Context-&gt;_&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>delete</strong>(path, handlers : Array(HTTP::Handler), &block : <a href="../HTTP/Server/Context.html">HTTP::Server::Context</a> -> _)
+
+        <a class="method-permalink" href="#delete%28path%2Chandlers%3AArray%28HTTP%3A%3AHandler%29%2C%26block%3AHTTP%3A%3AServer%3A%3AContext-%3E_%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/kemalyst/handler/router.cr#L7" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="get&#40;path,handler:HTTP::Handler&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>get</strong>(path, handler : HTTP::Handler)
+
+        <a class="method-permalink" href="#get%28path%2Chandler%3AHTTP%3A%3AHandler%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/kemalyst/handler/router.cr#L7" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="get&#40;path,handlers:Array&#40;HTTP::Handler&#41;&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>get</strong>(path, handlers : Array(HTTP::Handler))
+
+        <a class="method-permalink" href="#get%28path%2Chandlers%3AArray%28HTTP%3A%3AHandler%29%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/kemalyst/handler/router.cr#L7" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="get&#40;path,handlers:Array&#40;HTTP::Handler&#41;,&amp;block:HTTP::Server::Context-&gt;_&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>get</strong>(path, handlers : Array(HTTP::Handler), &block : <a href="../HTTP/Server/Context.html">HTTP::Server::Context</a> -> _)
+
+        <a class="method-permalink" href="#get%28path%2Chandlers%3AArray%28HTTP%3A%3AHandler%29%2C%26block%3AHTTP%3A%3AServer%3A%3AContext-%3E_%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/kemalyst/handler/router.cr#L7" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="get&#40;path,&amp;block:HTTP::Server::Context-&gt;_&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>get</strong>(path, &block : <a href="../HTTP/Server/Context.html">HTTP::Server::Context</a> -> _)
+
+        <a class="method-permalink" href="#get%28path%2C%26block%3AHTTP%3A%3AServer%3A%3AContext-%3E_%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/kemalyst/handler/router.cr#L7" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="get&#40;path,handler:HTTP::Handler,&amp;block:HTTP::Server::Context-&gt;_&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>get</strong>(path, handler : HTTP::Handler, &block : <a href="../HTTP/Server/Context.html">HTTP::Server::Context</a> -> _)
+
+        <a class="method-permalink" href="#get%28path%2Chandler%3AHTTP%3A%3AHandler%2C%26block%3AHTTP%3A%3AServer%3A%3AContext-%3E_%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/kemalyst/handler/router.cr#L7" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="patch&#40;path,&amp;block:HTTP::Server::Context-&gt;_&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>patch</strong>(path, &block : <a href="../HTTP/Server/Context.html">HTTP::Server::Context</a> -> _)
+
+        <a class="method-permalink" href="#patch%28path%2C%26block%3AHTTP%3A%3AServer%3A%3AContext-%3E_%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/kemalyst/handler/router.cr#L7" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="patch&#40;path,handlers:Array&#40;HTTP::Handler&#41;,&amp;block:HTTP::Server::Context-&gt;_&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>patch</strong>(path, handlers : Array(HTTP::Handler), &block : <a href="../HTTP/Server/Context.html">HTTP::Server::Context</a> -> _)
+
+        <a class="method-permalink" href="#patch%28path%2Chandlers%3AArray%28HTTP%3A%3AHandler%29%2C%26block%3AHTTP%3A%3AServer%3A%3AContext-%3E_%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/kemalyst/handler/router.cr#L7" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="patch&#40;path,handlers:Array&#40;HTTP::Handler&#41;&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>patch</strong>(path, handlers : Array(HTTP::Handler))
+
+        <a class="method-permalink" href="#patch%28path%2Chandlers%3AArray%28HTTP%3A%3AHandler%29%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/kemalyst/handler/router.cr#L7" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="patch&#40;path,handler:HTTP::Handler&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>patch</strong>(path, handler : HTTP::Handler)
+
+        <a class="method-permalink" href="#patch%28path%2Chandler%3AHTTP%3A%3AHandler%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/kemalyst/handler/router.cr#L7" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="patch&#40;path,handler:HTTP::Handler,&amp;block:HTTP::Server::Context-&gt;_&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>patch</strong>(path, handler : HTTP::Handler, &block : <a href="../HTTP/Server/Context.html">HTTP::Server::Context</a> -> _)
+
+        <a class="method-permalink" href="#patch%28path%2Chandler%3AHTTP%3A%3AHandler%2C%26block%3AHTTP%3A%3AServer%3A%3AContext-%3E_%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/kemalyst/handler/router.cr#L7" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="post&#40;path,handler:HTTP::Handler,&amp;block:HTTP::Server::Context-&gt;_&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>post</strong>(path, handler : HTTP::Handler, &block : <a href="../HTTP/Server/Context.html">HTTP::Server::Context</a> -> _)
+
+        <a class="method-permalink" href="#post%28path%2Chandler%3AHTTP%3A%3AHandler%2C%26block%3AHTTP%3A%3AServer%3A%3AContext-%3E_%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/kemalyst/handler/router.cr#L7" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="post&#40;path,handlers:Array&#40;HTTP::Handler&#41;,&amp;block:HTTP::Server::Context-&gt;_&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>post</strong>(path, handlers : Array(HTTP::Handler), &block : <a href="../HTTP/Server/Context.html">HTTP::Server::Context</a> -> _)
+
+        <a class="method-permalink" href="#post%28path%2Chandlers%3AArray%28HTTP%3A%3AHandler%29%2C%26block%3AHTTP%3A%3AServer%3A%3AContext-%3E_%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/kemalyst/handler/router.cr#L7" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="post&#40;path,handlers:Array&#40;HTTP::Handler&#41;&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>post</strong>(path, handlers : Array(HTTP::Handler))
+
+        <a class="method-permalink" href="#post%28path%2Chandlers%3AArray%28HTTP%3A%3AHandler%29%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/kemalyst/handler/router.cr#L7" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="post&#40;path,&amp;block:HTTP::Server::Context-&gt;_&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>post</strong>(path, &block : <a href="../HTTP/Server/Context.html">HTTP::Server::Context</a> -> _)
+
+        <a class="method-permalink" href="#post%28path%2C%26block%3AHTTP%3A%3AServer%3A%3AContext-%3E_%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/kemalyst/handler/router.cr#L7" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="post&#40;path,handler:HTTP::Handler&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>post</strong>(path, handler : HTTP::Handler)
+
+        <a class="method-permalink" href="#post%28path%2Chandler%3AHTTP%3A%3AHandler%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/kemalyst/handler/router.cr#L7" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="put&#40;path,handlers:Array&#40;HTTP::Handler&#41;,&amp;block:HTTP::Server::Context-&gt;_&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>put</strong>(path, handlers : Array(HTTP::Handler), &block : <a href="../HTTP/Server/Context.html">HTTP::Server::Context</a> -> _)
+
+        <a class="method-permalink" href="#put%28path%2Chandlers%3AArray%28HTTP%3A%3AHandler%29%2C%26block%3AHTTP%3A%3AServer%3A%3AContext-%3E_%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/kemalyst/handler/router.cr#L7" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="put&#40;path,handler:HTTP::Handler,&amp;block:HTTP::Server::Context-&gt;_&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>put</strong>(path, handler : HTTP::Handler, &block : <a href="../HTTP/Server/Context.html">HTTP::Server::Context</a> -> _)
+
+        <a class="method-permalink" href="#put%28path%2Chandler%3AHTTP%3A%3AHandler%2C%26block%3AHTTP%3A%3AServer%3A%3AContext-%3E_%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/kemalyst/handler/router.cr#L7" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="put&#40;path,&amp;block:HTTP::Server::Context-&gt;_&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>put</strong>(path, &block : <a href="../HTTP/Server/Context.html">HTTP::Server::Context</a> -> _)
+
+        <a class="method-permalink" href="#put%28path%2C%26block%3AHTTP%3A%3AServer%3A%3AContext-%3E_%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/kemalyst/handler/router.cr#L7" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="put&#40;path,handlers:Array&#40;HTTP::Handler&#41;&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>put</strong>(path, handlers : Array(HTTP::Handler))
+
+        <a class="method-permalink" href="#put%28path%2Chandlers%3AArray%28HTTP%3A%3AHandler%29%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/kemalyst/handler/router.cr#L7" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="put&#40;path,handler:HTTP::Handler&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>put</strong>(path, handler : HTTP::Handler)
+
+        <a class="method-permalink" href="#put%28path%2Chandler%3AHTTP%3A%3AHandler%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/kemalyst/handler/router.cr#L7" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+</div>
+
+</body>
+</html>

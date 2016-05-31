@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta id="repository-name" content="github.com/drujensen/kemalyst">
+  <link href="../../css/style.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="../../js/doc.js"></script>
+  <title>Kemalyst::Adapter::Base - github.com/drujensen/kemalyst</title>
+</head>
+<body>
+
+<div id="types-list">
+  <div id="search-box">
+    <input type="search" id="search-input" placeholder="Search...">
+  </div>
+
+  <ul>
+    <li><a href="../../index.html">README</a></li>
+  </ul>
+
+  <ul>
+  
+  <li class="parent open current" data-id="github.com/drujensen/kemalyst/Kemalyst" data-name="kemalyst">
+      <a href="../../Kemalyst.html">Kemalyst</a>
+      
+        <ul>
+  
+  <li class="parent open current" data-id="github.com/drujensen/kemalyst/Kemalyst/Adapter" data-name="kemalyst::adapter">
+      <a href="../../Kemalyst/Adapter.html">Adapter</a>
+      
+        <ul>
+  
+  <li class=" current" data-id="github.com/drujensen/kemalyst/Kemalyst/Adapter/Base" data-name="kemalyst::adapter::base">
+      <a href="../../Kemalyst/Adapter/Base.html">Base</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/drujensen/kemalyst/Kemalyst/Adapter/Mysql" data-name="kemalyst::adapter::mysql">
+      <a href="../../Kemalyst/Adapter/Mysql.html">Mysql</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Adapter/Mysql/SUPPORTED_TYPES" data-name="kemalyst::adapter::mysql::supported_types">
+      <a href="../../Kemalyst/Adapter/Mysql/SUPPORTED_TYPES.html">SUPPORTED_TYPES</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/drujensen/kemalyst/Kemalyst/Adapter/Pg" data-name="kemalyst::adapter::pg">
+      <a href="../../Kemalyst/Adapter/Pg.html">Pg</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Adapter/Pg/SUPPORTED_TYPES" data-name="kemalyst::adapter::pg::supported_types">
+      <a href="../../Kemalyst/Adapter/Pg/SUPPORTED_TYPES.html">SUPPORTED_TYPES</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Application" data-name="kemalyst::application">
+      <a href="../../Kemalyst/Application.html">Application</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Controller" data-name="kemalyst::controller">
+      <a href="../../Kemalyst/Controller.html">Controller</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/drujensen/kemalyst/Kemalyst/Exceptions" data-name="kemalyst::exceptions">
+      <a href="../../Kemalyst/Exceptions.html">Exceptions</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Exceptions/RouteNotFound" data-name="kemalyst::exceptions::routenotfound">
+      <a href="../../Kemalyst/Exceptions/RouteNotFound.html">RouteNotFound</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/drujensen/kemalyst/Kemalyst/Handler" data-name="kemalyst::handler">
+      <a href="../../Kemalyst/Handler.html">Handler</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Handler/Base" data-name="kemalyst::handler::base">
+      <a href="../../Kemalyst/Handler/Base.html">Base</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Handler/BasicAuth" data-name="kemalyst::handler::basicauth">
+      <a href="../../Kemalyst/Handler/BasicAuth.html">BasicAuth</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Handler/Block" data-name="kemalyst::handler::block">
+      <a href="../../Kemalyst/Handler/Block.html">Block</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Handler/Cors" data-name="kemalyst::handler::cors">
+      <a href="../../Kemalyst/Handler/Cors.html">Cors</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Handler/Error" data-name="kemalyst::handler::error">
+      <a href="../../Kemalyst/Handler/Error.html">Error</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Handler/Logger" data-name="kemalyst::handler::logger">
+      <a href="../../Kemalyst/Handler/Logger.html">Logger</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Handler/Params" data-name="kemalyst::handler::params">
+      <a href="../../Kemalyst/Handler/Params.html">Params</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Handler/Route" data-name="kemalyst::handler::route">
+      <a href="../../Kemalyst/Handler/Route.html">Route</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Handler/Router" data-name="kemalyst::handler::router">
+      <a href="../../Kemalyst/Handler/Router.html">Router</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Handler/Session" data-name="kemalyst::handler::session">
+      <a href="../../Kemalyst/Handler/Session.html">Session</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Handler/Static" data-name="kemalyst::handler::static">
+      <a href="../../Kemalyst/Handler/Static.html">Static</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Handler/WebSocket" data-name="kemalyst::handler::websocket">
+      <a href="../../Kemalyst/Handler/WebSocket.html">WebSocket</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Model" data-name="kemalyst::model">
+      <a href="../../Kemalyst/Model.html">Model</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+</div>
+
+<div id="main-content">
+<h1 class="type-name">
+
+  <span class="kind">abstract class</span> Kemalyst::Adapter::Base
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../../Kemalyst/Adapter/Base.html">Kemalyst::Adapter::Base</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+
+
+
+
+  <h2>Overview</h2>
+
+  <p>The Base Adapter specifies the interface that will be used by the model
+objects to perform actions against a specific database.  Each adapter needs
+to implement these methods.</p>
+
+
+
+
+
+
+
+
+
+  <h2>Direct Known Subclasses</h2>
+  <ul class="other-types-list">
+  
+    <li class="other-type"><a href="../../Kemalyst/Adapter/Mysql.html">Kemalyst::Adapter::Mysql</a></li>
+  
+    <li class="other-type"><a href="../../Kemalyst/Adapter/Pg.html">Kemalyst::Adapter::Pg</a></li>
+  
+  </ul>
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/adapter/base.cr" target="_blank">adapter/base.cr</a>
+    
+    <br/>
+  
+
+
+
+
+
+
+
+  <h2>Instance Method Summary</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#clear%28table_name%29-instance-method" class="signature"><strong>#clear</strong>(table_name)</a>
+        
+          <div class="summary"><p>clear will remove all rows from a table and reset the counter on the id.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#create%28table_name%2Cfields%29-instance-method" class="signature"><strong>#create</strong>(table_name, fields)</a>
+        
+          <div class="summary"><p>create will create the table based on the fields specified in the sql_mapping defined in the model.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#delete%28table_name%2Cid%29-instance-method" class="signature"><strong>#delete</strong>(table_name, id)</a>
+        
+          <div class="summary"><p>This will delete a row from the database.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#drop%28table_name%29-instance-method" class="signature"><strong>#drop</strong>(table_name)</a>
+        
+          <div class="summary"><p>drop will drop the table</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#env%28value%29-instance-method" class="signature"><strong>#env</strong>(value)</a>
+        
+          <div class="summary"><p>method used to lookup the environment variable if exists</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#insert%28table_name%2Cfields%2Cparams%29%3AInt64-instance-method" class="signature"><strong>#insert</strong>(table_name, fields, params) : Int64</a>
+        
+          <div class="summary"><p>This will insert a row in the database and return the id generated.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#select%28table_name%2Cfields%2Cclause%3D%3Cspanclass%3D%22s%22%3E%26quot%3B%26quot%3B%3C%2Fspan%3E%2Cparams%3D%7B%7D%3Cspanclass%3D%22k%22%3Eof%3C%2Fspan%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%3D%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%29-instance-method" class="signature"><strong>#select</strong>(table_name, fields, clause = <span class="s">&quot;&quot;</span>, params = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>)</a>
+        
+          <div class="summary"><p>select performs a query against a table.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#select_one%28table_name%2Cfields%2Cid%29-instance-method" class="signature"><strong>#select_one</strong>(table_name, fields, id)</a>
+        
+          <div class="summary"><p>select_one is used by the find method.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#type_mapping%28db_type%29-instance-method" class="signature"><strong>#type_mapping</strong>(db_type)</a>
+        
+          <div class="summary"><p>method to perform a reverse mapping of Database Type to Crystal Type.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#update%28table_name%2Cfields%2Cid%2Cparams%29-instance-method" class="signature"><strong>#update</strong>(table_name, fields, id, params)</a>
+        
+          <div class="summary"><p>This will update a row in the database.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+<div class="methods-inherited">
+  
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+  
+</div>
+
+
+
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail" id="clear&#40;table_name&#41;-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>clear</strong>(table_name)
+
+        <a class="method-permalink" href="#clear%28table_name%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>clear will remove all rows from a table and reset the counter on the id.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/adapter/base.cr#L42" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="create&#40;table_name,fields&#41;-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>create</strong>(table_name, fields)
+
+        <a class="method-permalink" href="#create%28table_name%2Cfields%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>create will create the table based on the fields specified in the
+sql_mapping defined in the model.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/adapter/base.cr#L49" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="delete&#40;table_name,id&#41;-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>delete</strong>(table_name, id)
+
+        <a class="method-permalink" href="#delete%28table_name%2Cid%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>This will delete a row from the database.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/adapter/base.cr#L74" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="drop&#40;table_name&#41;-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>drop</strong>(table_name)
+
+        <a class="method-permalink" href="#drop%28table_name%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>drop will drop the table</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/adapter/base.cr#L45" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="env&#40;value&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>env</strong>(value)
+
+        <a class="method-permalink" href="#env%28value%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>method used to lookup the environment variable if exists</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/adapter/base.cr#L9" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="insert&#40;table_name,fields,params&#41;:Int64-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>insert</strong>(table_name, fields, params) : Int64
+
+        <a class="method-permalink" href="#insert%28table_name%2Cfields%2Cparams%29%3AInt64-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>This will insert a row in the database and return the id generated.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/adapter/base.cr#L68" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="select&#40;table_name,fields,clause&#61;&lt;spanclass&#61;&quot;s&quot;&gt;&amp;quot;&amp;quot;&lt;/span&gt;,params&#61;&#123;&#125;&lt;spanclass&#61;&quot;k&quot;&gt;of&lt;/span&gt;&lt;spanclass&#61;&quot;t&quot;&gt;String&lt;/span&gt;&#61;&gt;&lt;spanclass&#61;&quot;t&quot;&gt;String&lt;/span&gt;&#41;-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>select</strong>(table_name, fields, clause = <span class="s">&quot;&quot;</span>, params = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>)
+
+        <a class="method-permalink" href="#select%28table_name%2Cfields%2Cclause%3D%3Cspanclass%3D%22s%22%3E%26quot%3B%26quot%3B%3C%2Fspan%3E%2Cparams%3D%7B%7D%3Cspanclass%3D%22k%22%3Eof%3C%2Fspan%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%3D%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>select performs a query against a table.  The table_name and fields are
+configured using the sql_mapping directive in your model.  The clause and
+params is the query and params that is passed in via .all() method</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/adapter/base.cr#L62" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="select_one&#40;table_name,fields,id&#41;-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>select_one</strong>(table_name, fields, id)
+
+        <a class="method-permalink" href="#select_one%28table_name%2Cfields%2Cid%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>select_one is used by the find method.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/adapter/base.cr#L65" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="type_mapping&#40;db_type&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>type_mapping</strong>(db_type)
+
+        <a class="method-permalink" href="#type_mapping%28db_type%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>method to perform a reverse mapping of Database Type to Crystal Type.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/adapter/base.cr#L19" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="update&#40;table_name,fields,id,params&#41;-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>update</strong>(table_name, fields, id, params)
+
+        <a class="method-permalink" href="#update%28table_name%2Cfields%2Cid%2Cparams%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>This will update a row in the database.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/803d69c52be51c69eb55dd29ee2279a42e9cf9bd/src/adapter/base.cr#L71" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+</div>
+
+</body>
+</html>
