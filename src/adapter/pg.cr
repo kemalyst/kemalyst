@@ -3,12 +3,24 @@ require "pg"
 
 # PostgreSQL implementation of the Adapter
 class Kemalyst::Adapter::Pg < Kemalyst::Adapter::Base
-  @pool : ConnectionPool(PG::Connection)
+  @pool : ConnectionPool(PG::Connection?)
 
   def initialize(settings)
     database = env(settings["database"].to_s)
     @pool = ConnectionPool.new(capacity: 20) do
-       PG.connect(database)
+      retry = 5
+      while retry > 0
+        begin
+          conn = PG.connect(database)
+        rescue ex
+          sleep 1
+          retry -= 1
+        end
+      end
+      if ex && conn == nil
+        raise ex 
+      end
+      conn
     end
   end
 
