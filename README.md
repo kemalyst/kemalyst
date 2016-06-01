@@ -67,7 +67,7 @@ To run the demo app locally:
 3. visit `http://0.0.0.0:3000/`
 
 
-### Run With docket
+### Run With docker
 To run the demo app, we are including a Dockerfile and docker-compose.yml. If
 you have docker setup, you should be able to run:
 ```
