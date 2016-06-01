@@ -395,7 +395,11 @@ rendered as the body and then the chain will unwind and perform post handling.</
 
 <h3>Views</h3>
 
-<p>Views are rendered using ECR format.  This is similar to Rails ERB.</p>
+<p>Views are rendered using <a href="http://github.com/jeromegn/kilt" target="_blank">Kilt</a>.  Currently,
+there are 4 different templating languages supported by Kilt: <code>ecr</code>, <code>mustache</code>,
+<code>slang</code> and <code>temel</code>.  Kilt will select the templating engine based on the
+extension of the file so <code>index.ecr</code> will render the file using the ECR
+engine.</p>
 
 <p>The render method is configured to look in the "src/views" path to keep the
 controllers simple.  You may also render with a layout which will look for

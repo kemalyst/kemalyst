@@ -214,7 +214,12 @@ There are several helper macros that set content type and response.
 
 ### Views
 
-Views are rendered using ECR format.  This is similar to Rails ERB.
+Views are rendered using [Kilt](http://github.com/jeromegn/kilt).  Currently,
+there are 4 different templating languages supported by Kilt: `ecr`, `mustache`,
+`slang` and `temel`.  Kilt will select the templating engine based on the
+extension of the file so `index.ecr` will render the file using the ECR
+engine.
+
 
 The render method is configured to look in the "src/views" path to keep the
 controllers simple.  You may also render with a layout which will look for
