@@ -5,7 +5,7 @@
   <meta id="repository-name" content="github.com/drujensen/kemalyst">
   <link href="../../css/style.css" rel="stylesheet" type="text/css" />
   <script type="text/javascript" src="../../js/doc.js"></script>
-  <title>Kemalyst::Adapter::Pg - github.com/drujensen/kemalyst</title>
+  <title>Kemalyst::Adapter::Sqlite - github.com/drujensen/kemalyst</title>
 </head>
 <body>
 
@@ -50,7 +50,7 @@
       
     </li>
   
-  <li class="parent current" data-id="github.com/drujensen/kemalyst/Kemalyst/Adapter/Pg" data-name="kemalyst::adapter::pg">
+  <li class="parent " data-id="github.com/drujensen/kemalyst/Kemalyst/Adapter/Pg" data-name="kemalyst::adapter::pg">
       <a href="../../Kemalyst/Adapter/Pg.html">Pg</a>
       
         <ul>
@@ -65,7 +65,7 @@
       
     </li>
   
-  <li class="parent " data-id="github.com/drujensen/kemalyst/Kemalyst/Adapter/Sqlite" data-name="kemalyst::adapter::sqlite">
+  <li class="parent current" data-id="github.com/drujensen/kemalyst/Kemalyst/Adapter/Sqlite" data-name="kemalyst::adapter::sqlite">
       <a href="../../Kemalyst/Adapter/Sqlite.html">Sqlite</a>
       
         <ul>
@@ -197,19 +197,19 @@
 <div id="main-content">
 <h1 class="type-name">
 
-  <span class="kind">class</span> Kemalyst::Adapter::Pg
+  <span class="kind">class</span> Kemalyst::Adapter::Sqlite
 
 </h1>
 
 
-  <ul class="superclass-hierarchy"><li class="superclass"><a href="../../Kemalyst/Adapter/Pg.html">Kemalyst::Adapter::Pg</a></li><li class="superclass"><a href="../../Kemalyst/Adapter/Base.html">Kemalyst::Adapter::Base</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../../Kemalyst/Adapter/Sqlite.html">Kemalyst::Adapter::Sqlite</a></li><li class="superclass"><a href="../../Kemalyst/Adapter/Base.html">Kemalyst::Adapter::Base</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
 
 
 
 
   <h2>Overview</h2>
 
-  <p>PostgreSQL implementation of the Adapter</p>
+  <p>Sqlite implementation of the Adapter</p>
 
 
 
@@ -227,7 +227,7 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/drujensen/kemalyst/blob/8f238bfe0248c7f76529bec0d41fba6ed66dc1c8/src/adapter/pg.cr" target="_blank">adapter/pg.cr</a>
+      <a href="https://github.com/drujensen/kemalyst/blob/8f238bfe0248c7f76529bec0d41fba6ed66dc1c8/src/adapter/sqlite.cr" target="_blank">adapter/sqlite.cr</a>
     
     <br/>
   
@@ -279,14 +279,12 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#query%28query%2Cparams%3D%7B%7D%3Cspanclass%3D%22k%22%3Eof%3C%2Fspan%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%3D%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%2Cfields%3D%7B%7D%3Cspanclass%3D%22k%22%3Eof%3C%2Fspan%3E%3Cspanclass%3D%22t%22%3ESymbol%3C%2Fspan%3E%3D%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%29-instance-method" class="signature"><strong>#query</strong>(query, params = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>, fields = {} <span class="k">of</span> <span class="t">Symbol</span> => <span class="t">String</span>)</a>
+        <a href="#query%28query%2Cparams%3D%7B%7D%3Cspanclass%3D%22k%22%3Eof%3C%2Fspan%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%3D%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%29-instance-method" class="signature"><strong>#query</strong>(query, params = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>)</a>
         
       </li>
     
       <li class="entry-summary">
         <a href="#select%28table_name%2Cfields%2Cclause%3D%3Cspanclass%3D%22s%22%3E%26quot%3B%26quot%3B%3C%2Fspan%3E%2Cparams%3D%7B%7D%3Cspanclass%3D%22k%22%3Eof%3C%2Fspan%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%3D%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%29-instance-method" class="signature"><strong>#select</strong>(table_name, fields, clause = <span class="s">&quot;&quot;</span>, params = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>)</a>
-        
-          <div class="summary"><p>DML</p></div>
         
       </li>
     
@@ -388,7 +386,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/8f238bfe0248c7f76529bec0d41fba6ed66dc1c8/src/adapter/pg.cr#L8" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/8f238bfe0248c7f76529bec0d41fba6ed66dc1c8/src/adapter/sqlite.cr#L8" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -411,7 +409,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/8f238bfe0248c7f76529bec0d41fba6ed66dc1c8/src/adapter/pg.cr#L28" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/8f238bfe0248c7f76529bec0d41fba6ed66dc1c8/src/adapter/sqlite.cr#L16" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -427,7 +425,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/8f238bfe0248c7f76529bec0d41fba6ed66dc1c8/src/adapter/pg.cr#L36" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/8f238bfe0248c7f76529bec0d41fba6ed66dc1c8/src/adapter/sqlite.cr#L24" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -443,7 +441,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/8f238bfe0248c7f76529bec0d41fba6ed66dc1c8/src/adapter/pg.cr#L92" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/8f238bfe0248c7f76529bec0d41fba6ed66dc1c8/src/adapter/sqlite.cr#L81" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -459,7 +457,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/8f238bfe0248c7f76529bec0d41fba6ed66dc1c8/src/adapter/pg.cr#L32" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/8f238bfe0248c7f76529bec0d41fba6ed66dc1c8/src/adapter/sqlite.cr#L20" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -475,23 +473,23 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/8f238bfe0248c7f76529bec0d41fba6ed66dc1c8/src/adapter/pg.cr#L66" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/8f238bfe0248c7f76529bec0d41fba6ed66dc1c8/src/adapter/sqlite.cr#L53" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="query&#40;query,params&#61;&#123;&#125;&lt;spanclass&#61;&quot;k&quot;&gt;of&lt;/span&gt;&lt;spanclass&#61;&quot;t&quot;&gt;String&lt;/span&gt;&#61;&gt;&lt;spanclass&#61;&quot;t&quot;&gt;String&lt;/span&gt;,fields&#61;&#123;&#125;&lt;spanclass&#61;&quot;k&quot;&gt;of&lt;/span&gt;&lt;spanclass&#61;&quot;t&quot;&gt;Symbol&lt;/span&gt;&#61;&gt;&lt;spanclass&#61;&quot;t&quot;&gt;String&lt;/span&gt;&#41;-instance-method">
+    <div class="entry-detail" id="query&#40;query,params&#61;&#123;&#125;&lt;spanclass&#61;&quot;k&quot;&gt;of&lt;/span&gt;&lt;spanclass&#61;&quot;t&quot;&gt;String&lt;/span&gt;&#61;&gt;&lt;spanclass&#61;&quot;t&quot;&gt;String&lt;/span&gt;&#41;-instance-method">
       <div class="signature">
         
-        def <strong>query</strong>(query, params = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>, fields = {} <span class="k">of</span> <span class="t">Symbol</span> => <span class="t">String</span>)
+        def <strong>query</strong>(query, params = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>)
 
-        <a class="method-permalink" href="#query%28query%2Cparams%3D%7B%7D%3Cspanclass%3D%22k%22%3Eof%3C%2Fspan%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%3D%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%2Cfields%3D%7B%7D%3Cspanclass%3D%22k%22%3Eof%3C%2Fspan%3E%3Cspanclass%3D%22t%22%3ESymbol%3C%2Fspan%3E%3D%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%29-instance-method">#</a>
+        <a class="method-permalink" href="#query%28query%2Cparams%3D%7B%7D%3Cspanclass%3D%22k%22%3Eof%3C%2Fspan%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%3D%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/8f238bfe0248c7f76529bec0d41fba6ed66dc1c8/src/adapter/pg.cr#L96" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/8f238bfe0248c7f76529bec0d41fba6ed66dc1c8/src/adapter/sqlite.cr#L85" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -504,12 +502,10 @@
         <a class="method-permalink" href="#select%28table_name%2Cfields%2Cclause%3D%3Cspanclass%3D%22s%22%3E%26quot%3B%26quot%3B%3C%2Fspan%3E%2Cparams%3D%7B%7D%3Cspanclass%3D%22k%22%3Eof%3C%2Fspan%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%3D%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>DML</p></div>
-      
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/8f238bfe0248c7f76529bec0d41fba6ed66dc1c8/src/adapter/pg.cr#L47" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/8f238bfe0248c7f76529bec0d41fba6ed66dc1c8/src/adapter/sqlite.cr#L34" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -525,7 +521,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/8f238bfe0248c7f76529bec0d41fba6ed66dc1c8/src/adapter/pg.cr#L56" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/8f238bfe0248c7f76529bec0d41fba6ed66dc1c8/src/adapter/sqlite.cr#L43" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -541,7 +537,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/8f238bfe0248c7f76529bec0d41fba6ed66dc1c8/src/adapter/pg.cr#L80" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/8f238bfe0248c7f76529bec0d41fba6ed66dc1c8/src/adapter/sqlite.cr#L69" target="_blank">View source</a>]
         
       </div>
     </div>
