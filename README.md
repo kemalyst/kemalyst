@@ -9,12 +9,12 @@
 Kemalyst is a yarlf (yet another rails like framework) that is based on on
 super fast [kemal](https://github.com/sdogruyol/kemal). The framework
 leverages the http handlers which are similar to Rack middleware. The
-controllers are also HTTP::Handlers that render the response.  
+controllers are also HTTP::Handlers that render the response.
 
 One of the main differences Kemalyst provides is the ability to chain
 controllers in your routes.cr.  For example, you can chain a WebSocket handler
 before your Index controller to allow for upgrading the connection for
-a specific route.  
+a specific route.
 
 The model is a simple ORM mapping and supports MySQL, PG and SQLite.
 
@@ -45,9 +45,9 @@ dependencies:
   pg:
     github: will/crystal-pg
     branch: master
-  sql:
+  mysql:
     github: waterlink/crystal-mysql
-    branch: master 
+    branch: master
 ```
 and run `shards update`.
 
@@ -59,6 +59,15 @@ Rails background.
 
 ## Usage
 
+### Run Locally
+To run the demo app locally:
+
+1. build the app `crystal build --release src/app.cr`
+2. run with `./app`
+3. visit `http://0.0.0.0:3000/`
+
+
+### Run With docket
 To run the demo app, we are including a Dockerfile and docker-compose.yml. If
 you have docker setup, you should be able to run:
 ```
@@ -134,7 +143,7 @@ end
 
 You may chain multiple handlers in a route using an array:
 ```
-get "/", [ BasicAuth.instance("username", "password"), 
+get "/", [ BasicAuth.instance("username", "password"),
            DemoController::Index.instance ]
 ```
 
@@ -193,7 +202,7 @@ class Index < Kemalyst::Controller
 end
 ```
 
-There are several helper macros that set content type and response.  
+There are several helper macros that set content type and response.
 ```
   render "filename.ecr" # renders an .ecr template
   render "filename.ecr", "layout.ecr" # renders an .ecr template with layout
@@ -212,7 +221,7 @@ controllers simple.  You may also render with a layout which will look for
 this in the "src/views/layouts" directory.
 
 ```
-render "post/index.ecr", "main.ecr" 
+render "post/index.ecr", "main.ecr"
 
 ```
 This will render the index.ecr template inside the main.ecr layout. All local
@@ -226,7 +235,7 @@ An example `views/post/index.ecr`:
     <p><%= post.body %></p>
     <p>
       <a href="/posts/<%= post.id %>">read</a>
-      | <a href="/posts/<%= post.id %>/edit">edit</a> | 
+      | <a href="/posts/<%= post.id %>/edit">edit</a> |
       <a href="/posts/<%= post.id %>?_method=delete" onclick="return confirm('Are you sure?');">delete</a>
     </p>
   </div>
@@ -266,10 +275,10 @@ require "kemalyst/adapter/pg"
 
 class Post < Kemalyst::Model
   adapter pg
-  
-  sql_mapping({ 
-    name: ["VARCHAR(255)", String], 
-    body: ["TEXT", String] 
+
+  sql_mapping({
+    name: ["VARCHAR(255)", String],
+    body: ["TEXT", String]
   })
 
 end
@@ -282,7 +291,7 @@ There are several methods that are provided in the model.
 - self.drop - "Drop table..."
 - self.create - "Create table..."
 - self.clear - "DELETE from table;"
-- save - "Insert or Update depending on if ID is set" 
+- save - "Insert or Update depending on if ID is set"
 - destroy - "Delete from table where id = this.id;"
 - all(where) "Select * from table #{where};"
 - find(id) - Select * from table where id = this.id limit 1;"
