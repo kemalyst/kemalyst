@@ -4,7 +4,7 @@
 
 # Kemalyst
 
-[Kemalyst API documentation](http://kemalyst.drujensen.com) can be found here.
+[Kemalyst API documentation](http://drujensen.github.io/kemalyst/doc/) can be found here.
 
 Kemalyst is a yarlf (yet another rails like framework) that is based on on
 super fast [kemal](https://github.com/sdogruyol/kemal). The framework
