@@ -48,6 +48,9 @@ dependencies:
   mysql:
     github: waterlink/crystal-mysql
     branch: master
+  sqlite3:
+    github: manastech/crystal-sqlite3
+    branch: master
 ```
 and run `shards update`.
 
@@ -293,13 +296,15 @@ The mapping will automatically create the id, created_at and updated_at column
 mapping that follows the active_record convention in Rails.
 
 There are several methods that are provided in the model.
-- self.drop - "Drop table..."
-- self.create - "Create table..."
-- self.clear - "DELETE from table;"
-- save - "Insert or Update depending on if ID is set"
-- destroy - "Delete from table where id = this.id;"
-- all(where) "Select * from table #{where};"
-- find(id) - Select * from table where id = this.id limit 1;"
+- self.drop - DROP table...
+- self.create - CREATE table...
+- self.clear - DELETE from table
+- self.migrate = Add/Update columns to match model definition.  TODO: Currently doesn't support changing the type or size of the column.
+- self.prune - Remove any undefined fields from the database
+- save - Insert or Update depending on if ID is set
+- destroy - DELETE FROM table WHERE id = this.id
+- all(where) SELECT * FROM table #{WHERE clause};"
+- find(id) - SELECT * FROM table WHERE id = this.id LIMIT 1;"
 
 ## Contributing
 

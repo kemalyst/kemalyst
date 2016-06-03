@@ -8,11 +8,12 @@ class Kemalyst::Adapter::Pg < Kemalyst::Adapter::Base
   def initialize(settings)
     database = env(settings["database"].to_s)
     @pool = ConnectionPool.new(capacity: 20) do
-      retry = 5
+      retry = 10
       while retry > 0
         begin
           conn = PG.connect(database)
-        rescue ex
+          retry = 0
+        rescue ex : PQ::ConnectionError
           sleep 1
           retry -= 1
         end
@@ -25,14 +26,6 @@ class Kemalyst::Adapter::Pg < Kemalyst::Adapter::Base
   end
 
   # DDL
-  def clear(table_name)
-    self.query("DELETE FROM #{table_name}")
-  end
-
-  def drop(table_name)
-    return self.query("DROP TABLE IF EXISTS #{table_name}")
-  end
-
   def create(table_name, fields)
     statement = String.build do |stmt|
       stmt << "CREATE TABLE #{table_name} ("
@@ -43,41 +36,34 @@ class Kemalyst::Adapter::Pg < Kemalyst::Adapter::Base
     return self.query(statement)
   end
 
-  def migrate(table_name, fields)
-    # query the schema and create hash of fields with types
-    # for each field, determine if the field matches the schema
-    # if not, alter the table to rename the field to *_save
-    # then alter the table to add the updated field
-    # finally, migrate the existing data to the new field (if possible?)
+  # Add a field to the table. Postgres does not support `AFTER` so the
+  # previous field will be ignored.
+  def add_field(table_name, name, type, previous = nil)
+    statement = String.build do |stmt|
+      stmt << "ALTER TABLE #{table_name} ADD COLUMN"
+      stmt << " #{name} #{type}"
+    end
+    return self.query(statement)
   end
 
-  # We might want a new method to cleanup saved fields after migration is
-  # performed
-  def cleanup(table_name)
-    # query the schema for any fields ending in _save
-    # alter table to remove the fields
+  # change a field in the table.
+  def rename_field(table_name, old_name, new_name, type)
+    statement = String.build do |stmt|
+      stmt << "ALTER TABLE #{table_name} RENAME"
+      stmt << " #{old_name} TO #{new_name}"
+    end
+    return self.query(statement)
+  end
+  
+  def remove_field(table_name, name)
+    statement = String.build do |stmt|
+      stmt << "ALTER TABLE #{table_name} DROP COLUMN"
+      stmt << " #{name}"
+    end
+    return self.query(statement)
   end
 
   # DML
-  def select(table_name, fields, clause = "", params = {} of String => String)
-    statement = String.build do |stmt|
-      stmt << "SELECT "
-      stmt << fields.map{|name, type| "#{name}"}.join(",")
-      stmt << " FROM #{table_name} #{clause}"
-    end
-    return self.query(statement, params, fields)
-  end
-  
-  def select_one(table_name, fields, id)
-    statement = String.build do |stmt|
-      stmt << "SELECT "
-      stmt << fields.map{|name, type| "#{name}"}.join(",")
-      stmt << " FROM #{table_name}"
-      stmt << " WHERE id=:id LIMIT 1"
-    end
-    return self.query(statement, {"id" => id}, fields)
-  end
-
   def insert(table_name, fields, params)
     statement = String.build do |stmt|
       stmt << "INSERT INTO #{table_name} ("
@@ -92,30 +78,14 @@ class Kemalyst::Adapter::Pg < Kemalyst::Adapter::Base
     end
   end
   
-  def update(table_name, fields, id, params)
-    statement = String.build do |stmt|
-      stmt << "UPDATE #{table_name} SET "
-      stmt << fields.map{|name, type| "#{name}=:#{name}"}.join(",")
-      stmt << " WHERE id=:id"
-    end
-    if id
-      params["id"] = "#{id}"
-    end
-    return self.query(statement, params, fields)
-  end
-  
-  def delete(table_name, id)
-    return self.query("DELETE FROM #{table_name} WHERE id=:id", {"id" => id})
-  end
-
-  def query(query, params = {} of String => String, fields = {} of Symbol => String)
+  def query(statement : String, params = {} of String => String, fields = {} of Symbol => String)
     if params
-      query, params = scrub_query_and_params(query, params, fields)
+      statement, params = scrub_query_and_params(statement, params, fields)
     end
     conn = @pool.connection 
     if conn
       begin
-        results = conn.exec(query, params)
+        results = conn.exec(statement, params)
         return results.rows
       ensure
         @pool.release

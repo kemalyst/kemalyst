@@ -56,6 +56,10 @@ require "yaml"
 # Post.create #create the table
 
 # Post.clear #truncate the table
+
+# Post.migrate #additive migration. 
+
+# Post.prune #remove unused columns.
 # ```
 
 # ### DML
@@ -139,7 +143,8 @@ require "yaml"
 # 
 # ## Connection Pool
 #
-# A connection pool is leveraged to reduce the cost of opening and closing
+# A [connection pool](http://github.com/ysbaddaden/pool) contributed by
+# ysbaddaden is leveraged to reduce the cost of opening and closing
 # connections.
 class Kemalyst::Model
 
@@ -152,6 +157,10 @@ class Kemalyst::Model
       settings = yaml["{{name.id}}"]
     end
     @@database = Kemalyst::Adapter::{{name.id.capitalize}}.new(settings)
+
+    def self.database
+      @@database
+    end
   end  
 
   # sql_mapping is the mapping between columns in your database and the fields
@@ -271,6 +280,23 @@ class Kemalyst::Model
     return true
   end
 
+  # Prune fields no longer defined in the model.  This should be used after
+  # you have successfully migrated.
+  def self.prune
+    if db = @@database
+      db.prune(@@table_name, fields)
+    end
+    return true
+  end
+
+  # Perform a query directly against the database
+  def self.query(statement : String, params = {} of String => String) 
+    if db = @@database
+      results = db.query(statement, params, fields)
+    end
+    return results
+  end
+
   # The save method will check to see if the @id exists yet.  If it does it
   # will call the update method, otherwise it will call the create method.
   # This will update the timestamps apropriately.
@@ -303,17 +329,17 @@ class Kemalyst::Model
   # that you are using so you are not restricted or dummied down to support a
   # DSL.  
   def self.all(clause = "", params = {} of String => String)
-    return self.query(@@table_name, fields({"id" => "INT"}), clause, params)
+    return self.select(@@table_name, fields({"id" => "INT"}), clause, params)
   end
   
   # find returns the row with the id specified.
   def self.find(id)
-    return self.query_one(@@table_name, fields({"id" => "INT"}), id)
+    return self.select_one(@@table_name, fields({"id" => "INT"}), id)
   end
   
-  # query performs the select statement and calls the from_sql with the
+  # select performs the select statement and calls the from_sql with the
   # results.
-  def self.query(table_name, fields, clause, params = {} of String => String)
+  def self.select(table_name, fields, clause, params = {} of String => String)
     rows = [] of self
     if db = @@database
       results = db.select(table_name, fields, clause, params)
@@ -328,9 +354,9 @@ class Kemalyst::Model
     return rows
   end
 
-  # query_one is a convenience method for only returning the first instance of a
-  # query.
-  def self.query_one(table_name, fields, id)
+  # select_one is a convenience method for only returning the first instance of a
+  # results.
+  def self.select_one(table_name, fields, id)
     row = nil
     if db = @@database
       results = db.select_one(table_name, fields, id)

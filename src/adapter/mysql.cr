@@ -16,14 +16,12 @@ class Kemalyst::Adapter::Mysql < Kemalyst::Adapter::Base
     end
   end
 
+  # DDL
+  #Using TRUNCATE instead of DELETE so the id column resets to 0
   def clear(table_name)
-    return self.query("TRUNCATE #{table_name}")
+    self.query("TRUNCATE #{table_name}")
   end
-
-  def drop(table_name)
-    return self.query("DROP TABLE IF EXISTS #{table_name}")
-  end
-
+  
   def create(table_name, fields)
     statement = String.build do |stmt|
       stmt << "CREATE TABLE #{table_name} ("
@@ -36,29 +34,38 @@ class Kemalyst::Adapter::Mysql < Kemalyst::Adapter::Base
     return self.query(statement)
   end
 
-  def migrate(table_name, fields)
-
-  end
-
-  def select(table_name, fields, clause = "", params = {} of String => String)
+  # Add a field to the table. Your field will be added after the `previous` if
+  # specified.
+  def add_field(table_name, name, type, previous = nil)
     statement = String.build do |stmt|
-      stmt << "SELECT "
-      stmt << fields.map{|name, type| "#{name}"}.join(",")
-      stmt << " FROM #{table_name} #{clause}"
+      stmt << "ALTER TABLE #{table_name} ADD COLUMN"
+      stmt << " #{name} #{type}"
+      if previous
+        stmt << " AFTER #{previous}"
+      end
     end
-    return self.query(statement, params)
+    return self.query(statement)
   end
   
-  def select_one(table_name, fields, id)
+  # rename a field in the table.
+  def rename_field(table_name, old_name, new_name, type)
     statement = String.build do |stmt|
-      stmt << "SELECT "
-      stmt << fields.map{|name, type| "#{name}"}.join(",")
-      stmt << " FROM #{table_name}"
-      stmt << " WHERE id=:id LIMIT 1"
+      stmt << "ALTER TABLE #{table_name} CHANGE"
+      stmt << " #{old_name} #{new_name} #{type}"
     end
-    return self.query(statement, {"id" => id})
+    return self.query(statement)
   end
 
+  def remove_field(table_name, name)
+    statement = String.build do |stmt|
+      stmt << "ALTER TABLE #{table_name} DROP COLUMN"
+      stmt << " #{name}"
+    end
+    return self.query(statement)
+  end
+  
+
+  # DML
   def insert(table_name, fields, params)
     statement = String.build do |stmt|
       stmt << "INSERT INTO #{table_name} ("
@@ -74,26 +81,12 @@ class Kemalyst::Adapter::Mysql < Kemalyst::Adapter::Base
     end
   end
   
-  def update(table_name, fields, id, params)
-    statement = String.build do |stmt|
-      stmt << "UPDATE #{table_name} SET "
-      stmt << fields.map{|name, type| "#{name}=:#{name}"}.join(",")
-      stmt << " WHERE id=:id"
-    end
-    params["id"] = "#{id}"
-    return self.query(statement, params)
-  end
-  
-  def delete(table_name, id)
-    return self.query("DELETE FROM #{table_name} WHERE id=:id", {"id" => id})
-  end
-
-  def query(query, params = {} of String => String)
+  def query(statement : String, params = {} of String => String, fields = {} of Symbol => String)
     results = nil
     
     if conn = @pool.connection
       begin
-        results = MySQL::Query.new(query, scrub_params(params)).run(conn)
+        results = MySQL::Query.new(statement, scrub_params(params)).run(conn)
       ensure
         @pool.release
       end

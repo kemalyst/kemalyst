@@ -1,6 +1,6 @@
 require "../src/models/*"
 
-Post.drop
-Post.create
+Post.migrate
+Post.prune
 
 
