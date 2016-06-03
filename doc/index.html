@@ -243,6 +243,9 @@ cd your_app</code></pre>
     branch: master
   mysql:
     github: waterlink<span class="s">/crystal-mysql
+    branch: master
+  sqlite3:
+    github: manastech/</span>crystal<span class="o">-</span>sqlite3
     branch: master</code></pre>
 
 <p>and run <code>shards update</code>.</p>
@@ -469,7 +472,7 @@ mapping that follows the active_record convention in Rails.</p>
 
 <p>There are several methods that are provided in the model.</p>
 
-<ul><li>self.drop - "Drop table..."</li><li>self.create - "Create table..."</li><li>self.clear - "DELETE from table;"</li><li>save - "Insert or Update depending on if ID is set"</li><li>destroy - "Delete from table where id = this.id;"</li><li>all(where) "Select * from table #{where};"</li><li>find(id) - Select * from table where id = this.id limit 1;"</li></ul>
+<ul><li>self.drop - DROP table...</li><li>self.create - CREATE table...</li><li>self.clear - DELETE from table</li><li>self.migrate = Add/Update columns to match model definition.  TODO: Currently doesn't support changing the type or size of the column.</li><li>self.prune - Remove any undefined fields from the database</li><li>save - Insert or Update depending on if ID is set</li><li>destroy - DELETE FROM table WHERE id = this.id</li><li>all(where) SELECT * FROM table #{WHERE clause};"</li><li>find(id) - SELECT * FROM table WHERE id = this.id LIMIT 1;"</li></ul>
 
 <h2>Contributing</h2>
 

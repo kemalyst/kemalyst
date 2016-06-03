@@ -227,7 +227,7 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/drujensen/kemalyst/blob/837440188771eeaf2fa2280386f93c1009424620/src/adapter/pg.cr" target="_blank">adapter/pg.cr</a>
+      <a href="https://github.com/drujensen/kemalyst/blob/b395a1abe5a83261c44dbdf2b37f37fcfbc8972f/src/adapter/pg.cr" target="_blank">adapter/pg.cr</a>
     
     <br/>
   
@@ -252,51 +252,40 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#clear%28table_name%29-instance-method" class="signature"><strong>#clear</strong>(table_name)</a>
+        <a href="#add_field%28table_name%2Cname%2Ctype%2Cprevious%3D%3Cspanclass%3D%22n%22%3Enil%3C%2Fspan%3E%29-instance-method" class="signature"><strong>#add_field</strong>(table_name, name, type, previous = <span class="n">nil</span>)</a>
         
-          <div class="summary"><p>DDL</p></div>
+          <div class="summary"><p>Add a field to the table.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#create%28table_name%2Cfields%29-instance-method" class="signature"><strong>#create</strong>(table_name, fields)</a>
         
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#delete%28table_name%2Cid%29-instance-method" class="signature"><strong>#delete</strong>(table_name, id)</a>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#drop%28table_name%29-instance-method" class="signature"><strong>#drop</strong>(table_name)</a>
+          <div class="summary"><p>DDL</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#insert%28table_name%2Cfields%2Cparams%29-instance-method" class="signature"><strong>#insert</strong>(table_name, fields, params)</a>
         
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#query%28query%2Cparams%3D%7B%7D%3Cspanclass%3D%22k%22%3Eof%3C%2Fspan%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%3D%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%2Cfields%3D%7B%7D%3Cspanclass%3D%22k%22%3Eof%3C%2Fspan%3E%3Cspanclass%3D%22t%22%3ESymbol%3C%2Fspan%3E%3D%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%29-instance-method" class="signature"><strong>#query</strong>(query, params = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>, fields = {} <span class="k">of</span> <span class="t">Symbol</span> => <span class="t">String</span>)</a>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#select%28table_name%2Cfields%2Cclause%3D%3Cspanclass%3D%22s%22%3E%26quot%3B%26quot%3B%3C%2Fspan%3E%2Cparams%3D%7B%7D%3Cspanclass%3D%22k%22%3Eof%3C%2Fspan%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%3D%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%29-instance-method" class="signature"><strong>#select</strong>(table_name, fields, clause = <span class="s">&quot;&quot;</span>, params = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>)</a>
-        
           <div class="summary"><p>DML</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#select_one%28table_name%2Cfields%2Cid%29-instance-method" class="signature"><strong>#select_one</strong>(table_name, fields, id)</a>
+        <a href="#query%28statement%3AString%2Cparams%3D%7B%7D%3Cspanclass%3D%22k%22%3Eof%3C%2Fspan%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%3D%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%2Cfields%3D%7B%7D%3Cspanclass%3D%22k%22%3Eof%3C%2Fspan%3E%3Cspanclass%3D%22t%22%3ESymbol%3C%2Fspan%3E%3D%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%29-instance-method" class="signature"><strong>#query</strong>(statement : String, params = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>, fields = {} <span class="k">of</span> <span class="t">Symbol</span> => <span class="t">String</span>)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#update%28table_name%2Cfields%2Cid%2Cparams%29-instance-method" class="signature"><strong>#update</strong>(table_name, fields, id, params)</a>
+        <a href="#remove_field%28table_name%2Cname%29-instance-method" class="signature"><strong>#remove_field</strong>(table_name, name)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#rename_field%28table_name%2Cold_name%2Cnew_name%2Ctype%29-instance-method" class="signature"><strong>#rename_field</strong>(table_name, old_name, new_name, type)</a>
+        
+          <div class="summary"><p>change a field in the table.</p></div>
         
       </li>
     
@@ -312,9 +301,17 @@
 
   <h3>Instance methods inherited from class <code><a href="../../Kemalyst/Adapter/Base.html">Kemalyst::Adapter::Base</a></code></h3>
   
+    <a href="../../Kemalyst/Adapter/Base.html#add_field%28table_name%2Cname%2Ctype%2Cprevious%3D%3Cspanclass%3D%22n%22%3Enil%3C%2Fspan%3E%29-instance-method" class="tooltip">
+      <span>add_field(table_name, name, type, previous = <span class="n">nil</span>)</span>
+    add_field</a>, 
+  
     <a href="../../Kemalyst/Adapter/Base.html#clear%28table_name%29-instance-method" class="tooltip">
       <span>clear(table_name)</span>
     clear</a>, 
+  
+    <a href="../../Kemalyst/Adapter/Base.html#copy_field%28table_name%2Cfrom%2Cto%29-instance-method" class="tooltip">
+      <span>copy_field(table_name, from, to)</span>
+    copy_field</a>, 
   
     <a href="../../Kemalyst/Adapter/Base.html#create%28table_name%2Cfields%29-instance-method" class="tooltip">
       <span>create(table_name, fields)</span>
@@ -335,6 +332,26 @@
     <a href="../../Kemalyst/Adapter/Base.html#insert%28table_name%2Cfields%2Cparams%29%3AInt64-instance-method" class="tooltip">
       <span>insert(table_name, fields, params) : Int64</span>
     insert</a>, 
+  
+    <a href="../../Kemalyst/Adapter/Base.html#migrate%28table_name%2Cfields%29-instance-method" class="tooltip">
+      <span>migrate(table_name, fields)</span>
+    migrate</a>, 
+  
+    <a href="../../Kemalyst/Adapter/Base.html#prune%28table_name%2Cfields%29-instance-method" class="tooltip">
+      <span>prune(table_name, fields)</span>
+    prune</a>, 
+  
+    <a href="../../Kemalyst/Adapter/Base.html#query%28statement%3AString%2Cparams%3D%7B%7D%3Cspanclass%3D%22k%22%3Eof%3C%2Fspan%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%3D%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%2Cfields%3D%7B%7D%3Cspanclass%3D%22k%22%3Eof%3C%2Fspan%3E%3Cspanclass%3D%22t%22%3ESymbol%3C%2Fspan%3E%3D%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%29-instance-method" class="tooltip">
+      <span>query(statement : String, params = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>, fields = {} <span class="k">of</span> <span class="t">Symbol</span> => <span class="t">String</span>)</span>
+    query</a>, 
+  
+    <a href="../../Kemalyst/Adapter/Base.html#remove_field%28table_name%2Cname%29-instance-method" class="tooltip">
+      <span>remove_field(table_name, name)</span>
+    remove_field</a>, 
+  
+    <a href="../../Kemalyst/Adapter/Base.html#rename_field%28table_name%2Cold_name%2Cnew_name%2Ctype%29-instance-method" class="tooltip">
+      <span>rename_field(table_name, old_name, new_name, type)</span>
+    rename_field</a>, 
   
     <a href="../../Kemalyst/Adapter/Base.html#select%28table_name%2Cfields%2Cclause%3D%3Cspanclass%3D%22s%22%3E%26quot%3B%26quot%3B%3C%2Fspan%3E%2Cparams%3D%7B%7D%3Cspanclass%3D%22k%22%3Eof%3C%2Fspan%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%3D%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%29-instance-method" class="tooltip">
       <span>select(table_name, fields, clause = <span class="s">&quot;&quot;</span>, params = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>)</span>
@@ -388,7 +405,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/837440188771eeaf2fa2280386f93c1009424620/src/adapter/pg.cr#L8" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/b395a1abe5a83261c44dbdf2b37f37fcfbc8972f/src/adapter/pg.cr#L8" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -398,20 +415,21 @@
 
   <h2>Instance Method Detail</h2>
   
-    <div class="entry-detail" id="clear&#40;table_name&#41;-instance-method">
+    <div class="entry-detail" id="add_field&#40;table_name,name,type,previous&#61;&lt;spanclass&#61;&quot;n&quot;&gt;nil&lt;/span&gt;&#41;-instance-method">
       <div class="signature">
         
-        def <strong>clear</strong>(table_name)
+        def <strong>add_field</strong>(table_name, name, type, previous = <span class="n">nil</span>)
 
-        <a class="method-permalink" href="#clear%28table_name%29-instance-method">#</a>
+        <a class="method-permalink" href="#add_field%28table_name%2Cname%2Ctype%2Cprevious%3D%3Cspanclass%3D%22n%22%3Enil%3C%2Fspan%3E%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>DDL</p></div>
+        <div class="doc"><p>Add a field to the table. Postgres does not support <code>AFTER</code> so the
+previous field will be ignored.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/837440188771eeaf2fa2280386f93c1009424620/src/adapter/pg.cr#L28" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/b395a1abe5a83261c44dbdf2b37f37fcfbc8972f/src/adapter/pg.cr#L41" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -424,42 +442,12 @@
         <a class="method-permalink" href="#create%28table_name%2Cfields%29-instance-method">#</a>
       </div>
       
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/drujensen/kemalyst/blob/837440188771eeaf2fa2280386f93c1009424620/src/adapter/pg.cr#L36" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="delete&#40;table_name,id&#41;-instance-method">
-      <div class="signature">
-        
-        def <strong>delete</strong>(table_name, id)
-
-        <a class="method-permalink" href="#delete%28table_name%2Cid%29-instance-method">#</a>
-      </div>
+        <div class="doc"><p>DDL</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/837440188771eeaf2fa2280386f93c1009424620/src/adapter/pg.cr#L92" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="drop&#40;table_name&#41;-instance-method">
-      <div class="signature">
-        
-        def <strong>drop</strong>(table_name)
-
-        <a class="method-permalink" href="#drop%28table_name%29-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/drujensen/kemalyst/blob/837440188771eeaf2fa2280386f93c1009424620/src/adapter/pg.cr#L32" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/b395a1abe5a83261c44dbdf2b37f37fcfbc8972f/src/adapter/pg.cr#L29" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -472,76 +460,62 @@
         <a class="method-permalink" href="#insert%28table_name%2Cfields%2Cparams%29-instance-method">#</a>
       </div>
       
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/drujensen/kemalyst/blob/837440188771eeaf2fa2280386f93c1009424620/src/adapter/pg.cr#L66" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="query&#40;query,params&#61;&#123;&#125;&lt;spanclass&#61;&quot;k&quot;&gt;of&lt;/span&gt;&lt;spanclass&#61;&quot;t&quot;&gt;String&lt;/span&gt;&#61;&gt;&lt;spanclass&#61;&quot;t&quot;&gt;String&lt;/span&gt;,fields&#61;&#123;&#125;&lt;spanclass&#61;&quot;k&quot;&gt;of&lt;/span&gt;&lt;spanclass&#61;&quot;t&quot;&gt;Symbol&lt;/span&gt;&#61;&gt;&lt;spanclass&#61;&quot;t&quot;&gt;String&lt;/span&gt;&#41;-instance-method">
-      <div class="signature">
-        
-        def <strong>query</strong>(query, params = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>, fields = {} <span class="k">of</span> <span class="t">Symbol</span> => <span class="t">String</span>)
-
-        <a class="method-permalink" href="#query%28query%2Cparams%3D%7B%7D%3Cspanclass%3D%22k%22%3Eof%3C%2Fspan%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%3D%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%2Cfields%3D%7B%7D%3Cspanclass%3D%22k%22%3Eof%3C%2Fspan%3E%3Cspanclass%3D%22t%22%3ESymbol%3C%2Fspan%3E%3D%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%29-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/drujensen/kemalyst/blob/837440188771eeaf2fa2280386f93c1009424620/src/adapter/pg.cr#L96" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="select&#40;table_name,fields,clause&#61;&lt;spanclass&#61;&quot;s&quot;&gt;&amp;quot;&amp;quot;&lt;/span&gt;,params&#61;&#123;&#125;&lt;spanclass&#61;&quot;k&quot;&gt;of&lt;/span&gt;&lt;spanclass&#61;&quot;t&quot;&gt;String&lt;/span&gt;&#61;&gt;&lt;spanclass&#61;&quot;t&quot;&gt;String&lt;/span&gt;&#41;-instance-method">
-      <div class="signature">
-        
-        def <strong>select</strong>(table_name, fields, clause = <span class="s">&quot;&quot;</span>, params = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>)
-
-        <a class="method-permalink" href="#select%28table_name%2Cfields%2Cclause%3D%3Cspanclass%3D%22s%22%3E%26quot%3B%26quot%3B%3C%2Fspan%3E%2Cparams%3D%7B%7D%3Cspanclass%3D%22k%22%3Eof%3C%2Fspan%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%3D%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%29-instance-method">#</a>
-      </div>
-      
         <div class="doc"><p>DML</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/837440188771eeaf2fa2280386f93c1009424620/src/adapter/pg.cr#L47" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/b395a1abe5a83261c44dbdf2b37f37fcfbc8972f/src/adapter/pg.cr#L67" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="select_one&#40;table_name,fields,id&#41;-instance-method">
+    <div class="entry-detail" id="query&#40;statement:String,params&#61;&#123;&#125;&lt;spanclass&#61;&quot;k&quot;&gt;of&lt;/span&gt;&lt;spanclass&#61;&quot;t&quot;&gt;String&lt;/span&gt;&#61;&gt;&lt;spanclass&#61;&quot;t&quot;&gt;String&lt;/span&gt;,fields&#61;&#123;&#125;&lt;spanclass&#61;&quot;k&quot;&gt;of&lt;/span&gt;&lt;spanclass&#61;&quot;t&quot;&gt;Symbol&lt;/span&gt;&#61;&gt;&lt;spanclass&#61;&quot;t&quot;&gt;String&lt;/span&gt;&#41;-instance-method">
       <div class="signature">
         
-        def <strong>select_one</strong>(table_name, fields, id)
+        def <strong>query</strong>(statement : String, params = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>, fields = {} <span class="k">of</span> <span class="t">Symbol</span> => <span class="t">String</span>)
 
-        <a class="method-permalink" href="#select_one%28table_name%2Cfields%2Cid%29-instance-method">#</a>
+        <a class="method-permalink" href="#query%28statement%3AString%2Cparams%3D%7B%7D%3Cspanclass%3D%22k%22%3Eof%3C%2Fspan%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%3D%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%2Cfields%3D%7B%7D%3Cspanclass%3D%22k%22%3Eof%3C%2Fspan%3E%3Cspanclass%3D%22t%22%3ESymbol%3C%2Fspan%3E%3D%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/837440188771eeaf2fa2280386f93c1009424620/src/adapter/pg.cr#L56" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/b395a1abe5a83261c44dbdf2b37f37fcfbc8972f/src/adapter/pg.cr#L81" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="update&#40;table_name,fields,id,params&#41;-instance-method">
+    <div class="entry-detail" id="remove_field&#40;table_name,name&#41;-instance-method">
       <div class="signature">
         
-        def <strong>update</strong>(table_name, fields, id, params)
+        def <strong>remove_field</strong>(table_name, name)
 
-        <a class="method-permalink" href="#update%28table_name%2Cfields%2Cid%2Cparams%29-instance-method">#</a>
+        <a class="method-permalink" href="#remove_field%28table_name%2Cname%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/837440188771eeaf2fa2280386f93c1009424620/src/adapter/pg.cr#L80" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/b395a1abe5a83261c44dbdf2b37f37fcfbc8972f/src/adapter/pg.cr#L58" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="rename_field&#40;table_name,old_name,new_name,type&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>rename_field</strong>(table_name, old_name, new_name, type)
+
+        <a class="method-permalink" href="#rename_field%28table_name%2Cold_name%2Cnew_name%2Ctype%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>change a field in the table.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/b395a1abe5a83261c44dbdf2b37f37fcfbc8972f/src/adapter/pg.cr#L50" target="_blank">View source</a>]
         
       </div>
     </div>

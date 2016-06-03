@@ -212,7 +212,8 @@
   <pre><code>
 <span class="c">## Connection Pool</span>
 
-<span class="t">A</span> connection pool is leveraged to reduce the cost <span class="k">of</span> opening and closing
+<span class="t">A</span> [connection pool](http<span class="n">:/</span><span class="s">/github.com/</span>ysbaddaden<span class="s">/pool&#41; contributed by
+ysbaddaden is leveraged to reduce the cost of opening and closing
 connections.</code></pre>
 
 
@@ -231,7 +232,7 @@ connections.</code></pre>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/drujensen/kemalyst/blob/837440188771eeaf2fa2280386f93c1009424620/src/kemalyst/model.cr" target="_blank">kemalyst/model.cr</a>
+      <a href="https://github.com/drujensen/kemalyst/blob/b395a1abe5a83261c44dbdf2b37f37fcfbc8972f/src/kemalyst/model.cr" target="_blank">kemalyst/model.cr</a>
     
     <br/>
   
@@ -279,16 +280,37 @@ connections.</code></pre>
       </li>
     
       <li class="entry-summary">
-        <a href="#query%28table_name%2Cfields%2Cclause%2Cparams%3D%7B%7D%3Cspanclass%3D%22k%22%3Eof%3C%2Fspan%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%3D%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%29-class-method" class="signature"><strong>.query</strong>(table_name, fields, clause, params = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>)</a>
+        <a href="#migrate-class-method" class="signature"><strong>.migrate</strong></a>
         
-          <div class="summary"><p>query performs the select statement and calls the from_sql with the results.</p></div>
+          <div class="summary"><p>Migrate will examine the current schema and additively update to match the model.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#query_one%28table_name%2Cfields%2Cid%29-class-method" class="signature"><strong>.query_one</strong>(table_name, fields, id)</a>
+        <a href="#prune-class-method" class="signature"><strong>.prune</strong></a>
         
-          <div class="summary"><p>query_one is a convenience method for only returning the first instance of a query.</p></div>
+          <div class="summary"><p>Prune fields no longer defined in the model.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#query%28statement%3AString%2Cparams%3D%7B%7D%3Cspanclass%3D%22k%22%3Eof%3C%2Fspan%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%3D%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%29-class-method" class="signature"><strong>.query</strong>(statement : String, params = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>)</a>
+        
+          <div class="summary"><p>Perform a query directly against the database</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#select%28table_name%2Cfields%2Cclause%2Cparams%3D%7B%7D%3Cspanclass%3D%22k%22%3Eof%3C%2Fspan%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%3D%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%29-class-method" class="signature"><strong>.select</strong>(table_name, fields, clause, params = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>)</a>
+        
+          <div class="summary"><p>select performs the select statement and calls the from_sql with the results.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#select_one%28table_name%2Cfields%2Cid%29-class-method" class="signature"><strong>.select_one</strong>(table_name, fields, id)</a>
+        
+          <div class="summary"><p>select_one is a convenience method for only returning the first instance of a results.</p></div>
         
       </li>
     
@@ -377,7 +399,7 @@ DSL.  </p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/837440188771eeaf2fa2280386f93c1009424620/src/kemalyst/model.cr#L296" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/b395a1abe5a83261c44dbdf2b37f37fcfbc8972f/src/kemalyst/model.cr#L331" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -396,7 +418,7 @@ the id.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/837440188771eeaf2fa2280386f93c1009424620/src/kemalyst/model.cr#L241" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/b395a1abe5a83261c44dbdf2b37f37fcfbc8972f/src/kemalyst/model.cr#L250" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -414,7 +436,7 @@ the id.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/837440188771eeaf2fa2280386f93c1009424620/src/kemalyst/model.cr#L258" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/b395a1abe5a83261c44dbdf2b37f37fcfbc8972f/src/kemalyst/model.cr#L267" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -433,7 +455,7 @@ careful with this call.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/837440188771eeaf2fa2280386f93c1009424620/src/kemalyst/model.cr#L250" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/b395a1abe5a83261c44dbdf2b37f37fcfbc8972f/src/kemalyst/model.cr#L259" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -451,45 +473,101 @@ careful with this call.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/837440188771eeaf2fa2280386f93c1009424620/src/kemalyst/model.cr#L301" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/b395a1abe5a83261c44dbdf2b37f37fcfbc8972f/src/kemalyst/model.cr#L336" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="query&#40;table_name,fields,clause,params&#61;&#123;&#125;&lt;spanclass&#61;&quot;k&quot;&gt;of&lt;/span&gt;&lt;spanclass&#61;&quot;t&quot;&gt;String&lt;/span&gt;&#61;&gt;&lt;spanclass&#61;&quot;t&quot;&gt;String&lt;/span&gt;&#41;-class-method">
+    <div class="entry-detail" id="migrate-class-method">
       <div class="signature">
         
-        def self.<strong>query</strong>(table_name, fields, clause, params = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>)
+        def self.<strong>migrate</strong>
 
-        <a class="method-permalink" href="#query%28table_name%2Cfields%2Cclause%2Cparams%3D%7B%7D%3Cspanclass%3D%22k%22%3Eof%3C%2Fspan%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%3D%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%29-class-method">#</a>
+        <a class="method-permalink" href="#migrate-class-method">#</a>
       </div>
       
-        <div class="doc"><p>query performs the select statement and calls the from_sql with the
+        <div class="doc"><p>Migrate will examine the current schema and additively update to match the
+model.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/b395a1abe5a83261c44dbdf2b37f37fcfbc8972f/src/kemalyst/model.cr#L276" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="prune-class-method">
+      <div class="signature">
+        
+        def self.<strong>prune</strong>
+
+        <a class="method-permalink" href="#prune-class-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Prune fields no longer defined in the model.  This should be used after
+you have successfully migrated.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/b395a1abe5a83261c44dbdf2b37f37fcfbc8972f/src/kemalyst/model.cr#L285" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="query&#40;statement:String,params&#61;&#123;&#125;&lt;spanclass&#61;&quot;k&quot;&gt;of&lt;/span&gt;&lt;spanclass&#61;&quot;t&quot;&gt;String&lt;/span&gt;&#61;&gt;&lt;spanclass&#61;&quot;t&quot;&gt;String&lt;/span&gt;&#41;-class-method">
+      <div class="signature">
+        
+        def self.<strong>query</strong>(statement : String, params = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>)
+
+        <a class="method-permalink" href="#query%28statement%3AString%2Cparams%3D%7B%7D%3Cspanclass%3D%22k%22%3Eof%3C%2Fspan%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%3D%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%29-class-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Perform a query directly against the database</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/b395a1abe5a83261c44dbdf2b37f37fcfbc8972f/src/kemalyst/model.cr#L293" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="select&#40;table_name,fields,clause,params&#61;&#123;&#125;&lt;spanclass&#61;&quot;k&quot;&gt;of&lt;/span&gt;&lt;spanclass&#61;&quot;t&quot;&gt;String&lt;/span&gt;&#61;&gt;&lt;spanclass&#61;&quot;t&quot;&gt;String&lt;/span&gt;&#41;-class-method">
+      <div class="signature">
+        
+        def self.<strong>select</strong>(table_name, fields, clause, params = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>)
+
+        <a class="method-permalink" href="#select%28table_name%2Cfields%2Cclause%2Cparams%3D%7B%7D%3Cspanclass%3D%22k%22%3Eof%3C%2Fspan%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%3D%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%29-class-method">#</a>
+      </div>
+      
+        <div class="doc"><p>select performs the select statement and calls the from_sql with the
 results.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/837440188771eeaf2fa2280386f93c1009424620/src/kemalyst/model.cr#L307" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/b395a1abe5a83261c44dbdf2b37f37fcfbc8972f/src/kemalyst/model.cr#L342" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="query_one&#40;table_name,fields,id&#41;-class-method">
+    <div class="entry-detail" id="select_one&#40;table_name,fields,id&#41;-class-method">
       <div class="signature">
         
-        def self.<strong>query_one</strong>(table_name, fields, id)
+        def self.<strong>select_one</strong>(table_name, fields, id)
 
-        <a class="method-permalink" href="#query_one%28table_name%2Cfields%2Cid%29-class-method">#</a>
+        <a class="method-permalink" href="#select_one%28table_name%2Cfields%2Cid%29-class-method">#</a>
       </div>
       
-        <div class="doc"><p>query_one is a convenience method for only returning the first instance of a
-query.</p></div>
+        <div class="doc"><p>select_one is a convenience method for only returning the first instance of a
+results.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/837440188771eeaf2fa2280386f93c1009424620/src/kemalyst/model.cr#L324" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/b395a1abe5a83261c44dbdf2b37f37fcfbc8972f/src/kemalyst/model.cr#L359" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -512,7 +590,7 @@ query.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/837440188771eeaf2fa2280386f93c1009424620/src/kemalyst/model.cr#L283" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/b395a1abe5a83261c44dbdf2b37f37fcfbc8972f/src/kemalyst/model.cr#L318" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -532,7 +610,7 @@ This will update the timestamps apropriately.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/837440188771eeaf2fa2280386f93c1009424620/src/kemalyst/model.cr#L268" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/b395a1abe5a83261c44dbdf2b37f37fcfbc8972f/src/kemalyst/model.cr#L303" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -556,7 +634,7 @@ mysql, pg, sqlite, etc.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/837440188771eeaf2fa2280386f93c1009424620/src/kemalyst/model.cr#L148" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/b395a1abe5a83261c44dbdf2b37f37fcfbc8972f/src/kemalyst/model.cr#L153" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -580,7 +658,7 @@ or not.  This will help with backward compatibility of existing databases.</p></
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/837440188771eeaf2fa2280386f93c1009424620/src/kemalyst/model.cr#L164" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/b395a1abe5a83261c44dbdf2b37f37fcfbc8972f/src/kemalyst/model.cr#L173" target="_blank">View source</a>]
         
       </div>
     </div>
