@@ -22,8 +22,6 @@ services:
       - '.:/app/user'
   pg:
     image: postgres:9.5
-    ports:
-      - "5432:5432"
   mysql:
     image: mysql:5.6
     environment:
