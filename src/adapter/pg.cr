@@ -61,16 +61,19 @@ class Kemalyst::Adapter::Pg < Kemalyst::Adapter::Base
         if columns && columns.size > 0
           column = columns.first
           #check to see if the data_type matches
-          #TODO: Create mapping between SQL types and DB types
-          unless true #type.downcase.includes?(column[1] as String)
+          if db_type_to_schema_type(type) != (column[1] as String)
             rename_field(table_name, name, "old_#{name}", type)
             add_field(table_name, name, type, prev)
-            copy_field(table_name, name, "old_#{name}")
+            copy_field(table_name, "old_#{name}", name)
+          else
+            if size = column[2]
+              if !type.downcase.includes?(size.to_s)
+                rename_field(table_name, name, "old_#{name}", type)
+                add_field(table_name, name, type, prev)
+                copy_field(table_name, "old_#{name}", name)
+              end
+            end
           end
-          #TODO: check to see if size matches
-          # Ignore is a size is not specified in SQL definition
-          #TODO: check to see if default matches
-          # Ignore if default is not specified in SQL definition
           #TODO: check to see if other flags match
           # Ignore if other flags are not specificed in SQL definition
         else
@@ -235,6 +238,31 @@ class Kemalyst::Adapter::Pg < Kemalyst::Adapter::Base
     return ""
   end
 
+  # method to perform a reverse mapping of Database Type to Schema Type.
+  private def db_type_to_schema_type(db_type)
+    case db_type.upcase
+    when .includes?("VARCHAR")
+      "character varying"
+    when .includes?("TEXT")
+      "text"
+    when .includes?("TIMESTAMP")
+      "timestamp without time zone"
+    # when .includes?("BIG")
+    # when .includes?("INT")
+    # when .includes?("SERIAL")
+    # when .includes?("DEC")
+    # when .includes?("NUM")
+    # when .includes?("DOUBLE")
+    # when .includes?("FIXED")
+    # when .includes?("REAL")
+    # when .includes?("MONEY")
+    # when includes?("FLOAT")
+    # when .includes?("BOOL")
+    # when .includes?("DATE")
+    else
+      db_type
+    end
+  end
 end
 
 

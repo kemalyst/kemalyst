@@ -55,16 +55,19 @@ class Kemalyst::Adapter::Mysql < Kemalyst::Adapter::Base
         if columns && columns.size > 0
           column = columns.first
           #check to see if the data_type matches
-          #TODO: Create mapping between SQL types and DB types
-          unless true #type.downcase.includes?(column[1] as String)
+          if !type.downcase.includes?(column[1] as String)
             rename_field(table_name, name, "old_#{name}", type)
             add_field(table_name, name, type, prev)
-            copy_field(table_name, name, "old_#{name}")
+            copy_field(table_name, "old_#{name}", name)
+          else
+            if size = column[2]
+              if !type.downcase.includes?(size.to_s)
+                rename_field(table_name, name, "old_#{name}", type)
+                add_field(table_name, name, type, prev)
+                copy_field(table_name, "old_#{name}", name)
+              end
+            end
           end
-          #TODO: check to see if size matches
-          # Ignore is a size is not specified in SQL definition
-          #TODO: check to see if default matches
-          # Ignore if default is not specified in SQL definition
           #TODO: check to see if other flags match
           # Ignore if other flags are not specificed in SQL definition
         else
