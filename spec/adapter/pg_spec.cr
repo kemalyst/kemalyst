@@ -18,7 +18,7 @@ describe Kemalyst::Adapter::Pg do
   end
 
   describe "#all" do
-    it "should find all the users" do
+    it "finds all the users" do
       user = User.new
       user.name = "Test User"
       user.save
@@ -31,7 +31,7 @@ describe Kemalyst::Adapter::Pg do
   end
 
   describe "#find" do
-    it "should find the user by id" do
+    it "finds the user by id" do
       user = User.new
       user.name = "Test User"
       user.save
@@ -42,7 +42,7 @@ describe Kemalyst::Adapter::Pg do
   end
 
   describe "#save" do
-    it "should create a new user" do
+    it "creates a new user" do
       user = User.new
       user.name = "Test User"
       user.pass = "Password"
@@ -50,7 +50,7 @@ describe Kemalyst::Adapter::Pg do
       user.id.should_not be_nil 
     end
 
-    it "should update an existing user" do
+    it "updates an existing user" do
       user = User.new
       user.name = "Test User"
       user.save
@@ -64,7 +64,7 @@ describe Kemalyst::Adapter::Pg do
   end
 
   describe "#destroy" do
-    it "should destroy a user" do
+    it "destroys a user" do
       user = User.new
       user.name = "Test User"
       user.save

@@ -18,7 +18,7 @@ describe Kemalyst::Adapter::Mysql do
   end
 
   describe "#all" do
-    it "should find all the posts" do
+    it "finds all the posts" do
       post = Post.new
       post.name = "Test Post"
       post.save
@@ -31,7 +31,7 @@ describe Kemalyst::Adapter::Mysql do
   end
 
   describe "#find" do
-    it "should find the post by id" do
+    it "finds the post by id" do
       post = Post.new
       post.name = "Test Post"
       post.save
@@ -42,7 +42,7 @@ describe Kemalyst::Adapter::Mysql do
   end
 
   describe "#save" do
-    it "should create a new post" do
+    it "creates a new post" do
       post = Post.new
       post.name = "Test Post"
       post.body = "Test Post"
@@ -50,7 +50,7 @@ describe Kemalyst::Adapter::Mysql do
       post.id.should eq 1
     end
 
-    it "should update an existing post" do
+    it "updates an existing post" do
       post = Post.new
       post.name = "Test Post"
       post.save
@@ -64,7 +64,7 @@ describe Kemalyst::Adapter::Mysql do
   end
 
   describe "#destroy" do
-    it "should destroy a post" do
+    it "destroys a post" do
       post = Post.new
       post.name = "Test Post"
       post.save

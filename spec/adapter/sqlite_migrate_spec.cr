@@ -27,7 +27,7 @@ describe Kemalyst::Adapter::Sqlite do
   end
 
   describe "#migrate" do
-    it "should raise an exception" do
+    it "raises an exception" do
       begin
         Comment2.migrate
       rescue ex
@@ -37,7 +37,7 @@ describe Kemalyst::Adapter::Sqlite do
   end
 
   describe "#prune" do
-    it "should raise an exception" do
+    it "raises an exception" do
       begin
         Comment.prune
       rescue ex
@@ -47,7 +47,7 @@ describe Kemalyst::Adapter::Sqlite do
   end
 
   describe "#add_field" do
-    it "should raise an exception" do
+    it "raises an exception" do
       begin
         Comment.database.add_field("users", "test", "TEXT")
       rescue ex
@@ -58,7 +58,7 @@ describe Kemalyst::Adapter::Sqlite do
   end
 
   describe "#rename_field" do
-    it "should raise an exception" do
+    it "raises an exception" do
       begin
         Comment.database.rename_field("users", "name", "old_name", "TEXT")
       rescue ex
@@ -68,7 +68,7 @@ describe Kemalyst::Adapter::Sqlite do
   end
 
   describe "#remove_field" do
-    it "should raise an exception" do
+    it "raises an exception" do
       begin
         Comment.database.remove_field("users", "name")
       rescue ex
@@ -78,7 +78,7 @@ describe Kemalyst::Adapter::Sqlite do
   end
 
   describe "#copy_field" do
-    it "should copy data from field" do
+    it "copies data from field" do
       Comment.drop
       Comment.create
       comment = Comment.new

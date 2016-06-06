@@ -20,7 +20,7 @@ describe Kemalyst::Adapter::Sqlite do
   end
 
   describe "#all" do
-    it "should find all the comments" do
+    it "finds all the comments" do
       comment = Comment.new
       comment.name = "Test Comment"
       comment.save
@@ -33,7 +33,7 @@ describe Kemalyst::Adapter::Sqlite do
   end
 
   describe "#find" do
-    it "should find the comment by id" do
+    it "finds the comment by id" do
       comment = Comment.new
       comment.name = "Test Comment"
       comment.save
@@ -43,7 +43,7 @@ describe Kemalyst::Adapter::Sqlite do
   end
 
   describe "#save" do
-    it "should create a new comment" do
+    it "creates a new comment" do
       comment = Comment.new
       comment.name = "Test Comment"
       comment.body = "Test Comment"
@@ -51,7 +51,7 @@ describe Kemalyst::Adapter::Sqlite do
       comment.id.should eq 1
     end
 
-    it "should update an existing comment" do
+    it "updates an existing comment" do
       comment = Comment.new
       comment.name = "Test Comment"
       comment.save
@@ -69,7 +69,7 @@ describe Kemalyst::Adapter::Sqlite do
   end
 
   describe "#destroy" do
-    it "should destroy a comment" do
+    it "destroys a comment" do
       comment = Comment.new
       comment.name = "Test Comment"
       comment.save

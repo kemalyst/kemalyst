@@ -5,16 +5,35 @@ class Post < Kemalyst::Model
   adapter mysql
   sql_mapping({ 
     name: ["VARCHAR(255)", String],
-    body: ["TEXT", String]
+    body: ["VARCHAR(255)", String]
   })
 end
 
+# Add a new field
 class Post2 < Kemalyst::Model
   adapter mysql
   sql_mapping({ 
     name: ["VARCHAR(255)", String],
-    body: ["TEXT", String],
+    body: ["VARCHAR(255)", String],
     flag: ["BOOLEAN", Bool]
+  }, posts)
+end
+
+# Change type of field
+class Post3 < Kemalyst::Model
+  adapter mysql
+  sql_mapping({ 
+    name: ["VARCHAR(255)", String],
+    body: ["TEXT", String],
+  }, posts)
+end
+
+# Change size of field
+class Post4 < Kemalyst::Model
+  adapter mysql
+  sql_mapping({ 
+    name: ["VARCHAR(255)", String],
+    body: ["VARCHAR(512)", String],
   }, posts)
 end
 
@@ -27,7 +46,7 @@ describe Kemalyst::Adapter::Mysql do
   end
 
   describe "#migrate" do
-    it "should add any new fields" do
+    it "adds any new fields" do
       Post2.migrate
       if results = Post2.query("describe posts;")
         results.size.should eq 6
@@ -35,10 +54,13 @@ describe Kemalyst::Adapter::Mysql do
         raise "describe posts returned nil"
       end
     end
+
+    it "" do
+    end
   end
 
   describe "#prune" do
-    it "should remove any fields that are not defined" do
+    it "removes any fields that are not defined" do
       Post2.drop
       Post2.migrate
       Post.prune
@@ -51,7 +73,7 @@ describe Kemalyst::Adapter::Mysql do
   end
 
   describe "#add_field" do
-    it "should add a new field" do
+    it "adds a new field" do
       Post.drop
       Post.migrate
       Post.database.add_field("posts", "test", "TEXT")
@@ -64,7 +86,7 @@ describe Kemalyst::Adapter::Mysql do
   end
 
   describe "#rename_field" do
-    it "should rename a field" do
+    it "renames a field" do
       Post.drop
       Post.migrate
       Post.database.rename_field("posts", "name", "old_name", "TEXT")
@@ -77,7 +99,7 @@ describe Kemalyst::Adapter::Mysql do
   end
 
   describe "#remove_field" do
-    it "should remove a field" do
+    it "removes a field" do
       Post.drop
       Post.migrate
       Post.database.remove_field("posts", "name")
@@ -90,7 +112,7 @@ describe Kemalyst::Adapter::Mysql do
   end
 
   describe "#copy_field" do
-    it "should copy data from field" do
+    it "copies data from field" do
       Post.drop
       Post.migrate
       post = Post.new

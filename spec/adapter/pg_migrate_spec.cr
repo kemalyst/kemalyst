@@ -27,7 +27,7 @@ describe Kemalyst::Adapter::Pg do
   end
 
   describe "#migrate" do
-    it "should add any new fields" do
+    it "adds any new fields" do
       User2.migrate
       if results = User2.query("SELECT column_name" \
                                " FROM information_schema.columns" \
@@ -40,7 +40,7 @@ describe Kemalyst::Adapter::Pg do
   end
 
   describe "#prune" do
-    it "should remove any fields that are not defined" do
+    it "removes any fields that are not defined" do
       User2.drop
       User2.migrate
       User.prune
@@ -55,7 +55,7 @@ describe Kemalyst::Adapter::Pg do
   end
 
   describe "#add_field" do
-    it "should add a new field" do
+    it "adds a new field" do
       User.drop
       User.migrate
       User.database.add_field("users", "test", "TEXT")
@@ -70,7 +70,7 @@ describe Kemalyst::Adapter::Pg do
   end
 
   describe "#rename_field" do
-    it "should rename a field" do
+    it "renames a field" do
       User.drop
       User.migrate
       User.database.rename_field("users", "name", "old_name", "TEXT")
@@ -86,7 +86,7 @@ describe Kemalyst::Adapter::Pg do
   end
 
   describe "#remove_field" do
-    it "should remove a field" do
+    it "removes a field" do
       User.drop
       User.migrate
       User.database.remove_field("users", "name")
@@ -101,7 +101,7 @@ describe Kemalyst::Adapter::Pg do
   end
 
   describe "#copy_data" do
-    it "should copy data from field" do
+    it "copiss data from field" do
       User.drop
       User.migrate
       user = User.new
