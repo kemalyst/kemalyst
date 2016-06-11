@@ -46,6 +46,7 @@ describe Kemalyst::Adapter::Pg do
       if results = User1.query("SELECT column_name, data_type, character_maximum_length" \
                                " FROM information_schema.columns" \
                                " WHERE table_name = 'users'")
+        puts results.inspect
         results.size.should eq 5
       else
         raise "describe users returned nil"

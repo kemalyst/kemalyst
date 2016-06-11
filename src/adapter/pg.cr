@@ -61,7 +61,7 @@ class Kemalyst::Adapter::Pg < Kemalyst::Adapter::Base
         if columns && columns.size > 0
           column = columns.first
           #check to see if the data_type matches
-          if db_type_to_schema_type(type) != (column[1] as String)
+          if db_alias_to_schema_type(type) != (column[1] as String)
             rename_field(table_name, name, "old_#{name}", type)
             add_field(table_name, name, type, prev)
             copy_field(table_name, "old_#{name}", name)
@@ -239,30 +239,92 @@ class Kemalyst::Adapter::Pg < Kemalyst::Adapter::Base
   end
 
   # method to perform a reverse mapping of Database Type to Schema Type.
-  private def db_type_to_schema_type(db_type)
+  private def db_alias_to_schema_type(db_type)
     case db_type.upcase
     when .includes?("VARCHAR")
       "character varying"
     when .includes?("TEXT")
       "text"
+    when .includes?("VARBIT")
+      "bit varying"
+    when .includes?("BOOL")
+      "boolean"
+    when .includes?("CHAR")
+      "character"
+    when .includes?("FLOAT8")
+      "double precision"
+    when .includes?("INT8")
+      "bigint"
+    when .includes?("INT2")
+      "smallint"
+    when .includes?("INT") #int or int4
+      "integer"
+    when .includes?("DECIMAL")
+      "numeric"
+    when .includes?("FLOAT4")
+      "real"
+    when .includes?("SERIAL8")
+      "bigserial"
+    when .includes?("SERIAL4")
+      "serial"
+    when .includes?("SERIAL2")
+      "smallserial"
+    when .includes?("TIMESTAMPTZ")
+      "timestamp with time zone"
     when .includes?("TIMESTAMP")
       "timestamp without time zone"
-    # when .includes?("BIG")
-    # when .includes?("INT")
-    # when .includes?("SERIAL")
-    # when .includes?("DEC")
-    # when .includes?("NUM")
-    # when .includes?("DOUBLE")
-    # when .includes?("FIXED")
-    # when .includes?("REAL")
-    # when .includes?("MONEY")
-    # when includes?("FLOAT")
-    # when .includes?("BOOL")
-    # when .includes?("DATE")
+    when .includes?("TIMETZ")
+      "time with time zone"
+    when .includes?("TIME")
+      "time without time zone"
     else
       db_type
     end
   end
 end
 
+# Table 8-1. Data Types
+
+# Name	              Aliases	        Description
+# bigint	            int8	          signed eight-byte integer
+# bigserial	          serial8	        autoincrementing eight-byte integer
+# bit [ (n) ]	 	                      fixed-length bit string
+# bit varying [ (n) ]	varbit	        variable-length bit string
+# boolean	            bool	          logical Boolean (true/false)
+# box	 	                              rectangular box on a plane
+# bytea	 	                            binary data ("byte array")
+# character [ (n) ]	  char [ (n) ]	  fixed-length character string
+# character varying [ (n) ]	varchar [ (n) ]	variable-length character string
+# cidr	 	                            IPv4 or IPv6 network address
+# circle	 	                          circle on a plane
+# date	 	                            calendar date (year, month, day)
+# double precision	  float8	        double precision floating-point number (8 bytes)
+# inet	 	                            IPv4 or IPv6 host address
+# integer	            int, int4	      signed four-byte integer
+# interval [ fields ] [ (p) ]	 	      time span
+# json	 	                            textual JSON data
+# jsonb	 	                            binary JSON data, decomposed
+# line	 	                            infinite line on a plane
+# lseg	 	                            line segment on a plane
+# macaddr	 	                          MAC (Media Access Control) address
+# money	 	                            currency amount
+# numeric [ (p, s) ]	decimal [ (p, s) ]	exact numeric of selectable precision
+# path	 	                            geometric path on a plane
+# pg_lsn	 	                          PostgreSQL Log Sequence Number
+# point	 	                            geometric point on a plane
+# polygon	 	                          closed geometric path on a plane
+# real	              float4	        single precision floating-point number (4 bytes)
+# smallint	          int2	          signed two-byte integer
+# smallserial	        serial2	        autoincrementing two-byte integer
+# serial	            serial4	        autoincrementing four-byte integer
+# text	 	                            variable-length character string
+# time [ (p) ] [ without time zone ]	time of day (no time zone)
+# time [ (p) ] with time zone	timetz	time of day, including time zone
+# timestamp [ (p) ] [ without time zone ]	date and time (no time zone)
+# timestamp [ (p) ] with time zone	timestamptz	date and time, including time zone
+# tsquery	 	                          text search query
+# tsvector	 	                        text search document
+# txid_snapshot	 	                    user-level transaction ID snapshot
+# uuid	 	                            universally unique identifier
+# xml	 	                              XML data
 
