@@ -1,3 +1,2 @@
 pg:
-  database: postgres://user:password@host:port/db
-  pool: 5
+  database: ${DATABASE_URL}

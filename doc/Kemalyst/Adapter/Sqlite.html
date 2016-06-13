@@ -20,6 +20,51 @@
 
   <ul>
   
+  <li class="parent " data-id="github.com/drujensen/kemalyst/DemoController" data-name="democontroller">
+      <a href="../../DemoController.html">DemoController</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/DemoController/Create" data-name="democontroller::create">
+      <a href="../../DemoController/Create.html">Create</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/DemoController/Delete" data-name="democontroller::delete">
+      <a href="../../DemoController/Delete.html">Delete</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/DemoController/Edit" data-name="democontroller::edit">
+      <a href="../../DemoController/Edit.html">Edit</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/DemoController/Index" data-name="democontroller::index">
+      <a href="../../DemoController/Index.html">Index</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/DemoController/New" data-name="democontroller::new">
+      <a href="../../DemoController/New.html">New</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/DemoController/Show" data-name="democontroller::show">
+      <a href="../../DemoController/Show.html">Show</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/DemoController/Update" data-name="democontroller::update">
+      <a href="../../DemoController/Update.html">Update</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
   <li class="parent open current" data-id="github.com/drujensen/kemalyst/Kemalyst" data-name="kemalyst">
       <a href="../../Kemalyst.html">Kemalyst</a>
       
@@ -227,7 +272,7 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/drujensen/kemalyst/blob/b395a1abe5a83261c44dbdf2b37f37fcfbc8972f/src/adapter/sqlite.cr" target="_blank">adapter/sqlite.cr</a>
+      <a href="https://github.com/drujensen/kemalyst/blob/b422f5f2277521b3c6a62176ff566408254d2a20/src/adapter/sqlite.cr" target="_blank">adapter/sqlite.cr</a>
     
     <br/>
   
@@ -257,16 +302,40 @@
       </li>
     
       <li class="entry-summary">
+        <a href="#clear%28table_name%29-instance-method" class="signature"><strong>#clear</strong>(table_name)</a>
+        
+          <div class="summary"><p>remove all rows from a table and reset the counter on the id.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#copy_field%28table_name%2Cfrom%2Cto%29-instance-method" class="signature"><strong>#copy_field</strong>(table_name, from, to)</a>
+        
+          <div class="summary"><p>Copy data from one column to another</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
         <a href="#create%28table_name%2Cfields%29-instance-method" class="signature"><strong>#create</strong>(table_name, fields)</a>
         
-          <div class="summary"><p>DDL</p></div>
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#delete%28table_name%2Cid%29-instance-method" class="signature"><strong>#delete</strong>(table_name, id)</a>
+        
+          <div class="summary"><p>This will delete a row from the database.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#drop%28table_name%29-instance-method" class="signature"><strong>#drop</strong>(table_name)</a>
+        
+          <div class="summary"><p>drop the table</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#insert%28table_name%2Cfields%2Cparams%29-instance-method" class="signature"><strong>#insert</strong>(table_name, fields, params)</a>
-        
-          <div class="summary"><p>DML</p></div>
         
       </li>
     
@@ -292,6 +361,27 @@
     
       <li class="entry-summary">
         <a href="#rename_field%28table_name%2Cfrom%2Cto%2Ctype%29-instance-method" class="signature"><strong>#rename_field</strong>(table_name, from, to, type)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#select%28table_name%2Cfields%2Cclause%3D%3Cspanclass%3D%22s%22%3E%26quot%3B%26quot%3B%3C%2Fspan%3E%2Cparams%3D%7B%7D%3Cspanclass%3D%22k%22%3Eof%3C%2Fspan%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%3D%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%29-instance-method" class="signature"><strong>#select</strong>(table_name, fields, clause = <span class="s">&quot;&quot;</span>, params = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>)</a>
+        
+          <div class="summary"><p>select performs a query against a table.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#select_one%28table_name%2Cfields%2Cid%29-instance-method" class="signature"><strong>#select_one</strong>(table_name, fields, id)</a>
+        
+          <div class="summary"><p>select_one is used by the find method.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#update%28table_name%2Cfields%2Cid%2Cparams%29-instance-method" class="signature"><strong>#update</strong>(table_name, fields, id, params)</a>
+        
+          <div class="summary"><p>This will update a row in the database.</p></div>
         
       </li>
     
@@ -411,7 +501,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/b395a1abe5a83261c44dbdf2b37f37fcfbc8972f/src/adapter/sqlite.cr#L8" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/b422f5f2277521b3c6a62176ff566408254d2a20/src/adapter/sqlite.cr#L8" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -432,7 +522,43 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/b395a1abe5a83261c44dbdf2b37f37fcfbc8972f/src/adapter/sqlite.cr#L34" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/b422f5f2277521b3c6a62176ff566408254d2a20/src/adapter/sqlite.cr#L43" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="clear&#40;table_name&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>clear</strong>(table_name)
+
+        <a class="method-permalink" href="#clear%28table_name%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>remove all rows from a table and reset the counter on the id.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/b422f5f2277521b3c6a62176ff566408254d2a20/src/adapter/sqlite.cr#L16" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="copy_field&#40;table_name,from,to&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>copy_field</strong>(table_name, from, to)
+
+        <a class="method-permalink" href="#copy_field%28table_name%2Cfrom%2Cto%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Copy data from one column to another</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/b422f5f2277521b3c6a62176ff566408254d2a20/src/adapter/sqlite.cr#L56" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -445,12 +571,46 @@
         <a class="method-permalink" href="#create%28table_name%2Cfields%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>DDL</p></div>
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/b422f5f2277521b3c6a62176ff566408254d2a20/src/adapter/sqlite.cr#L25" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="delete&#40;table_name,id&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>delete</strong>(table_name, id)
+
+        <a class="method-permalink" href="#delete%28table_name%2Cid%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>This will delete a row from the database.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/b395a1abe5a83261c44dbdf2b37f37fcfbc8972f/src/adapter/sqlite.cr#L16" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/b422f5f2277521b3c6a62176ff566408254d2a20/src/adapter/sqlite.cr#L116" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="drop&#40;table_name&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>drop</strong>(table_name)
+
+        <a class="method-permalink" href="#drop%28table_name%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>drop the table</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/b422f5f2277521b3c6a62176ff566408254d2a20/src/adapter/sqlite.cr#L21" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -463,12 +623,10 @@
         <a class="method-permalink" href="#insert%28table_name%2Cfields%2Cparams%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>DML</p></div>
-      
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/b395a1abe5a83261c44dbdf2b37f37fcfbc8972f/src/adapter/sqlite.cr#L47" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/b422f5f2277521b3c6a62176ff566408254d2a20/src/adapter/sqlite.cr#L87" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -484,7 +642,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/b395a1abe5a83261c44dbdf2b37f37fcfbc8972f/src/adapter/sqlite.cr#L26" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/b422f5f2277521b3c6a62176ff566408254d2a20/src/adapter/sqlite.cr#L35" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -500,7 +658,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/b395a1abe5a83261c44dbdf2b37f37fcfbc8972f/src/adapter/sqlite.cr#L30" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/b422f5f2277521b3c6a62176ff566408254d2a20/src/adapter/sqlite.cr#L39" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -516,7 +674,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/b395a1abe5a83261c44dbdf2b37f37fcfbc8972f/src/adapter/sqlite.cr#L62" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/b422f5f2277521b3c6a62176ff566408254d2a20/src/adapter/sqlite.cr#L120" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -532,7 +690,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/b395a1abe5a83261c44dbdf2b37f37fcfbc8972f/src/adapter/sqlite.cr#L42" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/b422f5f2277521b3c6a62176ff566408254d2a20/src/adapter/sqlite.cr#L51" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -548,7 +706,63 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/b395a1abe5a83261c44dbdf2b37f37fcfbc8972f/src/adapter/sqlite.cr#L38" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/b422f5f2277521b3c6a62176ff566408254d2a20/src/adapter/sqlite.cr#L47" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="select&#40;table_name,fields,clause&#61;&lt;spanclass&#61;&quot;s&quot;&gt;&amp;quot;&amp;quot;&lt;/span&gt;,params&#61;&#123;&#125;&lt;spanclass&#61;&quot;k&quot;&gt;of&lt;/span&gt;&lt;spanclass&#61;&quot;t&quot;&gt;String&lt;/span&gt;&#61;&gt;&lt;spanclass&#61;&quot;t&quot;&gt;String&lt;/span&gt;&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>select</strong>(table_name, fields, clause = <span class="s">&quot;&quot;</span>, params = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>)
+
+        <a class="method-permalink" href="#select%28table_name%2Cfields%2Cclause%3D%3Cspanclass%3D%22s%22%3E%26quot%3B%26quot%3B%3C%2Fspan%3E%2Cparams%3D%7B%7D%3Cspanclass%3D%22k%22%3Eof%3C%2Fspan%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%3D%3E%3Cspanclass%3D%22t%22%3EString%3C%2Fspan%3E%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>select performs a query against a table.  The table_name and fields are
+configured using the sql_mapping directive in your model.  The clause and
+params is the query and params that is passed in via .all() method</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/b422f5f2277521b3c6a62176ff566408254d2a20/src/adapter/sqlite.cr#L67" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="select_one&#40;table_name,fields,id&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>select_one</strong>(table_name, fields, id)
+
+        <a class="method-permalink" href="#select_one%28table_name%2Cfields%2Cid%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>select_one is used by the find method.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/b422f5f2277521b3c6a62176ff566408254d2a20/src/adapter/sqlite.cr#L77" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="update&#40;table_name,fields,id,params&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>update</strong>(table_name, fields, id, params)
+
+        <a class="method-permalink" href="#update%28table_name%2Cfields%2Cid%2Cparams%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>This will update a row in the database.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/b422f5f2277521b3c6a62176ff566408254d2a20/src/adapter/sqlite.cr#L103" target="_blank">View source</a>]
         
       </div>
     </div>
