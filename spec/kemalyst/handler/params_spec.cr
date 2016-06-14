@@ -15,7 +15,6 @@ describe Kemalyst::Handler::Params do
     io, context = create_context(request)
     params = Kemalyst::Handler::Params.instance
     params.call(context)
-    context.params.size.should eq 2
     context.params["test2"].should eq "test2"
   end
 
@@ -38,7 +37,6 @@ describe Kemalyst::Handler::Params do
     io, context = create_context(request)
     params = Kemalyst::Handler::Params.instance
     params.call(context)
-    context.params.size.should eq 2
     context.params["test2"].should eq "test2"
   end
 
@@ -61,7 +59,7 @@ describe Kemalyst::Handler::Params do
     io, context = create_context(request)
     params = Kemalyst::Handler::Params.instance
     params.call(context)
-    context.params["_json"].should eq ["test","test2"]
+    context.params["_json"].should eq "[\"test\", \"test2\"]"
   end
 end
 

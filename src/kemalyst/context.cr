@@ -6,13 +6,13 @@ class HTTP::Server::Context
 
   # clear the params.
   def clear_params
-    @params = {} of String => ParamTypes
+    @params = HTTP::Params.new({} of String => Array(String))
   end
 
   # params hold all the parameters that may be passed in a request.  The
   # parameters come from either the url or the body via json or form posts.
   def params
-    @params ||= {} of String => ParamTypes
+    @params ||= HTTP::Params.new({} of String => Array(String))
   end
 
   # clear the session.  You can call this to logout a user.

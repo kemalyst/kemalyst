@@ -6,36 +6,23 @@ describe HTTP::Server::Context do
     request = HTTP::Request.new("GET", "/")
     io, context = create_context(request)
     context.params["test"] = "test"
-    context.params.size.should eq 1
+    context.params.has_key?("test").should eq true
   end
   
-  it "params supports Bool" do
-    request = HTTP::Request.new("GET", "/")
-    io, context = create_context(request)
-    context.params["test"] = true
-    context.params.size.should eq 1
-  end
-
-  it "params supports Int64" do
-    request = HTTP::Request.new("GET", "/")
-    io, context = create_context(request)
-    context.params["test"] = 1_i64
-    context.params.size.should eq 1
-  end
-
-  it "params supports Float64" do
-    request = HTTP::Request.new("GET", "/")
-    io, context = create_context(request)
-    context.params["test"] = 1.0_f64
-    context.params.size.should eq 1
-  end
-
   it "clears params" do
     request = HTTP::Request.new("GET", "/")
     io, context = create_context(request)
     context.params["test"] = "test"
     context.clear_params
-    context.params.size.should eq 0
+    context.params.has_key?("test").should eq false
+  end
+
+  it "supports multiple params" do
+    request = HTTP::Request.new("GET", "/")
+    io, context = create_context(request)
+    context.params.add("test", "test1")
+    context.params.add("test", "test2")
+    context.params.fetch_all("test").should eq ["test1", "test2"]
   end
 
   it "holds session" do

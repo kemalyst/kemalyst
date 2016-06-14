@@ -37,10 +37,10 @@ module Kemalyst::Handler
           case json = JSON.parse(body).raw
           when Hash
             json.each do |key, value|
-              context.params[key as String] = value
+              context.params[key as String] = value.to_s
             end
           when Array
-            context.params["_json"] = json
+            context.params["_json"] = json.to_s
           end
         end
       end
@@ -49,7 +49,7 @@ module Kemalyst::Handler
     private def parse_part(context, part)
       return unless part
       HTTP::Params.parse(part) do |key, value|
-        context.params[key] ||= value
+        context.params.add(key, value)
       end
     end
   end
