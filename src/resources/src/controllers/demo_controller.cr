@@ -18,27 +18,26 @@ module DemoController
       if demo = Demo.find id
         render "demo/show.ecr", "main.ecr"
       else
-        text "Demo with id:#{id} could not be found", 404
+        redirect "/demos"
       end
     end
   end
 
   class New < Kemalyst::Controller
     def call(context)
+      demo = Demo.new
       render "demo/new.ecr", "main.ecr"
     end
   end
 
   class Create < Kemalyst::Controller
     def call(context)
-      if demo = Demo.new
-        demo.name = context.params["name"] as String
-        demo.save()
-      end
-      if id = demo.id
+      demo = Demo.new
+      demo.name = context.params["name"] as String
+      if demo.save
         redirect "/demos"
       else
-        text "Could not create Demo.", 400
+        render "business_type/new.ecr", "main.ecr"
       end
     end
   end
@@ -49,7 +48,7 @@ module DemoController
       if demo = Demo.find id
         render "demo/edit.ecr", "main.ecr"
       else
-        text "Demo with id:#{id} could not be found", 404
+        redirect "/demos"
       end
     end
   end
@@ -59,11 +58,14 @@ module DemoController
       id = context.params["id"]
       if demo = Demo.find id 
         demo.name = context.params["name"] as String
-        demo.save
+        if demo.save
+          redirect "/demos"
+        else
+          render "demo/edit.ecr", "main.ecr"
+        end
       else
-        text "Demo with id:#{id} could not be found", 404
+        redirect "/demos"
       end
-      redirect "/demos"
     end
   end
 
@@ -72,8 +74,6 @@ module DemoController
       id = context.params["id"]
       if demo = Demo.find id
         demo.destroy
-      else
-        text "Demo with id:#{id} could not be found", 404
       end
       redirect "/demos"
     end

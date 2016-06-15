@@ -6,7 +6,7 @@ class Demo < Kemalyst::Model
   
   # id, created_at and updated_at columns are automatically created for you.
   sql_mapping({ 
-    name: ["TEXT", String]
+    name: ["VARCHAR UNIQUE NOT NULL", String]
   })
 
   def last_updated
