@@ -231,6 +231,9 @@ class Kemalyst::Adapter::Pg < Kemalyst::Adapter::Base
     else
       fields.each do |key, pg_type|
         if key.to_s == key_as_string
+          if pg_type.includes? " "
+            pg_type = pg_type.split(" ")[0]
+          end
           return "::#{pg_type.downcase}"
         end
       end
