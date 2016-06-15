@@ -147,6 +147,11 @@ require "yaml"
 # ysbaddaden is leveraged to reduce the cost of opening and closing
 # connections.
 class Kemalyst::Model
+  property errors : Array(String)?
+
+  def errors
+    @errors ||= [] of String
+  end
 
   # specify the database adapter you will be using for this model. 
   # mysql, pg, sqlite, etc.
@@ -302,24 +307,43 @@ class Kemalyst::Model
   # This will update the timestamps apropriately.
   def save
     if db = @@database
-      if value = @id
-        updated_at = Time.now
-        db.update(@@table_name, self.class.fields, value, params)
-      else
-        @created_at = Time.now
-        @updated_at = Time.now
-        @id = db.insert(@@table_name, self.class.fields, params)
+      begin
+        if value = @id
+          updated_at = Time.now
+          db.update(@@table_name, self.class.fields, value, params)
+        else
+          @created_at = Time.now
+          @updated_at = Time.now
+          @id = db.insert(@@table_name, self.class.fields, params)
+        end
+        return true
+      rescue ex
+        if message = ex.message
+          errors << message
+        end
+        return false
       end
+    else
+      return false
     end
-    return true
   end
 
   # Destroy will remove this from the database.
   def destroy
     if db = @@database
-      db.delete(@@table_name, @id)
+      begin
+        db.delete(@@table_name, @id)
+        return true
+      rescue ex
+        if message = ex.message
+          errors << message
+        end
+
+        return false
+      end
+    else
+      return false
     end
-    return true
   end
   
   # All will return all rows in the database. The clause allows you to specify
