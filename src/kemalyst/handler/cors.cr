@@ -12,31 +12,55 @@ module Kemalyst::Handler
       @max_age = 0
     end
 
-    #TODO: Need to implement limitations.  Currently this doesn't check if origin
-    #matcches or headers or methods are allowed.  It just responds with 
-    # needed headers.
     def call(context)
       begin
-        context.response.headers["access-control-allow-origin"] = @allow_origin
-        context.response.headers["access-control-allow-headers"] = @allow_headers
-        context.response.headers["access-control-allow-methods"] = @allow_methods
-        if @allow_credentials
-          context.response.headers["access-control-allow-credentials"] = "true"
+        context.response.headers["Access-Control-Allow-Origin"] = allow_origin
+
+        # TODO: verify the actual origin matches allowed origins.
+        # if requested_origin = context.request.headers["Origin"]
+        #   if allow_origins.includes? requested_origin
+        #   end
+        # end
+        
+        if allow_credentials
+          context.response.headers["Access-Control-Allow-credentials"] = "true"
         end
         
+        if max_age > 0
+          context.response.headers["Access-Control-Max-Age"] = max_age.to_s
+        end
+        
+        # if asking permission for request method or request headers
         if context.request.method.downcase == "options"
-          if @max_age > 0
-            context.response.headers["access-control-max-age"] = @max_age.to_s
-          end
           context.response.status_code = 200
+          response = ""
+
+          if requested_method = context.request.headers["Access-Control-Request-Method"]
+            if allow_methods.includes? requested_method.strip
+              context.response.headers["Access-Control-Allow-Methods"] = allow_methods
+            else
+              context.response.status_code = 403
+              response = "Method #{requested_method} not allowed."
+            end
+          end
+
+          if requested_headers = context.request.headers["Access-Control-Request-Headers"]
+            requested_headers.split(",").each do |requested_header|
+              if allow_headers.includes? requested_header.strip
+                context.response.headers["Access-Control-Allow-Headers"] = allow_headers
+              else
+                context.response.status_code = 403
+                response = "Headers #{requested_headers} not allowed."
+              end
+            end
+          end
+
           context.response.content_type = "text/html; charset=utf-8"
-          context.response.print("")
+          context.response.print(response)
         else
           call_next(context)
         end
       end
     end
-  
   end
 end
-
