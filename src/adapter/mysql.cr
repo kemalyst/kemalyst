@@ -170,7 +170,7 @@ class Kemalyst::Adapter::Mysql < Kemalyst::Adapter::Base
     self.query(statement, params)
     results = self.query("SELECT LAST_INSERT_ID()")
     if results
-      return (results[0][0] as Int64)
+      return results[0][0] as Int64
     end
   end
   

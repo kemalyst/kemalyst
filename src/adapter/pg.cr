@@ -172,7 +172,7 @@ class Kemalyst::Adapter::Pg < Kemalyst::Adapter::Base
     end
     results = self.query(statement, params, fields)
     if results
-      return (results[0][0] as Int32).to_i64
+      return results[0][0] as Int32
     end
   end
   
