@@ -14,7 +14,7 @@ shards:
 
   pg:
     github: will/crystal-pg
-    commit: cafe757dafe6b7257c3d0c0192c243df64d43af4
+    version: 0.8.0
 
   pool:
     github: ysbaddaden/pool

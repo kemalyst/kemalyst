@@ -24,7 +24,7 @@ development_dependencies:
 
   pg:
     github: will/crystal-pg
-    branch: master
+    version: 0.8.0
 
   sqlite3:
     github: manastech/crystal-sqlite3

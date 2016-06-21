@@ -38,10 +38,6 @@ class Post4 < Kemalyst::Model
 end
 
 describe Kemalyst::Adapter::Mysql do
-  Spec.before_each do
-    Post1.clear
-  end
-
   describe "#migrate" do
     it "adds any new fields" do
       Post1.drop

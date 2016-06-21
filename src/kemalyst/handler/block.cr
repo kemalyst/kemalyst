@@ -4,6 +4,11 @@ module Kemalyst::Handler
   # method so this block can be chained in the callstack.
   class Block < HTTP::Handler
 
+    # class method to return a singleton instance of this Controller
+    def self.instance
+      @@instance ||= new
+    end
+
     def initialize(@block : (HTTP::Server::Context -> String))
     end
 

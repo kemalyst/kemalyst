@@ -3,10 +3,10 @@ require "./spec_helper"
 describe Kemalyst::Handler::WebSocket do
 #TODO: trackdown issue with MemoryIO
   it "Upgrades to websocket" do
-    headers = HTTP::Headers{
-      "Upgrade":           "websocket",
-      "Connection":        "Upgrade",
-      "Sec-WebSocket-Key": "dGhlIHNhbXBsZSBub25jZQ==",
+    headers = HTTP::Headers {
+      "Upgrade" => "websocket",
+      "Connection" => "Upgrade",
+      "Sec-WebSocket-Key" => "dGhlIHNhbXBsZSBub25jZQ=="
     }
     request = HTTP::Request.new("GET", "/", headers)
     io, context = create_context(request)

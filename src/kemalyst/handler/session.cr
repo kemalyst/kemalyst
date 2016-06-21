@@ -10,6 +10,11 @@ module Kemalyst::Handler
   class Session < Base
     property :key, :secret
 
+    # class method to return a singleton instance of this Controller
+    def self.instance
+      @@instance ||= new
+    end
+
     def initialize
       @key = "kemalyst.session"
       @secret = "change_me"

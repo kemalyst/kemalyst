@@ -57,9 +57,8 @@ class Kemalyst::Adapter::Pg < Kemalyst::Adapter::Base
       prev = "id"
       fields.each do |name, type|
         #check to see if the field is in the db_schema
-        columns = db_schema.select{|col| col[0] == name}
-        if columns && columns.size > 0
-          column = columns.first
+        column = db_schema.find { |col| col[0] == name }
+        if column 
           #check to see if the data_type matches
           if db_alias_to_schema_type(type) != (column[1] as String)
             rename_field(table_name, name, "old_#{name}", type)
@@ -195,13 +194,11 @@ class Kemalyst::Adapter::Pg < Kemalyst::Adapter::Base
   end
 
   def query(statement : String, params = {} of String => String, fields = {} of Symbol => String)
-    if params
-      statement, params = scrub_query_and_params(statement, params, fields)
-    end
-    conn = @pool.connection 
+    query, new_params = scrub_query_and_params(statement, params, fields)
+    conn = @pool.connection
     if conn
       begin
-        results = conn.exec(statement, params)
+        results = conn.exec(query, new_params)
         return results.rows
       ensure
         @pool.release
@@ -214,7 +211,9 @@ class Kemalyst::Adapter::Pg < Kemalyst::Adapter::Base
   alias SUPPORTED_TYPES = (Nil | String | Int32 | Int16 | Int64 | Float32 | Float64 | Bool | Time | Char)
   private def scrub_query_and_params(query, params, fields)
     new_params = [] of SUPPORTED_TYPES
-    params.each_with_index do |key, value, index|
+    params.each_with_index do |param, index|
+      key = param[0]
+      value = param[1]
       if value.is_a? SUPPORTED_TYPES
         query = query.gsub(":#{key}", "$#{index+1}#{lookup_type(fields,key)}")
         new_params << value

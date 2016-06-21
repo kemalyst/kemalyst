@@ -8,14 +8,7 @@ module Kemalyst::Handler
     
     # class method to return a singleton instance of this Controller
     def self.instance
-      @@instance ||= new
-    end
-
-    # class variables are not inherited. You can use macro inherited
-    macro inherited
-      def self.instance
-        @@instance ||= new
-      end
+      @@base_instance ||= new
     end
 
     # Ability to configure the singleton instance from the class

@@ -101,6 +101,11 @@ module Kemalyst::Handler
   class Router < Base
     property tree : Delimiter::Tree(Nil | Kemalyst::Handler::Route)
 
+    # class method to return a singleton instance of this Controller
+    def self.instance
+      @@instance ||= new
+    end
+
     def initialize
       @tree = Delimiter::Tree(Nil | Kemalyst::Handler::Route).new
     end
