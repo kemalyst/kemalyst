@@ -14,7 +14,7 @@ shards:
 
   pg:
     github: will/crystal-pg
-    version: 0.8.0
+    commit: cafe3e90b4a239aa9819482543c63503a6a3f477
 
   pool:
     github: ysbaddaden/pool
@@ -22,5 +22,5 @@ shards:
 
   sqlite3:
     github: manastech/crystal-sqlite3
-    commit: b1c6c32ae563d5f4ae9cc1979883a91a18aa5bc4
+    commit: 135f33d9eac82c63a48b14942c8eff647c070410
 
