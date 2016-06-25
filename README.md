@@ -2,9 +2,9 @@
 
 [![Build Status](https://travis-ci.org/drujensen/kemalyst.svg?branch=master)](https://travis-ci.org/drujensen/kemalyst)
 
-# Kemalyst
+[![docrystal.org](http://docrystal.org/badge.svg)](http://docrystal.org/github.com/drujensen/kemalyst)
 
-[Kemalyst API documentation](http://drujensen.github.io/kemalyst/doc/) can be found here.
+# Kemalyst
 
 Kemalyst is a yarlf (yet another rails like framework) that is based on on
 super fast [kemal](https://github.com/sdogruyol/kemal). The framework
@@ -273,8 +273,8 @@ The `<%= content %>` is where the template will be rendered in the layout.
 
 ### Models
 
-The models are a simple ORM mechanism that will map objects to tuples.  The
-mapping is done using a `sql_mapping` macro.
+The models are a simple ORM mechanism that will map objects to rows in the
+database.  The mapping is done using a `sql_mapping` macro.
 
 An example models/post.cr`
 ```
