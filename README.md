@@ -278,8 +278,7 @@ database.  The mapping is done using a `sql_mapping` macro.
 
 An example models/post.cr`
 ```
-require "kemalyst"
-require "kemalyst/adapter/pg"
+require "kemalyst-model/adapter/pg"
 
 class Post < Kemalyst::Model
   adapter pg

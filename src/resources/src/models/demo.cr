@@ -1,4 +1,4 @@
-require "kemalyst/adapter/pg"
+require "kemalyst-model/adapter/pg"
 
 class Demo < Kemalyst::Model
   adapter pg
