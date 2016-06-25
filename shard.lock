@@ -6,7 +6,7 @@ shards:
 
   kemalyst-model:
     github: drujensen/kemalyst-model
-    commit: b05934e3528ecf7cc3f5b86db658b4f7935ff86b
+    commit: b72b7f9c10c69d7ccc117b2378f19932ef62c504
 
   kilt:
     github: jeromegn/kilt
