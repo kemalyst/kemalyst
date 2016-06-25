@@ -16,7 +16,7 @@ describe PostController::Index do
 
     request = HTTP::Request.new("GET", "/posts")
     io, context = create_context(request) 
-    response = PostController::Index.instance.call(context)
+    response = PostController::Index.instance.call(context) as String
     response.should contain "sample post"
   end
 
@@ -32,7 +32,7 @@ describe PostController::Show do
     request = HTTP::Request.new("GET", "/posts/1")
     io, context = create_context(request) 
     context.params["id"] = "1"
-    response = PostController::Show.instance.call(context)
+    response = PostController::Show.instance.call(context) as String
     response.should contain "sample post"
   end
 
@@ -44,7 +44,7 @@ describe PostController::New do
     request = HTTP::Request.new("GET", "/posts/new")
     io, context = create_context(request) 
     context.session["authorized"] = "true"
-    response = PostController::New.instance.call(context)
+    response = PostController::New.instance.call(context) as String
     response.should contain "<h1>New Post</h1>"
   end
 
@@ -81,7 +81,7 @@ describe PostController::Edit do
     io, context = create_context(request) 
     context.session["authorized"] = "true"
     context.params["id"] = "1"
-    response = PostController::Edit.instance.call(context)
+    response = PostController::Edit.instance.call(context) as String
     response.should contain "<h1>Edit Post</h1>"
   end
 

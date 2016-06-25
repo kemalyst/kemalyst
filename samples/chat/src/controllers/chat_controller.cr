@@ -2,7 +2,7 @@ include Kemalyst
 
 module ChatController
 
-  class Index < Controller
+  class Index < Kemalyst::Controller
     def call(context)
       render "chat/index.ecr"
     end

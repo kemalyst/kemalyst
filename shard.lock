@@ -4,23 +4,15 @@ shards:
     github: drujensen/delimiter_tree
     commit: eeddecd0475710adb6414595e6144bfdce3a95f1
 
+  kemalyst-model:
+    github: drujensen/kemalyst-model
+    commit: b05934e3528ecf7cc3f5b86db658b4f7935ff86b
+
   kilt:
     github: jeromegn/kilt
     commit: adf515f1212fe985dbc9da561f02ade11bfe8e5f
 
-  mysql:
-    github: waterlink/crystal-mysql
-    commit: 26ef2b4aaf2e108f1104a84063fb18434bb65abe
-
-  pg:
-    github: will/crystal-pg
-    commit: cafe3e90b4a239aa9819482543c63503a6a3f477
-
   pool:
     github: ysbaddaden/pool
     commit: c4ecfad1b87fbd8c6484d1fd536ccfd14c40cc94
-
-  sqlite3:
-    github: manastech/crystal-sqlite3
-    commit: 135f33d9eac82c63a48b14942c8eff647c070410
 

@@ -1,6 +1,5 @@
-require "kemalyst"
 require "kemalyst/adapter/mysql"
-require "markdown/markdown"
+require "markdown"
 
 class Post < Kemalyst::Model
   adapter mysql

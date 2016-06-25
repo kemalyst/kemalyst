@@ -1,2 +1,3 @@
 require "spec"
-require "../src/kemal-react-chat"
+require "kemalyst"
+require "../config/*"

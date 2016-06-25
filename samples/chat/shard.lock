@@ -2,17 +2,17 @@ version: 1.0
 shards:
   delimiter_tree:
     github: drujensen/delimiter_tree
-    commit: ff00d3f211aa0e6850b04c12941e88522c3a59d7
+    commit: eeddecd0475710adb6414595e6144bfdce3a95f1
 
   kemalyst:
     github: drujensen/kemalyst
-    commit: 5fa2502ba45077a7c42f3b4ca19ed60693b1baed
+    commit: 2163fde040a1e55d79a40bbaee12eeea18ba3c53
 
   kilt:
     github: jeromegn/kilt
-    commit: d50328286f5e718b70f0420ad0c7cb2fa8c499b8
+    commit: adf515f1212fe985dbc9da561f02ade11bfe8e5f
 
   pool:
     github: ysbaddaden/pool
-    version: 0.2.1
+    commit: c4ecfad1b87fbd8c6484d1fd536ccfd14c40cc94
 
