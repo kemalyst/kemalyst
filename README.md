@@ -312,8 +312,6 @@ You can find more details at [Kemalyst Model](https://github.com/drujensen/kemal
 Another Library included with Kemalyst is validation of your models.
 You can find more details at [Kemalyst Validators](https://github.com/drujensen/kemalyst-validators)
 
-```
-
 ## Contributing
 
 1. Fork it ( https://github.com/drujensen/kemalyst/fork )
