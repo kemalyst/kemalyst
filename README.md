@@ -298,16 +298,25 @@ There are several methods that are provided in the model.
 - self.drop - DROP table...
 - self.create - CREATE table...
 - self.clear - DELETE from table
-- self.migrate = Add/Update columns to match model definition.  TODO: Currently doesn't support changing the type or size of the column.
+- self.migrate = Add/Update columns to match model definition.
 - self.prune - Remove any undefined fields from the database
 - save - Insert or Update depending on if ID is set
 - destroy - DELETE FROM table WHERE id = this.id
 - all(where) SELECT * FROM table #{WHERE clause};"
 - find(id) - SELECT * FROM table WHERE id = this.id LIMIT 1;"
 
+You can find more details at [Kemalyst Model](https://github.com/drujensen/kemalyst-model)
+
+### Validation
+
+Another Library included with Kemalyst is validation of your models.
+You can find more details at [Kemalyst Validators](https://github.com/drujensen/kemalyst-validators)
+
+```
+
 ## Contributing
 
-1. Fork it ( https://github.com/[your-github-name]/kemalyst/fork )
+1. Fork it ( https://github.com/drujensen/kemalyst/fork )
 2. Create your feature branch (git checkout -b my-new-feature)
 3. Commit your changes (git commit -am 'Add some feature')
 4. Push to the branch (git push origin my-new-feature)

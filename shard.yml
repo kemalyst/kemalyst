@@ -10,6 +10,9 @@ dependencies:
   kemalyst-model:
     github: drujensen/kemalyst-model
     branch: master
+  kemalyst-validators:
+    github: drujensen/kemalyst-validators
+    branch: master
   delimiter_tree:
     github: drujensen/delimiter_tree
     branch: master
