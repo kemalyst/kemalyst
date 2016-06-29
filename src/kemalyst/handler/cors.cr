@@ -1,6 +1,6 @@
 module Kemalyst::Handler
-  # The Cors Handler adds support for Cross Origin Resource Sharing.
-  class Cors < Base
+  # The CORS Handler adds support for Cross Origin Resource Sharing.
+  class CORS < Base
     property allow_origin, allow_headers, allow_methods, allow_credentials,
       max_age
 
