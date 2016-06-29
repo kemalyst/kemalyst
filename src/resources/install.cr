@@ -1,11 +1,21 @@
 # This script will install a demo app similar to running a rails scaffold
 base_dir = "../.."
 
-# move /resources to /src
+# move /resources to project
 unless File.exists? "#{base_dir}/src/app.cr"
 
+  # move the conflicting files to old
+  conflicts = ["spec/spec_helper.cr"]
+  conflicts.each do |conflict|
+    if File.exists? "#{base_dir}/#{conflict}"
+      File.rename "#{base_dir}/#{conflict}", "#{base_dir}/#{conflict}_old"
+    end
+  end
+  
   # resources to move to base directory
-  resources = ["src/controllers", "src/models","src/views", "src/app.cr", "db", "config", "public", "Dockerfile", "docker-compose.yml"]
+  resources = ["src/controllers", "src/models","src/views", "src/app.cr",
+               "spec/controllers", "spec/models", "spec/spec_helper.cr", 
+               "db", "config", "public", "Dockerfile", "docker-compose.yml"]
 
   resources.each do |resource|
     unless File.exists? "#{base_dir}/#{resource}"
