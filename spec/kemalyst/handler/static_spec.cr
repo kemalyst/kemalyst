@@ -14,6 +14,29 @@ describe Kemalyst::Handler::Static do
     client_response.body.should eq "Hello World!\n" 
   end
 
+  it "returns Not Found when file doesn't exist" do
+    request = HTTP::Request.new("GET", "/not_found.html")
+    io, context = create_context(request)
+    static = Kemalyst::Handler::Static.instance
+    static.public_folder = "spec/sample/public"
+    static.call(context)
+    context.response.close
+    io.rewind
+    client_response = HTTP::Client::Response.from_io(io, decompress: false)
+    client_response.body.should eq "Not Found\n" 
+  end
+
+  it "delivers index.html if path ends with /" do
+    request = HTTP::Request.new("GET", "/")
+    io, context = create_context(request)
+    static = Kemalyst::Handler::Static.instance
+    static.public_folder = "spec/sample/public"
+    static.call(context)
+    context.response.close
+    io.rewind
+    client_response = HTTP::Client::Response.from_io(io, decompress: false)
+    client_response.body.should eq "Hello World!\n" 
+  end
 end
 
 
