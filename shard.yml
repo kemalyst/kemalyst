@@ -24,4 +24,4 @@ dependencies:
     branch: master
 
 scripts:
-  postinstall: crystal resources/install.cr 
+  postinstall: crystal templates/install.cr 
