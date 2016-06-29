@@ -1,7 +1,6 @@
 require "./spec_helper"
 
-describe Kemalyst::Handler::WebSocket do
-#TODO: trackdown issue with MemoryIO
+describe Kemalyst::WebSocket do
   it "Upgrades to websocket" do
     headers = HTTP::Headers {
       "Upgrade" => "websocket",

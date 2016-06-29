@@ -46,9 +46,8 @@ describe Kemalyst::Handler::Router do
   it "builds handler callstack for routes" do
     router = Kemalyst::Handler::Router.new
     handler = Kemalyst::Handler::Block.new(->(c : HTTP::Server::Context) { "Hello World!" })
-    
-    router.add_route("GET", "/", 
-     [Kemalyst::Handler::WebSocket.new(->(ws : HTTP::WebSocket){}), handler])
+    socket =Kemalyst::WebSocket.new
+    router.add_route("GET", "/", [socket, handler])
     request = HTTP::Request.new("GET", "/")
     io, context = create_context(request)
     router.call(context)
