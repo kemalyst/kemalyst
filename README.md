@@ -6,7 +6,7 @@
 
 # Kemalyst
 
-Kemalyst is a yarlf (yet another rails like framework) that is based on on
+Kemalyst is a yarlf (yet another r5555 like framework) that is based on on
 super fast [kemal](https://github.com/sdogruyol/kemal). The framework
 leverages the http handlers which are similar to Rack middleware. The
 controllers are also HTTP::Handlers that render the response.
@@ -92,6 +92,13 @@ crystal eval "require \"secure_random\"; puts SecureRandom.hex(64)"
 ```
 copy the secret and set this in `config/session.cr`.
 
+### Sample Applications
+
+Several sample applications are provided:
+
+[Blog Kemalyst](https://github.com/drujensen/blog-kemalyst)
+[Chat Kemalyst](https://github.com/drujensen/chat-kemalyst)
+
 ### Configure App
 
 All config settings are in the `/config` folder.  Each handler has its own
@@ -134,27 +141,13 @@ chain of handlers you specify in the routes.cr file.
 
 An example of a route would be:
 ```
-get "/", DemoController::Index.instance
-```
-
-You may also pass in a block similar to sinatra or kemal:
-```
-get "/" do |context|
-  text "Great job!", 200
-end
+get "/",   DemoController::Index.instance
 ```
 
 You may chain multiple handlers in a route using an array:
 ```
 get "/", [ BasicAuth.instance("username", "password"),
            DemoController::Index.instance ]
-```
-
-or:
-```
-get "/", BasicAuth.instance("username", "password") do |context|
-  text "This is secured by BasicAuth!", 200
-end
 ```
 
 This is how you would configure a WebSocket:
@@ -207,12 +200,12 @@ end
 
 There are several helper macros that set content type and response.
 ```
-  render "filename.ecr" # renders an .ecr template
-  render "filename.ecr", "layout.ecr" # renders an .ecr template with layout
+  render   "filename.ecr" # renders an .ecr template
+  render   "filename.ecr", "layout.ecr" # renders an .ecr template with layout
   redirect "path" # redirect to path
-  text "body", 200 #render text/plain response with status code of 200
-  json "{}".to_json, 200 #render application/json with status code of 200
-  html "<html></html>", 200 #render text/html with status code of 200
+  text     "body", 200 #render text/plain response with status code of 200
+  json     "{}".to_json, 200 #render application/json with status code of 200
+  html     "<html></html>", 200 #render text/html with status code of 200
 ```
 
 ### Views
@@ -276,8 +269,8 @@ The `<%= content %>` is where the template will be rendered in the layout.
 The models are a simple ORM mechanism that will map objects to rows in the
 database.  The mapping is done using a `sql_mapping` macro.
 
-An example models/post.cr`
-```
+An example `models/post.cr`
+```crystal
 require "kemalyst-model/adapter/pg"
 
 class Post < Kemalyst::Model
@@ -298,7 +291,7 @@ There are several methods that are provided in the model.
 - self.drop - DROP table...
 - self.create - CREATE table...
 - self.clear - DELETE from table
-- self.migrate = Add/Update columns to match model definition.
+- self.migrate = Add/Update columns to match model definition
 - self.prune - Remove any undefined fields from the database
 - save - Insert or Update depending on if ID is set
 - destroy - DELETE FROM table WHERE id = this.id

@@ -1,3 +1,0 @@
-Kemalyst::Handler::Session.config do |config|
-  config.secret = "0c04a88341ec9ffd2794a0d35c9d58109d8fff32dfc48194c2a2a8fc62091190920436d58de598ca9b44dd20e40b1ab431f6dcaa40b13642b69d0edff73d7374"
-end
