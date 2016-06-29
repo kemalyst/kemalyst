@@ -5,7 +5,7 @@ module Kemalyst::Handler
   # The static handler returns static assets from the configured public
   # folder.  The default public folder is `./public`.
   class Static < Base
-    property public_folder
+    property public_folder, default_file
 
     # class method to return a singleton instance of this Controller
     def self.instance
@@ -14,6 +14,7 @@ module Kemalyst::Handler
 
     def initialize
       @public_folder = "./public"
+      @default_file = "index.html"
     end
 
     def call(context)
@@ -26,10 +27,9 @@ module Kemalyst::Handler
       request_path = URI.unescape(context.request.path.not_nil!)
       expanded_path = File.expand_path(request_path, "/")
       file_path = File.join(public_dir, expanded_path)
-      
-      if Dir.exists?(file_path)
-        call_next(context)
-      elsif File.exists?(file_path)
+      file_path = File.join(public_dir, default_file) if file_path.ends_with? "/"
+
+      if File.exists?(file_path)
         last_modified = File.stat(file_path).mtime.to_s("%a, %-d %h %C%y %T GMT")
         if modified_since = context.request.headers.fetch("If-Modified-Since", nil)
           if last_modified == modified_since
