@@ -150,16 +150,13 @@ get "/", [ BasicAuth.instance("username", "password"),
            DemoController::Index.instance ]
 ```
 
-This is how you would configure a WebSocket:
+This is how you would configure a WebSocket Controller:
 ```
-get "/", [ WebSocket.instance(ChatController::Chat.instance),
+get "/", [ ChatController::Chat.instance,
            ChatController::Index.instance ]
 ```
 
-The `Chat` class would have a `call` method that is expecting an
-`HTTP::WebSocket` to be passed which it would maintain and properly handle
-messages to and from it.  Check out the sample Chat application to get an idea
-on how to do this.
+See below for more information on how to create a WebSocket Controller.
 
 You can use any of the following methods: `get, post, put, patch, delete, all`
 
@@ -207,6 +204,40 @@ There are several helper macros that set content type and response.
   json     "{}".to_json, 200 #render application/json with status code of 200
   html     "<html></html>", 200 #render text/html with status code of 200
 ```
+
+### WebSocket Controllers
+
+The WebSocket Controller will handle upgrading a HTTP Request to a WebSocket
+Connection.
+
+An example WebSocket Controller:
+```
+
+class Chat < Kemalyst::WebSocket
+  @sockets = [] of HTTP::WebSocket
+  @messages = [] of String
+   
+  def call(socket : HTTP::WebSocket)
+    @sockets.push socket
+    socket.on_message do |message|
+      @messages.push message
+      @sockets.each do |a_socket|
+        a_socket.send @messages.to_json
+      end
+    end
+  end
+end
+```
+The `Chat` class will override the `call` method that is expecting an
+`HTTP::WebSocket` to be passed which it would maintain and properly handle
+messages to and from each socket.
+
+This class will manage an array of `HTTP::Websocket`s and configures the
+`on_message` callback that will manage the messages that will be then be
+passed on to all of the other sockets. 
+
+To see a full example application, checkout
+[Chat Kemalyst](https://github.com/drujensen/chat-kemalyst)
 
 ### Views
 
