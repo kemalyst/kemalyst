@@ -12,14 +12,14 @@ unless File.exists? "#{base_dir}/src/app.cr"
     end
   end
   
-  # resources to move to base directory
-  resources = ["src/controllers", "src/models","src/views", "src/app.cr",
+  # templates to move to base directory
+  templates = ["src/controllers", "src/models","src/views", "src/app.cr",
                "spec/controllers", "spec/models", "spec/spec_helper.cr", 
                "db", "config", "public", "Dockerfile", "docker-compose.yml"]
 
-  resources.each do |resource|
-    unless File.exists? "#{base_dir}/#{resource}"
-      File.rename "resources/#{resource}", "#{base_dir}/#{resource}"
+  templates.each do |template|
+    unless File.exists? "#{base_dir}/#{template}"
+      File.rename "templates/#{template}", "#{base_dir}/#{template}"
     end
   end
 
