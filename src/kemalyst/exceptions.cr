@@ -3,4 +3,7 @@ module Kemalyst::Exceptions
   # page.
   class RouteNotFound < Exception
   end
+
+  class Forbidden < Exception
+  end
 end

@@ -12,6 +12,16 @@ module Kemalyst::Handler
     def call(context)
       begin
         call_next(context)
+      rescue ex : Kemalyst::Exceptions::Forbidden
+        context.response.status_code = 403
+        if context.request.headers["Accept"]?
+          content_type = context.request.headers["Accept"].split(",")[0]
+        else
+          content_type = "text/plain"
+        end
+        context.response.content_type = content_type
+        message = message_based_on_content_type(ex.message, content_type)
+        context.response.print(message)
       rescue ex : Kemalyst::Exceptions::RouteNotFound
         context.response.status_code = 404
         if context.request.headers["Accept"]?

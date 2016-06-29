@@ -19,6 +19,16 @@ class Kemalyst::Controller < HTTP::Handler
     call_next context
   end
 
+  # Provides the CSRF token
+  def csrf_token(context)
+    Kemalyst::Handler::CSRF.instance.token(context)
+  end
+
+  # Helper method to generate a hidden csrf input tag
+  def csrf_tag(context)
+    Kemalyst::Handler::CSRF.instance.tag(context)
+  end
+
   # helper to render a view with a layout.  The view name is relative to `src/views`
   # directory and the layout is relative to `src/views/layouts` directory.
   macro render(filename, layout)
