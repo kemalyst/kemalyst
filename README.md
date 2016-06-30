@@ -122,9 +122,9 @@ copy the secret and set this in `config/session.cr`.
 
 Several sample applications are provided:
 
-[Blog Kemalyst](https://github.com/drujensen/blog-kemalyst)
-[Chat Kemalyst](https://github.com/drujensen/chat-kemalyst)
-[ToDo Backend Kemalyst](https://github.com/drujensen/todo-backend-kemalyst)
+ - [Blog Kemalyst](https://github.com/drujensen/blog-kemalyst)
+ - [Chat Kemalyst](https://github.com/drujensen/chat-kemalyst)
+ - [ToDo Backend Kemalyst](https://github.com/drujensen/todo-backend-kemalyst)
 
 ### Configure App
 
@@ -262,7 +262,21 @@ messages to and from each socket.
 
 This class will manage an array of `HTTP::Websocket`s and configures the
 `on_message` callback that will manage the messages that will be then be
-passed on to all of the other sockets. 
+passed on to all of the other sockets.
+
+It's important to realize that if the request is not asking to be upgraded to
+a websocket, it will call the next handler in the path.  If there is no
+more handlers configured, a 404 will be returned.
+
+Here is an example routing configuration:
+```crystal
+get "/", [ ChatController::Chat.instance,
+           ChatController::Index.instance ]
+```
+The first one is a WebSocket Controller and the second is a standard
+Controller.  If the request is not a WebSocket upgrade request, it will
+pass-through and call the second one that will return the html page.
+
 
 To see a full example application, checkout
 [Chat Kemalyst](https://github.com/drujensen/chat-kemalyst)
