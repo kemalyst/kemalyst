@@ -32,8 +32,8 @@ Website](http://crystal-lang.org).  I recommend using
 2. Create a Crystal App
 
 ```
-crystal init app your_app
-cd your_app
+crystal init app [your_app]
+cd [your_app]
 ```
 3. Add kemalyst dependency to your shard.yml
 ```
@@ -60,23 +60,38 @@ To keep a similar structure to yarlf, several directories and files will be
 installed.  This structure should look familiar to you if your coming from a
 Rails background.
 
+You may want to remove the remnants of `crystal init`:
+```
+rm src/[your_app].cr
+rm -r src/[your_app]
+rm spec/[your_app_spec].cr
+rm spec/spec_helper.cr_old
+```
+
 ## Usage
 
 ### Run Locally
-To run the demo app locally:
+To test the demo app locally:
+
+1. create a postgres database called `demo`
+2. run `export DATABASE_URL=postgres://[username]:[password]@localhost:5432/demo`
+3. migrate the database: `crystal db/migrate.cr`
+4. run the specs: `crystal spec`
+
+To build the demo app locally:
 
 1. build the app `crystal build --release src/app.cr`
 2. run with `./app`
 3. visit `http://0.0.0.0:3000/`
 
 
-### Run With docker
+### Run With docker compose
 To run the demo app, we are including a Dockerfile and docker-compose.yml. If
 you have docker setup, you should be able to run:
 ```
 docker-compose build .
 docker-compose run web crystal db/migrate.cr
-docker-compose up web
+docker-compose up -d web
 ```
 This will download an ubuntu/cedar image compatible with heroku and install all the
 dependencies including crystal.  It will also include a postgres db image.
