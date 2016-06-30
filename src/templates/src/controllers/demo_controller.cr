@@ -37,7 +37,7 @@ module DemoController
       if demo.save
         redirect "/demos"
       else
-        render "business_type/new.ecr", "main.ecr"
+        render "demo/new.ecr", "main.ecr"
       end
     end
   end

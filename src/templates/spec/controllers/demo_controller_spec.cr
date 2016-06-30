@@ -40,9 +40,9 @@ describe DemoController do
 
   describe DemoController::Create do
     it "" do
-      request = HTTP::Request.new("POST", "/demos/#{demo.id}")
+      request = HTTP::Request.new("POST", "/demos")
       io, context = create_context(request)
-      request.params["name"] = "test"
+      context.params["name"] = "test"
       response = DemoController::Create.instance.call(context) as String
       demo = Demo.all
       demo.size.should eq 1
@@ -68,9 +68,9 @@ describe DemoController do
       demo.save
       request = HTTP::Request.new("PUT", "/demos/#{demo.id}")
       io, context = create_context(request)
-      request.params["name"] = "test2"
+      context.params["name"] = "test2"
       response = DemoController::Update.instance.call(context) as String
-      demo = Demo.find demo.id
+      demo = Demo.find(demo.id).not_nil!
       demo.name.should eq "test2"
     end
   end
