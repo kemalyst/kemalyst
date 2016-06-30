@@ -40,6 +40,11 @@
       
         <ul>
   
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Exceptions/Forbidden" data-name="kemalyst::exceptions::forbidden">
+      <a href="../Kemalyst/Exceptions/Forbidden.html">Forbidden</a>
+      
+    </li>
+  
   <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Exceptions/RouteNotFound" data-name="kemalyst::exceptions::routenotfound">
       <a href="../Kemalyst/Exceptions/RouteNotFound.html">RouteNotFound</a>
       
@@ -70,8 +75,13 @@
       
     </li>
   
-  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Handler/Cors" data-name="kemalyst::handler::cors">
-      <a href="../Kemalyst/Handler/Cors.html">Cors</a>
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Handler/CORS" data-name="kemalyst::handler::cors">
+      <a href="../Kemalyst/Handler/CORS.html">CORS</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Handler/CSRF" data-name="kemalyst::handler::csrf">
+      <a href="../Kemalyst/Handler/CSRF.html">CSRF</a>
       
     </li>
   
@@ -110,18 +120,13 @@
       
     </li>
   
-  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Handler/WebSocket" data-name="kemalyst::handler::websocket">
-      <a href="../Kemalyst/Handler/WebSocket.html">WebSocket</a>
-      
-    </li>
-  
 </ul>
 
       
     </li>
   
-  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Model" data-name="kemalyst::model">
-      <a href="../Kemalyst/Model.html">Model</a>
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/WebSocket" data-name="kemalyst::websocket">
+      <a href="../Kemalyst/WebSocket.html">WebSocket</a>
       
     </li>
   
@@ -168,7 +173,7 @@ some macros that provide syntax sugar for rendering a response.</p>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/drujensen/kemalyst/blob/2163fde040a1e55d79a40bbaee12eeea18ba3c53/src/kemalyst/controller.cr#L6" target="_blank">kemalyst/controller.cr</a>
+      <a href="https://github.com/drujensen/kemalyst/blob/be7c2f043c085f067ed7d13e9eb61589bfc8e59e/src/kemalyst/controller.cr#L6" target="_blank">kemalyst/controller.cr</a>
     
     <br/>
   
@@ -198,6 +203,20 @@ some macros that provide syntax sugar for rendering a response.</p>
         <a href="#call%28context%29-instance-method" class="signature"><strong>#call</strong>(context)</a>
         
           <div class="summary"><p>Call is the execution method for this controller.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#csrf_tag%28context%29-instance-method" class="signature"><strong>#csrf_tag</strong>(context)</a>
+        
+          <div class="summary"><p>Helper method to generate a hidden csrf input tag</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#csrf_token%28context%29-instance-method" class="signature"><strong>#csrf_token</strong>(context)</a>
+        
+          <div class="summary"><p>Provides the CSRF token</p></div>
         
       </li>
     
@@ -295,7 +314,7 @@ some macros that provide syntax sugar for rendering a response.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/2163fde040a1e55d79a40bbaee12eeea18ba3c53/src/kemalyst/controller.cr#L9" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/be7c2f043c085f067ed7d13e9eb61589bfc8e59e/src/kemalyst/controller.cr#L9" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -322,7 +341,43 @@ response io.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/2163fde040a1e55d79a40bbaee12eeea18ba3c53/src/kemalyst/controller.cr#L18" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/be7c2f043c085f067ed7d13e9eb61589bfc8e59e/src/kemalyst/controller.cr#L18" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="csrf_tag&#40;context&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>csrf_tag</strong>(context)
+
+        <a class="method-permalink" href="#csrf_tag%28context%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Helper method to generate a hidden csrf input tag</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/be7c2f043c085f067ed7d13e9eb61589bfc8e59e/src/kemalyst/controller.cr#L28" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="csrf_token&#40;context&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>csrf_token</strong>(context)
+
+        <a class="method-permalink" href="#csrf_token%28context%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Provides the CSRF token</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/be7c2f043c085f067ed7d13e9eb61589bfc8e59e/src/kemalyst/controller.cr#L23" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -345,7 +400,7 @@ response io.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/2163fde040a1e55d79a40bbaee12eeea18ba3c53/src/kemalyst/controller.cr#L50" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/be7c2f043c085f067ed7d13e9eb61589bfc8e59e/src/kemalyst/controller.cr#L60" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -363,7 +418,7 @@ response io.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/2163fde040a1e55d79a40bbaee12eeea18ba3c53/src/kemalyst/controller.cr#L57" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/be7c2f043c085f067ed7d13e9eb61589bfc8e59e/src/kemalyst/controller.cr#L67" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -382,7 +437,7 @@ the url provided.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/2163fde040a1e55d79a40bbaee12eeea18ba3c53/src/kemalyst/controller.cr#L36" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/be7c2f043c085f067ed7d13e9eb61589bfc8e59e/src/kemalyst/controller.cr#L46" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -401,7 +456,7 @@ directory and the layout is relative to <code>src/views/layouts</code> directory
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/2163fde040a1e55d79a40bbaee12eeea18ba3c53/src/kemalyst/controller.cr#L24" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/be7c2f043c085f067ed7d13e9eb61589bfc8e59e/src/kemalyst/controller.cr#L34" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -419,7 +474,7 @@ directory and the layout is relative to <code>src/views/layouts</code> directory
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/2163fde040a1e55d79a40bbaee12eeea18ba3c53/src/kemalyst/controller.cr#L30" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/be7c2f043c085f067ed7d13e9eb61589bfc8e59e/src/kemalyst/controller.cr#L40" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -437,7 +492,7 @@ directory and the layout is relative to <code>src/views/layouts</code> directory
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/2163fde040a1e55d79a40bbaee12eeea18ba3c53/src/kemalyst/controller.cr#L43" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/be7c2f043c085f067ed7d13e9eb61589bfc8e59e/src/kemalyst/controller.cr#L53" target="_blank">View source</a>]
         
       </div>
     </div>

@@ -5,7 +5,7 @@
   <meta id="repository-name" content="github.com/drujensen/kemalyst">
   <link href="../../css/style.css" rel="stylesheet" type="text/css" />
   <script type="text/javascript" src="../../js/doc.js"></script>
-  <title>Kemalyst::Handler::Static - github.com/drujensen/kemalyst</title>
+  <title>Kemalyst::Handler::CSRF - github.com/drujensen/kemalyst</title>
 </head>
 <body>
 
@@ -80,7 +80,7 @@
       
     </li>
   
-  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Handler/CSRF" data-name="kemalyst::handler::csrf">
+  <li class=" current" data-id="github.com/drujensen/kemalyst/Kemalyst/Handler/CSRF" data-name="kemalyst::handler::csrf">
       <a href="../../Kemalyst/Handler/CSRF.html">CSRF</a>
       
     </li>
@@ -115,7 +115,7 @@
       
     </li>
   
-  <li class=" current" data-id="github.com/drujensen/kemalyst/Kemalyst/Handler/Static" data-name="kemalyst::handler::static">
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Handler/Static" data-name="kemalyst::handler::static">
       <a href="../../Kemalyst/Handler/Static.html">Static</a>
       
     </li>
@@ -142,20 +142,19 @@
 <div id="main-content">
 <h1 class="type-name">
 
-  <span class="kind">class</span> Kemalyst::Handler::Static
+  <span class="kind">class</span> Kemalyst::Handler::CSRF
 
 </h1>
 
 
-  <ul class="superclass-hierarchy"><li class="superclass"><a href="../../Kemalyst/Handler/Static.html">Kemalyst::Handler::Static</a></li><li class="superclass"><a href="../../Kemalyst/Handler/Base.html">Kemalyst::Handler::Base</a></li><li class="superclass">HTTP::Handler</li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../../Kemalyst/Handler/CSRF.html">Kemalyst::Handler::CSRF</a></li><li class="superclass"><a href="../../Kemalyst/Handler/Base.html">Kemalyst::Handler::Base</a></li><li class="superclass">HTTP::Handler</li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
 
 
 
 
   <h2>Overview</h2>
 
-  <p>The static handler returns static assets from the configured public
-folder.  The default public folder is <code>./public</code>.</p>
+  <p>The CSRF Handler adds support for Cross Site Request Forgery.</p>
 
 
 
@@ -173,7 +172,7 @@ folder.  The default public folder is <code>./public</code>.</p>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/drujensen/kemalyst/blob/be7c2f043c085f067ed7d13e9eb61589bfc8e59e/src/kemalyst/handler/static.cr#L7" target="_blank">kemalyst/handler/static.cr</a>
+      <a href="https://github.com/drujensen/kemalyst/blob/be7c2f043c085f067ed7d13e9eb61589bfc8e59e/src/kemalyst/handler/csrf.cr#L5" target="_blank">kemalyst/handler/csrf.cr</a>
     
     <br/>
   
@@ -210,22 +209,52 @@ folder.  The default public folder is <code>./public</code>.</p>
       </li>
     
       <li class="entry-summary">
-        <a href="#default_file%3AString-instance-method" class="signature"><strong>#default_file</strong> : String</a>
+        <a href="#check_methods%3AString-instance-method" class="signature"><strong>#check_methods</strong> : String</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#default_file%3D%28default_file%29-instance-method" class="signature"><strong>#default_file=</strong>(default_file)</a>
+        <a href="#check_methods%3D%28check_methods%29-instance-method" class="signature"><strong>#check_methods=</strong>(check_methods)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#public_folder%3AString-instance-method" class="signature"><strong>#public_folder</strong> : String</a>
+        <a href="#header_key%3AString-instance-method" class="signature"><strong>#header_key</strong> : String</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#public_folder%3D%28public_folder%29-instance-method" class="signature"><strong>#public_folder=</strong>(public_folder)</a>
+        <a href="#header_key%3D%28header_key%29-instance-method" class="signature"><strong>#header_key=</strong>(header_key)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#param_key%3AString-instance-method" class="signature"><strong>#param_key</strong> : String</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#param_key%3D%28param_key%29-instance-method" class="signature"><strong>#param_key=</strong>(param_key)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#session_key%3AString-instance-method" class="signature"><strong>#session_key</strong> : String</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#session_key%3D%28session_key%29-instance-method" class="signature"><strong>#session_key=</strong>(session_key)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#tag%28context%29-instance-method" class="signature"><strong>#tag</strong>(context)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#token%28context%29-instance-method" class="signature"><strong>#token</strong>(context)</a>
         
       </li>
     
@@ -311,7 +340,7 @@ folder.  The default public folder is <code>./public</code>.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/be7c2f043c085f067ed7d13e9eb61589bfc8e59e/src/kemalyst/handler/static.cr#L11" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/be7c2f043c085f067ed7d13e9eb61589bfc8e59e/src/kemalyst/handler/csrf.cr#L9" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -327,7 +356,7 @@ folder.  The default public folder is <code>./public</code>.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/be7c2f043c085f067ed7d13e9eb61589bfc8e59e/src/kemalyst/handler/static.cr#L15" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/be7c2f043c085f067ed7d13e9eb61589bfc8e59e/src/kemalyst/handler/csrf.cr#L13" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -348,71 +377,167 @@ folder.  The default public folder is <code>./public</code>.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/be7c2f043c085f067ed7d13e9eb61589bfc8e59e/src/kemalyst/handler/static.cr#L20" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/be7c2f043c085f067ed7d13e9eb61589bfc8e59e/src/kemalyst/handler/csrf.cr#L20" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="default_file:String-instance-method">
+    <div class="entry-detail" id="check_methods:String-instance-method">
       <div class="signature">
         
-        def <strong>default_file</strong> : String
+        def <strong>check_methods</strong> : String
 
-        <a class="method-permalink" href="#default_file%3AString-instance-method">#</a>
+        <a class="method-permalink" href="#check_methods%3AString-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/be7c2f043c085f067ed7d13e9eb61589bfc8e59e/src/kemalyst/handler/static.cr#L8" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/be7c2f043c085f067ed7d13e9eb61589bfc8e59e/src/kemalyst/handler/csrf.cr#L6" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="default_file&#61;&#40;default_file&#41;-instance-method">
+    <div class="entry-detail" id="check_methods&#61;&#40;check_methods&#41;-instance-method">
       <div class="signature">
         
-        def <strong>default_file=</strong>(default_file)
+        def <strong>check_methods=</strong>(check_methods)
 
-        <a class="method-permalink" href="#default_file%3D%28default_file%29-instance-method">#</a>
+        <a class="method-permalink" href="#check_methods%3D%28check_methods%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/be7c2f043c085f067ed7d13e9eb61589bfc8e59e/src/kemalyst/handler/static.cr#L8" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/be7c2f043c085f067ed7d13e9eb61589bfc8e59e/src/kemalyst/handler/csrf.cr#L6" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="public_folder:String-instance-method">
+    <div class="entry-detail" id="header_key:String-instance-method">
       <div class="signature">
         
-        def <strong>public_folder</strong> : String
+        def <strong>header_key</strong> : String
 
-        <a class="method-permalink" href="#public_folder%3AString-instance-method">#</a>
+        <a class="method-permalink" href="#header_key%3AString-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/be7c2f043c085f067ed7d13e9eb61589bfc8e59e/src/kemalyst/handler/static.cr#L8" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/be7c2f043c085f067ed7d13e9eb61589bfc8e59e/src/kemalyst/handler/csrf.cr#L6" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="public_folder&#61;&#40;public_folder&#41;-instance-method">
+    <div class="entry-detail" id="header_key&#61;&#40;header_key&#41;-instance-method">
       <div class="signature">
         
-        def <strong>public_folder=</strong>(public_folder)
+        def <strong>header_key=</strong>(header_key)
 
-        <a class="method-permalink" href="#public_folder%3D%28public_folder%29-instance-method">#</a>
+        <a class="method-permalink" href="#header_key%3D%28header_key%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/be7c2f043c085f067ed7d13e9eb61589bfc8e59e/src/kemalyst/handler/static.cr#L8" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/be7c2f043c085f067ed7d13e9eb61589bfc8e59e/src/kemalyst/handler/csrf.cr#L6" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="param_key:String-instance-method">
+      <div class="signature">
+        
+        def <strong>param_key</strong> : String
+
+        <a class="method-permalink" href="#param_key%3AString-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/be7c2f043c085f067ed7d13e9eb61589bfc8e59e/src/kemalyst/handler/csrf.cr#L6" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="param_key&#61;&#40;param_key&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>param_key=</strong>(param_key)
+
+        <a class="method-permalink" href="#param_key%3D%28param_key%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/be7c2f043c085f067ed7d13e9eb61589bfc8e59e/src/kemalyst/handler/csrf.cr#L6" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="session_key:String-instance-method">
+      <div class="signature">
+        
+        def <strong>session_key</strong> : String
+
+        <a class="method-permalink" href="#session_key%3AString-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/be7c2f043c085f067ed7d13e9eb61589bfc8e59e/src/kemalyst/handler/csrf.cr#L6" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="session_key&#61;&#40;session_key&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>session_key=</strong>(session_key)
+
+        <a class="method-permalink" href="#session_key%3D%28session_key%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/be7c2f043c085f067ed7d13e9eb61589bfc8e59e/src/kemalyst/handler/csrf.cr#L6" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="tag&#40;context&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>tag</strong>(context)
+
+        <a class="method-permalink" href="#tag%28context%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/be7c2f043c085f067ed7d13e9eb61589bfc8e59e/src/kemalyst/handler/csrf.cr#L34" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="token&#40;context&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>token</strong>(context)
+
+        <a class="method-permalink" href="#token%28context%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/be7c2f043c085f067ed7d13e9eb61589bfc8e59e/src/kemalyst/handler/csrf.cr#L30" target="_blank">View source</a>]
         
       </div>
     </div>

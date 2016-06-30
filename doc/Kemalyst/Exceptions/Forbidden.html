@@ -5,7 +5,7 @@
   <meta id="repository-name" content="github.com/drujensen/kemalyst">
   <link href="../../css/style.css" rel="stylesheet" type="text/css" />
   <script type="text/javascript" src="../../js/doc.js"></script>
-  <title>Kemalyst::Handler::Error - github.com/drujensen/kemalyst</title>
+  <title>Kemalyst::Exceptions::Forbidden - github.com/drujensen/kemalyst</title>
 </head>
 <body>
 
@@ -35,12 +35,12 @@
       
     </li>
   
-  <li class="parent " data-id="github.com/drujensen/kemalyst/Kemalyst/Exceptions" data-name="kemalyst::exceptions">
+  <li class="parent open current" data-id="github.com/drujensen/kemalyst/Kemalyst/Exceptions" data-name="kemalyst::exceptions">
       <a href="../../Kemalyst/Exceptions.html">Exceptions</a>
       
         <ul>
   
-  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Exceptions/Forbidden" data-name="kemalyst::exceptions::forbidden">
+  <li class=" current" data-id="github.com/drujensen/kemalyst/Kemalyst/Exceptions/Forbidden" data-name="kemalyst::exceptions::forbidden">
       <a href="../../Kemalyst/Exceptions/Forbidden.html">Forbidden</a>
       
     </li>
@@ -55,7 +55,7 @@
       
     </li>
   
-  <li class="parent open current" data-id="github.com/drujensen/kemalyst/Kemalyst/Handler" data-name="kemalyst::handler">
+  <li class="parent " data-id="github.com/drujensen/kemalyst/Kemalyst/Handler" data-name="kemalyst::handler">
       <a href="../../Kemalyst/Handler.html">Handler</a>
       
         <ul>
@@ -85,7 +85,7 @@
       
     </li>
   
-  <li class=" current" data-id="github.com/drujensen/kemalyst/Kemalyst/Handler/Error" data-name="kemalyst::handler::error">
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Handler/Error" data-name="kemalyst::handler::error">
       <a href="../../Kemalyst/Handler/Error.html">Error</a>
       
     </li>
@@ -142,21 +142,15 @@
 <div id="main-content">
 <h1 class="type-name">
 
-  <span class="kind">class</span> Kemalyst::Handler::Error
+  <span class="kind">class</span> Kemalyst::Exceptions::Forbidden
 
 </h1>
 
 
-  <ul class="superclass-hierarchy"><li class="superclass"><a href="../../Kemalyst/Handler/Error.html">Kemalyst::Handler::Error</a></li><li class="superclass"><a href="../../Kemalyst/Handler/Base.html">Kemalyst::Handler::Base</a></li><li class="superclass">HTTP::Handler</li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../../Kemalyst/Exceptions/Forbidden.html">Kemalyst::Exceptions::Forbidden</a></li><li class="superclass">Exception</li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
 
 
 
-
-  <h2>Overview</h2>
-
-  <p>The Error Handler catches RouteNotFound and returns a 404.  It will
-response based on the <code>Accepts</code> header as JSON or HTML.  It also catches
-any runtime Exceptions and returns a backtrace in text/plain format.</p>
 
 
 
@@ -174,7 +168,7 @@ any runtime Exceptions and returns a backtrace in text/plain format.</p>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/drujensen/kemalyst/blob/be7c2f043c085f067ed7d13e9eb61589bfc8e59e/src/kemalyst/handler/error.cr#L5" target="_blank">kemalyst/handler/error.cr</a>
+      <a href="https://github.com/drujensen/kemalyst/blob/be7c2f043c085f067ed7d13e9eb61589bfc8e59e/src/kemalyst/exceptions.cr#L7" target="_blank">kemalyst/exceptions.cr</a>
     
     <br/>
   
@@ -183,70 +177,13 @@ any runtime Exceptions and returns a backtrace in text/plain format.</p>
 
 
 
-  <h2>Class Method Summary</h2>
-  <ul class="list-summary">
-    
-      <li class="entry-summary">
-        <a href="#instance-class-method" class="signature"><strong>.instance</strong></a>
-        
-          <div class="summary"><p>class method to return a singleton instance of this Controller</p></div>
-        
-      </li>
-    
-  </ul>
 
-
-
-  <h2>Instance Method Summary</h2>
-  <ul class="list-summary">
-    
-      <li class="entry-summary">
-        <a href="#call%28context%29-instance-method" class="signature"><strong>#call</strong>(context)</a>
-        
-      </li>
-    
-  </ul>
 
 
 
 
 
 <div class="methods-inherited">
-  
-    
-
-  <h3>Instance methods inherited from class <code><a href="../../Kemalyst/Handler/Base.html">Kemalyst::Handler::Base</a></code></h3>
-  
-  
-    <a href="../../Kemalyst/Handler/Base.html#call%28context%29-instance-method" class="tooltip">
-      <span>call(context)</span>
-    call</a>, 
-    
-  
-    <a href="../../Kemalyst/Handler/Base.html#config%28%26block%29-instance-method" class="tooltip">
-      <span>config(&block)</span>
-    config</a>
-    
-  
-
-
-    
-
-  <h3>Class methods inherited from class <code><a href="../../Kemalyst/Handler/Base.html">Kemalyst::Handler::Base</a></code></h3>
-  
-  
-    <a href="../../Kemalyst/Handler/Base.html#config%28%26block%29-class-method" class="tooltip">
-      <span>config(&block)</span>
-    config</a>, 
-    
-  
-    <a href="../../Kemalyst/Handler/Base.html#instance-class-method" class="tooltip">
-      <span>instance</span>
-    instance</a>
-    
-  
-
-
   
     
 
@@ -272,47 +209,7 @@ any runtime Exceptions and returns a backtrace in text/plain format.</p>
 </div>
 
 
-  <h2>Class Method Detail</h2>
-  
-    <div class="entry-detail" id="instance-class-method">
-      <div class="signature">
-        
-        def self.<strong>instance</strong>
 
-        <a class="method-permalink" href="#instance-class-method">#</a>
-      </div>
-      
-        <div class="doc"><p>class method to return a singleton instance of this Controller</p></div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/drujensen/kemalyst/blob/be7c2f043c085f067ed7d13e9eb61589bfc8e59e/src/kemalyst/handler/error.cr#L8" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-
-
-
-  <h2>Instance Method Detail</h2>
-  
-    <div class="entry-detail" id="call&#40;context&#41;-instance-method">
-      <div class="signature">
-        
-        def <strong>call</strong>(context)
-
-        <a class="method-permalink" href="#call%28context%29-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/drujensen/kemalyst/blob/be7c2f043c085f067ed7d13e9eb61589bfc8e59e/src/kemalyst/handler/error.cr#L12" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
 
 
 

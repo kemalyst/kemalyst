@@ -40,6 +40,11 @@
       
         <ul>
   
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Exceptions/Forbidden" data-name="kemalyst::exceptions::forbidden">
+      <a href="Kemalyst/Exceptions/Forbidden.html">Forbidden</a>
+      
+    </li>
+  
   <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Exceptions/RouteNotFound" data-name="kemalyst::exceptions::routenotfound">
       <a href="Kemalyst/Exceptions/RouteNotFound.html">RouteNotFound</a>
       
@@ -70,8 +75,13 @@
       
     </li>
   
-  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Handler/Cors" data-name="kemalyst::handler::cors">
-      <a href="Kemalyst/Handler/Cors.html">Cors</a>
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Handler/CORS" data-name="kemalyst::handler::cors">
+      <a href="Kemalyst/Handler/CORS.html">CORS</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Handler/CSRF" data-name="kemalyst::handler::csrf">
+      <a href="Kemalyst/Handler/CSRF.html">CSRF</a>
       
     </li>
   
@@ -110,18 +120,13 @@
       
     </li>
   
-  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Handler/WebSocket" data-name="kemalyst::handler::websocket">
-      <a href="Kemalyst/Handler/WebSocket.html">WebSocket</a>
-      
-    </li>
-  
 </ul>
 
       
     </li>
   
-  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Model" data-name="kemalyst::model">
-      <a href="Kemalyst/Model.html">Model</a>
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/WebSocket" data-name="kemalyst::websocket">
+      <a href="Kemalyst/WebSocket.html">WebSocket</a>
       
     </li>
   
@@ -145,17 +150,15 @@
 
 <p>Kemalyst is a yarlf (yet another rails like framework) that is based on on
 super fast <a href="https://github.com/sdogruyol/kemal" target="_blank">kemal</a>. The framework
-leverages the http handlers which are similar to Rack middleware. The
-controllers are also HTTP::Handlers that render the response.</p>
+leverages the http handlers which are similar to Rack middleware.</p>
 
-<p>One of the main differences Kemalyst provides is the ability to chain
-controllers in your routes.cr.  For example, you can chain a WebSocket handler
-before your Index controller to allow for upgrading the connection for
-a specific route.</p>
+<p>The router and controllers are an extension of the same middleware so you can
+chain any compatible HTTP::Handler before or after the routing handler so you
+can limit a particular handler to a sub-tree of your routes.</p>
 
 <p>The model is a simple ORM mapping and supports MySQL, PG and SQLite.</p>
 
-<p>The views are handled using <code>ecr</code> format and several macros to simplify
+<p>The views are handled using <a href="https://github.com/jeromegn/kilt" target="_blank">kilt</a> and several macros to simplify
 development.</p>
 
 <h2>Installation</h2>
@@ -168,8 +171,8 @@ Website](http://crystal-lang.org).  I recommend using
 
 <ol><li>Create a Crystal App</li></ol>
 
-<pre><code>crystal init app your_app
-cd your_app</code></pre>
+<pre><code>crystal init app [your_app]
+cd [your_app]</code></pre>
 
 <ol><li>Add kemalyst dependency to your shard.yml</li></ol>
 
@@ -196,29 +199,41 @@ cd your_app</code></pre>
 installed.  This structure should look familiar to you if your coming from a
 Rails background.</p>
 
+<p>You may want to remove the remnants of <code>crystal init</code>:</p>
+
+<pre><code>rm <span class="o">-</span>r src<span class="s">/&#91;your_app&#93;
+rm spec/</span>[your_app_spec].cr
+rm spec<span class="s">/spec_helper.cr_old</code></pre>
+
 <h2>Usage</h2>
 
 <h3>Run Locally</h3>
 
-<p>To run the demo app locally:</p>
+<p>To test the demo app locally:</p>
+
+<ol><li>create a postgres database called <code>[your_app]</code></li><li>run <code>export DATABASE_URL=postgres://[username]:[password]@localhost:5432/[your_app]</code></li><li>migrate the database: <code>crystal db/migrate.cr</code></li><li>run the specs: <code>crystal spec</code></li></ol>
+
+<p>To build the demo app locally:</p>
 
 <ol><li>build the app <code>crystal build --release src/app.cr</code></li><li>run with <code>./app</code></li><li>visit <code>http://0.0.0.0:3000/</code></li></ol>
 
-<h3>Run With docker</h3>
+<h3>Run with docker compose</h3>
 
 <p>To run the demo app, we are including a Dockerfile and docker-compose.yml. If
 you have docker setup, you should be able to run:</p>
 
-<pre><code>docker<span class="o">-</span>compose build .
+<pre><code>docker<span class="o">-</span>compose build
 docker<span class="o">-</span>compose run web crystal db<span class="s">/migrate.cr
 docker-compose up web</code></pre>
 
-<p>This will download an ubuntu/cedar image compatible with heroku and install all the
-dependencies including crystal.  It will also include a postgres db image.</p>
+<p>This will download an ubuntu/cedar image compatible with heroku and has all the
+dependencies installed including crystal.</p>
 
 <p>Now you should be able to hit the site:</p>
 
-<pre><code>open <span class="s">&quot;http://&#36;&#40;docker-machine ip default&#41;:3000&quot;</span></code></pre>
+<pre><code>open <span class="s">&quot;http://&#36;&#40;docker-machine ip default&#41;&quot;</span></code></pre>
+
+<h3>Cookie Session</h3>
 
 <p>You will need to set a secret for the session.  Run the following
 command:</p>
@@ -226,6 +241,14 @@ command:</p>
 <pre><code>crystal eval <span class="s">&quot;require \&quot;secure_random\&quot;; puts SecureRandom.hex&#40;64&#41;&quot;</span></code></pre>
 
 <p>copy the secret and set this in <code>config/session.cr</code>.</p>
+
+<h3>Sample Applications</h3>
+
+<p>Several sample applications are provided:</p>
+
+<p><a href="https://github.com/drujensen/blog-kemalyst" target="_blank">Blog Kemalyst</a>
+<a href="https://github.com/drujensen/chat-kemalyst" target="_blank">Chat Kemalyst</a>
+<a href="https://github.com/drujensen/todo-backend-kemalyst" target="_blank">ToDo Backend Kemalyst</a></p>
 
 <h3>Configure App</h3>
 
@@ -240,6 +263,10 @@ app.</p>
 
 <ul><li>Logger.instance(@logger) - Logs all requests/responses to the <code>@logger</code> provided</li><li>Error.instance - Handles any Exceptions and renders a response.</li><li>Static.instance - Delivers any static assets from the <code>./public</code> folder.</li><li>Session.instance - Provides a Cookie Session that can be accessed from the <code>context.session</code></li><li>Params.instance - Unifies the parameters into <code>context.params</code></li><li>Router.instance - Routes requests to other handlers\controllers based on the HTTP method and path.</li></ul>
 
+<p>Other handlers available for Kemalyst:</p>
+
+<ul><li>BasicAuth.instance(username, password) - Provides Basic Authentication.</li><li>CORS.instance - Handles Cross Origin Resource Sharing.</li><li>CSRF.instance - Helps prevent Cross Site Request Forgery.</li></ul>
+
 <p>You may want to add, replace or remove handlers based on your situation.  You can do that in the
 Application configuration <code>config/application.cr</code>:</p>
 
@@ -248,10 +275,8 @@ Application configuration <code>config/application.cr</code>:</p>
   config.handlers <span class="o">=</span> [
     <span class="t">Kemalyst</span><span class="t">::</span><span class="t">Handler</span><span class="t">::</span><span class="t">Logger</span>.instance(config.logger),
     <span class="t">Kemalyst</span><span class="t">::</span><span class="t">Handler</span><span class="t">::</span><span class="t">Error</span>.instance,
-    <span class="c"># Kemalyst::Handler::Static.instance, # Disable Static and Session handlers since this is a REST Service</span>
-    <span class="c"># Kemalyst::Handler::Session.instance,</span>
     <span class="t">Kemalyst</span><span class="t">::</span><span class="t">Handler</span><span class="t">::</span><span class="t">Params</span>.instance,
-    <span class="t">Kemalyst</span><span class="t">::</span><span class="t">Handler</span><span class="t">::</span><span class="t">Cors</span>.instance, <span class="c"># Enable CORS for cross site capabilities</span>
+    <span class="t">Kemalyst</span><span class="t">::</span><span class="t">Handler</span><span class="t">::</span><span class="t">CORS</span>.instance, <span class="c"># Enable CORS</span>
     <span class="t">Kemalyst</span><span class="t">::</span><span class="t">Handler</span><span class="t">::</span><span class="t">Router</span>.instance
   ]
 <span class="k">end</span></code></pre>
@@ -263,34 +288,19 @@ chain of handlers you specify in the routes.cr file.</p>
 
 <p>An example of a route would be:</p>
 
-<pre><code>get <span class="s">&quot;/&quot;</span>, <span class="t">DemoController</span><span class="t">::</span><span class="t">Index</span>.instance</code></pre>
-
-<p>You may also pass in a block similar to sinatra or kemal:</p>
-
-<pre><code>get <span class="s">&quot;/&quot;</span> <span class="k">do</span> <span class="o">|</span>context<span class="o">|</span>
-  text <span class="s">&quot;Great job&#33;&quot;</span>, <span class="n">200</span>
-<span class="k">end</span></code></pre>
+<pre><code>get <span class="s">&quot;/&quot;</span>,   <span class="t">DemoController</span><span class="t">::</span><span class="t">Index</span>.instance</code></pre>
 
 <p>You may chain multiple handlers in a route using an array:</p>
 
 <pre><code>get <span class="s">&quot;/&quot;</span>, [ <span class="t">BasicAuth</span>.instance(<span class="s">&quot;username&quot;</span>, <span class="s">&quot;password&quot;</span>),
            <span class="t">DemoController</span><span class="t">::</span><span class="t">Index</span>.instance ]</code></pre>
 
-<p>or:</p>
+<p>This is how you would configure a WebSocket Controller:</p>
 
-<pre><code>get <span class="s">&quot;/&quot;</span>, <span class="t">BasicAuth</span>.instance(<span class="s">&quot;username&quot;</span>, <span class="s">&quot;password&quot;</span>) <span class="k">do</span> <span class="o">|</span>context<span class="o">|</span>
-  text <span class="s">&quot;This is secured by BasicAuth&#33;&quot;</span>, <span class="n">200</span>
-<span class="k">end</span></code></pre>
-
-<p>This is how you would configure a WebSocket:</p>
-
-<pre><code>get <span class="s">&quot;/&quot;</span>, [ <span class="t">WebSocket</span>.instance(<span class="t">ChatController</span><span class="t">::</span><span class="t">Chat</span>.instance),
+<pre><code>get <span class="s">&quot;/&quot;</span>, [ <span class="t">ChatController</span><span class="t">::</span><span class="t">Chat</span>.instance,
            <span class="t">ChatController</span><span class="t">::</span><span class="t">Index</span>.instance ]</code></pre>
 
-<p>The <code>Chat</code> class would have a <code>call</code> method that is expecting an
-<code>HTTP::WebSocket</code> to be passed which it would maintain and properly handle
-messages to and from it.  Check out the sample Chat application to get an idea
-on how to do this.</p>
+<p>See below for more information on how to create a WebSocket Controller.</p>
 
 <p>You can use any of the following methods: <code>get, post, put, patch, delete, all</code></p>
 
@@ -329,12 +339,45 @@ rendered as the body and then the chain will unwind and perform post handling.</
 
 <p>There are several helper macros that set content type and response.</p>
 
-<pre><code>  render <span class="s">&quot;filename.ecr&quot;</span> <span class="c"># renders an .ecr template</span>
-  render <span class="s">&quot;filename.ecr&quot;</span>, <span class="s">&quot;layout.ecr&quot;</span> <span class="c"># renders an .ecr template with layout</span>
-  redirect <span class="s">&quot;path&quot;</span> <span class="c"># redirect to path</span>
-  text <span class="s">&quot;body&quot;</span>, <span class="n">200</span> <span class="c">#render text/plain response with status code of 200</span>
-  json <span class="s">&quot;&#123;&#125;&quot;</span>.to_json, <span class="n">200</span> <span class="c">#render application/json with status code of 200</span>
-  html <span class="s">&quot;&lt;html&gt;&lt;/html&gt;&quot;</span>, <span class="n">200</span> <span class="c">#render text/html with status code of 200</span></code></pre>
+<pre><code>  render   <span class="s">&quot;filename.ecr&quot;</span>       <span class="c"># renders an .ecr template</span>
+  render   <span class="s">&quot;filename.ecr&quot;</span>, <span class="s">&quot;layout.ecr&quot;</span> <span class="c"># renders an .ecr template with layout</span>
+  redirect <span class="s">&quot;path&quot;</span>               <span class="c">#redirect to path</span>
+  text     <span class="s">&quot;body&quot;</span>, <span class="n">200</span>          <span class="c">#render text/plain with status code of 200</span>
+  json     <span class="s">&quot;&#123;&#125;&quot;</span>.to_json, <span class="n">200</span>    <span class="c">#render application/json with status code of 200</span>
+  html     <span class="s">&quot;&lt;html&gt;&lt;/html&gt;&quot;</span>, <span class="n">200</span> <span class="c">#render text/html with status code of 200</span></code></pre>
+
+<h3>WebSocket Controllers</h3>
+
+<p>The WebSocket Controller will handle upgrading a HTTP Request to a WebSocket
+Connection.</p>
+
+<p>An example WebSocket Controller:</p>
+
+<pre><code class='language-crystal'><span class="k">class</span> <span class="t">Chat</span> <span class="o"><</span> <span class="t">Kemalyst</span><span class="t">::</span><span class="t">WebSocket</span>
+  @sockets <span class="o">=</span> <span class="o">[]</span> <span class="k">of</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">WebSocket</span>
+  @messages <span class="o">=</span> <span class="o">[]</span> <span class="k">of</span> <span class="t">String</span>
+   
+  <span class="k">def</span> <span class="m">call</span>(socket : <span class="t">HTTP</span><span class="t">::</span><span class="t">WebSocket</span>)
+    @sockets.push socket
+    socket.on_message <span class="k">do</span> <span class="o">|</span>message<span class="o">|</span>
+      @messages.push message
+      @sockets.each <span class="k">do</span> <span class="o">|</span>a_socket<span class="o">|</span>
+        a_socket.send @messages.to_json
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
+
+<p>The <code>Chat</code> class will override the <code>call</code> method that is expecting an
+<code>HTTP::WebSocket</code> to be passed which it would maintain and properly handle
+messages to and from each socket.</p>
+
+<p>This class will manage an array of <code>HTTP::Websocket</code>s and configures the
+<code>on_message</code> callback that will manage the messages that will be then be
+passed on to all of the other sockets. </p>
+
+<p>To see a full example application, checkout
+<a href="https://github.com/drujensen/chat-kemalyst" target="_blank">Chat Kemalyst</a></p>
 
 <h3>Views</h3>
 
@@ -391,10 +434,9 @@ variables assigned in the controller are available in the templates.</p>
 <p>The models are a simple ORM mechanism that will map objects to rows in the
 database.  The mapping is done using a <code>sql_mapping</code> macro.</p>
 
-<p>An example models/post.cr`</p>
+<p>An example <code>models/post.cr</code></p>
 
-<pre><code><span class="k">require</span> <span class="s">&quot;kemalyst&quot;</span>
-<span class="k">require</span> <span class="s">&quot;kemalyst/adapter/pg&quot;</span>
+<pre><code class='language-crystal'><span class="k">require</span> <span class="s">&quot;kemalyst-model/adapter/pg&quot;</span>
 
 <span class="k">class</span> <span class="t">Post</span> <span class="o"><</span> <span class="t">Kemalyst</span><span class="t">::</span><span class="t">Model</span>
   adapter pg
@@ -412,11 +454,18 @@ mapping that follows the active_record convention in Rails.</p>
 
 <p>There are several methods that are provided in the model.</p>
 
-<ul><li>self.drop - DROP table...</li><li>self.create - CREATE table...</li><li>self.clear - DELETE from table</li><li>self.migrate = Add/Update columns to match model definition.  TODO: Currently doesn't support changing the type or size of the column.</li><li>self.prune - Remove any undefined fields from the database</li><li>save - Insert or Update depending on if ID is set</li><li>destroy - DELETE FROM table WHERE id = this.id</li><li>all(where) SELECT * FROM table #{WHERE clause};"</li><li>find(id) - SELECT * FROM table WHERE id = this.id LIMIT 1;"</li></ul>
+<ul><li>self.drop - DROP table...</li><li>self.create - CREATE table...</li><li>self.clear - DELETE from table</li><li>self.migrate = Add/Update columns to match model definition</li><li>self.prune - Remove any undefined fields from the database</li><li>save - Insert or Update depending on if ID is set</li><li>destroy - DELETE FROM table WHERE id = this.id</li><li>all(where) SELECT * FROM table #{WHERE clause};"</li><li>find(id) - SELECT * FROM table WHERE id = this.id LIMIT 1;"</li></ul>
+
+<p>You can find more details at <a href="https://github.com/drujensen/kemalyst-model" target="_blank">Kemalyst Model</a></p>
+
+<h3>Validation</h3>
+
+<p>Another Library included with Kemalyst is validation of your models.
+You can find more details at <a href="https://github.com/drujensen/kemalyst-validators" target="_blank">Kemalyst Validators</a></p>
 
 <h2>Contributing</h2>
 
-<ol><li>Fork it ( https://github.com/[your-github-name]/kemalyst/fork )</li><li>Create your feature branch (git checkout -b my-new-feature)</li><li>Commit your changes (git commit -am 'Add some feature')</li><li>Push to the branch (git push origin my-new-feature)</li><li>Create a new Pull Request</li></ol>
+<ol><li>Fork it ( https://github.com/drujensen/kemalyst/fork )</li><li>Create your feature branch (git checkout -b my-new-feature)</li><li>Commit your changes (git commit -am 'Add some feature')</li><li>Push to the branch (git push origin my-new-feature)</li><li>Create a new Pull Request</li></ol>
 
 <h2>Contributors</h2>
 
