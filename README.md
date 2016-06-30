@@ -6,19 +6,17 @@
 
 # Kemalyst
 
-Kemalyst is a yarlf (yet another r5555 like framework) that is based on on
+Kemalyst is a yarlf (yet another rails like framework) that is based on on
 super fast [kemal](https://github.com/sdogruyol/kemal). The framework
-leverages the http handlers which are similar to Rack middleware. The
-controllers are also HTTP::Handlers that render the response.
+leverages the http handlers which are similar to Rack middleware.
 
-One of the main differences Kemalyst provides is the ability to chain
-controllers in your routes.cr.  For example, you can chain a WebSocket handler
-before your Index controller to allow for upgrading the connection for
-a specific route.
+The router and controllers are an extension of the same middleware so you can
+chain any compatible HTTP::Handler before or after the routing handler so you
+can limit a particular handler to a sub-tree of your routes.
 
 The model is a simple ORM mapping and supports MySQL, PG and SQLite.
 
-The views are handled using `ecr` format and several macros to simplify
+The views are handled using [kilt](https://github.com/jeromegn/kilt) and several macros to simplify
 development.
 
 ## Installation
@@ -62,7 +60,6 @@ Rails background.
 
 You may want to remove the remnants of `crystal init`:
 ```
-rm src/[your_app].cr
 rm -r src/[your_app]
 rm spec/[your_app_spec].cr
 rm spec/spec_helper.cr_old
@@ -73,8 +70,8 @@ rm spec/spec_helper.cr_old
 ### Run Locally
 To test the demo app locally:
 
-1. create a postgres database called `demo`
-2. run `export DATABASE_URL=postgres://[username]:[password]@localhost:5432/demo`
+1. create a postgres database called `[your_app]`
+2. run `export DATABASE_URL=postgres://[username]:[password]@localhost:5432/[your_app]`
 3. migrate the database: `crystal db/migrate.cr`
 4. run the specs: `crystal spec`
 
@@ -85,7 +82,7 @@ To build the demo app locally:
 3. visit `http://0.0.0.0:3000/`
 
 
-### Run With docker compose
+### Run with docker compose
 To run the demo app, we are including a Dockerfile and docker-compose.yml. If
 you have docker setup, you should be able to run:
 ```
@@ -93,13 +90,15 @@ docker-compose build
 docker-compose run web crystal db/migrate.cr
 docker-compose up web
 ```
-This will download an ubuntu/cedar image compatible with heroku and install all the
-dependencies including crystal.  It will also include a postgres db image.
+This will download an ubuntu/cedar image compatible with heroku and has all the
+dependencies installed including crystal.
 
 Now you should be able to hit the site:
 ```
 open "http://$(docker-machine ip default)"
 ```
+
+### Cookie Session
 You will need to set a secret for the session.  Run the following
 command:
 ```
@@ -132,6 +131,11 @@ There are 6 handlers that are pre-configured for Kemalyst:
  - Params.instance - Unifies the parameters into `context.params`
  - Router.instance - Routes requests to other handlers\controllers based on the HTTP method and path.
 
+Other handlers available for Kemalyst:
+ - BasicAuth.instance(username, password) - Provides Basic Authentication.
+ - CORS.instance - Handles Cross Origin Resource Sharing.
+ - CSRF.instance - Helps prevent Cross Site Request Forgery.
+
 You may want to add, replace or remove handlers based on your situation.  You can do that in the
 Application configuration `config/application.cr`:
 
@@ -141,10 +145,8 @@ Kemalyst::Application.config do |config|
   config.handlers = [
     Kemalyst::Handler::Logger.instance(config.logger),
     Kemalyst::Handler::Error.instance,
-    # Kemalyst::Handler::Static.instance, # Disable Static and Session handlers since this is a REST Service
-    # Kemalyst::Handler::Session.instance,
     Kemalyst::Handler::Params.instance,
-    Kemalyst::Handler::Cors.instance, # Enable CORS for cross site capabilities
+    Kemalyst::Handler::CORS.instance, # Enable CORS
     Kemalyst::Handler::Router.instance
   ]
 end
@@ -198,7 +200,6 @@ the next handler in the chain.  The router will continue this chain for a
 specific route.  The final handler should return the String that will be
 rendered as the body and then the chain will unwind and perform post handling.
 
-
 An example of a controller:
 ```
 require "../models/post"
@@ -213,11 +214,11 @@ end
 
 There are several helper macros that set content type and response.
 ```
-  render   "filename.ecr" # renders an .ecr template
+  render   "filename.ecr"       # renders an .ecr template
   render   "filename.ecr", "layout.ecr" # renders an .ecr template with layout
-  redirect "path" # redirect to path
-  text     "body", 200 #render text/plain response with status code of 200
-  json     "{}".to_json, 200 #render application/json with status code of 200
+  redirect "path"               #redirect to path
+  text     "body", 200          #render text/plain with status code of 200
+  json     "{}".to_json, 200    #render application/json with status code of 200
   html     "<html></html>", 200 #render text/html with status code of 200
 ```
 
@@ -227,8 +228,7 @@ The WebSocket Controller will handle upgrading a HTTP Request to a WebSocket
 Connection.
 
 An example WebSocket Controller:
-```
-
+```crystal
 class Chat < Kemalyst::WebSocket
   @sockets = [] of HTTP::WebSocket
   @messages = [] of String
