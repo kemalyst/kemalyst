@@ -199,6 +199,20 @@ cd [your_app]</code></pre>
 installed.  This structure should look familiar to you if your coming from a
 Rails background.</p>
 
+<ul><li>config - Each handler may have its own config.  The database.yml and</li></ul>
+
+<p>routes.cr are also here.</p>
+
+<ul><li>db - holds the migrate.cr script and any other db related artifacts.</li><li>libs - shards are installed here.</li><li>public - Default location for html/css/js files.  The static handler points</li></ul>
+
+<p>to this directory.</p>
+
+<ul><li>spec - all the crystal specs go here.</li><li>src - all the source code goes here.  In rails, this would be your apps</li></ul>
+
+<p>folder.</p>
+
+<p>The post install will only run if it doesn't find a <code>src/app.cr</code> file.</p>
+
 <p>You may want to remove the remnants of <code>crystal init</code>:</p>
 
 <pre><code>rm <span class="o">-</span>r src<span class="s">/&#91;your_app&#93;
@@ -246,9 +260,7 @@ command:</p>
 
 <p>Several sample applications are provided:</p>
 
-<p><a href="https://github.com/drujensen/blog-kemalyst" target="_blank">Blog Kemalyst</a>
-<a href="https://github.com/drujensen/chat-kemalyst" target="_blank">Chat Kemalyst</a>
-<a href="https://github.com/drujensen/todo-backend-kemalyst" target="_blank">ToDo Backend Kemalyst</a></p>
+<ul><li><a href="https://github.com/drujensen/blog-kemalyst" target="_blank">Blog Kemalyst</a></li><li><a href="https://github.com/drujensen/chat-kemalyst" target="_blank">Chat Kemalyst</a></li><li><a href="https://github.com/drujensen/todo-backend-kemalyst" target="_blank">ToDo Backend Kemalyst</a></li></ul>
 
 <h3>Configure App</h3>
 
@@ -374,7 +386,20 @@ messages to and from each socket.</p>
 
 <p>This class will manage an array of <code>HTTP::Websocket</code>s and configures the
 <code>on_message</code> callback that will manage the messages that will be then be
-passed on to all of the other sockets. </p>
+passed on to all of the other sockets.</p>
+
+<p>It's important to realize that if the request is not asking to be upgraded to
+a websocket, it will call the next handler in the path.  If there is no
+more handlers configured, a 404 will be returned.</p>
+
+<p>Here is an example routing configuration:</p>
+
+<pre><code class='language-crystal'>get <span class="s">&quot;/&quot;</span>, [ <span class="t">ChatController</span><span class="t">::</span><span class="t">Chat</span>.instance,
+           <span class="t">ChatController</span><span class="t">::</span><span class="t">Index</span>.instance ]</code></pre>
+
+<p>The first one is a WebSocket Controller and the second is a standard
+Controller.  If the request is not a WebSocket upgrade request, it will
+pass-through and call the second one that will return the html page.</p>
 
 <p>To see a full example application, checkout
 <a href="https://github.com/drujensen/chat-kemalyst" target="_blank">Chat Kemalyst</a></p>
