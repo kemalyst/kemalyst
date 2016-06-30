@@ -24,7 +24,7 @@ describe DemoController do
       demo.save
       request = HTTP::Request.new("GET", "/demos/#{demo.id}")
       io, context = create_context(request)
-      context.params["id"] = demo.id
+      context.params["id"] = demo.id.to_s
       response = DemoController::Show.instance.call(context) as String
       response.should contain "test"
     end
@@ -57,7 +57,7 @@ describe DemoController do
       demo.save
       request = HTTP::Request.new("GET", "/demos/#{demo.id}/edit")
       io, context = create_context(request)
-      context.params["id"] = demo.id
+      context.params["id"] = demo.id.to_s
       response = DemoController::Edit.instance.call(context) as String
       response.should contain "New"
     end
@@ -70,7 +70,7 @@ describe DemoController do
       demo.save
       request = HTTP::Request.new("PUT", "/demos/#{demo.id}")
       io, context = create_context(request)
-      context.params["id"] = demo.id
+      context.params["id"] = demo.id.to_s
       context.params["name"] = "test2"
       response = DemoController::Update.instance.call(context) as String
       demo = Demo.find(demo.id).not_nil!
@@ -85,7 +85,7 @@ describe DemoController do
       demo.save
       request = HTTP::Request.new("DELETE", "/demos/#{demo.id}")
       io, context = create_context(request)
-      context.params["id"] = demo.id
+      context.params["id"] = demo.id.to_s
       response = DemoController::Delete.instance.call(context) as String
       demo = Demo.find demo.id
       demo.should eq nil
