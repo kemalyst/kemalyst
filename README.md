@@ -89,16 +89,16 @@ To build the demo app locally:
 To run the demo app, we are including a Dockerfile and docker-compose.yml. If
 you have docker setup, you should be able to run:
 ```
-docker-compose build .
+docker-compose build
 docker-compose run web crystal db/migrate.cr
-docker-compose up -d web
+docker-compose up web
 ```
 This will download an ubuntu/cedar image compatible with heroku and install all the
 dependencies including crystal.  It will also include a postgres db image.
 
 Now you should be able to hit the site:
 ```
-open "http://$(docker-machine ip default):3000"
+open "http://$(docker-machine ip default)"
 ```
 You will need to set a secret for the session.  Run the following
 command:
