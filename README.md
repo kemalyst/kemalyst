@@ -58,6 +58,18 @@ To keep a similar structure to yarlf, several directories and files will be
 installed.  This structure should look familiar to you if your coming from a
 Rails background.
 
+ - config - Each handler may have its own config.  The database.yml and
+   routes.cr are also here.
+ - db - holds the migrate.cr script and any other db related artifacts.
+ - libs - shards are installed here.
+ - public - Default location for html/css/js files.  The static handler points
+   to this directory.
+ - spec - all the crystal specs go here.
+ - src - all the source code goes here.  In rails, this would be your apps
+   folder.
+
+The post install will only run if it doesn't find a `src/app.cr` file.
+
 You may want to remove the remnants of `crystal init`:
 ```
 rm -r src/[your_app]
