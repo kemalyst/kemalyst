@@ -46,7 +46,7 @@ module Kemalyst
     def setup_handlers
       # only setup handlers if they haven't been setup yet
       if @handlers.empty?
-        @handlers << Kemalyst::Handler::Logger.instance @logger
+        @handlers << Kemalyst::Handler::Logger.instance
         @handlers << Kemalyst::Handler::Error.instance
         @handlers << Kemalyst::Handler::Static.instance
         @handlers << Kemalyst::Handler::Session.instance

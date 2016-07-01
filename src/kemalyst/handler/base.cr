@@ -25,6 +25,11 @@ module Kemalyst::Handler
     def call(context)
       call_next context
     end
+    
+    # Helper method to get the logger
+    def logger
+      Kemalyst::Application.instance.logger
+    end
 
   end
 end

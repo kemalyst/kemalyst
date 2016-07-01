@@ -19,6 +19,11 @@ class Kemalyst::Controller < HTTP::Handler
     call_next context
   end
 
+  # Helper method to get the logger
+  def logger
+    Kemalyst::Application.instance.logger
+  end
+
   # Provides the CSRF token
   def csrf_token(context)
     Kemalyst::Handler::CSRF.instance.token(context)

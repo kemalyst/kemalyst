@@ -3,13 +3,9 @@ module Kemalyst::Handler
   # The logger can be configured as STDIN/STDOUT or as a log file.  A custom
   # logger can be configured and passed in as well.
   class Logger < Base
-    property logger : ::Logger
 
-    def self.instance(logger)
-      @@instance ||= new(logger)
-    end
-
-    def initialize(@logger)
+    def self.instance
+      @@instance ||= new
     end
 
     def call(context)
@@ -23,7 +19,7 @@ module Kemalyst::Handler
 
       output_message = "#{context.request.uuid} #{status_code} | #{method} #{resource} | #{elapsed}"
 
-      @logger.info output_message
+      logger.info output_message
       context
     end
 
