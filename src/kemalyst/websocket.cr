@@ -75,4 +75,10 @@ class Kemalyst::WebSocket < HTTP::Handler
       call_next(context)
     end
   end
+
+  # Helper method to get the logger
+  def logger
+    Kemalyst::Application.instance.logger
+  end
+
 end
