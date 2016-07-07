@@ -341,7 +341,7 @@ The `<%= content %>` is where the template will be rendered in the layout.
 
 The models are a simple ORM mechanism that will map objects to rows in the
 database. There is no dependency on using this model.  I recommend looking at
-(Active Record.cr)[https://github.com/waterlink/active_record.cr] by waterlink
+[Active Record.cr](https://github.com/waterlink/active_record.cr) by waterlink
 as an alternative to this simplistic approach.  
 
 The mapping is done using a `sql_mapping` macro.
