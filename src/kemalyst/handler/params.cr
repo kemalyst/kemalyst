@@ -10,7 +10,7 @@ module Kemalyst::Handler
   class Params < Base
     URL_ENCODED_FORM = "application/x-www-form-urlencoded"
     APPLICATION_JSON = "application/json"
-    
+
     # class method to return a singleton instance of this Controller
     def self.instance
       @@instance ||= new
@@ -31,7 +31,7 @@ module Kemalyst::Handler
     def parse_query(context)
       parse_part(context, context.request.query)
     end
-    
+
     def parse_body(context)
       parse_part(context, context.request.body)
     end
@@ -42,7 +42,7 @@ module Kemalyst::Handler
           case json = JSON.parse(body).raw
           when Hash
             json.each do |key, value|
-              context.params[key as String] = value.to_s
+              context.params[key.as(String)] = value.to_s
             end
           when Array
             context.params["_json"] = json.to_s
