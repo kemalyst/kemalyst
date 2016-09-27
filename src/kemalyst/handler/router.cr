@@ -63,7 +63,7 @@ module Kemalyst::Handler
   #
   # You may chain multiple handlers in a route using an array:
   # ```
-  # get "/", [ BasicAuth.instance("username", "password"), 
+  # get "/", [ BasicAuth.instance("username", "password"),
   #            DemoController::Index.instance ]
   # ```
   #
@@ -138,14 +138,14 @@ module Kemalyst::Handler
       method = context.request.method
       # Is there an overrided _method parameter?
       method = context.params["_method"] if context.params.has_key? "_method"
-      result = lookup_route(method as String, context.request.path)
+      result = lookup_route(method.as(String), context.request.path)
       if result.found?
         if routes = result.payload
           # Add routing params to context.params
           result.params.each do |key, value|
             context.params[key] = value
           end
-          
+
           # chain the routes
           0.upto(routes.size - 2) do |i|
             if route = routes[i]
@@ -154,21 +154,21 @@ module Kemalyst::Handler
               end
             end
           end
-          
+
           if route = routes.first
-            if content = route.handler.call(context) as String
+            if content = route.handler.call(context).as(String)
               context.response.print(content)
             end
           end
         else
-          raise Kemalyst::Exceptions::RouteNotFound.new("Requested payload: '#{method as String}:#{context.request.path}' was not found.")
+          raise Kemalyst::Exceptions::RouteNotFound.new("Requested payload: '#{method.as(String)}:#{context.request.path}' was not found.")
         end
       else
-        raise Kemalyst::Exceptions::RouteNotFound.new("Requested path: '#{method as String}:#{context.request.path}' was not found.")
+        raise Kemalyst::Exceptions::RouteNotFound.new("Requested path: '#{method.as(String)}:#{context.request.path}' was not found.")
       end
       context
     end
-    
+
     private def delimiter_path(method : String, path)
       "#{method.downcase}/#{path}"
     end
@@ -180,4 +180,3 @@ module Kemalyst::Handler
 
   end
 end
-
