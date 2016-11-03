@@ -10,7 +10,7 @@ shards:
 
   kemalyst-model:
     github: drujensen/kemalyst-model
-    commit: a2e02db6c0df91a5fa2a8990cea36ae7fbdd5eb3
+    commit: 057214401f9ec6d82b0a1bcd877b9a854dbf8d00
 
   kemalyst-validators:
     github: drujensen/kemalyst-validators
