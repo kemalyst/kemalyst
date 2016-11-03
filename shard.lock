@@ -6,17 +6,17 @@ shards:
 
   delimiter_tree:
     github: drujensen/delimiter_tree
-    commit: eeddecd0475710adb6414595e6144bfdce3a95f1
+    version: 0.1.0
 
   kemalyst-model:
     github: drujensen/kemalyst-model
-    commit: 057214401f9ec6d82b0a1bcd877b9a854dbf8d00
+    version: 0.2.0
 
   kemalyst-validators:
     github: drujensen/kemalyst-validators
-    commit: 850824241c31077221d3a254db421de6024b4bd2
+    version: 0.1.0
 
   kilt:
     github: jeromegn/kilt
-    commit: adf515f1212fe985dbc9da561f02ade11bfe8e5f
+    version: 0.3.2
 
