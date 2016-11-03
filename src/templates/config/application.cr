@@ -8,7 +8,7 @@ Kemalyst::Application.config do |config|
 
   # Set the environment. Defaults to development.
   # config.env = "development"
-  
+
   # By default, Logging will be sent to STDOUT.  You can create a file logger and
   # assign it to the Application.
   # log = File.new("logs/#{config.env}.log", "a")
@@ -30,12 +30,11 @@ Kemalyst::Application.config do |config|
   # file.
 
   # config.handlers = [
-  #   Kemalyst::Handler::Logger.instance(config.logger),
+  #   Kemalyst::Handler::Logger.instance,
   #   Kemalyst::Handler::Error.instance,
   #   Kemalyst::Handler::Static.instance,
   #   Kemalyst::Handler::Session.instance,
   #   Kemalyst::Handler::Params.instance,
   #   Kemalyst::Handler::Router.instance
   # ]
-  
 end

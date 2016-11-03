@@ -17,5 +17,4 @@ describe Kemalyst::Controller do
     controller = Kemalyst::Controller.instance
     controller.csrf_tag(context).should eq "<input type=\"hidden\" name=\"_csrf\" value=\"test\" />"
   end
-
 end

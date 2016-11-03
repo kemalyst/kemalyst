@@ -35,7 +35,7 @@ describe Kemalyst::Application do
       end
       app.host.should eq "127.0.0.1"
     end
-    
+
     it "app.config will override a setting" do
       app = Kemalyst::Application.instance
       app.config do |config|
@@ -45,5 +45,5 @@ describe Kemalyst::Application do
     end
 
   end
-  
+
 end

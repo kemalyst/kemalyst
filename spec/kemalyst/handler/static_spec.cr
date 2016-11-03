@@ -11,7 +11,7 @@ describe Kemalyst::Handler::Static do
     context.response.close
     io.rewind
     client_response = HTTP::Client::Response.from_io(io, decompress: false)
-    client_response.body.should eq "Hello World!\n" 
+    client_response.body.should eq "<head></head><body>Hello World!</body>\n" 
   end
 
   it "returns Not Found when file doesn't exist" do
@@ -35,7 +35,7 @@ describe Kemalyst::Handler::Static do
     context.response.close
     io.rewind
     client_response = HTTP::Client::Response.from_io(io, decompress: false)
-    client_response.body.should eq "Hello World!\n" 
+    client_response.body.should eq "<head></head><body>Hello World!</body>\n" 
   end
 end
 

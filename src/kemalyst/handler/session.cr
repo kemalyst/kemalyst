@@ -33,7 +33,7 @@ module Kemalyst::Handler
 
     private def decode (session, data)
       sha1, data = data.split("--", 2)
-      if sha1 == OpenSSL::HMAC.hexdigest(:sha1, @secret, data) 
+      if sha1 == OpenSSL::HMAC.hexdigest(:sha1, @secret, data)
         json = Base64.decode_string(data)
         values = JSON.parse(json)
         values.each do |key, value|
@@ -48,7 +48,7 @@ module Kemalyst::Handler
       return "#{sha1}--#{data}"
     end
 
-    
+
   end
 end
 

@@ -11,10 +11,10 @@ unless File.exists? "#{base_dir}/src/app.cr"
       File.rename "#{base_dir}/#{conflict}", "#{base_dir}/#{conflict}_old"
     end
   end
-  
+
   # templates to move to base directory
   templates = ["src/controllers", "src/models","src/views", "src/app.cr",
-               "spec/controllers", "spec/models", "spec/spec_helper.cr", 
+               "spec/controllers", "spec/models", "spec/spec_helper.cr",
                "db", "config", "public", "Dockerfile", "docker-compose.yml"]
 
   templates.each do |template|

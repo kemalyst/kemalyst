@@ -19,7 +19,7 @@ module Kemalyst::Handler
 
     def initialize(@username, @password)
     end
-    
+
     def call(context)
       if context.request.headers[AUTH]?
         if value = context.request.headers[AUTH]
@@ -39,7 +39,7 @@ module Kemalyst::Handler
       username, password = Base64.decode_string(value[BASIC.size + 1..-1]).split(":")
       @username == username && @password == password
     end
-    
+
   end
 end
 

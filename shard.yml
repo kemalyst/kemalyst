@@ -1,5 +1,5 @@
 name: kemalyst
-version: 0.1.0
+version: 0.2.0
 
 authors:
   - drujensen <drujensen@gmail.com>
@@ -9,19 +9,19 @@ license: MIT
 dependencies:
   kemalyst-model:
     github: drujensen/kemalyst-model
-    branch: master
+    version: 0.2.0
+
   kemalyst-validators:
     github: drujensen/kemalyst-validators
-    branch: master
+    version: 0.1.0
+
   delimiter_tree:
     github: drujensen/delimiter_tree
-    branch: master
+    version: 0.1.0
+
   kilt:
     github: jeromegn/kilt
-    branch: master
-  pool:
-    github: ysbaddaden/pool
-    branch: master
-
+    version: 0.3.2
+    
 scripts:
   postinstall: crystal templates/install.cr 

@@ -26,15 +26,15 @@ module Kemalyst::Handler
         #   if allow_origins.includes? requested_origin
         #   end
         # end
-        
+
         if allow_credentials
           context.response.headers["Access-Control-Allow-credentials"] = "true"
         end
-        
+
         if max_age > 0
           context.response.headers["Access-Control-Max-Age"] = max_age.to_s
         end
-        
+
         # if asking permission for request method or request headers
         if context.request.method.downcase == "options"
           context.response.status_code = 200
