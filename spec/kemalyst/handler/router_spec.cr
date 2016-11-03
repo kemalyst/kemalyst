@@ -10,7 +10,7 @@ describe Kemalyst::Handler::Route do
     route = Kemalyst::Handler::Route.new("GET", "/", Kemalyst::Handler::Base.instance)
     route.path.should eq "/"
   end
-  
+
   it "returns the handler" do
     route = Kemalyst::Handler::Route.new("GET", "/", Kemalyst::Handler::Base.instance)
     route.handler.should eq Kemalyst::Handler::Base.instance
@@ -21,7 +21,7 @@ describe Kemalyst::Handler::Router do
   it "set content_type to text/html" do
     request = HTTP::Request.new("GET", "/")
     io, context = create_context(request)
-    
+
     router = Kemalyst::Handler::Router.new
     handler = Kemalyst::Handler::Block.new(->(c : HTTP::Server::Context) { "Hello World!" })
     router.add_route("GET", "/", handler)
@@ -57,5 +57,3 @@ describe Kemalyst::Handler::Router do
     client_response.body.should eq "Hello World!"
   end
 end
-
-

@@ -1,4 +1,5 @@
 require "../src/controllers/*"
+
 include Kemalyst::Handler
 
 # This is an example of how to configure the Basic Authentication handler for
@@ -10,10 +11,10 @@ include Kemalyst::Handler
 get    "/",                 DemoController::Index.instance
 
 # This is an example of a resource using a traditional site:
-get    "/demos",            DemoController::Index.instance 
+get    "/demos",            DemoController::Index.instance
 get    "/demos/new",        DemoController::New.instance
-post   "/demos",            DemoController::Create.instance  
+post   "/demos",            DemoController::Create.instance
 get    "/demos/:id",        DemoController::Show.instance
-get    "/demos/:id/edit",   DemoController::Edit.instance  
+get    "/demos/:id/edit",   DemoController::Edit.instance
 put    "/demos/:id",        DemoController::Update.instance
 delete "/demos/:id",        DemoController::Delete.instance

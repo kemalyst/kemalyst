@@ -1,12 +1,16 @@
 version: 1.0
 shards:
+  db:
+    github: crystal-lang/crystal-db
+    version: 0.2.0
+
   delimiter_tree:
     github: drujensen/delimiter_tree
     commit: eeddecd0475710adb6414595e6144bfdce3a95f1
 
   kemalyst-model:
     github: drujensen/kemalyst-model
-    commit: 31c88cd2f98b7a3dbaaf7ca45c63a1b97063b946
+    commit: a2e02db6c0df91a5fa2a8990cea36ae7fbdd5eb3
 
   kemalyst-validators:
     github: drujensen/kemalyst-validators
@@ -15,8 +19,4 @@ shards:
   kilt:
     github: jeromegn/kilt
     commit: adf515f1212fe985dbc9da561f02ade11bfe8e5f
-
-  pool:
-    github: ysbaddaden/pool
-    commit: c4ecfad1b87fbd8c6484d1fd536ccfd14c40cc94
 

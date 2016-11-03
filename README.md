@@ -38,17 +38,23 @@ cd [your_app]
 dependencies:
   kemalyst:
     github: drujensen/kemalyst
-    branch: master
+
   # optional
+
+  # postgres driver is still in development
   pg:
-    github: will/crystal-pg
-    branch: master
+    github: asterite/crystal-pg
+    branch: feature/db
+
+  # when it is released
+  pg:
+    github: crystal-lang/crystal-pg
+
   mysql:
-    github: waterlink/crystal-mysql
-    branch: master
+    github: crystal-lang/crystal-mysql
+
   sqlite3:
-    github: manastech/crystal-sqlite3
-    branch: master
+    github: crystal-lang/crystal-sqlite3
 ```
 and run `shards update`.
 
@@ -107,7 +113,7 @@ dependencies installed including crystal.
 
 Now you should be able to hit the site:
 ```
-open "http://$(docker-machine ip default)"
+open "http://localhost"
 ```
 
 ### Cookie Session
@@ -244,7 +250,7 @@ An example WebSocket Controller:
 class Chat < Kemalyst::WebSocket
   @sockets = [] of HTTP::WebSocket
   @messages = [] of String
-   
+
   def call(socket : HTTP::WebSocket)
     @sockets.push socket
     socket.on_message do |message|
@@ -342,7 +348,7 @@ The `<%= content %>` is where the template will be rendered in the layout.
 The models are a simple ORM mechanism that will map objects to rows in the
 database. There is no dependency on using this model.  I recommend looking at
 [Active Record.cr](https://github.com/waterlink/active_record.cr) by waterlink
-as an alternative to this simplistic approach.  
+as an alternative to this simplistic approach.
 
 The mapping is done using a `sql_mapping` macro.
 

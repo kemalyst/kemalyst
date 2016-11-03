@@ -41,11 +41,11 @@ module Kemalyst::Handler
     end
 
     private def message_based_on_content_type(message, content_type)
-      case content_type 
+      case content_type
       when "application/json"
         { "error": message }.to_json
       when "text/html"
-        "<html><body>#{message}</body></html>" 
+        "<html><body>#{message}</body></html>"
       else
         message
       end

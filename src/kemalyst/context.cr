@@ -1,6 +1,6 @@
 #The Context holds the request and the response objects.  The context is
 #passed to each handler that will read from the request object and build a
-#response object.  Params and Session hash can be accessed from the Context. 
+#response object.  Params and Session hash can be accessed from the Context.
 class HTTP::Server::Context
   alias ParamTypes = Nil | String | Int64 | Float64 | Bool | Hash(String, JSON::Type) | Array(JSON::Type)
 
