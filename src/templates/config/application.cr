@@ -30,7 +30,7 @@ Kemalyst::Application.config do |config|
   # file.
 
   # config.handlers = [
-  #   Kemalyst::Handler::Logger.instance(config.logger),
+  #   Kemalyst::Handler::Logger.instance,
   #   Kemalyst::Handler::Error.instance,
   #   Kemalyst::Handler::Static.instance,
   #   Kemalyst::Handler::Session.instance,
