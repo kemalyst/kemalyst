@@ -142,7 +142,7 @@ app.
 ### Middleware HTTP::Handlers
 
 There are 6 handlers that are pre-configured for Kemalyst:
- - Logger.instance(@logger) - Logs all requests/responses to the `@logger` provided
+ - Logger.instance - Logs all requests/responses to the logger configured.
  - Error.instance - Handles any Exceptions and renders a response.
  - Static.instance - Delivers any static assets from the `./public` folder.
  - Session.instance - Provides a Cookie Session that can be accessed from the `context.session`
@@ -161,7 +161,7 @@ Application configuration `config/application.cr`:
 Kemalyst::Application.config do |config|
   # handlers will be chained in the order provided
   config.handlers = [
-    Kemalyst::Handler::Logger.instance(config.logger),
+    Kemalyst::Handler::Logger.instance,
     Kemalyst::Handler::Error.instance,
     Kemalyst::Handler::Params.instance,
     Kemalyst::Handler::CORS.instance, # Enable CORS
