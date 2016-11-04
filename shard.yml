@@ -21,7 +21,7 @@ dependencies:
 
   kilt:
     github: jeromegn/kilt
-    version: 0.3.2
+    branch: master
     
 scripts:
   postinstall: crystal templates/install.cr 

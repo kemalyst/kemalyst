@@ -18,5 +18,5 @@ shards:
 
   kilt:
     github: jeromegn/kilt
-    version: 0.3.2
+    commit: adf515f1212fe985dbc9da561f02ade11bfe8e5f
 
