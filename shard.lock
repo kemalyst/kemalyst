@@ -12,6 +12,10 @@ shards:
     github: drujensen/kemalyst-model
     version: 0.2.2
 
+  kemalyst-validators:
+    github: drujensen/kemalyst-validators
+    version: 0.1.0
+
   kilt:
     github: jeromegn/kilt
     commit: adf515f1212fe985dbc9da561f02ade11bfe8e5f
