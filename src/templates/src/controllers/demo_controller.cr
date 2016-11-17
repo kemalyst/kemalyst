@@ -30,7 +30,7 @@ module DemoController
     def call(context)
       demo = Demo.new
       demo.name = context.params["name"].as(String)
-      if demo.save
+      if demo.valid? && demo.save
         redirect "/demos"
       else
         render "demo/new.ecr", "main.ecr"
@@ -54,7 +54,7 @@ module DemoController
       id = context.params["id"]
       if demo = Demo.find id
         demo.name = context.params["name"].as(String)
-        if demo.save
+        if demo.valid? && demo.save
           redirect "/demos"
         else
           render "demo/edit.ecr", "main.ecr"

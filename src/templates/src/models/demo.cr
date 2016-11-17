@@ -8,6 +8,14 @@ class Demo < Kemalyst::Model
     name: ["VARCHAR UNIQUE NOT NULL", String]
   })
 
+  validate "Length of name should be greater than 3", -> (this : Demo) do
+    if name = this.name
+      return name.size > 3
+    else
+      return false
+    end
+  end
+
   def last_updated
     last_updated = updated_at
     if last_updated.is_a?(Time)
