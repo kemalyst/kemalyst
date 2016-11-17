@@ -140,17 +140,17 @@ app.
 ### Middleware HTTP::Handlers
 
 There are 6 handlers that are pre-configured for Kemalyst:
- - Logger.instance - Logs all requests/responses to the logger configured.
- - Error.instance - Handles any Exceptions and renders a response.
- - Static.instance - Delivers any static assets from the `./public` folder.
- - Session.instance - Provides a Cookie Session that can be accessed from the `context.session`
- - Params.instance - Unifies the parameters into `context.params`
- - Router.instance - Routes requests to other handlers\controllers based on the HTTP method and path.
+ - Logger - Logs all requests/responses to the logger configured.
+ - Error - Handles any Exceptions and renders a response.
+ - Static - Delivers any static assets from the `./public` folder.
+ - Session - Provides a Cookie Session that can be accessed from the `context.session`
+ - Params - Unifies the parameters into `context.params`
+ - Router - Routes requests to other handlers\controllers based on the HTTP method and path.
 
 Other handlers available for Kemalyst:
- - BasicAuth.instance(username, password) - Provides Basic Authentication.
- - CORS.instance - Handles Cross Origin Resource Sharing.
- - CSRF.instance - Helps prevent Cross Site Request Forgery.
+ - BasicAuth - Provides Basic Authentication.
+ - CORS - Handles Cross Origin Resource Sharing.
+ - CSRF - Helps prevent Cross Site Request Forgery.
 
 You may want to add, replace or remove handlers based on your situation.  You can do that in the
 Application configuration `config/application.cr`:
@@ -175,19 +175,17 @@ chain of handlers you specify in the routes.cr file.
 
 An example of a route would be:
 ```
-get "/",   DemoController::Index.instance
+get "/",   DemoController::Index
 ```
 
 You may chain multiple handlers in a route using an array:
 ```
-get "/", [ BasicAuth.instance("username", "password"),
-           DemoController::Index.instance ]
+get "/", [ BasicAuth.instance("username", "password"), DemoController::Index.instance ]
 ```
 
 This is how you would configure a WebSocket Controller:
 ```
-get "/", [ ChatController::Chat.instance,
-           ChatController::Index.instance ]
+get "/", [ ChatController::Chat, ChatController::Index ]
 ```
 
 See below for more information on how to create a WebSocket Controller.
@@ -199,9 +197,9 @@ You can use a `*` to chain a handler for all children of this path:
 all    "/posts/*",   BasicAuth.instance("admin", "password")
 
 # all of these will be secured with the BasicAuth handler.
-get    "/posts/:id", DemoController::Show.instance
-put    "/posts/:id", DemoController::Update.instance
-delete "/posts/:id", DemoController::Delete.instance
+get    "/posts/:id", DemoController::Show
+put    "/posts/:id", DemoController::Update
+delete "/posts/:id", DemoController::Delete
 
 ```
 You can use `:variable` in the path and it will set a

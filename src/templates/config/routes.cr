@@ -8,13 +8,13 @@ include Kemalyst::Handler
 # all    "/*",                Kemalyst::Handler::BasicAuth.instance("admin", "password")
 
 # This is how to setup the root path:
-get    "/",                 DemoController::Index.instance
+get    "/",                 DemoController::Index
 
 # This is an example of a resource using a traditional site:
-get    "/demos",            DemoController::Index.instance
-get    "/demos/new",        DemoController::New.instance
-post   "/demos",            DemoController::Create.instance
-get    "/demos/:id",        DemoController::Show.instance
-get    "/demos/:id/edit",   DemoController::Edit.instance
-put    "/demos/:id",        DemoController::Update.instance
-delete "/demos/:id",        DemoController::Delete.instance
+get    "/demos",            DemoController::Index
+get    "/demos/new",        DemoController::New
+post   "/demos",            DemoController::Create
+get    "/demos/:id",        DemoController::Show
+get    "/demos/:id/edit",   DemoController::Edit
+put    "/demos/:id",        DemoController::Update
+delete "/demos/:id",        DemoController::Delete
