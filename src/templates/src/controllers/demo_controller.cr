@@ -14,6 +14,7 @@ module DemoController
       if demo = Demo.find id
         render "demo/show.ecr", "main.ecr"
       else
+        context.flash["warning"] = "Demo with ID #{id} Not Found"
         redirect "/demos"
       end
     end
@@ -33,6 +34,7 @@ module DemoController
       if demo.valid? && demo.save
         redirect "/demos"
       else
+        context.flash["danger"] = "Could not create Demo!"
         render "demo/new.ecr", "main.ecr"
       end
     end
@@ -44,6 +46,7 @@ module DemoController
       if demo = Demo.find id
         render "demo/edit.ecr", "main.ecr"
       else
+        context.flash["warning"] = "Demo with ID #{id} Not Found"
         redirect "/demos"
       end
     end
@@ -57,9 +60,11 @@ module DemoController
         if demo.valid? && demo.save
           redirect "/demos"
         else
+          context.flash["danger"] = "Could not update Demo!"
           render "demo/edit.ecr", "main.ecr"
         end
       else
+        context.flash["warning"] = "Demo with ID #{id} Not Found"
         redirect "/demos"
       end
     end
@@ -70,6 +75,8 @@ module DemoController
       id = context.params["id"]
       if demo = Demo.find id
         demo.destroy
+      else
+        context.flash["warning"] = "Demo with ID #{id} Not Found"
       end
       redirect "/demos"
     end
