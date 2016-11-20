@@ -62,15 +62,12 @@ To keep a similar structure to yarlf, several directories and files will be
 installed.  This structure should look familiar to you if your coming from a
 Rails background.
 
- - config - Each handler may have its own config.  The database.yml and
-   routes.cr are also here.
+ - config - Each handler may have its own config.  The database.yml and routes.cr are also here.
  - db - holds the migrate.cr script and any other db related artifacts.
  - libs - shards are installed here.
- - public - Default location for html/css/js files.  The static handler points
-   to this directory.
+ - public - Default location for html/css/js files.  The static handler points to this directory.
  - spec - all the crystal specs go here.
- - src - all the source code goes here.  In rails, this would be your apps
-   folder.
+ - src - all the source code goes here.
 
 The post install will only run if it doesn't find a `src/app.cr` file.
 
@@ -139,13 +136,14 @@ app.
 
 ### Middleware HTTP::Handlers
 
-There are 6 handlers that are pre-configured for Kemalyst:
+There are 7 handlers that are pre-configured for Kemalyst:
  - Logger - Logs all requests/responses to the logger configured.
  - Error - Handles any Exceptions and renders a response.
  - Static - Delivers any static assets from the `./public` folder.
- - Session - Provides a Cookie Session that can be accessed from the `context.session`
- - Params - Unifies the parameters into `context.params`
- - Router - Routes requests to other handlers\controllers based on the HTTP method and path.
+ - Session - Provides a Cookie Session hash that can be accessed from the `context.session["key"]`
+ - Flash - Provides flash message hash that can be accessed from the `context.flash["danger"]`
+ - Params - Unifies the parameters into `context.params["key"]`
+ - Router - Routes requests to other handlers based on the method and path.
 
 Other handlers available for Kemalyst:
  - BasicAuth - Provides Basic Authentication.
@@ -162,7 +160,7 @@ Kemalyst::Application.config do |config|
     Kemalyst::Handler::Logger.instance,
     Kemalyst::Handler::Error.instance,
     Kemalyst::Handler::Params.instance,
-    Kemalyst::Handler::CORS.instance, # Enable CORS
+    Kemalyst::Handler::CORS.instance,
     Kemalyst::Handler::Router.instance
   ]
 end
@@ -328,11 +326,21 @@ And an example of `views/layouts/main.ecr`:
   </head>
   <body>
     <div class="container">
+
+      <div class="row">
+      <% context.flash.each do |key, value| %>
+        <div class="alert alert-<%= key %>">
+          <p><%= value %></p>
+        </div>
+      <% end %>
+      </div>
+
       <div class="row">
         <div class="col-sm-12">
           <%= content %>
         </div>
       </div>
+
     </div>
   </body>
 </html>

@@ -34,6 +34,7 @@ Kemalyst::Application.config do |config|
   #   Kemalyst::Handler::Error.instance,
   #   Kemalyst::Handler::Static.instance,
   #   Kemalyst::Handler::Session.instance,
+  #   Kemalyst::Handler::Flash.instance,
   #   Kemalyst::Handler::Params.instance,
   #   Kemalyst::Handler::Router.instance
   # ]
