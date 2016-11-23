@@ -9,19 +9,23 @@ license: MIT
 dependencies:
   kemalyst-model:
     github: drujensen/kemalyst-model
-    branch: master
+    version: 0.2.3
+
   kemalyst-validators:
     github: drujensen/kemalyst-validators
-    branch: master
+    version: 0.1.0
+
   delimiter_tree:
     github: drujensen/delimiter_tree
-    branch: master
+    version: 0.1.0
+    
   kilt:
     github: jeromegn/kilt
-    branch: master
+    version: 0.3.3
+
   pool:
     github: ysbaddaden/pool
-    branch: master
+    version: 0.2.3
 
 scripts:
   postinstall: crystal templates/install.cr 

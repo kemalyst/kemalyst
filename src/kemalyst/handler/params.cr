@@ -29,15 +29,15 @@ module Kemalyst::Handler
     end
 
     def parse_query(context)
-      parse_part(context, context.request.query)
+      parse_part(context, context.request.query.to_s)
     end
 
     def parse_body(context)
-      parse_part(context, context.request.body)
+      parse_part(context, context.request.body.to_s)
     end
 
     def parse_json(context)
-      if body = context.request.body
+      if body = context.request.body.to_s
         if body.size > 2
           case json = JSON.parse(body).raw
           when Hash
