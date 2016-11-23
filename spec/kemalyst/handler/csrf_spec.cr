@@ -16,7 +16,7 @@ describe Kemalyst::Handler::CSRF do
       csrf = Kemalyst::Handler::CSRF.instance
       csrf.call(context)
     end
-    
+
     it "allows OPTION requests" do
       request = HTTP::Request.new("OPTION", "/")
       io, context = create_context(request)
@@ -116,5 +116,5 @@ describe Kemalyst::Handler::CSRF do
       end
     end
   end
-  
+
 end

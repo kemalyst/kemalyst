@@ -6,9 +6,8 @@ require "../src/models/*"
 Demo.migrate
 
 # Prune will remove any columns from the database schema that are not defined
-# in the sql_mapping.  
+# in the sql_mapping.
 # WARNING:  This will drop the columns not defined so you WILL lose data
 # calling prune.  Make sure you have backed up or copied any data before
 # calling this.
 Demo.prune
-

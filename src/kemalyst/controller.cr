@@ -4,7 +4,7 @@ require "kilt"
 # The base controller provides a singleton pattern for the HTTP::Handler and
 # some macros that provide syntax sugar for rendering a response.
 class Kemalyst::Controller < HTTP::Handler
-  
+
   # class method to return a singleton instance of this Controller
   def self.instance
     @@instance ||= new
@@ -60,7 +60,7 @@ class Kemalyst::Controller < HTTP::Handler
     context.response.content_type = "text/plain"
     return {{body}}
   end
- 
+
   # helper to render html.  This sets the content_type to `text/html`
   macro html(body, status_code = 200)
     context.response.status_code = {{status_code}}

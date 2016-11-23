@@ -1,11 +1,7 @@
 require "../models/demo"
 
 module DemoController
-  # WARNING: Do not store state in this module unless you
-  # protect it with mutexes since each class below can be 
-  # called from different fibers.
-  
-  class Index < Kemalyst::Controller
+ class Index < Kemalyst::Controller
     def call(context)
       demos = Demo.all
       render "demo/index.ecr", "main.ecr"
@@ -18,6 +14,7 @@ module DemoController
       if demo = Demo.find id
         render "demo/show.ecr", "main.ecr"
       else
+        context.flash["warning"] = "Demo with ID #{id} Not Found"
         redirect "/demos"
       end
     end
@@ -33,10 +30,11 @@ module DemoController
   class Create < Kemalyst::Controller
     def call(context)
       demo = Demo.new
-      demo.name = context.params["name"] as String
-      if demo.save
+      demo.name = context.params["name"].as(String)
+      if demo.valid? && demo.save
         redirect "/demos"
       else
+        context.flash["danger"] = "Could not create Demo!"
         render "demo/new.ecr", "main.ecr"
       end
     end
@@ -48,6 +46,7 @@ module DemoController
       if demo = Demo.find id
         render "demo/edit.ecr", "main.ecr"
       else
+        context.flash["warning"] = "Demo with ID #{id} Not Found"
         redirect "/demos"
       end
     end
@@ -56,14 +55,16 @@ module DemoController
   class Update < Kemalyst::Controller
     def call(context)
       id = context.params["id"]
-      if demo = Demo.find id 
-        demo.name = context.params["name"] as String
-        if demo.save
+      if demo = Demo.find id
+        demo.name = context.params["name"].as(String)
+        if demo.valid? && demo.save
           redirect "/demos"
         else
+          context.flash["danger"] = "Could not update Demo!"
           render "demo/edit.ecr", "main.ecr"
         end
       else
+        context.flash["warning"] = "Demo with ID #{id} Not Found"
         redirect "/demos"
       end
     end
@@ -74,6 +75,8 @@ module DemoController
       id = context.params["id"]
       if demo = Demo.find id
         demo.destroy
+      else
+        context.flash["warning"] = "Demo with ID #{id} Not Found"
       end
       redirect "/demos"
     end

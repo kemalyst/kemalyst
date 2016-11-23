@@ -5,13 +5,13 @@ require "openssl/sha1"
 # a websocket connection.  This can be configured for all requests or
 # specific paths/methods after the routes handler. Management of the
 # sockets and communication will be handled by this controller.
-# 
+#
 # An example class:
 # ```
 # class Chat < Kemalyst::WebSocket
 #   @sockets = [] of HTTP::WebSocket
 #   @messages = [] of String
-#    
+#
 #   def call(socket : HTTP::WebSocket)
 #     @sockets.push socket
 #     socket.on_message do |message|
@@ -39,7 +39,7 @@ require "openssl/sha1"
 # headers do not request for an upgrade.  It passes through the request to the
 # next handler in the chain.
 class Kemalyst::WebSocket < HTTP::Handler
-  
+
   # class method to return a singleton instance of this Controller
   def self.instance
     @@instance ||= new
@@ -55,7 +55,7 @@ class Kemalyst::WebSocket < HTTP::Handler
   # will need to override that in order to handle each socket and
   # communication between them.
   def call(context : HTTP::Server::Context)
-    if context.request.headers["Upgrade"]? == "websocket" && 
+    if context.request.headers["Upgrade"]? == "websocket" &&
        context.request.headers["Connection"]? == "Upgrade"
       key = context.request.headers["Sec-Websocket-Key"]
       accept_code = Base64.strict_encode(OpenSSL::SHA1.hash("#{key}258EAFA5-E914-47DA-95CA-C5AB0DC85B11"))

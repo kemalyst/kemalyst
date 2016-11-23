@@ -1,5 +1,3 @@
-### WIP (Work In Progress)
-
 [![Build Status](https://travis-ci.org/drujensen/kemalyst.svg?branch=master)](https://travis-ci.org/drujensen/kemalyst)
 
 [![docrystal.org](http://docrystal.org/badge.svg)](http://docrystal.org/github.com/drujensen/kemalyst)
@@ -38,17 +36,23 @@ cd [your_app]
 dependencies:
   kemalyst:
     github: drujensen/kemalyst
-    branch: master
+
   # optional
+
+  # postgres driver is still in development
   pg:
-    github: will/crystal-pg
-    branch: master
+    github: asterite/crystal-pg
+    branch: feature/db
+
+  # when it is released
+  pg:
+    github: crystal-lang/crystal-pg
+
   mysql:
-    github: waterlink/crystal-mysql
-    branch: master
+    github: crystal-lang/crystal-mysql
+
   sqlite3:
-    github: manastech/crystal-sqlite3
-    branch: master
+    github: crystal-lang/crystal-sqlite3
 ```
 and run `shards update`.
 
@@ -58,15 +62,12 @@ To keep a similar structure to yarlf, several directories and files will be
 installed.  This structure should look familiar to you if your coming from a
 Rails background.
 
- - config - Each handler may have its own config.  The database.yml and
-   routes.cr are also here.
+ - config - Each handler may have its own config.  The database.yml and routes.cr are also here.
  - db - holds the migrate.cr script and any other db related artifacts.
  - libs - shards are installed here.
- - public - Default location for html/css/js files.  The static handler points
-   to this directory.
+ - public - Default location for html/css/js files.  The static handler points to this directory.
  - spec - all the crystal specs go here.
- - src - all the source code goes here.  In rails, this would be your apps
-   folder.
+ - src - all the source code goes here.
 
 The post install will only run if it doesn't find a `src/app.cr` file.
 
@@ -107,7 +108,7 @@ dependencies installed including crystal.
 
 Now you should be able to hit the site:
 ```
-open "http://$(docker-machine ip default)"
+open "http://localhost"
 ```
 
 ### Cookie Session
@@ -135,18 +136,19 @@ app.
 
 ### Middleware HTTP::Handlers
 
-There are 6 handlers that are pre-configured for Kemalyst:
- - Logger.instance(@logger) - Logs all requests/responses to the `@logger` provided
- - Error.instance - Handles any Exceptions and renders a response.
- - Static.instance - Delivers any static assets from the `./public` folder.
- - Session.instance - Provides a Cookie Session that can be accessed from the `context.session`
- - Params.instance - Unifies the parameters into `context.params`
- - Router.instance - Routes requests to other handlers\controllers based on the HTTP method and path.
+There are 7 handlers that are pre-configured for Kemalyst:
+ - Logger - Logs all requests/responses to the logger configured.
+ - Error - Handles any Exceptions and renders a response.
+ - Static - Delivers any static assets from the `./public` folder.
+ - Session - Provides a Cookie Session hash that can be accessed from the `context.session["key"]`
+ - Flash - Provides flash message hash that can be accessed from the `context.flash["danger"]`
+ - Params - Unifies the parameters into `context.params["key"]`
+ - Router - Routes requests to other handlers based on the method and path.
 
 Other handlers available for Kemalyst:
- - BasicAuth.instance(username, password) - Provides Basic Authentication.
- - CORS.instance - Handles Cross Origin Resource Sharing.
- - CSRF.instance - Helps prevent Cross Site Request Forgery.
+ - BasicAuth - Provides Basic Authentication.
+ - CORS - Handles Cross Origin Resource Sharing.
+ - CSRF - Helps prevent Cross Site Request Forgery.
 
 You may want to add, replace or remove handlers based on your situation.  You can do that in the
 Application configuration `config/application.cr`:
@@ -155,10 +157,10 @@ Application configuration `config/application.cr`:
 Kemalyst::Application.config do |config|
   # handlers will be chained in the order provided
   config.handlers = [
-    Kemalyst::Handler::Logger.instance(config.logger),
+    Kemalyst::Handler::Logger.instance,
     Kemalyst::Handler::Error.instance,
     Kemalyst::Handler::Params.instance,
-    Kemalyst::Handler::CORS.instance, # Enable CORS
+    Kemalyst::Handler::CORS.instance,
     Kemalyst::Handler::Router.instance
   ]
 end
@@ -171,19 +173,17 @@ chain of handlers you specify in the routes.cr file.
 
 An example of a route would be:
 ```
-get "/",   DemoController::Index.instance
+get "/",   DemoController::Index
 ```
 
 You may chain multiple handlers in a route using an array:
 ```
-get "/", [ BasicAuth.instance("username", "password"),
-           DemoController::Index.instance ]
+get "/", [ BasicAuth.instance("username", "password"), DemoController::Index.instance ]
 ```
 
 This is how you would configure a WebSocket Controller:
 ```
-get "/", [ ChatController::Chat.instance,
-           ChatController::Index.instance ]
+get "/", [ ChatController::Chat, ChatController::Index ]
 ```
 
 See below for more information on how to create a WebSocket Controller.
@@ -195,9 +195,9 @@ You can use a `*` to chain a handler for all children of this path:
 all    "/posts/*",   BasicAuth.instance("admin", "password")
 
 # all of these will be secured with the BasicAuth handler.
-get    "/posts/:id", DemoController::Show.instance
-put    "/posts/:id", DemoController::Update.instance
-delete "/posts/:id", DemoController::Delete.instance
+get    "/posts/:id", DemoController::Show
+put    "/posts/:id", DemoController::Update
+delete "/posts/:id", DemoController::Delete
 
 ```
 You can use `:variable` in the path and it will set a
@@ -244,7 +244,7 @@ An example WebSocket Controller:
 class Chat < Kemalyst::WebSocket
   @sockets = [] of HTTP::WebSocket
   @messages = [] of String
-   
+
   def call(socket : HTTP::WebSocket)
     @sockets.push socket
     socket.on_message do |message|
@@ -326,11 +326,21 @@ And an example of `views/layouts/main.ecr`:
   </head>
   <body>
     <div class="container">
+
+      <div class="row">
+      <% context.flash.each do |key, value| %>
+        <div class="alert alert-<%= key %>">
+          <p><%= value %></p>
+        </div>
+      <% end %>
+      </div>
+
       <div class="row">
         <div class="col-sm-12">
           <%= content %>
         </div>
       </div>
+
     </div>
   </body>
 </html>
@@ -342,7 +352,7 @@ The `<%= content %>` is where the template will be rendered in the layout.
 The models are a simple ORM mechanism that will map objects to rows in the
 database. There is no dependency on using this model.  I recommend looking at
 [Active Record.cr](https://github.com/waterlink/active_record.cr) by waterlink
-as an alternative to this simplistic approach.  
+as an alternative to this simplistic approach.
 
 The mapping is done using a `sql_mapping` macro.
 

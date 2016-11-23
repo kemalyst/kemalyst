@@ -50,11 +50,12 @@ module Kemalyst
         @handlers << Kemalyst::Handler::Error.instance
         @handlers << Kemalyst::Handler::Static.instance
         @handlers << Kemalyst::Handler::Session.instance
+        @handlers << Kemalyst::Handler::Flash.instance
         @handlers << Kemalyst::Handler::Params.instance
         @handlers << Kemalyst::Handler::Router.instance
       end
     end
-    
+
     # Start the server.  This is what will get everything going.
     def start
       setup_handlers

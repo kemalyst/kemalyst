@@ -12,16 +12,14 @@ module Kemalyst::Handler
     def {{method.id}}(path, handler : HTTP::Handler)
       Kemalyst::Handler::Router.instance.add_route({{method}}.upcase, path, handler)
     end
-    def {{method.id}}(path, handler : HTTP::Handler, &block : HTTP::Server::Context -> _)
-      handler = Kemalyst::Handler::Block.new(block)
-      Kemalyst::Handler::Router.instance.add_route({{method}}.upcase, path, [handler, handler])
+    def {{method.id}}(path, handler : HTTP::Handler.class)
+      Kemalyst::Handler::Router.instance.add_route({{method}}.upcase, path, handler.instance)
     end
     def {{method.id}}(path, handlers : Array(HTTP::Handler))
       Kemalyst::Handler::Router.instance.add_route({{method}}.upcase, path, handlers)
     end
-    def {{method.id}}(path, handlers : Array(HTTP::Handler), &block : HTTP::Server::Context -> _)
-      handlers << Kemalyst::Handler::Block.new(block)
-      Kemalyst::Handler::Router.instance.add_route({{method}}.upcase, path, handlers)
+    def {{method.id}}(path, handlers : Array(HTTP::Handler.class))
+      Kemalyst::Handler::Router.instance.add_route({{method}}.upcase, path, handlers.map{|h| h.instance})
     end
   {% end %}
 

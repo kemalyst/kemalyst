@@ -8,7 +8,7 @@ describe HTTP::Server::Context do
     context.params["test"] = "test"
     context.params.has_key?("test").should eq true
   end
-  
+
   it "clears params" do
     request = HTTP::Request.new("GET", "/")
     io, context = create_context(request)
@@ -39,5 +39,4 @@ describe HTTP::Server::Context do
     context.clear_session
     context.session.size.should eq 0
   end
-
 end

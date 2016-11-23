@@ -30,7 +30,4 @@ describe Kemalyst::Handler::Session do
     cookie = context.response.headers["set-cookie"]
     cookie.should eq "kemalyst.session=d5374f304c4a343e14fca421e4c372c777207337--eyJhdXRob3JpemVkIjoidHJ1ZSJ9%0A; path=/"
   end
-  
 end
-
-

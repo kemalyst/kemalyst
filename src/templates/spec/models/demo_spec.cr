@@ -4,7 +4,7 @@ describe Demo do
   Spec.before_each do
     Demo.clear
   end
-  
+
   it "returns last_updated formatted" do
     demo = Demo.new
     demo.updated_at = Time.now

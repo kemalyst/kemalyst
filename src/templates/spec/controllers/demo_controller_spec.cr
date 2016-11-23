@@ -4,7 +4,7 @@ describe DemoController do
   Spec.before_each do
     Demo.clear
   end
-  
+
   describe DemoController::Index do
     it "renders all the demos" do
       demo = Demo.new
@@ -12,7 +12,7 @@ describe DemoController do
       demo.save
       request = HTTP::Request.new("GET", "/demos")
       io, context = create_context(request)
-      response = DemoController::Index.instance.call(context) as String
+      response = DemoController::Index.instance.call(context).as(String)
       response.should contain "test"
     end
   end
@@ -25,7 +25,7 @@ describe DemoController do
       request = HTTP::Request.new("GET", "/demos/#{demo.id}")
       io, context = create_context(request)
       context.params["id"] = demo.id.to_s
-      response = DemoController::Show.instance.call(context) as String
+      response = DemoController::Show.instance.call(context).as(String)
       response.should contain "test"
     end
   end
@@ -34,7 +34,7 @@ describe DemoController do
     it "render new template" do
       request = HTTP::Request.new("GET", "/demos/new")
       io, context = create_context(request)
-      response = DemoController::New.instance.call(context) as String
+      response = DemoController::New.instance.call(context).as(String)
       response.should contain "New"
     end
   end
@@ -44,7 +44,7 @@ describe DemoController do
       request = HTTP::Request.new("POST", "/demos")
       io, context = create_context(request)
       context.params["name"] = "test"
-      response = DemoController::Create.instance.call(context) as String
+      response = DemoController::Create.instance.call(context).as(String)
       demo = Demo.all
       demo.size.should eq 1
     end
@@ -58,7 +58,7 @@ describe DemoController do
       request = HTTP::Request.new("GET", "/demos/#{demo.id}/edit")
       io, context = create_context(request)
       context.params["id"] = demo.id.to_s
-      response = DemoController::Edit.instance.call(context) as String
+      response = DemoController::Edit.instance.call(context).as(String)
       response.should contain "New"
     end
   end
@@ -72,7 +72,7 @@ describe DemoController do
       io, context = create_context(request)
       context.params["id"] = demo.id.to_s
       context.params["name"] = "test2"
-      response = DemoController::Update.instance.call(context) as String
+      response = DemoController::Update.instance.call(context).as(String)
       demo = Demo.find(demo.id).not_nil!
       demo.name.should eq "test2"
     end
@@ -86,7 +86,7 @@ describe DemoController do
       request = HTTP::Request.new("DELETE", "/demos/#{demo.id}")
       io, context = create_context(request)
       context.params["id"] = demo.id.to_s
-      response = DemoController::Delete.instance.call(context) as String
+      response = DemoController::Delete.instance.call(context).as(String)
       demo = Demo.find demo.id
       demo.should eq nil
     end
