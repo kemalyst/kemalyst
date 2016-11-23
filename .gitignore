@@ -1,4 +1,4 @@
-/libs/
+/lib/
 /config/test.db
 /.crystal/
 /.shards/
