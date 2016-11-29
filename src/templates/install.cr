@@ -19,7 +19,7 @@ unless File.exists? "#{base_dir}/src/app.cr"
 
   templates.each do |template|
     unless File.exists? "#{base_dir}/#{template}"
-      File.rename "templates/#{template}", "#{base_dir}/#{template}"
+      File.rename "src/templates/#{template}", "#{base_dir}/#{template}"
     end
   end
 
