@@ -100,8 +100,8 @@ To run the demo app, we are including a Dockerfile and docker-compose.yml. If
 you have docker setup, you should be able to run:
 ```
 docker-compose build
-docker-compose run web crystal db/migrate.cr
-docker-compose up web
+docker-compose up -d
+docker-compose logs -f
 ```
 This will download an ubuntu/cedar image compatible with heroku and has all the
 dependencies installed including crystal.
