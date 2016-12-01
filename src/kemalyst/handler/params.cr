@@ -29,15 +29,15 @@ module Kemalyst::Handler
     end
 
     def parse_query(context)
-      parse_part(context, context.request.query.to_s)
+      parse_part(context, context.request.query)
     end
 
     def parse_body(context)
-      parse_part(context, context.request.body.to_s)
+      parse_part(context, context.request.body)
     end
 
     def parse_json(context)
-      if body = context.request.body.to_s
+      if body = context.request.body.not_nil!.gets_to_end
         if body.size > 2
           case json = JSON.parse(body).raw
           when Hash
@@ -52,8 +52,16 @@ module Kemalyst::Handler
     end
 
     private def parse_part(context, part)
-      return unless part
-      HTTP::Params.parse(part) do |key, value|
+      values = case part
+      when IO
+        part.gets_to_end
+      when String
+        part.to_s
+      else
+        ""
+      end
+
+      HTTP::Params.parse(values) do |key, value|
         context.params.add(key, value)
       end
     end
