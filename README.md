@@ -54,7 +54,7 @@ dependencies:
   sqlite3:
     github: crystal-lang/crystal-sqlite3
 ```
-and run `shards update`.
+and run `crystal deps`.
 
 ### Post Install
 
@@ -94,9 +94,15 @@ To build the demo app locally:
 2. run with `./app`
 3. visit `http://0.0.0.0:3000/`
 
+### Run Sentry
+[Sentry](https://github.com/samueleaton/sentry) is included in the `/dev'
+directory.  Senter will watch your `/src` and `/config` directories and will
+build and run the application.
 
-### Run with docker compose
-To run the demo app, we are including a Dockerfile and docker-compose.yml. If
+You can launch it using: `crystal run dev/sentry.cr`
+
+### Run with Docker Compose
+To run the demo app, we are including a `Dockerfile` and `docker-compose.yml`. If
 you have docker setup, you should be able to run:
 ```
 docker-compose build
@@ -104,12 +110,16 @@ docker-compose up -d
 docker-compose logs -f
 ```
 This will download an ubuntu/cedar image compatible with heroku and has all the
-dependencies installed including crystal.
+dependencies including a postgres database.
 
 Now you should be able to hit the site:
 ```
 open "http://localhost"
 ```
+
+Docker Compose is running [Sentry](https://github.com/samueleaton/sentry) so
+any changes to your `/src` or `/config` will re-build and run your
+application.
 
 ### Cookie Session
 You will need to set a secret for the session.  Run the following

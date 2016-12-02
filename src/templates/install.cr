@@ -13,7 +13,7 @@ unless File.exists? "#{base_dir}/src/app.cr"
   end
 
   # templates to move to base directory
-  templates = ["src/controllers", "src/models","src/views", "src/app.cr",
+  templates = ["dev", "src/controllers", "src/models","src/views", "src/app.cr",
                "spec/controllers", "spec/models", "spec/spec_helper.cr",
                "db", "config", "public", "Dockerfile", "docker-compose.yml"]
 
