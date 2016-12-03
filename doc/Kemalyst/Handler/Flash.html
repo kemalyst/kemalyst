@@ -5,7 +5,7 @@
   <meta id="repository-name" content="github.com/drujensen/kemalyst">
   <link href="../../css/style.css" rel="stylesheet" type="text/css" />
   <script type="text/javascript" src="../../js/doc.js"></script>
-  <title>Kemalyst::Handler::Block - github.com/drujensen/kemalyst</title>
+  <title>Kemalyst::Handler::Flash - github.com/drujensen/kemalyst</title>
 </head>
 <body>
 
@@ -70,7 +70,7 @@
       
     </li>
   
-  <li class=" current" data-id="github.com/drujensen/kemalyst/Kemalyst/Handler/Block" data-name="kemalyst::handler::block">
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Handler/Block" data-name="kemalyst::handler::block">
       <a href="../../Kemalyst/Handler/Block.html">Block</a>
       
     </li>
@@ -90,7 +90,7 @@
       
     </li>
   
-  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Handler/Flash" data-name="kemalyst::handler::flash">
+  <li class=" current" data-id="github.com/drujensen/kemalyst/Kemalyst/Handler/Flash" data-name="kemalyst::handler::flash">
       <a href="../../Kemalyst/Handler/Flash.html">Flash</a>
       
     </li>
@@ -147,21 +147,20 @@
 <div id="main-content">
 <h1 class="type-name">
 
-  <span class="kind">class</span> Kemalyst::Handler::Block
+  <span class="kind">class</span> Kemalyst::Handler::Flash
 
 </h1>
 
 
-  <ul class="superclass-hierarchy"><li class="superclass"><a href="../../Kemalyst/Handler/Block.html">Kemalyst::Handler::Block</a></li><li class="superclass">HTTP::Handler</li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../../Kemalyst/Handler/Flash.html">Kemalyst::Handler::Flash</a></li><li class="superclass"><a href="../../Kemalyst/Handler/Base.html">Kemalyst::Handler::Base</a></li><li class="superclass">HTTP::Handler</li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
 
 
 
 
   <h2>Overview</h2>
 
-  <p>This handler is a wrapper around a block.  This is used to allow a route
-to be configured with only a block but still provides the call_next
-method so this block can be chained in the callstack.</p>
+  <p>The flash handler provides a mechanism to pass flash message between
+requests.</p>
 
 
 
@@ -179,7 +178,7 @@ method so this block can be chained in the callstack.</p>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/drujensen/kemalyst/blob/6e0de72e048da66a948337c7fced3e20bcca6121/src/kemalyst/handler/block.cr#L5" target="_blank">kemalyst/handler/block.cr</a>
+      <a href="https://github.com/drujensen/kemalyst/blob/6e0de72e048da66a948337c7fced3e20bcca6121/src/kemalyst/handler/flash.cr#L9" target="_blank">kemalyst/handler/flash.cr</a>
     
     <br/>
   
@@ -199,7 +198,7 @@ method so this block can be chained in the callstack.</p>
       </li>
     
       <li class="entry-summary">
-        <a href="#new%28block%3AHTTP%3A%3AServer%3A%3AContext-%3EString%29-class-method" class="signature"><strong>.new</strong>(block : HTTP::Server::Context -> String)</a>
+        <a href="#new-class-method" class="signature"><strong>.new</strong></a>
         
       </li>
     
@@ -215,6 +214,16 @@ method so this block can be chained in the callstack.</p>
         
       </li>
     
+      <li class="entry-summary">
+        <a href="#key%3AString-instance-method" class="signature"><strong>#key</strong> : String</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#key%3D%28key%29-instance-method" class="signature"><strong>#key=</strong>(key)</a>
+        
+      </li>
+    
   </ul>
 
 
@@ -222,6 +231,46 @@ method so this block can be chained in the callstack.</p>
 
 
 <div class="methods-inherited">
+  
+    
+
+  <h3>Instance methods inherited from class <code><a href="../../Kemalyst/Handler/Base.html">Kemalyst::Handler::Base</a></code></h3>
+  
+  
+    <a href="../../Kemalyst/Handler/Base.html#call%28context%29-instance-method" class="tooltip">
+      <span>call(context)</span>
+    call</a>, 
+    
+  
+    <a href="../../Kemalyst/Handler/Base.html#config%28%26block%29-instance-method" class="tooltip">
+      <span>config(&block)</span>
+    config</a>, 
+    
+  
+    <a href="../../Kemalyst/Handler/Base.html#logger-instance-method" class="tooltip">
+      <span>logger</span>
+    logger</a>
+    
+  
+
+
+    
+
+  <h3>Class methods inherited from class <code><a href="../../Kemalyst/Handler/Base.html">Kemalyst::Handler::Base</a></code></h3>
+  
+  
+    <a href="../../Kemalyst/Handler/Base.html#config%28%26block%29-class-method" class="tooltip">
+      <span>config(&block)</span>
+    config</a>, 
+    
+  
+    <a href="../../Kemalyst/Handler/Base.html#instance-class-method" class="tooltip">
+      <span>instance</span>
+    instance</a>
+    
+  
+
+
   
     
 
@@ -262,23 +311,23 @@ method so this block can be chained in the callstack.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/6e0de72e048da66a948337c7fced3e20bcca6121/src/kemalyst/handler/block.cr#L8" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/6e0de72e048da66a948337c7fced3e20bcca6121/src/kemalyst/handler/flash.cr#L13" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="new&#40;block:HTTP::Server::Context-&gt;String&#41;-class-method">
+    <div class="entry-detail" id="new-class-method">
       <div class="signature">
         
-        def self.<strong>new</strong>(block : <a href="../../HTTP/Server/Context.html">HTTP::Server::Context</a> -> String)
+        def self.<strong>new</strong>
 
-        <a class="method-permalink" href="#new%28block%3AHTTP%3A%3AServer%3A%3AContext-%3EString%29-class-method">#</a>
+        <a class="method-permalink" href="#new-class-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/6e0de72e048da66a948337c7fced3e20bcca6121/src/kemalyst/handler/block.cr#L12" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/6e0de72e048da66a948337c7fced3e20bcca6121/src/kemalyst/handler/flash.cr#L17" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -299,7 +348,39 @@ method so this block can be chained in the callstack.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/6e0de72e048da66a948337c7fced3e20bcca6121/src/kemalyst/handler/block.cr#L15" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/6e0de72e048da66a948337c7fced3e20bcca6121/src/kemalyst/handler/flash.cr#L21" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="key:String-instance-method">
+      <div class="signature">
+        
+        def <strong>key</strong> : String
+
+        <a class="method-permalink" href="#key%3AString-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/6e0de72e048da66a948337c7fced3e20bcca6121/src/kemalyst/handler/flash.cr#L10" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="key&#61;&#40;key&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>key=</strong>(key)
+
+        <a class="method-permalink" href="#key%3D%28key%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/6e0de72e048da66a948337c7fced3e20bcca6121/src/kemalyst/handler/flash.cr#L10" target="_blank">View source</a>]
         
       </div>
     </div>

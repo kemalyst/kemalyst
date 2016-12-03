@@ -90,6 +90,11 @@
       
     </li>
   
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Handler/Flash" data-name="kemalyst::handler::flash">
+      <a href="../Kemalyst/Handler/Flash.html">Flash</a>
+      
+    </li>
+  
   <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Handler/Logger" data-name="kemalyst::handler::logger">
       <a href="../Kemalyst/Handler/Logger.html">Logger</a>
       
@@ -164,7 +169,7 @@ sockets and communication will be handled by this controller.</p>
 <pre><code><span class="k">class</span> <span class="t">Chat</span> <span class="o"><</span> <span class="t">Kemalyst</span><span class="t">::</span><span class="t">WebSocket</span>
   @sockets <span class="o">=</span> <span class="o">[]</span> <span class="k">of</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">WebSocket</span>
   @messages <span class="o">=</span> <span class="o">[]</span> <span class="k">of</span> <span class="t">String</span>
-   
+
   <span class="k">def</span> <span class="m">call</span>(socket : <span class="t">HTTP</span><span class="t">::</span><span class="t">WebSocket</span>)
     @sockets.push socket
     socket.on_message <span class="k">do</span> <span class="o">|</span>message<span class="o">|</span>
@@ -208,7 +213,7 @@ next handler in the chain.</p>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/drujensen/kemalyst/blob/438ad4671e5a05b2bc64ad77dafb281f1a5f0e80/src/kemalyst/websocket.cr#L41" target="_blank">kemalyst/websocket.cr</a>
+      <a href="https://github.com/drujensen/kemalyst/blob/6e0de72e048da66a948337c7fced3e20bcca6121/src/kemalyst/websocket.cr#L41" target="_blank">kemalyst/websocket.cr</a>
     
     <br/>
   
@@ -235,6 +240,13 @@ next handler in the chain.</p>
   <ul class="list-summary">
     
       <li class="entry-summary">
+        <a href="#call%28socket%3AHTTP%3A%3AWebSocket%29-instance-method" class="signature"><strong>#call</strong>(socket : HTTP::WebSocket)</a>
+        
+          <div class="summary"><p>Override this method to handle the websockets</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
         <a href="#call%28context%3AHTTP%3A%3AServer%3A%3AContext%29-instance-method" class="signature"><strong>#call</strong>(context : HTTP::Server::Context)</a>
         
           <div class="summary"><p>This is called in the handler chain and will upgrade the the request to a websocket.</p></div>
@@ -242,9 +254,9 @@ next handler in the chain.</p>
       </li>
     
       <li class="entry-summary">
-        <a href="#call%28socket%3AHTTP%3A%3AWebSocket%29-instance-method" class="signature"><strong>#call</strong>(socket : HTTP::WebSocket)</a>
+        <a href="#logger-instance-method" class="signature"><strong>#logger</strong></a>
         
-          <div class="summary"><p>Override this method to handle the websockets</p></div>
+          <div class="summary"><p>Helper method to get the logger</p></div>
         
       </li>
     
@@ -295,7 +307,7 @@ next handler in the chain.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/438ad4671e5a05b2bc64ad77dafb281f1a5f0e80/src/kemalyst/websocket.cr#L44" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/6e0de72e048da66a948337c7fced3e20bcca6121/src/kemalyst/websocket.cr#L44" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -304,27 +316,6 @@ next handler in the chain.</p>
 
 
   <h2>Instance Method Detail</h2>
-  
-    <div class="entry-detail" id="call&#40;context:HTTP::Server::Context&#41;-instance-method">
-      <div class="signature">
-        
-        def <strong>call</strong>(context : <a href="../HTTP/Server/Context.html">HTTP::Server::Context</a>)
-
-        <a class="method-permalink" href="#call%28context%3AHTTP%3A%3AServer%3A%3AContext%29-instance-method">#</a>
-      </div>
-      
-        <div class="doc"><p>This is called in the handler chain and will upgrade the the request to a
-websocket. The new socket will be passed to the <code><a href="../Kemalyst/WebSocket.html#call%28context%3AHTTP%3A%3AServer%3A%3AContext%29-instance-method">#call</a></code> method above.  You
-will need to override that in order to handle each socket and
-communication between them.</p></div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/drujensen/kemalyst/blob/438ad4671e5a05b2bc64ad77dafb281f1a5f0e80/src/kemalyst/websocket.cr#L57" target="_blank">View source</a>]
-        
-      </div>
-    </div>
   
     <div class="entry-detail" id="call&#40;socket:HTTP::WebSocket&#41;-instance-method">
       <div class="signature">
@@ -339,7 +330,46 @@ communication between them.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/438ad4671e5a05b2bc64ad77dafb281f1a5f0e80/src/kemalyst/websocket.cr#L49" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/6e0de72e048da66a948337c7fced3e20bcca6121/src/kemalyst/websocket.cr#L49" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="call&#40;context:HTTP::Server::Context&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>call</strong>(context : <a href="../HTTP/Server/Context.html">HTTP::Server::Context</a>)
+
+        <a class="method-permalink" href="#call%28context%3AHTTP%3A%3AServer%3A%3AContext%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>This is called in the handler chain and will upgrade the the request to a
+websocket. The new socket will be passed to the <code><a href="../Kemalyst/WebSocket.html#call%28socket%3AHTTP%3A%3AWebSocket%29-instance-method">#call</a></code> method above.  You
+will need to override that in order to handle each socket and
+communication between them.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/6e0de72e048da66a948337c7fced3e20bcca6121/src/kemalyst/websocket.cr#L57" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="logger-instance-method">
+      <div class="signature">
+        
+        def <strong>logger</strong>
+
+        <a class="method-permalink" href="#logger-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Helper method to get the logger</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/drujensen/kemalyst/blob/6e0de72e048da66a948337c7fced3e20bcca6121/src/kemalyst/websocket.cr#L80" target="_blank">View source</a>]
         
       </div>
     </div>
