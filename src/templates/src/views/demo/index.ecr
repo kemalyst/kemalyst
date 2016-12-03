@@ -5,9 +5,9 @@
   <p class="blog-post-meta"><%= demo.last_updated %></p>
 
   <p>
-    <a href="/demos/<%= demo.id %>">read</a>
-    | <a href="/demos/<%= demo.id %>/edit">edit</a> |
-    <a href="/demos/<%= demo.id %>?_method=delete" onclick="return confirm('Are you sure?');">delete</a>
+    <a class="btn btn-primary btn-xs" href="/demos/<%= demo.id %>">read</a>
+    <a class="btn btn-success btn-xs" href="/demos/<%= demo.id %>/edit">edit</a>
+    <a class="btn btn-danger btn-xs" href="/demos/<%= demo.id %>?_method=delete" onclick="return confirm('Are you sure?');">delete</a>
   </p>
 
 </div><!-- /.blog-post -->
