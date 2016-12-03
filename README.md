@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/drujensen/kemalyst.svg?branch=master)](https://travis-ci.org/drujensen/kemalyst)
 
-[![docrystal.org](http://docrystal.org/badge.svg)](http://docrystal.org/github.com/drujensen/kemalyst)
+[Documentation](http://drujensen.github.io/kemalyst/)
 
 # Kemalyst
 
