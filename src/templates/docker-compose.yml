@@ -15,14 +15,6 @@ services:
     volumes:
       - '.:/app/user'
 
-  spec:
-    build: .
-    image: kemalyst-app
-    command: 'crystal spec'
-    working_dir: /app/user
-    volumes:
-      - '.:/app/user'
-
   migrate:
     image: kemalyst-app
     command: 'crystal run db/migrate.cr'
