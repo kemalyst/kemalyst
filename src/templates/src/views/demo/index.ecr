@@ -2,6 +2,7 @@
 
 <div class="blog-post">
   <h2 class="blog-post-title"><%= demo.name %></h2>
+  <p class="blog-description"><%= Markdown.to_html(demo.description || "") %></p>
   <p class="blog-post-meta"><%= demo.last_updated %></p>
 
   <p>
