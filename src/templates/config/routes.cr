@@ -7,7 +7,11 @@ include Kemalyst::Handler
 # site.  You could also have added this to the application.cr instead.
 # all    "/*",                Kemalyst::Handler::BasicAuth.instance("admin", "password")
 
-# This is how to setup the root path:
+# Enable CSRF for all post and put methods
+post   "/*",                CSRF
+put    "/*",                CSRF
+
+# Setup the root path:
 get    "/",                 DemoController::Index
 
 # This is an example of a resource using a traditional site:

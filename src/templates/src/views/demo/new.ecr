@@ -9,6 +9,7 @@
 <% end %>
 
 <form action="/demos" method="post">
+  <%= csrf_tag(context) %>
   <div class="form-group">
     <input type="text" class="form-control" id="name" name="name"
     placeholder="Name">

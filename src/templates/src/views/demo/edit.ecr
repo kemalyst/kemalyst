@@ -9,6 +9,7 @@
 <% end %>
 
 <form action="/demos/<%= demo.id %>" method="post">
+  <%= csrf_tag(context) %>
   <input type="hidden" name="_method" value="put"/>
   <div class="form-group">
     <input type="text" class="form-control" id="name" name="name"
