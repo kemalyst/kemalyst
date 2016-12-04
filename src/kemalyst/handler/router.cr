@@ -122,8 +122,9 @@ module Kemalyst::Handler
 
     def add_route(method, path,  handlers : Array(HTTP::Handler))
       raise ArgumentError.new "You must specify at least one HTTP Handler." if handlers.empty?
-      0.upto(handlers.size - 2) { |i| handlers[i].next = handlers[i + 1] }
-      add_route(method, path, handlers.first)
+      handlers.each do |handler|
+        add_to_tree method, path, Route.new(method, path, handler)
+      end
     end
 
     # Check if a route is defined and returns the lookup

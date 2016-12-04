@@ -190,13 +190,19 @@ You may chain multiple handlers in a route using an array:
 ```
 get "/", [ BasicAuth.instance("username", "password"), DemoController::Index.instance ]
 ```
+or add them individually in the correct order:
+```
+get "/", BasicAuth.instance("username", "password")
+get "/", DemoController::Index.instance
+```
 
 This is how you would configure a WebSocket Controller:
 ```
-get "/", [ ChatController::Chat, ChatController::Index ]
+get "/", ChatController::Chat # This is a WebSocket Handler
+get "/", ChatController::Index
 ```
 
-See below for more information on how to create a WebSocket Controller.
+See below for more information on how to create a WebSocket Handler.
 
 You can use any of the following methods: `get, post, put, patch, delete, all`
 
@@ -219,8 +225,8 @@ The Controller inherits from HTTP::Handler which is the middleware similar to
 Rack's middleware.  The handlers are chained together in a linked-list and
 each will perform some action against the HTTP::Server::Context and then call
 the next handler in the chain.  The router will continue this chain for a
-specific route.  The final handler should return the String that will be
-rendered as the body and then the chain will unwind and perform post handling.
+specific route.  The final handler should return the generated response that will be
+returned as the body and then the chain will unwind and perform post handling.
 
 An example of a controller:
 ```
@@ -280,8 +286,8 @@ more handlers configured, a 404 will be returned.
 
 Here is an example routing configuration:
 ```crystal
-get "/", [ ChatController::Chat.instance,
-           ChatController::Index.instance ]
+get "/", ChatController::Chat
+get "/", ChatController::Index
 ```
 The first one is a WebSocket Controller and the second is a standard
 Controller.  If the request is not a WebSocket upgrade request, it will

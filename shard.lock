@@ -6,11 +6,11 @@ shards:
 
   delimiter_tree:
     github: drujensen/delimiter_tree
-    version: 0.1.0
+    version: 0.1.1
 
   kemalyst-model:
     github: drujensen/kemalyst-model
-    version: 0.2.4
+    version: 0.2.6
 
   kemalyst-validators:
     github: drujensen/kemalyst-validators
