@@ -30,10 +30,8 @@ services:
     image: postgres
     environment:
       POSTGRES_PASSWORD: 'password'
-    volumes_from:
-      - data
-
-  data:
-    image: kemalyst-app
     volumes:
-      - '/var/lib/postgres/data'
+      - 'pg:/var/lib/postgres/data'
+
+volumes:
+  pg:
