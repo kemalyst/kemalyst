@@ -1,5 +1,5 @@
 name: kemalyst
-version: 0.2.10
+version: 0.2.11
 
 authors:
   - drujensen <drujensen@gmail.com>
@@ -9,7 +9,7 @@ license: MIT
 dependencies:
   kemalyst-model:
     github: drujensen/kemalyst-model
-    version: ~> 0.2.4
+    version: ~> 0.2.6
 
   kemalyst-validators:
     github: drujensen/kemalyst-validators
