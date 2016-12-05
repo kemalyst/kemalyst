@@ -96,7 +96,7 @@ To build the demo app locally:
 
 ### Run Sentry
 [Sentry](https://github.com/samueleaton/sentry) is included in the `/dev'
-directory.  Senter will watch your `/src` and `/config` directories and will
+directory.  Sentry will watch your `/src` and `/config` directories and will
 build and run the application.
 
 You can launch it using: `crystal run dev/sentry.cr`
@@ -179,7 +179,7 @@ end
 ### Router
 
 The router will perform a lookup based on the method and path and return the
-chain of handlers you specify in the routes.cr file.
+chain of handlers you specify in the `/config/routes.cr` file.
 
 An example of a route would be:
 ```
@@ -188,7 +188,8 @@ get "/",   DemoController::Index
 
 You may chain multiple handlers in a route using an array:
 ```
-get "/", [ BasicAuth.instance("username", "password"), DemoController::Index.instance ]
+get "/", [ BasicAuth.instance("username", "password"),
+           DemoController::Index.instance ]
 ```
 or add them individually in the correct order:
 ```
@@ -198,7 +199,7 @@ get "/", DemoController::Index.instance
 
 This is how you would configure a WebSocket Controller:
 ```
-get "/", ChatController::Chat # This is a WebSocket Handler
+get "/", ChatController::Chat
 get "/", ChatController::Index
 ```
 
@@ -216,6 +217,21 @@ put    "/posts/:id", DemoController::Update
 delete "/posts/:id", DemoController::Delete
 
 ```
+
+You can enable CSRF protection for all `post` and `put` calls:
+```
+post "/*",   CSRF
+put  "/*",   CSRF
+```
+
+Then in your forms, add the `csrf_tag` using the helper method:
+```
+<form action="/demos/<%= demo.id %>" method="post">
+  <%= csrf_tag(context) %>
+  ...
+</form>
+```
+
 You can use `:variable` in the path and it will set a
 context.params["variable"] to the value in the url.
 
