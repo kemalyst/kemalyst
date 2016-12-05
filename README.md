@@ -61,20 +61,22 @@ and run `crystal deps`.
 To keep a similar structure to yarlf, several directories and files will be
 installed.  This structure should look familiar to you if your coming from a
 Rails background.
-
- - config - Each handler may have its own config.  The database.yml and routes.cr are also here.
- - db - holds the migrate.cr script and any other db related artifacts.
- - libs - shards are installed here.
- - public - Default location for html/css/js files.  The static handler points to this directory.
- - spec - all the crystal specs go here.
- - src - all the source code goes here.
+ - /client - npm, webpack, and jasmine to support es6 and sass.  `npm run build`,
+   `npm run test`, and `npm run lint`.
+ - /config - Application and HTTP::Handler config's goes here.  The database.yml and routes.cr are here.
+ - /db - holds the `migrate.cr` script and any other db related artifacts.
+ - /lib - shards are installed here.
+ - /public - Default location for html/css/js files.  The static handler points to this directory.  The client artifacts and compiled and placed here.
+ - /spec - all the crystal specs go here.
+ - /src - all the source code goes here.
 
 The post install will only run if it doesn't find a `src/app.cr` file.
 
 You may want to remove the remnants of `crystal init`:
 ```
+rm src/[your_app].cr
 rm -r src/[your_app]
-rm spec/[your_app_spec].cr
+rm spec/[your_app]_spec.cr
 rm spec/spec_helper.cr_old
 ```
 
