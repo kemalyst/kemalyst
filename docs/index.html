@@ -168,356 +168,404 @@ development.</p>
 
 <ol><li>Install Crystal</li></ol>
 
-<p>You can find instructions on how to install Crystal from [Crystal's
-Website](http://crystal-lang.org).  I recommend using
+<p>You can find instructions on how to install Crystal from <a href="http://crystal-lang.org" target="_blank">Crystal's
+Website</a>.  I recommend using
 <a href="https://github.com/pine613/crenv" target="_blank">crenv</a> to manage your crystal versions.</p>
 
 <ol><li>Create a Crystal App</li></ol>
 
-<pre><code>crystal init app [your_app]
-cd [your_app]</code></pre>
+<pre><code class='language-crystal init app [your_app]
+cd [your_app]'>```
+3. Add kemalyst dependency to your shard.yml</code></pre>
 
-<ol><li>Add kemalyst dependency to your shard.yml</li></ol>
+<p>dependencies:
+  kemalyst:</p>
 
-<pre><code>dependencies:
-  kemalyst:
-    github: drujensen<span class="s">/kemalyst
+<pre><code>github: drujensen<span class="s">/kemalyst</code></pre>
 
-  # optional
+<p># optional</p>
 
-  # postgres driver is still in development
-  pg:
-    github: asterite/</span>crystal<span class="o">-</span>pg
-    branch: feature<span class="s">/db
+<p># postgres driver is still in development
+  pg:</p>
 
-  # when it is released
-  pg:
-    github: crystal-lang/</span>crystal<span class="o">-</span>pg
+<pre><code>github: asterite<span class="s">/crystal-pg
+branch: feature/</span>db</code></pre>
 
-  mysql:
-    github: crystal<span class="o">-</span>lang<span class="s">/crystal-mysql
+<p># when it is released
+  pg:</p>
 
-  sqlite3:
-    github: crystal-lang/</span>crystal<span class="o">-</span>sqlite3</code></pre>
+<pre><code>github: crystal<span class="o">-</span>lang<span class="s">/crystal-pg</code></pre>
 
-<p>and run <code>crystal deps</code>.</p>
+<p>mysql:</p>
 
-<h3>Post Install</h3>
+<pre><code>github: crystal<span class="o">-</span>lang<span class="s">/crystal-mysql</code></pre>
 
-<p>To keep a similar structure to yarlf, several directories and files will be
-installed.  This structure should look familiar to you if your coming from a
-Rails background.</p>
+<p>sqlite3:</p>
 
-<ul><li>config - Each handler may have its own config.  The database.yml and routes.cr are also here.</li><li>db - holds the migrate.cr script and any other db related artifacts.</li><li>libs - shards are installed here.</li><li>public - Default location for html/css/js files.  The static handler points to this directory.</li><li>spec - all the crystal specs go here.</li><li>src - all the source code goes here.</li></ul>
+<pre><code>github: crystal<span class="o">-</span>lang<span class="s">/crystal-sqlite3</code></pre>
 
-<p>The post install will only run if it doesn't find a <code>src/app.cr</code> file.</p>
+<pre><code>and run <span class="s">&#96;crystal deps&#96;</span>.
 
-<p>You may want to remove the remnants of <code>crystal init</code>:</p>
+<span class="c">### Post Install</span>
 
-<pre><code>rm <span class="o">-</span>r src<span class="s">/&#91;your_app&#93;
-rm spec/</span>[your_app_spec].cr
-rm spec<span class="s">/spec_helper.cr_old</code></pre>
+<span class="t">To</span> keep a similar structure to yarlf, several directories and files will be
+installed.  <span class="t">This</span> structure should look familiar to you <span class="k">if</span> your coming from a
+<span class="t">Rails</span> background.
+ <span class="o">-</span> <span class="s">/client - npm, webpack, and jasmine to support es6 and sass.  &#96;npm run build&#96;,
+   &#96;npm run test&#96;, and &#96;npm run lint&#96;.
+ - /</span>config <span class="o">-</span> <span class="t">Application</span> and <span class="t">HTTP</span><span class="t">::</span><span class="t">Handler</span> config</code></pre>
 
-<h2>Usage</h2>
+<p>rm src/[your_app].cr
+rm -r src/[your_app]
+rm spec/[your_app]_spec.cr
+rm spec/spec_helper.cr_old</p>
 
-<h3>Run Locally</h3>
+<pre><code>
+<span class="c">## Usage</span>
 
-<p>To test the demo app locally:</p>
+<span class="c">### Run Locally</span>
+<span class="t">To</span> test the demo app locally:
 
-<ol><li>create a postgres database called <code>[your_app]</code></li><li>run <code>export DATABASE_URL=postgres://[username]:[password]@localhost:5432/[your_app]</code></li><li>migrate the database: <code>crystal db/migrate.cr</code></li><li>run the specs: <code>crystal spec</code></li></ol>
+<span class="n">1</span>. create a postgres database called <span class="s">&#96;&#91;your_app&#93;&#96;</span>
+<span class="n">2</span>. run <span class="s">&#96;export DATABASE_URL&#61;postgres://&#91;username&#93;:&#91;password&#93;&#64;localhost:5432/&#91;your_app&#93;&#96;</span>
+<span class="n">3</span>. migrate the database: <span class="s">&#96;crystal db/migrate.cr&#96;</span>
+<span class="n">4</span>. run the specs: <span class="s">&#96;crystal spec&#96;</span>
 
-<p>To build the demo app locally:</p>
+<span class="t">To</span> build the demo app locally:
 
-<ol><li>build the app <code>crystal build --release src/app.cr</code></li><li>run with <code>./app</code></li><li>visit <code>http://0.0.0.0:3000/</code></li></ol>
+<span class="n">1</span>. build the app <span class="s">&#96;crystal build --release src/app.cr&#96;</span>
+<span class="n">2</span>. run <span class="k">with</span> <span class="s">&#96;./app&#96;</span>
+<span class="n">3</span>. visit <span class="s">&#96;http://0.0.0.0:3000/&#96;</span>
 
-<h3>Run Sentry</h3>
+<span class="c">### Run Sentry</span>
+[<span class="t">Sentry</span>](https<span class="n">:/</span><span class="s">/github.com/</span>samueleaton<span class="s">/sentry&#41; is included in the &#96;/</span>dev</code></pre>
 
-<p><a href="https://github.com/samueleaton/sentry" target="_blank">Sentry</a> is included in the `/dev'
-directory.  Senter will watch your <code>/src</code> and <code>/config</code> directories and will
-build and run the application.</p>
+<p>docker-compose build
+docker-compose up -d
+docker-compose logs -f</p>
 
-<p>You can launch it using: <code>crystal run dev/sentry.cr</code></p>
+<pre><code><span class="t">This</span> will download an ubuntu<span class="s">/cedar image compatible with heroku and has all the
+dependencies including a postgres database.
 
-<h3>Run with Docker Compose</h3>
+Now you should be able to hit the site:</code></pre>
 
-<p>To run the demo app, we are including a <code>Dockerfile</code> and <code>docker-compose.yml</code>. If
-you have docker setup, you should be able to run:</p>
+<p>open "http://localhost"</p>
 
-<pre><code>docker<span class="o">-</span>compose build
-docker<span class="o">-</span>compose up <span class="o">-</span>d
-docker<span class="o">-</span>compose logs <span class="o">-</span>f</code></pre>
+<pre><code>
+<span class="t">Docker</span> <span class="t">Compose</span> is running [<span class="t">Sentry</span>](https<span class="n">:/</span><span class="s">/github.com/</span>samueleaton<span class="s">/sentry&#41; so
+any changes to your &#96;/</span>src<span class="s">&#96; or &#96;</span><span class="s">/config&#96; will re-build and run your
+application.
 
-<p>This will download an ubuntu/cedar image compatible with heroku and has all the
-dependencies including a postgres database.</p>
+### Cookie Session
+You will need to set a secret for the session.  Run the following
+command:</code></pre>
 
-<p>Now you should be able to hit the site:</p>
+<p>crystal eval "require \"secure_random\"; puts SecureRandom.hex(64)"</p>
 
-<pre><code>open <span class="s">&quot;http://localhost&quot;</span></code></pre>
+<pre><code>copy the secret and set this <span class="k">in</span> <span class="s">&#96;config/session.cr&#96;</span>.
 
-<p>Docker Compose is running <a href="https://github.com/samueleaton/sentry" target="_blank">Sentry</a> so
-any changes to your <code>/src</code> or <code>/config</code> will re-build and run your
-application.</p>
+<span class="c">### Sample Applications</span>
 
-<h3>Cookie Session</h3>
+<span class="t">Several</span> sample applications are provided:
 
-<p>You will need to set a secret for the session.  Run the following
-command:</p>
+ <span class="o">-</span> [<span class="t">Blog</span> <span class="t">Kemalyst</span>](https<span class="n">:/</span><span class="s">/github.com/</span>drujensen<span class="s">/blog-kemalyst&#41;
+ - &#91;Chat Kemalyst&#93;&#40;https:/</span><span class="s">/github.com/</span>drujensen<span class="s">/chat-kemalyst&#41;
+ - &#91;ToDo Backend Kemalyst&#93;&#40;https:/</span><span class="s">/github.com/</span>drujensen<span class="s">/todo-backend-kemalyst&#41;
 
-<pre><code>crystal eval <span class="s">&quot;require \&quot;secure_random\&quot;; puts SecureRandom.hex&#40;64&#41;&quot;</span></code></pre>
+### Configure App
 
-<p>copy the secret and set this in <code>config/session.cr</code>.</p>
-
-<h3>Sample Applications</h3>
-
-<p>Several sample applications are provided:</p>
-
-<ul><li><a href="https://github.com/drujensen/blog-kemalyst" target="_blank">Blog Kemalyst</a></li><li><a href="https://github.com/drujensen/chat-kemalyst" target="_blank">Chat Kemalyst</a></li><li><a href="https://github.com/drujensen/todo-backend-kemalyst" target="_blank">ToDo Backend Kemalyst</a></li></ul>
-
-<h3>Configure App</h3>
-
-<p>All config settings are in the <code>/config</code> folder.  Each handler has its own
-settings.  You will find the <code>database.yml</code> and <code>routes.cr</code> here. Checkout
+All config settings are in the &#96;/</span>config<span class="s">&#96; folder.  Each handler has its own
+settings.  You will find the &#96;</span>database.yml<span class="s">&#96; and &#96;</span>routes.cr<span class="s">&#96; here. Checkout
 the samples that demonstrates a traditional blog site and a websocket chat
-app.</p>
+app.
 
-<h3>Middleware HTTP::Handlers</h3>
+### Middleware HTTP::Handlers
 
-<p>There are 7 handlers that are pre-configured for Kemalyst:</p>
+There are 7 handlers that are pre-configured for Kemalyst:
+ - Logger - Logs all requests/responses to the logger configured.
+ - Error - Handles any Exceptions and renders a response.
+ - Static - Delivers any static assets from the &#96;</span>.<span class="s">/public&#96; folder.
+ - Session - Provides a Cookie Session hash that can be accessed from the &#96;context.session&#91;&quot;key&quot;&#93;&#96;
+ - Flash - Provides flash message hash that can be accessed from the &#96;context.flash&#91;&quot;danger&quot;&#93;&#96;
+ - Params - Unifies the parameters into &#96;context.params&#91;&quot;key&quot;&#93;&#96;
+ - Router - Routes requests to other handlers based on the method and path.
 
-<ul><li>Logger - Logs all requests/responses to the logger configured.</li><li>Error - Handles any Exceptions and renders a response.</li><li>Static - Delivers any static assets from the <code>./public</code> folder.</li><li>Session - Provides a Cookie Session hash that can be accessed from the <code>context.session["key"]</code></li><li>Flash - Provides flash message hash that can be accessed from the <code>context.flash["danger"]</code></li><li>Params - Unifies the parameters into <code>context.params["key"]</code></li><li>Router - Routes requests to other handlers based on the method and path.</li></ul>
+Other handlers available for Kemalyst:
+ - BasicAuth - Provides Basic Authentication.
+ - CORS - Handles Cross Origin Resource Sharing.
+ - CSRF - Helps prevent Cross Site Request Forgery.
 
-<p>Other handlers available for Kemalyst:</p>
-
-<ul><li>BasicAuth - Provides Basic Authentication.</li><li>CORS - Handles Cross Origin Resource Sharing.</li><li>CSRF - Helps prevent Cross Site Request Forgery.</li></ul>
-
-<p>You may want to add, replace or remove handlers based on your situation.  You can do that in the
-Application configuration <code>config/application.cr</code>:</p>
-
-<pre><code><span class="t">Kemalyst</span><span class="t">::</span><span class="t">Application</span>.config <span class="k">do</span> <span class="o">|</span>config<span class="o">|</span>
-  <span class="c"># handlers will be chained in the order provided</span>
-  config.handlers <span class="o">=</span> [
-    <span class="t">Kemalyst</span><span class="t">::</span><span class="t">Handler</span><span class="t">::</span><span class="t">Logger</span>.instance,
-    <span class="t">Kemalyst</span><span class="t">::</span><span class="t">Handler</span><span class="t">::</span><span class="t">Error</span>.instance,
-    <span class="t">Kemalyst</span><span class="t">::</span><span class="t">Handler</span><span class="t">::</span><span class="t">Params</span>.instance,
-    <span class="t">Kemalyst</span><span class="t">::</span><span class="t">Handler</span><span class="t">::</span><span class="t">CORS</span>.instance,
-    <span class="t">Kemalyst</span><span class="t">::</span><span class="t">Handler</span><span class="t">::</span><span class="t">Router</span>.instance
-  ]
-<span class="k">end</span></code></pre>
-
-<h3>Router</h3>
-
-<p>The router will perform a lookup based on the method and path and return the
-chain of handlers you specify in the routes.cr file.</p>
-
-<p>An example of a route would be:</p>
-
-<pre><code>get <span class="s">&quot;/&quot;</span>,   <span class="t">DemoController</span><span class="t">::</span><span class="t">Index</span></code></pre>
-
-<p>You may chain multiple handlers in a route using an array:</p>
-
-<pre><code>get <span class="s">&quot;/&quot;</span>, [ <span class="t">BasicAuth</span>.instance(<span class="s">&quot;username&quot;</span>, <span class="s">&quot;password&quot;</span>), <span class="t">DemoController</span><span class="t">::</span><span class="t">Index</span>.instance ]</code></pre>
-
-<p>This is how you would configure a WebSocket Controller:</p>
-
-<pre><code>get <span class="s">&quot;/&quot;</span>, [ <span class="t">ChatController</span><span class="t">::</span><span class="t">Chat</span>, <span class="t">ChatController</span><span class="t">::</span><span class="t">Index</span> ]</code></pre>
-
-<p>See below for more information on how to create a WebSocket Controller.</p>
-
-<p>You can use any of the following methods: <code>get, post, put, patch, delete, all</code></p>
-
-<p>You can use a <code>*</code> to chain a handler for all children of this path:</p>
-
-<pre><code>all    <span class="s">&quot;/posts/*&quot;</span>,   <span class="t">BasicAuth</span>.instance(<span class="s">&quot;admin&quot;</span>, <span class="s">&quot;password&quot;</span>)
-
-<span class="c"># all of these will be secured with the BasicAuth handler.</span>
-get    <span class="s">&quot;/posts/:id&quot;</span>, <span class="t">DemoController</span><span class="t">::</span><span class="t">Show</span>
-put    <span class="s">&quot;/posts/:id&quot;</span>, <span class="t">DemoController</span><span class="t">::</span><span class="t">Update</span>
-delete <span class="s">&quot;/posts/:id&quot;</span>, <span class="t">DemoController</span><span class="t">::</span><span class="t">Delete</span>
+You may want to add, replace or remove handlers based on your situation.  You can do that in the
+Application configuration &#96;config/</span>application.cr<span class="s">&#96;:
 </code></pre>
 
-<p>You can use <code>:variable</code> in the path and it will set a
-context.params["variable"] to the value in the url.</p>
+<p>Kemalyst::Application.config do |config|
+  # handlers will be chained in the order provided
+  config.handlers = [</p>
 
-<h3>Controllers</h3>
+<pre><code><span class="t">Kemalyst</span><span class="t">::</span><span class="t">Handler</span><span class="t">::</span><span class="t">Logger</span>.instance,
+<span class="t">Kemalyst</span><span class="t">::</span><span class="t">Handler</span><span class="t">::</span><span class="t">Error</span>.instance,
+<span class="t">Kemalyst</span><span class="t">::</span><span class="t">Handler</span><span class="t">::</span><span class="t">Params</span>.instance,
+<span class="t">Kemalyst</span><span class="t">::</span><span class="t">Handler</span><span class="t">::</span><span class="t">CORS</span>.instance,
+<span class="t">Kemalyst</span><span class="t">::</span><span class="t">Handler</span><span class="t">::</span><span class="t">Router</span>.instance</code></pre>
 
-<p>The Controller inherits from HTTP::Handler which is the middleware similar to
-Rack's middleware.  The handlers are chained together in a linked-list and
-each will perform some action against the HTTP::Server::Context and then call
-the next handler in the chain.  The router will continue this chain for a
-specific route.  The final handler should return the String that will be
-rendered as the body and then the chain will unwind and perform post handling.</p>
+<p>]
+end</p>
 
-<p>An example of a controller:</p>
+<pre><code>
+<span class="c">### Router</span>
 
-<pre><code><span class="k">require</span> <span class="s">&quot;../models/post&quot;</span>
+<span class="t">The</span> router will perform a lookup based on the method and path and <span class="k">return</span> the
+chain <span class="k">of</span> handlers you specify <span class="k">in</span> the <span class="s">&#96;/config/routes.cr&#96;</span> file.
 
-<span class="k">class</span> <span class="t">Index</span> <span class="o"><</span> <span class="t">Kemalyst</span><span class="t">::</span><span class="t">Controller</span>
-  <span class="k">def</span> <span class="m">call</span>(context)
-    posts <span class="o">=</span> <span class="t">Post</span>.all(<span class="s">&quot;ORDER BY created_at DESC&quot;</span>)
-    render <span class="s">&quot;post/index.ecr&quot;</span>, <span class="s">&quot;main.ecr&quot;</span>
+<span class="t">An</span> example <span class="k">of</span> a route would be:</code></pre>
+
+<p>get "/",   DemoController::Index</p>
+
+<pre><code>
+<span class="t">You</span> may chain multiple handlers <span class="k">in</span> a route using an array:</code></pre>
+
+<p>get "/", [ BasicAuth.instance("username", "password"),</p>
+
+<pre><code>       <span class="t">DemoController</span><span class="t">::</span><span class="t">Index</span>.instance ]</code></pre>
+
+<pre><code>or add them individually <span class="k">in</span> the correct order:</code></pre>
+
+<p>get "/", BasicAuth.instance("username", "password")
+get "/", DemoController::Index.instance</p>
+
+<pre><code>
+<span class="t">This</span> is how you would configure a <span class="t">WebSocket</span> <span class="t">Controller</span>:</code></pre>
+
+<p>get "/", ChatController::Chat
+get "/", ChatController::Index</p>
+
+<pre><code>
+<span class="t">See</span> below <span class="k">for</span> more information on how to create a <span class="t">WebSocket</span> <span class="t">Handler</span>.
+
+<span class="t">You</span> can use any <span class="k">of</span> the following methods: <span class="s">&#96;get, post, put, patch, delete, all&#96;</span>
+
+<span class="t">You</span> can use a <span class="s">&#96;*&#96;</span> to chain a handler <span class="k">for</span> all children <span class="k">of</span> this path:</code></pre>
+
+<p>all    "/posts/*",   BasicAuth.instance("admin", "password")</p>
+
+<h1>all of these will be secured with the BasicAuth handler.</h1>
+
+<p>get    "/posts/:id", DemoController::Show
+put    "/posts/:id", DemoController::Update
+delete "/posts/:id", DemoController::Delete</p>
+
+<pre><code>
+<span class="t">You</span> can enable <span class="t">CSRF</span> protection <span class="k">for</span> all <span class="s">&#96;post&#96;</span> and <span class="s">&#96;put&#96;</span> calls:</code></pre>
+
+<p>post "/<em>",   CSRF
+put  "/</em>",   CSRF</p>
+
+<pre><code>
+<span class="t">Then</span> <span class="k">in</span> your forms, add the <span class="s">&#96;csrf_tag&#96;</span> using the helper method:</code></pre>
+
+<p>&lt;form action="/demos/&lt;%= demo.id %>" method="post">
+  &lt;%= csrf_tag(context) %>
+  ...
+&lt;/form></p>
+
+<pre><code>
+<span class="t">You</span> can use <span class="s">&#96;:variable&#96;</span> <span class="k">in</span> the path and it will set a
+context.params[<span class="s">&quot;variable&quot;</span>] to the value <span class="k">in</span> the url.
+
+<span class="c">### Controllers</span>
+
+<span class="t">The</span> <span class="t">Controller</span> inherits from <span class="t">HTTP</span><span class="t">::</span><span class="t">Handler</span> which is the middleware similar to
+<span class="t">Rack</span></code></pre>
+
+<p>require "../models/post"</p>
+
+<p>class Index &lt; Kemalyst::Controller
+  def call(context)</p>
+
+<pre><code>posts <span class="o">=</span> <span class="t">Post</span>.all(<span class="s">&quot;ORDER BY created_at DESC&quot;</span>)
+render <span class="s">&quot;post/index.ecr&quot;</span>, <span class="s">&quot;main.ecr&quot;</span></code></pre>
+
+<p>end
+end</p>
+
+<pre><code>
+<span class="t">There</span> are several helper macros that set content <span class="k">type</span> and response.</code></pre>
+
+<p>render   "filename.ecr"       # renders an .ecr template
+  render   "filename.ecr", "layout.ecr" # renders an .ecr template with layout
+  redirect "path"               #redirect to path
+  text     "body", 200          #render text/plain with status code of 200
+  json     "{}".to_json, 200    #render application/json with status code of 200
+  html     "&lt;html>&lt;/html>", 200 #render text/html with status code of 200</p>
+
+<pre><code>
+<span class="c">### WebSocket Controllers</span>
+
+<span class="t">The</span> <span class="t">WebSocket</span> <span class="t">Controller</span> will handle upgrading a <span class="t">HTTP</span> <span class="t">Request</span> to a <span class="t">WebSocket</span>
+<span class="t">Connection</span>.
+
+<span class="t">An</span> example <span class="t">WebSocket</span> <span class="t">Controller</span>:</code></pre>
+
+<p>class Chat &lt; Kemalyst::WebSocket
+  @sockets = [] of HTTP::WebSocket
+  @messages = [] of String</p>
+
+<p>def call(socket : HTTP::WebSocket)</p>
+
+<pre><code>@sockets.push socket
+socket.on_message <span class="k">do</span> <span class="o">|</span>message<span class="o">|</span>
+  @messages.push message
+  @sockets.each <span class="k">do</span> <span class="o">|</span>a_socket<span class="o">|</span>
+    a_socket.send @messages.to_json
   <span class="k">end</span>
 <span class="k">end</span></code></pre>
 
-<p>There are several helper macros that set content type and response.</p>
+<p>end
+end</p>
 
-<pre><code>  render   <span class="s">&quot;filename.ecr&quot;</span>       <span class="c"># renders an .ecr template</span>
-  render   <span class="s">&quot;filename.ecr&quot;</span>, <span class="s">&quot;layout.ecr&quot;</span> <span class="c"># renders an .ecr template with layout</span>
-  redirect <span class="s">&quot;path&quot;</span>               <span class="c">#redirect to path</span>
-  text     <span class="s">&quot;body&quot;</span>, <span class="n">200</span>          <span class="c">#render text/plain with status code of 200</span>
-  json     <span class="s">&quot;&#123;&#125;&quot;</span>.to_json, <span class="n">200</span>    <span class="c">#render application/json with status code of 200</span>
-  html     <span class="s">&quot;&lt;html&gt;&lt;/html&gt;&quot;</span>, <span class="n">200</span> <span class="c">#render text/html with status code of 200</span></code></pre>
+<pre><code><span class="t">The</span> <span class="s">&#96;Chat&#96;</span> <span class="k">class</span> will override the <span class="s">&#96;call&#96;</span> method that is expecting an
+<span class="s">&#96;HTTP::WebSocket&#96;</span> to be passed which it would maintain and properly handle
+messages to and from each socket.
 
-<h3>WebSocket Controllers</h3>
+<span class="t">This</span> <span class="k">class</span> will manage an array <span class="k">of</span> <span class="s">&#96;HTTP::Websocket&#96;</span>s and configures the
+<span class="s">&#96;on_message&#96;</span> callback that will manage the messages that will be <span class="k">then</span> be
+passed on to all <span class="k">of</span> the other sockets.
 
-<p>The WebSocket Controller will handle upgrading a HTTP Request to a WebSocket
-Connection.</p>
+<span class="t">It</span></code></pre>
 
-<p>An example WebSocket Controller:</p>
+<p>get "/", ChatController::Chat
+get "/", ChatController::Index</p>
 
-<pre><code class='language-crystal'><span class="k">class</span> <span class="t">Chat</span> <span class="o"><</span> <span class="t">Kemalyst</span><span class="t">::</span><span class="t">WebSocket</span>
-  @sockets <span class="o">=</span> <span class="o">[]</span> <span class="k">of</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">WebSocket</span>
-  @messages <span class="o">=</span> <span class="o">[]</span> <span class="k">of</span> <span class="t">String</span>
+<pre><code><span class="t">The</span> first one is a <span class="t">WebSocket</span> <span class="t">Controller</span> and the second is a standard
+<span class="t">Controller</span>.  <span class="t">If</span> the request is not a <span class="t">WebSocket</span> upgrade request, it will
+pass<span class="o">-</span>through and call the second one that will <span class="k">return</span> the html page.
 
-  <span class="k">def</span> <span class="m">call</span>(socket : <span class="t">HTTP</span><span class="t">::</span><span class="t">WebSocket</span>)
-    @sockets.push socket
-    socket.on_message <span class="k">do</span> <span class="o">|</span>message<span class="o">|</span>
-      @messages.push message
-      @sockets.each <span class="k">do</span> <span class="o">|</span>a_socket<span class="o">|</span>
-        a_socket.send @messages.to_json
-      <span class="k">end</span>
-    <span class="k">end</span>
-  <span class="k">end</span>
-<span class="k">end</span></code></pre>
 
-<p>The <code>Chat</code> class will override the <code>call</code> method that is expecting an
-<code>HTTP::WebSocket</code> to be passed which it would maintain and properly handle
-messages to and from each socket.</p>
+<span class="t">To</span> see a full example application, checkout
+[<span class="t">Chat</span> <span class="t">Kemalyst</span>](https<span class="n">:/</span><span class="s">/github.com/</span>drujensen<span class="s">/chat-kemalyst&#41;
 
-<p>This class will manage an array of <code>HTTP::Websocket</code>s and configures the
-<code>on_message</code> callback that will manage the messages that will be then be
-passed on to all of the other sockets.</p>
+### Views
 
-<p>It's important to realize that if the request is not asking to be upgraded to
-a websocket, it will call the next handler in the path.  If there is no
-more handlers configured, a 404 will be returned.</p>
+Views are rendered using &#91;Kilt&#93;&#40;http:/</span><span class="s">/github.com/</span>jeromegn<span class="s">/kilt&#41;.  Currently,
+there are 4 different templating languages supported by Kilt: &#96;ecr&#96;, &#96;mustache&#96;,
+&#96;slang&#96; and &#96;temel&#96;.  Kilt will select the templating engine based on the
+extension of the file so &#96;index.ecr&#96; will render the file using the ECR
+engine.
 
-<p>Here is an example routing configuration:</p>
 
-<pre><code class='language-crystal'>get <span class="s">&quot;/&quot;</span>, [ <span class="t">ChatController</span><span class="t">::</span><span class="t">Chat</span>.instance,
-           <span class="t">ChatController</span><span class="t">::</span><span class="t">Index</span>.instance ]</code></pre>
-
-<p>The first one is a WebSocket Controller and the second is a standard
-Controller.  If the request is not a WebSocket upgrade request, it will
-pass-through and call the second one that will return the html page.</p>
-
-<p>To see a full example application, checkout
-<a href="https://github.com/drujensen/chat-kemalyst" target="_blank">Chat Kemalyst</a></p>
-
-<h3>Views</h3>
-
-<p>Views are rendered using <a href="http://github.com/jeromegn/kilt" target="_blank">Kilt</a>.  Currently,
-there are 4 different templating languages supported by Kilt: <code>ecr</code>, <code>mustache</code>,
-<code>slang</code> and <code>temel</code>.  Kilt will select the templating engine based on the
-extension of the file so <code>index.ecr</code> will render the file using the ECR
-engine.</p>
-
-<p>The render method is configured to look in the "src/views" path to keep the
+The render method is configured to look in the &quot;src/</span>views<span class="s">&quot; path to keep the
 controllers simple.  You may also render with a layout which will look for
-this in the "src/views/layouts" directory.</p>
-
-<pre><code>render <span class="s">&quot;post/index.ecr&quot;</span>, <span class="s">&quot;main.ecr&quot;</span>
+this in the &quot;</span>src<span class="s">/views/</span>layouts<span class="s">&quot; directory.
 </code></pre>
 
-<p>This will render the index.ecr template inside the main.ecr layout. All local
-variables assigned in the controller are available in the templates.</p>
+<p>render "post/index.ecr", "main.ecr"</p>
 
-<p>An example <code>views/post/index.ecr</code>:</p>
+<pre><code><span class="t">This</span> will render the index.ecr template inside the main.ecr layout. <span class="t">All</span> local
+variables assigned <span class="k">in</span> the controller are available <span class="k">in</span> the templates.
 
-<pre><code><span class="o"><</span><span class="o">%</span> posts.each <span class="k">do</span> <span class="o">|</span>post<span class="o">|</span> <span class="o">%</span><span class="o">></span>
-  <span class="o"><</span>div<span class="o">></span>
-    <span class="o"><</span>h2<span class="o">></span><span class="o"><</span>%= post.name <span class="o">%</span><span class="o">></span><span class="o"><</span><span class="s">/h2&gt;
-    &lt;p&gt;&lt;&#37;&#61; post.body &#37;&gt;&lt;/</span>p<span class="o">></span>
-    <span class="o"><</span>p<span class="o">></span>
-      <span class="o"><</span>a href<span class="o">=</span><span class="s">&quot;/posts/&lt;&#37;&#61; post.id &#37;&gt;&quot;</span><span class="o">></span>read<span class="o"><</span><span class="s">/a&gt;
-      | &lt;a href&#61;&quot;/</span>posts<span class="s">/&lt;&#37;&#61; post.id &#37;&gt;/</span>edit<span class="s">&quot;&gt;edit&lt;/a&gt; |
-      &lt;a href&#61;&quot;</span><span class="s">/posts/</span><span class="o"><</span>%= post.id <span class="o">%</span><span class="o">></span>?_method<span class="o">=</span>delete<span class="s">&quot; onclick&#61;&quot;</span><span class="k">return</span> confirm(</code></pre>
+<span class="t">An</span> example <span class="s">&#96;views/post/index.ecr&#96;</span>:</code></pre>
 
-<p>And an example of <code>views/layouts/main.ecr</code>:</p>
+<p>&lt;% posts.each do |post| %>
+  &lt;div></p>
 
-<pre><code><span class="o"><</span><span class="o">!</span><span class="t">DOCTYPE</span> html<span class="o">></span>
-<span class="o"><</span>html<span class="o">></span>
-  <span class="o"><</span>head<span class="o">></span>
-    <span class="o"><</span>title<span class="o">></span><span class="t">Example</span> <span class="t">Layout</span><span class="o"><</span><span class="s">/title&gt;
-    &lt;link rel&#61;&quot;stylesheet&quot; href&#61;&quot;/</span>stylesheets<span class="s">/main.css&quot;&gt;
-  &lt;/</span>head<span class="o">></span>
-  <span class="o"><</span>body<span class="o">></span>
-    <span class="o"><</span>div <span class="k">class</span><span class="o">=</span><span class="s">&quot;container&quot;</span><span class="o">></span>
+<pre><code><span class="o"><</span>h2<span class="o">></span><span class="o"><</span>%= post.name <span class="o">%</span><span class="o">></span><span class="o"><</span><span class="s">/h2&gt;
+&lt;p&gt;&lt;&#37;&#61; post.body &#37;&gt;&lt;/</span>p<span class="o">></span>
+<span class="o"><</span>p<span class="o">></span>
+  <span class="o"><</span>a href<span class="o">=</span><span class="s">&quot;/posts/&lt;&#37;&#61; post.id &#37;&gt;&quot;</span><span class="o">></span>read<span class="o"><</span><span class="s">/a&gt;
+  | &lt;a href&#61;&quot;/</span>posts<span class="s">/&lt;&#37;&#61; post.id &#37;&gt;/</span>edit<span class="s">&quot;&gt;edit&lt;/a&gt; |
+  &lt;a href&#61;&quot;</span><span class="s">/posts/</span><span class="o"><</span>%= post.id <span class="o">%</span><span class="o">></span>?_method<span class="o">=</span>delete<span class="s">&quot; onclick&#61;&quot;</span><span class="k">return</span> confirm(</code></pre>
 
-      <span class="o"><</span>div <span class="k">class</span><span class="o">=</span><span class="s">&quot;row&quot;</span><span class="o">></span>
-      <span class="o"><</span><span class="o">%</span> context.flash.each <span class="k">do</span> <span class="o">|</span>key, value<span class="o">|</span> <span class="o">%</span><span class="o">></span>
-        <span class="o"><</span>div <span class="k">class</span><span class="o">=</span><span class="s">&quot;alert alert-&lt;&#37;&#61; key &#37;&gt;&quot;</span><span class="o">></span>
-          <span class="o"><</span>p<span class="o">></span><span class="o"><</span>%= value <span class="o">%</span><span class="o">></span><span class="o"><</span><span class="s">/p&gt;
-        &lt;/</span>div<span class="o">></span>
-      <span class="o"><</span><span class="o">%</span> <span class="k">end</span> <span class="o">%</span><span class="o">></span>
-      <span class="o"><</span><span class="s">/div&gt;
+<p>&lt;/div>
+&lt;% end %></p>
 
-      &lt;div class&#61;&quot;row&quot;&gt;
-        &lt;div class&#61;&quot;col-sm-12&quot;&gt;
-          &lt;&#37;&#61; content &#37;&gt;
-        &lt;/</span>div<span class="o">></span>
-      <span class="o"><</span><span class="s">/div&gt;
+<pre><code>
+<span class="t">And</span> an example <span class="k">of</span> <span class="s">&#96;views/layouts/main.ecr&#96;</span>:</code></pre>
 
+<p>&lt;!DOCTYPE html>
+&lt;html>
+  &lt;head></p>
+
+<pre><code><span class="o"><</span>title<span class="o">></span><span class="t">Example</span> <span class="t">Layout</span><span class="o"><</span><span class="s">/title&gt;
+&lt;link rel&#61;&quot;stylesheet&quot; href&#61;&quot;/</span>stylesheets<span class="s">/main.css&quot;&gt;</code></pre>
+
+<p>&lt;/head>
+  &lt;body></p>
+
+<pre><code><span class="o"><</span>div <span class="k">class</span><span class="o">=</span><span class="s">&quot;container&quot;</span><span class="o">></span>
+
+  <span class="o"><</span>div <span class="k">class</span><span class="o">=</span><span class="s">&quot;row&quot;</span><span class="o">></span>
+  <span class="o"><</span><span class="o">%</span> context.flash.each <span class="k">do</span> <span class="o">|</span>key, value<span class="o">|</span> <span class="o">%</span><span class="o">></span>
+    <span class="o"><</span>div <span class="k">class</span><span class="o">=</span><span class="s">&quot;alert alert-&lt;&#37;&#61; key &#37;&gt;&quot;</span><span class="o">></span>
+      <span class="o"><</span>p<span class="o">></span><span class="o"><</span>%= value <span class="o">%</span><span class="o">></span><span class="o"><</span><span class="s">/p&gt;
     &lt;/</span>div<span class="o">></span>
-  <span class="o"><</span><span class="s">/body&gt;
-&lt;/</span>html<span class="o">></span></code></pre>
+  <span class="o"><</span><span class="o">%</span> <span class="k">end</span> <span class="o">%</span><span class="o">></span>
+  <span class="o"><</span><span class="s">/div&gt;
 
-<p>The <code><%= content %></code> is where the template will be rendered in the layout.</p>
+  &lt;div class&#61;&quot;row&quot;&gt;
+    &lt;div class&#61;&quot;col-sm-12&quot;&gt;
+      &lt;&#37;&#61; content &#37;&gt;
+    &lt;/</span>div<span class="o">></span>
+  <span class="o"><</span><span class="s">/div&gt;
 
-<h3>Models</h3>
+&lt;/</span>div<span class="o">></span></code></pre>
 
-<p>The models are a simple ORM mechanism that will map objects to rows in the
-database. There is no dependency on using this model.  I recommend looking at
-<a href="https://github.com/waterlink/active_record.cr" target="_blank">Active Record.cr</a> by waterlink
-as an alternative to this simplistic approach.</p>
+<p>&lt;/body>
+&lt;/html></p>
 
-<p>The mapping is done using a <code>sql_mapping</code> macro.</p>
+<pre><code><span class="t">The</span> <span class="s">&#96;&lt;&#37;&#61; content &#37;&gt;&#96;</span> is where the template will be rendered <span class="k">in</span> the layout.
 
-<p>An example <code>models/post.cr</code></p>
+<span class="c">### Models</span>
 
-<pre><code class='language-crystal'><span class="k">require</span> <span class="s">&quot;kemalyst-model/adapter/pg&quot;</span>
+<span class="t">The</span> models are a simple <span class="t">ORM</span> mechanism that will map objects to rows <span class="k">in</span> the
+database. <span class="t">There</span> is no dependency on using this model.  <span class="t">I</span> recommend looking at
+[<span class="t">Active</span> <span class="t">Record</span>.cr](https<span class="n">:/</span><span class="s">/github.com/</span>waterlink<span class="s">/active_record.cr&#41; by waterlink
+as an alternative to this simplistic approach.
 
-<span class="k">class</span> <span class="t">Post</span> <span class="o"><</span> <span class="t">Kemalyst</span><span class="t">::</span><span class="t">Model</span>
-  adapter pg
+The mapping is done using a &#96;sql_mapping&#96; macro.
 
-  sql_mapping({
-    name: [<span class="s">&quot;VARCHAR&#40;255&#41;&quot;</span>, <span class="t">String</span>],
-    body: [<span class="s">&quot;TEXT&quot;</span>, <span class="t">String</span>]
-  })
+An example &#96;models/</span>post.cr<span class="s">&#96;</code></pre>
 
-<span class="k">end</span>
-</code></pre>
+<p>require "kemalyst-model/adapter/pg"</p>
 
-<p>The mapping will automatically create the id, created_at and updated_at column
-mapping that follows the active_record convention in Rails.</p>
+<p>class Post &lt; Kemalyst::Model
+  adapter pg</p>
 
-<p>There are several methods that are provided in the model.</p>
+<p>sql_mapping({</p>
 
-<ul><li>self.drop - DROP table...</li><li>self.create - CREATE table...</li><li>self.clear - DELETE from table</li><li>self.migrate = Add/Update columns to match model definition</li><li>self.prune - Remove any undefined fields from the database</li><li>save - Insert or Update depending on if ID is set</li><li>destroy - DELETE FROM table WHERE id = this.id</li><li>all(where) SELECT * FROM table #{WHERE clause};"</li><li>find(id) - SELECT * FROM table WHERE id = this.id LIMIT 1;"</li></ul>
+<pre><code>name: [<span class="s">&quot;VARCHAR&#40;255&#41;&quot;</span>, <span class="t">String</span>],
+body: [<span class="s">&quot;TEXT&quot;</span>, <span class="t">String</span>]</code></pre>
 
-<p>You can find more details at <a href="https://github.com/drujensen/kemalyst-model" target="_blank">Kemalyst Model</a></p>
+<p>})</p>
 
-<h3>Validation</h3>
+<p>end</p>
 
-<p>Another Library included with Kemalyst is validation of your models.
-You can find more details at <a href="https://github.com/drujensen/kemalyst-validators" target="_blank">Kemalyst Validators</a></p>
+<pre><code><span class="t">The</span> mapping will automatically create the id, created_at and updated_at column
+mapping that follows the active_record convention <span class="k">in</span> <span class="t">Rails</span>.
 
-<h2>Contributing</h2>
+<span class="t">There</span> are several methods that are provided <span class="k">in</span> the model.
+<span class="o">-</span> <span class="k">self</span>.drop <span class="o">-</span> <span class="t">DROP</span> table...
+<span class="o">-</span> <span class="k">self</span>.create <span class="o">-</span> <span class="t">CREATE</span> table...
+<span class="o">-</span> <span class="k">self</span>.clear <span class="o">-</span> <span class="t">DELETE</span> from table
+<span class="o">-</span> <span class="k">self</span>.migrate <span class="o">=</span> <span class="t">Add</span><span class="s">/Update columns to match model definition
+- self.prune - Remove any undefined fields from the database
+- save - Insert or Update depending on if ID is set
+- destroy - DELETE FROM table WHERE id &#61; this.id
+- all&#40;where&#41; SELECT * FROM table </span><span class="i">#{</span></span><span class="t">WHERE</span> clause<span class="s"><span class="i">}</span>;&quot;
+- find&#40;id&#41; - SELECT * FROM table WHERE id &#61; this.id LIMIT 1;&quot;
 
-<ol><li>Fork it ( https://github.com/drujensen/kemalyst/fork )</li><li>Create your feature branch (git checkout -b my-new-feature)</li><li>Commit your changes (git commit -am 'Add some feature')</li><li>Push to the branch (git push origin my-new-feature)</li><li>Create a new Pull Request</li></ol>
+You can find more details at &#91;Kemalyst Model&#93;&#40;https:/</span><span class="s">/github.com/</span>drujensen<span class="s">/kemalyst-model&#41;
 
-<h2>Contributors</h2>
+### Validation
 
-<ul><li><a href="https://github.com/drujensen" target="_blank">drujensen</a> drujensen - creator, maintainer</li></ul>
+Another Library included with Kemalyst is validation of your models.
+You can find more details at &#91;Kemalyst Validators&#93;&#40;https:/</span><span class="s">/github.com/</span>drujensen<span class="s">/kemalyst-validators&#41;
+
+## Contributing
+
+1. Fork it &#40; https:/</span><span class="s">/github.com/</span>drujensen<span class="s">/kemalyst/</span>fork )
+<span class="n">2</span>. <span class="t">Create</span> your feature branch (git checkout <span class="o">-</span>b my<span class="o">-</span><span class="k">new</span><span class="o">-</span>feature)
+<span class="n">3</span>. <span class="t">Commit</span> your changes (git commit <span class="o">-</span>am </code></pre>
 </div>
 </body>
 </html>
