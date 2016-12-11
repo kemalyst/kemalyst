@@ -6,7 +6,7 @@ shards:
 
   delimiter_tree:
     github: drujensen/delimiter_tree
-    version: 0.1.2
+    version: 0.1.3
 
   kemalyst-model:
     github: drujensen/kemalyst-model

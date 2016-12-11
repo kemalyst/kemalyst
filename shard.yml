@@ -1,5 +1,5 @@
 name: kemalyst
-version: 0.2.14
+version: 0.2.15
 
 authors:
   - drujensen <drujensen@gmail.com>
@@ -18,10 +18,10 @@ dependencies:
   kemalyst-spec:
     github: drujensen/kemalyst-spec
     version: ~> 0.1.0
- 
+
   delimiter_tree:
     github: drujensen/delimiter_tree
-    version: ~> 0.1.1
+    version: ~> 0.1.3
 
   kilt:
     github: jeromegn/kilt
