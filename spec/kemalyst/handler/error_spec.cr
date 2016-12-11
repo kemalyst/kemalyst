@@ -9,7 +9,6 @@ describe Kemalyst::Handler::Error do
     error.next = Kemalyst::Handler::Router.new
     error.call(context)
     context.response.status_code.should eq 404
-
   end
 
   it "handles all other exceptions" do

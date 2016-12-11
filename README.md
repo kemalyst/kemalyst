@@ -37,16 +37,8 @@ dependencies:
   kemalyst:
     github: drujensen/kemalyst
 
-  # optional
-
-  # postgres driver is still in development
   pg:
-    github: asterite/crystal-pg
-    branch: feature/db
-
-  # when it is released
-  pg:
-    github: crystal-lang/crystal-pg
+    github: will/crystal-pg
 
   mysql:
     github: crystal-lang/crystal-mysql
