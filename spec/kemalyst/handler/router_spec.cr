@@ -43,16 +43,6 @@ describe Kemalyst::Handler::Router do
     client_response.body.should eq "Hello World!"
   end
 
-  it "builds handler callstack for routes as an array" do
-    router = Kemalyst::Handler::Router.new
-    handler = Kemalyst::Handler::Block.new(->(c : HTTP::Server::Context) { "Hello World!" })
-    socket =Kemalyst::WebSocket.new
-    router.add_route("GET", "/", [socket, handler])
-    result = router.lookup_route("GET", "/")
-    result.found.should eq true
-    result.payload.size.should eq 2
-  end
-
   it "builds handler callstack for routes individually in order" do
     router = Kemalyst::Handler::Router.new
     handler = Kemalyst::Handler::Block.new(->(c : HTTP::Server::Context) { "Hello World!" })

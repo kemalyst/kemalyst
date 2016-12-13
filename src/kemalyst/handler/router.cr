@@ -16,10 +16,14 @@ module Kemalyst::Handler
       Kemalyst::Handler::Router.instance.add_route({{method}}.upcase, path, handler.instance)
     end
     def {{method.id}}(path, handlers : Array(HTTP::Handler))
-      Kemalyst::Handler::Router.instance.add_route({{method}}.upcase, path, handlers)
+      handlers.each do |handler|
+        Kemalyst::Handler::Router.instance.add_route({{method}}.upcase, path, handler)
+      end
     end
     def {{method.id}}(path, handlers : Array(HTTP::Handler.class))
-      Kemalyst::Handler::Router.instance.add_route({{method}}.upcase, path, handlers.map{|h| h.instance})
+      handlers.each do |handler|
+        Kemalyst::Handler::Router.instance.add_route({{method}}.upcase, path, handler.instance)
+      end
     end
   {% end %}
 
@@ -120,13 +124,6 @@ module Kemalyst::Handler
       add_to_tree("HEAD", path, Route.new("HEAD", path, handler)) if method == "GET"
     end
 
-    def add_route(method, path,  handlers : Array(HTTP::Handler))
-      raise ArgumentError.new "You must specify at least one HTTP Handler." if handlers.empty?
-      handlers.each do |handler|
-        add_to_tree method, path, Route.new(method, path, handler)
-      end
-    end
-
     # Check if a route is defined and returns the lookup
     def lookup_route(verb, path)
       @tree.find delimiter_path(verb, path)
@@ -157,12 +154,14 @@ module Kemalyst::Handler
           if route = routes.first
             if content = route.handler.call(context).as(String)
               context.response.print(content)
-              # clean state
-              routes.each do |route| 
-                route.handler.next = nil if route
-              end
             end
           end
+
+          # clean state
+          routes.each do |route|
+            route.handler.next = nil if route
+          end
+
         else
           raise Kemalyst::Exceptions::RouteNotFound.new("Requested payload: '#{method.as(String)}:#{context.request.path}' was not found.")
         end

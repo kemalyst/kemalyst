@@ -71,6 +71,7 @@ class Kemalyst::WebSocket < HTTP::Handler
         ws_session.run
         io.close
       end
+      ""
     else
       call_next(context)
     end
