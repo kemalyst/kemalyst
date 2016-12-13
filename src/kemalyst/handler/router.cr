@@ -157,6 +157,10 @@ module Kemalyst::Handler
           if route = routes.first
             if content = route.handler.call(context).as(String)
               context.response.print(content)
+              # clean state
+              routes.each do |route| 
+                route.handler.next = nil if route
+              end
             end
           end
         else
