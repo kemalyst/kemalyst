@@ -43,16 +43,6 @@ describe Kemalyst::Handler::Router do
     client_response.body.should eq "Hello World!"
   end
 
-  it "builds handler callstack for routes as an array" do
-    router = Kemalyst::Handler::Router.new
-    handler = Kemalyst::Handler::Block.new(->(c : HTTP::Server::Context) { "Hello World!" })
-    socket =Kemalyst::WebSocket.new
-    router.add_route("GET", "/", [socket, handler])
-    result = router.lookup_route("GET", "/")
-    result.found.should eq true
-    result.payload.size.should eq 2
-  end
-
   it "builds handler callstack for routes individually in order" do
     router = Kemalyst::Handler::Router.new
     handler = Kemalyst::Handler::Block.new(->(c : HTTP::Server::Context) { "Hello World!" })
@@ -64,4 +54,28 @@ describe Kemalyst::Handler::Router do
     result.payload.size.should eq 2
   end
 
+  it "process_request and clean state" do
+    router = Kemalyst::Handler::Router.new
+    handler0 = TestHandler.new
+    handler1 = Kemalyst::Handler::Block.new(->(c : HTTP::Server::Context) { "Dashboard" })
+
+    router.add_route("GET", "/*", handler0)
+    router.add_route("GET", "/dashboard", handler1)
+
+    request = HTTP::Request.new("GET", "/dashboard")
+    io, context = create_context(request)
+    router.call(context)
+    context.response.close
+    io.rewind
+    client_response = HTTP::Client::Response.from_io(io, decompress: false)
+    client_response.body.should eq "Dashboard"
+
+    request = HTTP::Request.new("GET", "/404")
+    io, context = create_context(request)
+    router.call(context)
+    context.response.close
+    io.rewind
+    client_response = HTTP::Client::Response.from_io(io, decompress: false)
+    client_response.body.should eq "All"
+  end
 end
