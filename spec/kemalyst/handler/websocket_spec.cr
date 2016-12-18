@@ -1,6 +1,6 @@
 require "./spec_helper"
 
-describe Kemalyst::WebSocket do
+describe Kemalyst::Handler::WebSocket do
   it "Upgrades to websocket" do
     headers = HTTP::Headers {
       "Upgrade" => "websocket",
@@ -9,7 +9,7 @@ describe Kemalyst::WebSocket do
     }
     request = HTTP::Request.new("GET", "/", headers)
     io, context = create_context(request)
-    websocket = Kemalyst::WebSocket.new()
+    websocket = Kemalyst::Handler::WebSocket.new()
     handler = Kemalyst::Handler::Block.new(->(c : HTTP::Server::Context) { "Hello World!" })
     router = Kemalyst::Handler::Router.new
     router.add_route("GET", "/", websocket)
