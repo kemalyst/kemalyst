@@ -151,6 +151,7 @@ There are 7 handlers that are pre-configured for Kemalyst:
 
 Other handlers available for Kemalyst:
  - BasicAuth - Provides Basic Authentication.
+ - Websocket - Upgrade to a websocket.
  - CORS - Handles Cross Origin Resource Sharing.
  - CSRF - Helps prevent Cross Site Request Forgery.
 
@@ -267,7 +268,7 @@ Connection.
 
 An example WebSocket Controller:
 ```crystal
-class Chat < Kemalyst::WebSocket
+class Chat < Kemalyst::Handler::WebSocket
   @sockets = [] of HTTP::WebSocket
   @messages = [] of String
 
@@ -282,6 +283,7 @@ class Chat < Kemalyst::WebSocket
   end
 end
 ```
+
 The `Chat` class will override the `call` method that is expecting an
 `HTTP::WebSocket` to be passed which it would maintain and properly handle
 messages to and from each socket.
