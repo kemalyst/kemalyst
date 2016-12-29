@@ -38,7 +38,8 @@ require "openssl/sha1"
 # HTTP::WebSocket.  Notice that the  WebSocket handler `call_next` if the
 # headers do not request for an upgrade.  It passes through the request to the
 # next handler in the chain.
-class Kemalyst::WebSocket < HTTP::Handler
+class Kemalyst::WebSocket
+  include HTTP::Handler
 
   # class method to return a singleton instance of this Controller
   def self.instance

@@ -4,7 +4,8 @@ module Kemalyst::Handler
   # The base class for Kemalyst handlers.  This extension provides a singleton
   # method and ability to configure each handler.  All configurations should
   # be maintained in the `/config` folder for consistency.
-  class Base < HTTP::Handler
+  class Base
+    include HTTP::Handler
 
     # class method to return a singleton instance of this Controller
     def self.instance
