@@ -2,7 +2,7 @@ version: 1.0
 shards:
   db:
     github: crystal-lang/crystal-db
-    version: 0.2.2
+    version: 0.3.3
 
   delimiter_tree:
     github: drujensen/delimiter_tree
