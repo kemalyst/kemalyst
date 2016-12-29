@@ -3,7 +3,8 @@ require "kilt"
 
 # The base controller provides a singleton pattern for the HTTP::Handler and
 # some macros that provide syntax sugar for rendering a response.
-class Kemalyst::Controller < HTTP::Handler
+class Kemalyst::Controller
+  include HTTP::Handler
 
   # class method to return a singleton instance of this Controller
   def self.instance
