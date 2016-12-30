@@ -418,6 +418,11 @@ You can find more details at [Kemalyst Model](https://github.com/drujensen/kemal
 Another Library included with Kemalyst is validation of your models.
 You can find more details at [Kemalyst Validators](https://github.com/drujensen/kemalyst-validators)
 
+### i18n Support
+
+[TechMagister](https://github.com/TechMagister) has created a HTTP::Handler that will integrate his i18n library.
+You can find more details at [Kemalyst i18n](https://github.com/TechMagister/kemalyst-i18n)
+
 ## Contributing
 
 1. Fork it ( https://github.com/drujensen/kemalyst/fork )
@@ -429,3 +434,4 @@ You can find more details at [Kemalyst Validators](https://github.com/drujensen/
 ## Contributors
 
 - [drujensen](https://github.com/drujensen) drujensen - creator, maintainer
+- [TechMagister](https://github.com/TechMagister) TechMagister - contributor
