@@ -27,5 +27,9 @@ dependencies:
     github: jeromegn/kilt
     version: ~> 0.3.3
 
+  slang:
+    github: jeromegn/slang
+    version: ~> 1.4.1
+
 scripts:
   postinstall: crystal src/templates/install.cr
