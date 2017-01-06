@@ -29,6 +29,17 @@ describe Kemalyst::Handler::Params do
     context.params["test"].should eq "test"
   end
 
+  it "parses body params with charset" do
+    headers = HTTP::Headers.new
+    headers["Content-Type"] = "application/x-www-form-urlencoded; charset=UTF-8"
+    body = "test=test"
+    request = HTTP::Request.new("POST", "/", headers, body)
+    io, context = create_context(request)
+    params = Kemalyst::Handler::Params.instance
+    params.call(context)
+    context.params["test"]?.should eq "test"
+  end
+
   it "parses multiple body params" do
     headers = HTTP::Headers.new
     headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -62,5 +73,3 @@ describe Kemalyst::Handler::Params do
     context.params["_json"].should eq "[\"test\", \"test2\"]"
   end
 end
-
-
