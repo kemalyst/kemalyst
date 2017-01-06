@@ -24,8 +24,10 @@ module Kemalyst::Handler
 
     def parse(context)
       parse_query(context)
-      parse_body(context) if context.request.headers["Content-Type"]? == URL_ENCODED_FORM
-      parse_json(context) if context.request.headers["Content-Type"]? == APPLICATION_JSON
+      if content_type = context.request.headers["Content-Type"]?
+        parse_body(context) if content_type.match /^#{Regex.escape URL_ENCODED_FORM}/
+        parse_json(context) if content_type == APPLICATION_JSON
+      end
     end
 
     def parse_query(context)
