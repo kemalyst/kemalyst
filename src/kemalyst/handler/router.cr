@@ -35,6 +35,16 @@ module Kemalyst::Handler
     delete path, handler
   end
 
+  macro resource(name)
+    get "/{{name.id.downcase}}s", {{name.id.capitalize}}Controller::Index
+    get "/{{name.id.downcase}}s/new", {{name.id.capitalize}}Controller::New
+    post "/{{name.id.downcase}}s", {{name.id.capitalize}}Controller::Create
+    get "/{{name.id.downcase}}s/:id", {{name.id.capitalize}}Controller::Show
+    get "/{{name.id.downcase}}s/:id/edit", {{name.id.capitalize}}Controller::Edit
+    put "/{{name.id.downcase}}s/:id", {{name.id.capitalize}}Controller::Update
+    delete "/{{name.id.downcase}}s/:id", {{name.id.capitalize}}Controller::Delete
+  end
+
   # The Route holds the information for the node in the tree.
   class Route
     getter method
