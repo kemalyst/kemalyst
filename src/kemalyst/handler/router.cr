@@ -35,6 +35,7 @@ module Kemalyst::Handler
     delete path, handler
   end
 
+  # The resource macro will create a RESTful resource set of routes using a standard naming convention.
   macro resource(name)
     get "/{{name.id.downcase}}s", {{name.id.capitalize}}Controller::Index
     get "/{{name.id.downcase}}s/new", {{name.id.capitalize}}Controller::New
