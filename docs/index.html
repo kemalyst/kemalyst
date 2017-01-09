@@ -186,7 +186,7 @@ This will generate a traditional web application:
  - /config - Application and HTTP::Handler config's goes here.  The database.yml and routes.cr are here.
  - /db - holds the `migrate.cr` script and any other db related artifacts.
  - /lib - shards are installed here.
- - /public - Default location for html/css/js files.  The static handler points to this directory.  The client artifacts and compiled and placed here.
+ - /public - Default location for html/css/js files.  The static handler points to this directory.
  - /spec - all the crystal specs go here.
  - /src - all the source code goes here.
 
@@ -415,7 +415,8 @@ socket.on_message <span class="k">do</span> <span class="o">|</span>message<span
 <p>end
 end</p>
 
-<pre><code><span class="t">The</span> <span class="s">&#96;Chat&#96;</span> <span class="k">class</span> will override the <span class="s">&#96;call&#96;</span> method that is expecting an
+<pre><code>
+<span class="t">The</span> <span class="s">&#96;Chat&#96;</span> <span class="k">class</span> will override the <span class="s">&#96;call&#96;</span> method that is expecting an
 <span class="s">&#96;HTTP::WebSocket&#96;</span> to be passed which it would maintain and properly handle
 messages to and from each socket.
 
