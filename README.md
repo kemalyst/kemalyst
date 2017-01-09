@@ -21,8 +21,7 @@ development.
 
 1. Install Crystal
 
-You can find instructions on how to install Crystal from [Crystal's
-Website](http://crystal-lang.org).
+You can find instructions on how to install Crystal from [Crystal's Website](http://crystal-lang.org).
 
 2. Install Kemalyst Generator
 
@@ -57,12 +56,12 @@ kgen generate scaffold Post name:string description:text
 This will generate scaffolding for a Post:
  - src/controllers/post_controller.cr
  - src/models/post.cr
- - src/views/post
+ - src/views/post/*
+ - spec/controllers/post_controller_spec.cr
+ - spec/models/post_spec.cr
  - appends route to config/routes.cr
  - appends migration to db/migrate.cr
  - appends navigation to src/layouts/_nav.slang
- - spec/controllers/post_controller_spec.cr
- - spec/models/post_spec.cr
 
 ### Run Locally
 To test the demo app locally:
@@ -72,7 +71,7 @@ To test the demo app locally:
 3. migrate the database: `crystal db/migrate.cr`
 4. run the specs: `crystal spec`
 
-To build the demo app locally:
+To run the demo app locally:
 
 1. build the app `crystal build --release src/app.cr`
 2. run with `./app`
@@ -80,21 +79,20 @@ To build the demo app locally:
 
 ### Sentry
 
-Automatically recompile and run your app:
+Kgen has the ability to watch for changes to your source files and recompiling them:
 ```
 kgen watch
 ```
 
-### Run with Docker Compose
-To run the demo app, we are including a `Dockerfile` and `docker-compose.yml`. If
+### Run with Docker
+
+Another option is to run using Docker.  A `Dockerfile` and `docker-compose.yml` is provided. If
 you have docker setup, you should be able to run:
 ```
 docker-compose build
 docker-compose up -d
 docker-compose logs -f
 ```
-This will download an ubuntu/cedar image compatible with heroku and has all the
-dependencies including a postgres database.
 
 Now you should be able to hit the site:
 ```
@@ -242,12 +240,12 @@ end
 
 There are several helper macros that set content type and response.
 ```
-  render   "filename.ecr"       # renders an .ecr template
+  render   "filename.ecr"               # renders an .ecr template
   render   "filename.ecr", "layout.ecr" # renders an .ecr template with layout
-  redirect "path"               #redirect to path
-  text     "body", 200          #render text/plain with status code of 200
-  json     "{}".to_json, 200    #render application/json with status code of 200
-  html     "<html></html>", 200 #render text/html with status code of 200
+  redirect "path"                       # redirect to path
+  text     "body", 200                  # render text/plain with status code of 200
+  json     "{}".to_json, 200            # render application/json with status code of 200
+  html     "<html></html>", 200         # render text/html with status code of 200
 ```
 
 ### WebSocket Controllers

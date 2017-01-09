@@ -168,8 +168,7 @@ development.</p>
 
 <ol><li>Install Crystal</li></ol>
 
-<p>You can find instructions on how to install Crystal from <a href="http://crystal-lang.org" target="_blank">Crystal's
-Website</a>.</p>
+<p>You can find instructions on how to install Crystal from <a href="http://crystal-lang.org" target="_blank">Crystal's Website</a>.</p>
 
 <ol><li>Install Kemalyst Generator</li></ol>
 
@@ -201,46 +200,45 @@ Generate scaffolding for a resource:</code></pre>
 <span class="t">This</span> will generate scaffolding <span class="k">for</span> a <span class="t">Post</span>:
  <span class="o">-</span> src<span class="s">/controllers/</span>post_controller.cr
  <span class="o">-</span> src<span class="s">/models/</span>post.cr
- <span class="o">-</span> src<span class="s">/views/</span>post
- <span class="o">-</span> appends route to config<span class="s">/routes.cr
- - appends migration to db/</span>migrate.cr
- <span class="o">-</span> appends navigation to src<span class="s">/layouts/</span>_nav.slang
- <span class="o">-</span> spec<span class="s">/controllers/</span>post_controller_spec.cr
- <span class="o">-</span> spec<span class="s">/models/</span>post_spec.cr
+ <span class="o">-</span> src<span class="s">/views/</span>post<span class="s">/*
+ - spec/</span>controllers<span class="s">/post_controller_spec.cr
+ - spec/</span>models<span class="s">/post_spec.cr
+ - appends route to config/</span>routes.cr
+ <span class="o">-</span> appends migration to db<span class="s">/migrate.cr
+ - appends navigation to src/</span>layouts<span class="s">/_nav.slang
 
-<span class="c">### Run Locally</span>
-<span class="t">To</span> test the demo app locally:
+### Run Locally
+To test the demo app locally:
 
-<span class="n">1</span>. create a postgres database called <span class="s">&#96;&#91;your_app&#93;&#96;</span>
-<span class="n">2</span>. run <span class="s">&#96;export DATABASE_URL&#61;postgres://&#91;username&#93;:&#91;password&#93;&#64;localhost:5432/&#91;your_app&#93;&#96;</span>
-<span class="n">3</span>. migrate the database: <span class="s">&#96;crystal db/migrate.cr&#96;</span>
-<span class="n">4</span>. run the specs: <span class="s">&#96;crystal spec&#96;</span>
+1. create a postgres database called &#96;&#91;your_app&#93;&#96;
+2. run &#96;export DATABASE_URL&#61;postgres:/</span><span class="s">/&#91;username&#93;:&#91;password&#93;&#64;localhost:5432/</span>[your_app]<span class="s">&#96;
+3. migrate the database: &#96;</span>crystal db<span class="s">/migrate.cr&#96;
+4. run the specs: &#96;crystal spec&#96;
 
-<span class="t">To</span> build the demo app locally:
+To run the demo app locally:
 
-<span class="n">1</span>. build the app <span class="s">&#96;crystal build --release src/app.cr&#96;</span>
-<span class="n">2</span>. run <span class="k">with</span> <span class="s">&#96;./app&#96;</span>
-<span class="n">3</span>. visit <span class="s">&#96;http://0.0.0.0:3000/&#96;</span>
+1. build the app &#96;crystal build --release src/</span>app.cr<span class="s">&#96;
+2. run with &#96;</span>.<span class="s">/app&#96;
+3. visit &#96;http:/</span><span class="s">/0.0.0.0:3000/</span><span class="s">&#96;
 
-<span class="c">### Sentry</span>
+### Sentry
 
-<span class="t">Automatically</span> recompile and run your app:</code></pre>
+Kgen has the ability to watch for changes to your source files and recompiling them:</code></pre>
 
 <p>kgen watch</p>
 
 <pre><code>
-<span class="c">### Run with Docker Compose</span>
-<span class="t">To</span> run the demo app, we are including a <span class="s">&#96;Dockerfile&#96;</span> and <span class="s">&#96;docker-compose.yml&#96;</span>. <span class="t">If</span>
+<span class="c">### Run with Docker</span>
+
+<span class="t">Another</span> option is to run using <span class="t">Docker</span>.  <span class="t">A</span> <span class="s">&#96;Dockerfile&#96;</span> and <span class="s">&#96;docker-compose.yml&#96;</span> is provided. <span class="t">If</span>
 you have docker setup, you should be able to run:</code></pre>
 
 <p>docker-compose build
 docker-compose up -d
 docker-compose logs -f</p>
 
-<pre><code><span class="t">This</span> will download an ubuntu<span class="s">/cedar image compatible with heroku and has all the
-dependencies including a postgres database.
-
-Now you should be able to hit the site:</code></pre>
+<pre><code>
+<span class="t">Now</span> you should be able to hit the site:</code></pre>
 
 <p>open "http://localhost"</p>
 
@@ -385,12 +383,12 @@ end</p>
 <pre><code>
 <span class="t">There</span> are several helper macros that set content <span class="k">type</span> and response.</code></pre>
 
-<p>render   "filename.ecr"       # renders an .ecr template
+<p>render   "filename.ecr"               # renders an .ecr template
   render   "filename.ecr", "layout.ecr" # renders an .ecr template with layout
-  redirect "path"               #redirect to path
-  text     "body", 200          #render text/plain with status code of 200
-  json     "{}".to_json, 200    #render application/json with status code of 200
-  html     "&lt;html>&lt;/html>", 200 #render text/html with status code of 200</p>
+  redirect "path"                       # redirect to path
+  text     "body", 200                  # render text/plain with status code of 200
+  json     "{}".to_json, 200            # render application/json with status code of 200
+  html     "&lt;html>&lt;/html>", 200         # render text/html with status code of 200</p>
 
 <pre><code>
 <span class="c">### WebSocket Controllers</span>
