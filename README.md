@@ -42,7 +42,7 @@ This will generate a traditional web application:
  - /config - Application and HTTP::Handler config's goes here.  The database.yml and routes.cr are here.
  - /db - holds the `migrate.cr` script and any other db related artifacts.
  - /lib - shards are installed here.
- - /public - Default location for html/css/js files.  The static handler points to this directory.  The client artifacts and compiled and placed here.
+ - /public - Default location for html/css/js files.  The static handler points to this directory.
  - /spec - all the crystal specs go here.
  - /src - all the source code goes here.
 
@@ -270,6 +270,7 @@ class Chat < Kemalyst::WebSocket
   end
 end
 ```
+
 The `Chat` class will override the `call` method that is expecting an
 `HTTP::WebSocket` to be passed which it would maintain and properly handle
 messages to and from each socket.
