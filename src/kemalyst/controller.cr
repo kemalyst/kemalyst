@@ -40,12 +40,12 @@ class Kemalyst::Controller
   # directory and the layout is relative to `src/views/layouts` directory.
   macro render(filename, layout)
     content = render("{{filename.id}}")
-    layout = render("layouts/{{layout.id}}")
+    render("layouts/{{layout.id}}")
   end
 
   # helper to render a template.  The view name is relative to `src/views` directory.
   macro render(filename, *args)
-    content = Kilt.render("src/views/{{filename.id}}", {{*args}})
+    Kilt.render("src/views/{{filename.id}}", {{*args}})
   end
 
   # helper to redirect to another page.  This sets the Location header to

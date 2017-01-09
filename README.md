@@ -22,39 +22,24 @@ development.
 1. Install Crystal
 
 You can find instructions on how to install Crystal from [Crystal's
-Website](http://crystal-lang.org).  I recommend using
-[crenv](https://github.com/pine613/crenv) to manage your crystal versions.
+Website](http://crystal-lang.org).
 
-2. Create a Crystal App
+2. Install Kemalyst Generator
+
+[Kemalyst Generator](https://github.com/TechMagister/kemalyst-generator) is a command line tool similar to `rails`.
 
 ```
-crystal init app [your_app]
+brew tap drujensen/kgen
+brew install kgen
+```
+
+3. Initialize a new Kemalyst App using `kgen`
+```
+kgen init app [your_app]
 cd [your_app]
+shards update
 ```
-3. Add kemalyst dependency to your shard.yml
-```
-dependencies:
-  kemalyst:
-    github: drujensen/kemalyst
-
-  pg:
-    github: will/crystal-pg
-
-  mysql:
-    github: crystal-lang/crystal-mysql
-
-  sqlite3:
-    github: crystal-lang/crystal-sqlite3
-```
-and run `crystal deps`.
-
-### Post Install
-
-To keep a similar structure to yarlf, several directories and files will be
-installed.  This structure should look familiar to you if your coming from a
-Rails background.
- - /client - npm, webpack, and jasmine to support es6 and sass.  `npm run build`,
-   `npm run test`, and `npm run lint`.
+This will generate a traditional web application:
  - /config - Application and HTTP::Handler config's goes here.  The database.yml and routes.cr are here.
  - /db - holds the `migrate.cr` script and any other db related artifacts.
  - /lib - shards are installed here.
@@ -62,17 +47,22 @@ Rails background.
  - /spec - all the crystal specs go here.
  - /src - all the source code goes here.
 
-The post install will only run if it doesn't find a `src/app.cr` file.
-
-You may want to remove the remnants of `crystal init`:
-```
-rm src/[your_app].cr
-rm -r src/[your_app]
-rm spec/[your_app]_spec.cr
-rm spec/spec_helper.cr_old
-```
-
 ## Usage
+
+Generate scaffolding for a resource:
+```
+kgen generate scaffold Post name:string description:text
+```
+
+This will generate scaffolding for a Post:
+ - src/controllers/post_controller.cr
+ - src/models/post.cr
+ - src/views/post
+ - appends route to config/routes.cr
+ - appends migration to db/migrate.cr
+ - appends navigation to src/layouts/_nav.slang
+ - spec/controllers/post_controller_spec.cr
+ - spec/models/post_spec.cr
 
 ### Run Locally
 To test the demo app locally:
@@ -88,12 +78,12 @@ To build the demo app locally:
 2. run with `./app`
 3. visit `http://0.0.0.0:3000/`
 
-### Run Sentry
-[Sentry](https://github.com/samueleaton/sentry) is included in the `/dev'
-directory.  Sentry will watch your `/src` and `/config` directories and will
-build and run the application.
+### Sentry
 
-You can launch it using: `crystal run dev/sentry.cr`
+Automatically recompile and run your app:
+```
+kgen watch
+```
 
 ### Run with Docker Compose
 To run the demo app, we are including a `Dockerfile` and `docker-compose.yml`. If
