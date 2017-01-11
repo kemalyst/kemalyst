@@ -30,3 +30,6 @@ dependencies:
   slang:
     github: jeromegn/slang
     version: ~> 1.4.1
+
+  smtp:
+    github: raydf/smtp.cr
