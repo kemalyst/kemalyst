@@ -40,9 +40,9 @@ class Kemalyst::Mailer
   # helper to render a view with a layout as the body of the email.
   # The view name is relative to `src/views` directory and the
   # layout is relative to `src/views/layouts` directory.
-  macro render(filename, layout)
+  macro render(filename, layout, *args)
     content =  Kilt.render("src/views/{{filename.id}}", {{*args}})
-    @message.body = Kilt.render("src/views/layouts/{{layout.id}}", {{*args}}))
+    @message.body = Kilt.render("src/views/layouts/{{layout.id}}", {{*args}})
   end
 
   # helper to render a template as the body of the email.
@@ -53,7 +53,9 @@ class Kemalyst::Mailer
 
   # deliver the email
   def deliver
-    @@client.send @message
+    if client = @@client
+      client.send @message
+    end
   end
 
   # Helper method to get the logger
