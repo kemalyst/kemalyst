@@ -26,7 +26,7 @@ shards:
 
   slang:
     github: jeromegn/slang
-    version: 1.4.1
+    commit: 6f8c5b226758faf73575d02b67a8010f8e10a0ab
 
   smtp:
     github: raydf/smtp.cr
