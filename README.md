@@ -73,8 +73,8 @@ To test the demo app locally:
 
 To run the demo app locally:
 
-1. build the app `crystal build --release src/app.cr`
-2. run with `./app`
+1. build the app `crystal build --release src/[your_app].cr`
+2. run with `./[your_app]`
 3. visit `http://0.0.0.0:3000/`
 
 ### Sentry
