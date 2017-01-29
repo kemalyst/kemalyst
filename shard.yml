@@ -13,7 +13,7 @@ dependencies:
 
   kemalyst-validators:
     github: drujensen/kemalyst-validators
-    version: ~> 0.1.0
+    version: ~> 0.2.0
 
   kemalyst-spec:
     github: drujensen/kemalyst-spec
