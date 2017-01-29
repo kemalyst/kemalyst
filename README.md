@@ -365,9 +365,7 @@ The `<%= content %>` is where the template will be rendered in the layout.
 ### Models
 
 The models are a simple ORM mechanism that will map objects to rows in the
-database. There is no dependency on using this model.  I recommend looking at
-[Active Record.cr](https://github.com/waterlink/active_record.cr) by waterlink
-as an alternative to this simplistic approach.
+database. 
 
 The mapping is done using a `sql_mapping` macro.
 
@@ -379,26 +377,22 @@ class Post < Kemalyst::Model
   adapter pg
 
   sql_mapping({
-    name: ["VARCHAR(255)", String],
-    body: ["TEXT", String]
+    name: String,
+    body: String
   })
 
 end
-
 ```
 The mapping will automatically create the id, created_at and updated_at column
 mapping that follows the active_record convention in Rails.
 
 There are several methods that are provided in the model.
-- self.drop - DROP table...
-- self.create - CREATE table...
 - self.clear - DELETE from table
-- self.migrate = Add/Update columns to match model definition
-- self.prune - Remove any undefined fields from the database
 - save - Insert or Update depending on if ID is set
-- destroy - DELETE FROM table WHERE id = this.id
+- destroy - DELETE FROM table WHERE id = :id
 - all(where) SELECT * FROM table #{WHERE clause};"
-- find(id) - SELECT * FROM table WHERE id = this.id LIMIT 1;"
+- find(id) - SELECT * FROM table WHERE id = :id LIMIT 1;"
+- find_by(field, value) - SELECT * FROM table WHERE field = :value LIMIT 1;"
 
 You can find more details at [Kemalyst Model](https://github.com/drujensen/kemalyst-model)
 
