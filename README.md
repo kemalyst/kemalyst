@@ -40,7 +40,6 @@ shards update
 ```
 This will generate a traditional web application:
  - /config - Application and HTTP::Handler config's goes here.  The database.yml and routes.cr are here.
- - /db - holds the `migrate.cr` script and any other db related artifacts.
  - /lib - shards are installed here.
  - /public - Default location for html/css/js files.  The static handler points to this directory.
  - /spec - all the crystal specs go here.
@@ -57,32 +56,32 @@ This will generate scaffolding for a Post:
  - src/controllers/post_controller.cr
  - src/models/post.cr
  - src/views/post/*
+ - db/migrations/[datetimestamp]_create_post.sql
  - spec/controllers/post_controller_spec.cr
  - spec/models/post_spec.cr
  - appends route to config/routes.cr
- - appends migration to db/migrate.cr
  - appends navigation to src/layouts/_nav.slang
 
 ### Run Locally
 To test the demo app locally:
 
-1. create a postgres database called `[your_app]`
-2. run `export DATABASE_URL=postgres://[username]:[password]@localhost:5432/[your_app]`
-3. migrate the database: `crystal db/migrate.cr`
-4. run the specs: `crystal spec`
+1. Create a new Postgres database called `[your_app]`
+2. Run `export DATABASE_URL=postgres://[username]:[password]@localhost:5432/[your_app]` which exposes the database url to `config/database.yml`.
+3. Migrate the database: `kgen migrate up`. You should see output like `
+Migrating db, current version: 0, target: [datetimestamp]
+OK   [datetimestamp]_create_shop.sql`
+4. Run the specs: `crystal spec`
+5. Start your app: `kgen watch`
+6. Then visit `http://0.0.0.0:3000/`
 
-To run the demo app locally:
+Note: The `kgen watch` command uses [Sentry](https://github.com/samueleaton/sentry) to watch for any changes in your source files, recompiling automatically.
 
-1. build the app `crystal build --release src/[your_app].cr`
-2. run with `./[your_app]`
-3. visit `http://0.0.0.0:3000/`
+If you don't want to use Sentry, you can compile and run manually:
 
-### Sentry
+1. Build the app `crystal build --release src/[your_app].cr`
+2. Run with `./[your_app]`
+3. Visit `http://0.0.0.0:3000/`
 
-Kgen has the ability to watch for changes to your source files and recompiling them:
-```
-kgen watch
-```
 
 ### Run with Docker
 
@@ -365,7 +364,7 @@ The `<%= content %>` is where the template will be rendered in the layout.
 ### Models
 
 The models are a simple ORM mechanism that will map objects to rows in the
-database. 
+database.
 
 The mapping is done using a `sql_mapping` macro.
 
