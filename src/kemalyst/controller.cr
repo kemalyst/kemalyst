@@ -77,3 +77,13 @@ class Kemalyst::Controller
     return {{body}}
   end
 end
+
+module ActionHelper
+  macro action(name, &content)
+    class {{name.id.camelcase}} < Kemalyst::Controller
+      def call(context)
+        {{content.body}}
+      end
+    end
+  end
+end

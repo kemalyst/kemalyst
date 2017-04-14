@@ -27,13 +27,13 @@ You can find instructions on how to install Crystal from [Crystal's Website](htt
 
 [Kemalyst Generator](https://github.com/TechMagister/kemalyst-generator) is a command line tool similar to `rails`.
 
-```
+```sh
 brew tap drujensen/kgen
 brew install kgen
 ```
 
 3. Initialize a new Kemalyst App using `kgen`
-```
+```sh
 kgen init app [your_app]
 cd [your_app]
 shards update
@@ -48,7 +48,7 @@ This will generate a traditional web application:
 ## Usage
 
 Generate scaffolding for a resource:
-```
+```sh
 kgen generate scaffold Post name:string description:text
 ```
 
@@ -87,14 +87,14 @@ If you don't want to use Sentry, you can compile and run manually:
 
 Another option is to run using Docker.  A `Dockerfile` and `docker-compose.yml` is provided. If
 you have docker setup, you should be able to run:
-```
+```sh
 docker-compose build
 docker-compose up -d
 docker-compose logs -f
 ```
 
 Now you should be able to hit the site:
-```
+```sh
 open "http://localhost"
 ```
 
@@ -105,7 +105,7 @@ application.
 ### Cookie Session
 You will need to set a secret for the session.  Run the following
 command:
-```
+```sh
 crystal eval "require \"secure_random\"; puts SecureRandom.hex(64)"
 ```
 copy the secret and set this in `config/session.cr`.
@@ -144,7 +144,7 @@ Other handlers available for Kemalyst:
 You may want to add, replace or remove handlers based on your situation.  You can do that in the
 Application configuration `config/application.cr`:
 
-```
+```crystal
 Kemalyst::Application.config do |config|
   # handlers will be chained in the order provided
   config.handlers = [
@@ -163,23 +163,23 @@ The router will perform a lookup based on the method and path and return the
 chain of handlers you specify in the `/config/routes.cr` file.
 
 An example of a route would be:
-```
+```crystal
 get "/",   DemoController::Index
 ```
 
 You may chain multiple handlers in a route using an array:
-```
+```crystal
 get "/", [ BasicAuth.instance("username", "password"),
            DemoController::Index.instance ]
 ```
 or add them individually in the correct order:
-```
+```crystal
 get "/", BasicAuth.instance("username", "password")
 get "/", DemoController::Index.instance
 ```
 
 This is how you would configure a WebSocket Controller:
-```
+```crystal
 get "/", ChatController::Chat
 get "/", ChatController::Index
 ```
@@ -189,7 +189,7 @@ See below for more information on how to create a WebSocket Handler.
 You can use any of the following methods: `get, post, put, patch, delete, all`
 
 You can use a `*` to chain a handler for all children of this path:
-```
+```crystal
 all    "/posts/*",   BasicAuth.instance("admin", "password")
 
 # all of these will be secured with the BasicAuth handler.
@@ -200,13 +200,13 @@ delete "/posts/:id", DemoController::Delete
 ```
 
 You can enable CSRF protection for all `post` and `put` calls:
-```
+```crystal
 post "/*",   CSRF
 put  "/*",   CSRF
 ```
 
 Then in your forms, add the `csrf_tag` using the helper method:
-```
+```erb
 <form action="/demos/<%= demo.id %>" method="post">
   <%= csrf_tag(context) %>
   ...
@@ -226,7 +226,21 @@ specific route.  The final handler should return the generated response that wil
 returned as the body and then the chain will unwind and perform post handling.
 
 An example of a controller:
+```crystal
+require "../models/post"
+
+module Post
+  include ActionHelper #adds in helper method "action"
+
+  action Index do
+    posts = Post.all("ORDER BY created_at DESC")
+    render "post/index.ecr", "main.ecr"
+  end
+end
 ```
+
+Note: The above is shorthand for this:
+```crystal
 require "../models/post"
 
 class Index < Kemalyst::Controller
@@ -236,9 +250,8 @@ class Index < Kemalyst::Controller
   end
 end
 ```
-
 There are several helper macros that set content type and response.
-```
+```crystal
   render   "filename.ecr"               # renders an .ecr template
   render   "filename.ecr", "layout.ecr" # renders an .ecr template with layout
   redirect "path"                       # redirect to path
@@ -308,7 +321,7 @@ The render method is configured to look in the "src/views" path to keep the
 controllers simple.  You may also render with a layout which will look for
 this in the "src/views/layouts" directory.
 
-```
+```crystal
 render "post/index.ecr", "main.ecr"
 
 ```
@@ -316,7 +329,7 @@ This will render the index.ecr template inside the main.ecr layout. All local
 variables assigned in the controller are available in the templates.
 
 An example `views/post/index.ecr`:
-```
+```erb
 <% posts.each do |post| %>
   <div>
     <h2><%= post.name %></h2>
@@ -331,7 +344,7 @@ An example `views/post/index.ecr`:
 ```
 
 And an example of `views/layouts/main.ecr`:
-```
+```html
 <!DOCTYPE html>
 <html>
   <head>
