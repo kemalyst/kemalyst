@@ -82,6 +82,7 @@ module ActionHelper
   macro action(name, &content)
     class {{name.id.camelcase}} < Kemalyst::Controller
       def call(context)
+        params = context.params
         {{content.body}}
       end
     end
