@@ -34,10 +34,11 @@ brew install kgen
 
 3. Initialize a new Kemalyst App using `kgen`
 ```sh
-kgen init app [your_app]
+kgen init app [your_app] -d [pg | mysql | sqlite] -t [slang | ecr] --deps
 cd [your_app]
-shards update
 ```
+options: `-d` defaults to pg. `-t` defaults to slang. `--deps` will run `crystal deps` for you.
+
 This will generate a traditional web application:
  - /config - Application and HTTP::Handler config's goes here.  The database.yml and routes.cr are here.
  - /lib - shards are installed here.
@@ -49,7 +50,7 @@ This will generate a traditional web application:
 
 Generate scaffolding for a resource:
 ```sh
-kgen generate scaffold Post name:string description:text
+kgen generate scaffold Post name:string body:text draft:bool
 ```
 
 This will generate scaffolding for a Post:
@@ -72,7 +73,7 @@ Migrating db, current version: 0, target: [datetimestamp]
 OK   [datetimestamp]_create_shop.sql`
 4. Run the specs: `crystal spec`
 5. Start your app: `kgen watch`
-6. Then visit `http://0.0.0.0:3000/`
+6. Then visit `http://0.0.0.0:3000`
 
 Note: The `kgen watch` command uses [Sentry](https://github.com/samueleaton/sentry) to watch for any changes in your source files, recompiling automatically.
 
@@ -80,7 +81,7 @@ If you don't want to use Sentry, you can compile and run manually:
 
 1. Build the app `crystal build --release src/[your_app].cr`
 2. Run with `./[your_app]`
-3. Visit `http://0.0.0.0:3000/`
+3. Visit `http://0.0.0.0:3000`
 
 
 ### Run with Docker
@@ -95,20 +96,12 @@ docker-compose logs -f
 
 Now you should be able to hit the site:
 ```sh
-open "http://localhost"
+open "http://localhost:3000"
 ```
 
 Docker Compose is running [Sentry](https://github.com/samueleaton/sentry) so
 any changes to your `/src` or `/config` will re-build and run your
 application.
-
-### Cookie Session
-You will need to set a secret for the session.  Run the following
-command:
-```sh
-crystal eval "require \"secure_random\"; puts SecureRandom.hex(64)"
-```
-copy the secret and set this in `config/session.cr`.
 
 ### Sample Applications
 
@@ -387,16 +380,27 @@ require "kemalyst-model/adapter/pg"
 
 class Post < Kemalyst::Model
   adapter pg
-
-  sql_mapping({
-    name: String,
-    body: String
-  })
-
+  field name : String
+  field body : Text
+  field draft: Bool
+  timestamps
 end
 ```
-The mapping will automatically create the id, created_at and updated_at column
-mapping that follows the active_record convention in Rails.
+The mapping will automatically create the id.  If you include `timestamps`, a created_at and updated_at field
+mapping is created that follows the active_record convention in Rails.
+
+You can also override the table name:
+```crystal
+require "kemalyst-model/adapter/pg"
+
+class Comment < Kemalyst::Model
+  adapter pg
+  table_name post_comments
+  field post_id : Int64
+  field name String
+  field body : Text
+end
+```
 
 There are several methods that are provided in the model.
 - self.clear - DELETE from table
