@@ -253,54 +253,6 @@ There are several helper macros that set content type and response.
   html     "<html></html>", 200         # render text/html with status code of 200
 ```
 
-### WebSocket Controllers
-
-The WebSocket Controller will handle upgrading a HTTP Request to a WebSocket
-Connection.
-
-An example WebSocket Controller:
-```crystal
-class Chat < Kemalyst::WebSocket
-  @sockets = [] of HTTP::WebSocket
-  @messages = [] of String
-
-  def call(socket : HTTP::WebSocket)
-    @sockets.push socket
-    socket.on_message do |message|
-      @messages.push message
-      @sockets.each do |a_socket|
-        a_socket.send @messages.to_json
-      end
-    end
-  end
-end
-```
-
-The `Chat` class will override the `call` method that is expecting an
-`HTTP::WebSocket` to be passed which it would maintain and properly handle
-messages to and from each socket.
-
-This class will manage an array of `HTTP::Websocket`s and configures the
-`on_message` callback that will manage the messages that will be then be
-passed on to all of the other sockets.
-
-It's important to realize that if the request is not asking to be upgraded to
-a websocket, it will call the next handler in the path.  If there is no
-more handlers configured, a 404 will be returned.
-
-Here is an example routing configuration:
-```crystal
-get "/", ChatController::Chat
-get "/", ChatController::Index
-```
-The first one is a WebSocket Controller and the second is a standard
-Controller.  If the request is not a WebSocket upgrade request, it will
-pass-through and call the second one that will return the html page.
-
-
-To see a full example application, checkout
-[Chat Kemalyst](https://github.com/drujensen/chat-kemalyst)
-
 ### Views
 
 Views are rendered using [Kilt](http://github.com/jeromegn/kilt).  Currently,
@@ -372,7 +324,7 @@ The `<%= content %>` is where the template will be rendered in the layout.
 The models are a simple ORM mechanism that will map objects to rows in the
 database.
 
-The mapping is done using a `sql_mapping` macro.
+The mapping is done using several macros.
 
 An example `models/post.cr`
 ```crystal
@@ -382,7 +334,7 @@ class Post < Kemalyst::Model
   adapter pg
   field name : String
   field body : Text
-  field draft: Bool
+  field published : Bool
   timestamps
 end
 ```
@@ -403,14 +355,62 @@ end
 ```
 
 There are several methods that are provided in the model.
-- self.clear - DELETE from table
-- save - Insert or Update depending on if ID is set
-- destroy - DELETE FROM table WHERE id = :id
-- all(where) SELECT * FROM table #{WHERE clause};"
-- find(id) - SELECT * FROM table WHERE id = :id LIMIT 1;"
-- find_by(field, value) - SELECT * FROM table WHERE field = :value LIMIT 1;"
+- self.clear - "DELETE from table;"
+- save - Insert or update depending on if id is set
+- destroy(id) - "DELETE FROM table WHERE id = #{id}"
+- all(where) "SELECT * FROM table #{where};"
+- find(id) - "SELECT * FROM table WHERE id = #{id} LIMIT 1;"
+- find_by(field, value) - "SELECT * FROM table WHERE #{field} = #{value} LIMIT 1;"
 
 You can find more details at [Kemalyst Model](https://github.com/drujensen/kemalyst-model)
+
+### WebSocket Controllers
+
+The WebSocket Controller will handle upgrading a HTTP Request to a WebSocket
+Connection.
+
+An example WebSocket Controller:
+```crystal
+class Chat < Kemalyst::WebSocket
+  @sockets = [] of HTTP::WebSocket
+  @messages = [] of String
+
+  def call(socket : HTTP::WebSocket)
+    @sockets.push socket
+    socket.on_message do |message|
+      @messages.push message
+      @sockets.each do |a_socket|
+        a_socket.send @messages.to_json
+      end
+    end
+  end
+end
+```
+
+The `Chat` class will override the `call` method that is expecting an
+`HTTP::WebSocket` to be passed which it would maintain and properly handle
+messages to and from each socket.
+
+This class will manage an array of `HTTP::Websocket`s and configures the
+`on_message` callback that will manage the messages that will be then be
+passed on to all of the other sockets.
+
+It's important to realize that if the request is not asking to be upgraded to
+a websocket, it will call the next handler in the path.  If there is no
+more handlers configured, a 404 will be returned.
+
+Here is an example routing configuration:
+```crystal
+get "/", ChatController::Chat
+get "/", ChatController::Index
+```
+The first one is a WebSocket Controller and the second is a standard
+Controller.  If the request is not a WebSocket upgrade request, it will
+pass-through and call the second one that will return the html page.
+
+
+To see a full example application, checkout
+[Chat Kemalyst](https://github.com/drujensen/chat-kemalyst)
 
 ### Validation
 
