@@ -1,7 +1,6 @@
 require "./spec_helper"
 
 describe Kemalyst::Handler::Session do
-
   it "sets a cookie" do
     request = HTTP::Request.new("GET", "/")
     io, context = create_context(request)

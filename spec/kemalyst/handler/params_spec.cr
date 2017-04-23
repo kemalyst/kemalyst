@@ -1,7 +1,6 @@
 require "./spec_helper"
 
 describe Kemalyst::Handler::Params do
-
   it "parses query params" do
     request = HTTP::Request.new("GET", "/?test=test")
     io, context = create_context(request)

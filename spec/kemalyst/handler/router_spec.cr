@@ -46,7 +46,7 @@ describe Kemalyst::Handler::Router do
   it "builds handler callstack for routes individually in order" do
     router = Kemalyst::Handler::Router.new
     handler = Kemalyst::Handler::Block.new(->(c : HTTP::Server::Context) { "Hello World!" })
-    socket =Kemalyst::WebSocket.new
+    socket = Kemalyst::WebSocket.new
     router.add_route("GET", "/", socket)
     router.add_route("GET", "/", handler)
     result = router.lookup_route("GET", "/")

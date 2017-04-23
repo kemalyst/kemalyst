@@ -1,7 +1,6 @@
 require "./spec_helper"
 
 describe HTTP::Server::Context do
-
   it "holds params" do
     request = HTTP::Request.new("GET", "/")
     io, context = create_context(request)

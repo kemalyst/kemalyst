@@ -1,7 +1,6 @@
 require "./spec_helper"
 
 describe Kemalyst::Handler::Flash do
-
   it "sets a cookie" do
     request = HTTP::Request.new("GET", "/")
     io, context = create_context(request)
@@ -38,7 +37,7 @@ describe Kemalyst::Handler::Flash do
     context.flash["error"] = "There was a problem"
     context.flash["notice"] = "This is important"
     list = [] of String
-    context.flash.map {|k,v| list << v}
+    context.flash.map { |k, v| list << v }
     list.size.should eq 2
   end
 end

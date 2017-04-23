@@ -1,7 +1,6 @@
 require "./spec_helper"
 
 describe Kemalyst::Handler::CSRF do
-
   context "methods" do
     it "should allow GET requests" do
       request = HTTP::Request.new("GET", "/")
@@ -116,5 +115,4 @@ describe Kemalyst::Handler::CSRF do
       end
     end
   end
-
 end

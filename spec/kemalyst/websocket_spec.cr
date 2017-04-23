@@ -2,14 +2,14 @@ require "./spec_helper"
 
 describe Kemalyst::WebSocket do
   it "Upgrades to websocket" do
-    headers = HTTP::Headers {
-      "Upgrade" => "websocket",
-      "Connection" => "Upgrade",
-      "Sec-WebSocket-Key" => "dGhlIHNhbXBsZSBub25jZQ=="
+    headers = HTTP::Headers{
+      "Upgrade"           => "websocket",
+      "Connection"        => "Upgrade",
+      "Sec-WebSocket-Key" => "dGhlIHNhbXBsZSBub25jZQ==",
     }
     request = HTTP::Request.new("GET", "/", headers)
     io, context = create_context(request)
-    websocket = Kemalyst::WebSocket.new()
+    websocket = Kemalyst::WebSocket.new
     handler = Kemalyst::Handler::Block.new(->(c : HTTP::Server::Context) { "Hello World!" })
     router = Kemalyst::Handler::Router.new
     router.add_route("GET", "/", websocket)
@@ -21,5 +21,3 @@ describe Kemalyst::WebSocket do
     io.to_s.should contain("HTTP/1.1 101 Switching Protocols")
   end
 end
-
-

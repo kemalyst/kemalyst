@@ -31,6 +31,5 @@ module Kemalyst::Handler
     def logger
       Kemalyst::Application.instance.logger
     end
-
   end
 end

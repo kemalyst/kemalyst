@@ -76,8 +76,8 @@ module Kemalyst::Handler
   #
   # You may chain multiple handlers in a route using an array:
   # ```
-  # get "/", [ BasicAuth.instance("username", "password"),
-  #            DemoController::Index.instance ]
+  # get "/", [BasicAuth.instance("username", "password"),
+  #           DemoController::Index.instance]
   # ```
   #
   # or:
@@ -89,8 +89,8 @@ module Kemalyst::Handler
   #
   # This is how you would configure a WebSocket:
   # ```
-  # get "/", [ WebSocket.instance(ChatController::Chat.instance),
-  #            ChatController::Index.instance ]
+  # get "/", [WebSocket.instance(ChatController::Chat.instance),
+  #           ChatController::Index.instance]
   # ```
   #
   # The `Chat` class would have a `call` method that is expecting an
@@ -102,11 +102,11 @@ module Kemalyst::Handler
   #
   # You can use a `*` to chain a handler for all children of this path:
   # ```
-  # all    "/posts/*",   BasicAuth.instance("admin", "password")
+  # all "/posts/*", BasicAuth.instance("admin", "password")
   #
   # # all of these will be secured with the BasicAuth handler.
-  # get    "/posts/:id", DemoController::Show.instance
-  # put    "/posts/:id", DemoController::Update.instance
+  # get "/posts/:id", DemoController::Show.instance
+  # put "/posts/:id", DemoController::Update.instance
   # delete "/posts/:id", DemoController::Delete.instance
   # ```
   # You can use `:variable` in the path and it will set a
@@ -172,7 +172,6 @@ module Kemalyst::Handler
           routes.each do |route|
             route.handler.next = nil if route
           end
-
         else
           raise Kemalyst::Exceptions::RouteNotFound.new("Requested payload: '#{method.as(String)}:#{context.request.path}' was not found.")
         end
@@ -190,6 +189,5 @@ module Kemalyst::Handler
       node = delimiter_path(method, path)
       @tree.add(node, route)
     end
-
   end
 end

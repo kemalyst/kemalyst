@@ -3,7 +3,6 @@ module Kemalyst::Handler
   # The logger can be configured as STDIN/STDOUT or as a log file.  A custom
   # logger can be configured and passed in as well.
   class Logger < Base
-
     def self.instance
       @@instance ||= new
     end

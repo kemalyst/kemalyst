@@ -1,7 +1,6 @@
 require "./spec_helper"
 
 describe Kemalyst::Application do
-
   context "default settings" do
     it "sets the host to 0.0.0.0" do
       app = Kemalyst::Application.instance
@@ -23,11 +22,9 @@ describe Kemalyst::Application do
       app.setup_handlers
       app.handlers.size.should eq 7
     end
-
   end
 
   context "override settings" do
-
     it "Kemalyst::Application.config will override a setting" do
       app = Kemalyst::Application.instance
       Kemalyst::Application.config do |config|
@@ -43,7 +40,5 @@ describe Kemalyst::Application do
       end
       app.port.should eq 8080
     end
-
   end
-
 end
