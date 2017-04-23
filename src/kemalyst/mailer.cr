@@ -9,7 +9,7 @@ class Kemalyst::Mailer
   def initialize
     if settings
       @@client ||= SMTP::Client.new(env(settings["host"].to_s), env(settings["port"].to_s).to_i)
-      @message = SMTP::Message.new()
+      @message = SMTP::Message.new
     else
       raise "smtp needs to be set in the config/mailer.yml"
     end

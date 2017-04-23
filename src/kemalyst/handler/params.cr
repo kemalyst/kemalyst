@@ -1,4 +1,5 @@
 require "json"
+require "tempfile"
 
 module Kemalyst::Handler
   # The Params handler will parse parameters from a URL, a form post or a JSON
@@ -9,6 +10,7 @@ module Kemalyst::Handler
   # replaced or not needed.
   class Params < Base
     URL_ENCODED_FORM = "application/x-www-form-urlencoded"
+    MULTIPART_FORM   = "multipart/form-data"
     APPLICATION_JSON = "application/json"
 
     # class method to return a singleton instance of this Controller
@@ -25,7 +27,8 @@ module Kemalyst::Handler
     def parse(context)
       parse_query(context)
       if content_type = context.request.headers["Content-Type"]?
-        parse_body(context) if content_type.match /^#{Regex.escape URL_ENCODED_FORM}/
+        parse_multipart(context) if content_type.try(&.starts_with?(MULTIPART_FORM))
+        parse_body(context) if content_type.try(&.starts_with?(URL_ENCODED_FORM))
         parse_json(context) if content_type == APPLICATION_JSON
       end
     end
@@ -36,6 +39,18 @@ module Kemalyst::Handler
 
     def parse_body(context)
       parse_part(context, context.request.body)
+    end
+
+    def parse_multipart(context)
+      HTTP::FormData.parse(context.request) do |upload|
+        next unless upload
+        filename = upload.filename
+        if !filename.nil?
+          context.files[upload.name] = FileUpload.new(upload: upload)
+        else
+          context.params.add(upload.name, upload.body.gets_to_end)
+        end
+      end
     end
 
     def parse_json(context)
@@ -55,13 +70,13 @@ module Kemalyst::Handler
 
     private def parse_part(context, part)
       values = case part
-      when IO
-        part.gets_to_end
-      when String
-        part.to_s
-      else
-        ""
-      end
+               when IO
+                 part.gets_to_end
+               when String
+                 part.to_s
+               else
+                 ""
+               end
 
       HTTP::Params.parse(values) do |key, value|
         context.params.add(key, value)

@@ -5,7 +5,6 @@ ActionHelper.action TestShow do
 end
 
 describe Kemalyst::Controller do
-
   it "provides csrf token" do
     request = HTTP::Request.new("GET", "/")
     io, context = create_context(request)

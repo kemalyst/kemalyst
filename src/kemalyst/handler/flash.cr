@@ -29,7 +29,7 @@ module Kemalyst::Handler
       context
     end
 
-    private def decode (flash, data)
+    private def decode(flash, data)
       json = Base64.decode_string(data)
       values = JSON.parse(json)
       values.each do |key, value|
@@ -37,7 +37,7 @@ module Kemalyst::Handler
       end
     end
 
-    private def encode (flash)
+    private def encode(flash)
       data = Base64.encode(flash.to_json)
       return data
     end

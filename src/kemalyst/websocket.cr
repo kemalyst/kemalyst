@@ -82,5 +82,4 @@ class Kemalyst::WebSocket
   def logger
     Kemalyst::Application.instance.logger
   end
-
 end

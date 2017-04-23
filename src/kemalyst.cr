@@ -36,7 +36,7 @@ module Kemalyst
       @host = "0.0.0.0"
       @port = 3000
       @env = "development"
-      @logger =  Logger.new(STDOUT)
+      @logger = Logger.new(STDOUT)
       @handlers = [] of HTTP::Handler
 
       parse_command_line_options

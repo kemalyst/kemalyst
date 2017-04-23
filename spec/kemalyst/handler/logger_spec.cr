@@ -1,7 +1,6 @@
 require "./spec_helper"
 
 describe Kemalyst::Handler::Logger do
-
   it "logs a request/response" do
     request = HTTP::Request.new("GET", "/")
     io, context = create_context(request)
@@ -14,7 +13,4 @@ describe Kemalyst::Handler::Logger do
     loghandler.next = router
     loghandler.call(context)
   end
-
 end
-
-
