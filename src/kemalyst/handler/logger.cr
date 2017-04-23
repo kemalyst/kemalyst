@@ -1,3 +1,5 @@
+require "secure_random"
+
 module Kemalyst::Handler
   # The Logger handler logs every request/response to the provided logger.
   # The logger can be configured as STDIN/STDOUT or as a log file.  A custom
@@ -35,5 +37,14 @@ module Kemalyst::Handler
 
       "#{(millis * 1000).round(2)}µs"
     end
+  end
+end
+
+# Reopens the request to provide a uuid for logging
+class HTTP::Request
+  property uuid
+
+  def uuid
+    @uuid ||= SecureRandom.uuid
   end
 end

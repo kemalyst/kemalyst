@@ -69,3 +69,17 @@ module Kemalyst::Handler
     end
   end
 end
+
+# Reopen the context to provide the params methods
+class HTTP::Server::Context
+  # clear the params.
+  def clear_params
+    @params = HTTP::Params.new({} of String => Array(String))
+  end
+
+  # params hold all the parameters that may be passed in a request.  The
+  # parameters come from either the url or the body via json or form posts.
+  def params
+    @params ||= HTTP::Params.new({} of String => Array(String))
+  end
+end

@@ -61,7 +61,6 @@ module Kemalyst::Handler
       else                      "application/octet-stream"
       end
     end
-
   end
 end
 
