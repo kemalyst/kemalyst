@@ -10,7 +10,7 @@ shards:
 
   kemalyst-model:
     github: drujensen/kemalyst-model
-    version: 0.5.2
+    version: 0.5.3
 
   kemalyst-spec:
     github: drujensen/kemalyst-spec
@@ -26,7 +26,7 @@ shards:
 
   slang:
     github: jeromegn/slang
-    commit: d2eb8449cd8e46d3442d75c258a4e00f13778dde
+    commit: f86dbdec0fb2b63054a2656113b0f66939aa6058
 
   smtp:
     github: raydf/smtp.cr

@@ -432,5 +432,6 @@ You can find more details at [Kemalyst i18n](https://github.com/TechMagister/kem
 
 ## Contributors
 
-- [drujensen](https://github.com/drujensen) drujensen - creator, maintainer
-- [TechMagister](https://github.com/TechMagister) TechMagister - contributor
+- [drujensen](https://github.com/drujensen) Dru Jensen - creator, maintainer
+- [TechMagister](https://github.com/TechMagister) Arnaud Fernandés - contributor
+- [elorest](https://github.com/elorest) Isaac Sloan - contributor
