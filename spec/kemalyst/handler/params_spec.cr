@@ -81,13 +81,17 @@ describe Kemalyst::Handler::Params do
   context "multi-part form" do
     it "parses files from multipart forms" do
       headers = HTTP::Headers.new
-      headers["Content-Type"] = "multipart/form-data; boundary=aA40"
-      body = "--aA40\r\nContent-Disposition: form-data; name=\"file1\"; filename=\"field.txt\"\r\n\r\nfield data\r\n--aA40--"
+      # headers["Content-Type"] = "multipart/form-data; boundary=aA40"
+      headers["Content-Type"] = "multipart/form-data; boundary=fhhRFLCazlkA0dX"
+      body = "--fhhRFLCazlkA0dX\r\nContent-Disposition: form-data; name=\"_csrf\"\r\n\r\nPcCFp4oKJ1g-hZ-P7-phg0alC51pz7Pl12r0ZOncgxI\r\n--fhhRFLCazlkA0dX\r\nContent-Disposition: form-data; name=\"title\"\r\n\r\ntitle field\r\n--fhhRFLCazlkA0dX\r\nContent-Disposition: form-data; name=\"picture\"; filename=\"index.html\"\r\nContent-Type: text/html\r\n\r\n<head></head><body>Hello World!</body>\r\n\r\n--fhhRFLCazlkA0dX\r\nContent-Disposition: form-data; name=\"content\"\r\n\r\nseriously\r\n--fhhRFLCazlkA0dX--"
+      # body = "--aA40\r\nContent-Disposition: form-data; name=\"file1\"; filename=\"field.txt\"\r\n\r\nfield data\r\n--aA40--"
       request = HTTP::Request.new("POST", "/", headers, body)
       io, context = create_context(request)
       params = Kemalyst::Handler::Params.instance
       params.call(context)
-      context.files["file1"].filename.should eq "field.txt"
+      context.files["picture"].filename.should eq "index.html"
+      context.params["title"].should eq "title field"
+      context.params["_csrf"].should eq "PcCFp4oKJ1g-hZ-P7-phg0alC51pz7Pl12r0ZOncgxI"
     end
   end
 end
