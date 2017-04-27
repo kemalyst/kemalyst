@@ -422,6 +422,30 @@ You can find more details at [Kemalyst Validators](https://github.com/drujensen/
 [TechMagister](https://github.com/TechMagister) has created a HTTP::Handler that will integrate his i18n library.
 You can find more details at [Kemalyst i18n](https://github.com/TechMagister/kemalyst-i18n)
 
+## Acknowledgement
+
+Kemalyst is only possible with the use and help from many other crystal projects and developers.  Special thanks to you and your contributions!
+
+  - First and foremost the [Crystal Team](https://github.com/crystal-lang/crystal/graphs/contributors).
+  - Originally forked from [Kemal](https://github.com/kemalcr/kemal) and the Crystal HTTP library. [Serdar Dogruyol](https://github.com/sdogruyol)
+  - Rendering templates using [Kilt](https://github.com/jeromegn/kilt). [Jerome Gravel-Niquet](https://github.com/jeromegn)
+  - Slim-inspired templating language [Slang](https://github.com/jeromegn/slang). [Jerome Gravel-Niquet](https://github.com/jeromegn)
+  - Router is mostly copied from [Radix](https://github.com/luislavena/radix). [Luis Lavena](https://github.com/luislavena)
+  - SMTP Client for mailers [smtp.cr](https://github.com/raydf/smtp.cr). [Rayner De Los Santos F.](https://github.com/raydf)
+  - Common database driver  [crystal-db](https://github.com/crystal-lang/crystal-db) [Brian J. Cardiff](https://github.com/bcardiff)
+  - Sqlite Driver [crystal-sqlite](https://github.com/crystal-lang/crystal-sqlite) [Brian J. Cardiff](https://github.com/bcardiff)
+  - Mysql Driver [crystal-mysql](https://github.com/crystal-lang/crystal-mysql) [Brian J. Cardiff](https://github.com/bcardiff)
+  - Postgres Driver [crystal-pg](https://github.com/will/crystal-pg) [Will Leinweber](https://github.com/will)
+  - copied Kemal Spec for easy testing [spec-kemal](https://github.com/kemalcr/spec-kemal) [Serdar Dogruyol](https://github.com/sdogruyol)
+
+For Kemalyst Generator
+  - Mocking Library [mocks](https://github.com/waterlink/mocks.cr) [Oleksii Fedorov](https://github.com/waterlink)
+  - CLI Library [Crystal CLI](mosop/cli) [mosop](https://github.com/mosop)
+  - Template Rendering Library [Teeplate](mosop/teeplate) [mosop](https://github.com/mosop)
+  - Interactive Crystal [ICR](https://github.com/greyblake/crystal-icr) [Sergey Potapov](https://github.com/greyblake)
+  - Watch files, recompile and run [Sentry](https://github.com/samueleaton/sentry) [Sam Eaton](https://github.com/samueleaton)
+  - Rails like Migration Tool [Micrate](https://github.com/juanedi/micrate) [Juan Edi](juanedi)
+
 ## Contributing
 
 1. Fork it ( https://github.com/drujensen/kemalyst/fork )
