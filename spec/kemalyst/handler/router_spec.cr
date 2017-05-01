@@ -23,7 +23,7 @@ describe Kemalyst::Handler::Router do
     io, context = create_context(request)
 
     router = Kemalyst::Handler::Router.new
-    handler = Kemalyst::Handler::Block.new(->(c : HTTP::Server::Context) { "Hello World!" })
+    handler = Kemalyst::Handler::Block.new(->(context : HTTP::Server::Context) { "Hello World!" })
     router.add_route("GET", "/", handler)
     router.call(context)
     context.response.headers["content_type"].should eq "text/html"
@@ -31,7 +31,7 @@ describe Kemalyst::Handler::Router do
 
   it "set response body to Hello World!" do
     router = Kemalyst::Handler::Router.new
-    handler = Kemalyst::Handler::Block.new(->(c : HTTP::Server::Context) { "Hello World!" })
+    handler = Kemalyst::Handler::Block.new(->(context : HTTP::Server::Context) { "Hello World!" })
     router.add_route("GET", "/", handler)
 
     request = HTTP::Request.new("GET", "/")
@@ -45,7 +45,7 @@ describe Kemalyst::Handler::Router do
 
   it "builds handler callstack for routes individually in order" do
     router = Kemalyst::Handler::Router.new
-    handler = Kemalyst::Handler::Block.new(->(c : HTTP::Server::Context) { "Hello World!" })
+    handler = Kemalyst::Handler::Block.new(->(context : HTTP::Server::Context) { "Hello World!" })
     socket = Kemalyst::WebSocket.new
     router.add_route("GET", "/", socket)
     router.add_route("GET", "/", handler)
@@ -57,7 +57,7 @@ describe Kemalyst::Handler::Router do
   it "process_request and clean state" do
     router = Kemalyst::Handler::Router.new
     handler0 = TestHandler.new
-    handler1 = Kemalyst::Handler::Block.new(->(c : HTTP::Server::Context) { "Dashboard" })
+    handler1 = Kemalyst::Handler::Block.new(->(context : HTTP::Server::Context) { "Dashboard" })
 
     router.add_route("GET", "/*", handler0)
     router.add_route("GET", "/dashboard", handler1)

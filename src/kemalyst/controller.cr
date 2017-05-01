@@ -13,10 +13,8 @@ class Kemalyst::Controller
   end
 
   # Call is the execution method for this controller.  Controllers can be
-  # chained together and should `call_next(context)` if they do not provide
-  # the final rendering of the response.  If they are the last leaf in the
-  # chain, then they should return a String that will be printed to the
-  # response io.
+  # chained together and should `call_next(context)` if they do not provide 
+  # the final rendering of the response.
   def call(context)
     call_next context
   end
@@ -38,14 +36,16 @@ class Kemalyst::Controller
 
   # helper to render a view with a layout.  The view name is relative to `src/views`
   # directory and the layout is relative to `src/views/layouts` directory.
-  macro render(filename, layout)
-    content = render("{{filename.id}}")
-    render("layouts/{{layout.id}}")
+  macro render(filename, layout, *args)
+    content = Kilt.render("src/views/{{filename.id}}", {{*args}})
+    content_with_layout = Kilt.render("src/views/layouts/{{layout.id}}")
+    context.response.print(content_with_layout)
   end
 
   # helper to render a template.  The view name is relative to `src/views` directory.
   macro render(filename, *args)
-    Kilt.render("src/views/{{filename.id}}", {{*args}})
+    content = Kilt.render("src/views/{{filename.id}}", {{*args}})
+    context.response.print(content)
   end
 
   # helper to redirect to another page.  This sets the Location header to
@@ -53,28 +53,27 @@ class Kemalyst::Controller
   macro redirect(url, status_code = 302)
     context.response.headers.add("Location", {{url}})
     context.response.status_code = {{status_code}}
-    return ""
   end
 
   # helper to render text.  This sets the content_type to `plain/text`
   macro text(body, status_code = 200)
     context.response.status_code = {{status_code}}
     context.response.content_type = "text/plain"
-    return {{body}}
+    context.response.print({{body}})
   end
 
   # helper to render html.  This sets the content_type to `text/html`
   macro html(body, status_code = 200)
     context.response.status_code = {{status_code}}
     context.response.content_type = "text/html"
-    return {{body}}
+    context.response.print({{body}})
   end
 
   # helper to render json.  This sets the content_type to `application/json`
   macro json(body, status_code = 200)
     context.response.status_code = {{status_code}}
     context.response.content_type = "application/json"
-    return {{body}}
+    context.response.print({{body}})
   end
 end
 
