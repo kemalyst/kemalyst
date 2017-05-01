@@ -13,7 +13,7 @@ class Kemalyst::Controller
   end
 
   # Call is the execution method for this controller.  Controllers can be
-  # chained together and should `call_next(context)` if they do not provide 
+  # chained together and should `call_next(context)` if they do not provide
   # the final rendering of the response.
   def call(context)
     call_next context
@@ -71,6 +71,13 @@ class Kemalyst::Controller
   macro json(body, status_code = 200)
     context.response.status_code = {{status_code}}
     context.response.content_type = "application/json"
+    context.response.print({{body}})
+  end
+
+  # helper to render xml.  This sets the content_type to `application/xml`
+  macro json(body, status_code = 200)
+    context.response.status_code = {{status_code}}
+    context.response.content_type = "application/xml"
     context.response.print({{body}})
   end
 end
