@@ -227,7 +227,7 @@ module Post
 
   action Index do
     posts = Post.all("ORDER BY created_at DESC")
-    render "post/index.ecr", "main.ecr"
+    html render("post/index.ecr", "main.ecr")
   end
 end
 ```
@@ -239,7 +239,7 @@ require "../models/post"
 class Index < Kemalyst::Controller
   def call(context)
     posts = Post.all("ORDER BY created_at DESC")
-    render "post/index.ecr", "main.ecr"
+    html render("post/index.ecr", "main.ecr")
   end
 end
 ```
@@ -250,7 +250,20 @@ There are several helper macros that set content type and response.
   redirect "path"                       # redirect to path
   text     "body", 200                  # render text/plain with status code of 200
   json     "{}".to_json, 200            # render application/json with status code of 200
+  xml      "{}".to_xml, 200            # render application/xml with status code of 200
   html     "<html></html>", 200         # render text/html with status code of 200
+```
+
+You can use the rendering engine to generate `html`, `json`, `xml` or `text`:
+```crystal
+require "../models/post"
+
+class Index < Kemalyst::Controller
+  def call(context)
+    posts = Post.all("ORDER BY created_at DESC")
+    json render("post/index.json.ecr")
+  end
+end
 ```
 
 ### Views
@@ -267,8 +280,7 @@ controllers simple.  You may also render with a layout which will look for
 this in the "src/views/layouts" directory.
 
 ```crystal
-render "post/index.ecr", "main.ecr"
-
+html render "post/index.ecr", "main.ecr"
 ```
 This will render the index.ecr template inside the main.ecr layout. All local
 variables assigned in the controller are available in the templates.
