@@ -35,15 +35,27 @@ module Kemalyst::Handler
     delete path, handler
   end
 
-  # The resource macro will create a RESTful resource set of routes using a standard naming convention.
-  macro resource(name)
+  # The resources macro will create a set of routes for a list of resources endpoint.
+  macro resources(name)
     get "/{{name.id.downcase}}s", {{name.id.capitalize}}Controller::Index
     get "/{{name.id.downcase}}s/new", {{name.id.capitalize}}Controller::New
     post "/{{name.id.downcase}}s", {{name.id.capitalize}}Controller::Create
     get "/{{name.id.downcase}}s/:id", {{name.id.capitalize}}Controller::Show
     get "/{{name.id.downcase}}s/:id/edit", {{name.id.capitalize}}Controller::Edit
+    patch "/{{name.id.downcase}}s/:id", {{name.id.capitalize}}Controller::Update
     put "/{{name.id.downcase}}s/:id", {{name.id.capitalize}}Controller::Update
     delete "/{{name.id.downcase}}s/:id", {{name.id.capitalize}}Controller::Delete
+  end
+
+  # The resource macro will create a set of routes for a single resource endpoint
+  macro resource(name)
+    get "/{{name.id.downcase}}/new", {{name.id.capitalize}}Controller::New
+    post "/{{name.id.downcase}}", {{name.id.capitalize}}Controller::Create
+    get "/{{name.id.downcase}}", {{name.id.capitalize}}Controller::Show
+    get "/{{name.id.downcase}}/edit", {{name.id.capitalize}}Controller::Edit
+    patch "/{{name.id.downcase}}", {{name.id.capitalize}}Controller::Update
+    put "/{{name.id.downcase}}", {{name.id.capitalize}}Controller::Update
+    delete "/{{name.id.downcase}}", {{name.id.capitalize}}Controller::Delete
   end
 
   # The Route holds the information for the node in the tree.
@@ -163,9 +175,7 @@ module Kemalyst::Handler
           end
 
           if route = routes.first
-            if content = route.handler.call(context).as(String)
-              context.response.print(content)
-            end
+            route.handler.call(context)
           end
 
           # clean state

@@ -5,7 +5,7 @@ class TestHandler < Kemalyst::Handler::Base
     if self.next != nil
       call_next context
     else
-      "All"
+      context.response.print "All"
     end
   end
 end

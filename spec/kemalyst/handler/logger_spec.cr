@@ -6,7 +6,7 @@ describe Kemalyst::Handler::Logger do
     io, context = create_context(request)
 
     router = Kemalyst::Handler::Router.new
-    handler = Kemalyst::Handler::Block.new(->(c : HTTP::Server::Context) { "Hello World!" })
+    handler = Kemalyst::Handler::Block.new(->(context : HTTP::Server::Context) { context.response.print "Hello World!" })
     router.add_route("GET", "/", handler)
 
     loghandler = Kemalyst::Handler::Logger.instance
