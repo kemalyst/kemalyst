@@ -29,6 +29,14 @@ class Kemalyst::Mailer
     @message.to << SMTP::Address.new(email, name)
   end
 
+  def cc(email : String = "", name : String = "")
+    @message.cc << SMTP::Address.new(email, name)
+  end
+
+  def bcc(email : String = "", name : String = "")
+    @message.bcc << SMTP::Address.new(email, name)
+  end
+
   def subject(@subject : String)
     @message.subject = @subject
   end
@@ -41,14 +49,14 @@ class Kemalyst::Mailer
   # The view name is relative to `src/views` directory and the
   # layout is relative to `src/views/layouts` directory.
   macro render(filename, layout, *args)
-    content =  Kilt.render("src/views/{{filename.id}}", {{*args}})
-    @message.body = Kilt.render("src/views/layouts/{{layout.id}}", {{*args}})
+    content = render("{{filename.id}}", {{*args}})
+    render("layouts/{{layout.id}}")
   end
 
   # helper to render a template as the body of the email.
   # The view name is relative to `src/views` directory.
   macro render(filename, *args)
-    @message.body = Kilt.render("src/views/{{filename.id}}", {{*args}})
+    Kilt.render("src/views/{{filename.id}}", {{*args}})
   end
 
   # deliver the email

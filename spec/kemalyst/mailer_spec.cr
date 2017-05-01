@@ -18,6 +18,18 @@ describe Kemalyst::Mailer do
     mailer.message.to.first.not_nil!.email.should eq "test@test.com"
   end
 
+  it "sets the cc for the message" do
+    mailer = Kemalyst::Mailer.new
+    mailer.cc "test@test.com"
+    mailer.message.cc.first.not_nil!.email.should eq "test@test.com"
+  end
+
+  it "sets the bcc for the message" do
+    mailer = Kemalyst::Mailer.new
+    mailer.bcc "test@test.com"
+    mailer.message.bcc.first.not_nil!.email.should eq "test@test.com"
+  end
+
   it "sets the subject for the message" do
     mailer = Kemalyst::Mailer.new
     mailer.subject "subject"
