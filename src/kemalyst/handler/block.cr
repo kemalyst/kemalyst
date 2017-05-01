@@ -8,11 +8,12 @@ module Kemalyst::Handler
       @@instance ||= new
     end
 
-    def initialize(@block : (HTTP::Server::Context -> Nil))
+    def initialize(@block : (HTTP::Server::Context -> String))
     end
 
     def call(context)
       content = @block.call(context)
+      context.response.print content
     end
   end
 end
