@@ -7,18 +7,24 @@ class Kemalyst::Mailer
   property message : SMTP::Message
 
   def initialize
-    if settings
-      @@client ||= SMTP::Client.new(env(settings["host"].to_s), env(settings["port"].to_s).to_i)
+    if url = ENV["SMTP_URL"]? || env(settings["url"].to_s)
+      host, port = url.split(":")
+      @@client ||= SMTP::Client.new(host), port.to_i)
       @message = SMTP::Message.new
     else
-      raise "smtp needs to be set in the config/mailer.yml"
+      raise "smtp url needs to be set in the config/mailer.yml or SMTP_URL environment variable"
     end
   end
 
+  SMTP_YML = "config/mailer.yml"
   def settings
-    yaml_file = File.read("config/mailer.yml")
-    yaml = YAML.parse(yaml_file)
-    @@settings ||= yaml["smtp"].as(YAML::Any)
+      if File.exists?(SMTP_YML) &&
+        (yaml = YAML.parse(File.read SMTP_YML)) &&
+        (settings = yaml["smtp"])
+        settings
+      else
+        return {"url": ""}
+      end
   end
 
   def from(email : String = "", name : String = "")
