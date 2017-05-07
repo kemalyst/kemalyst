@@ -33,8 +33,8 @@ shards:
     version: 1.8.0
 
   sidekiq:
-    github: drujensen/sidekiq.cr
-    commit: 94b7d5f146ff1a28dbb639b615d1cdd3ba54fea7
+    github: drujensen/sidekiq-cli.cr
+    commit: 199757a164daa9fd9d7fe7b334eed2af8ec8c26c
 
   slang:
     github: jeromegn/slang

@@ -36,5 +36,5 @@ dependencies:
     branch: master
 
   sidekiq:
-    github: drujensen/sidekiq.cr
+    github: drujensen/sidekiq-cli.cr
     branch: master
