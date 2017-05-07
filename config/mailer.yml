@@ -1,2 +1,2 @@
 smtp:
-  url: "${SMTP_URL}"
+  url: localhost:25

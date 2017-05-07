@@ -8,8 +8,12 @@ class Kemalyst::Mailer
 
   def initialize
     if url = ENV["SMTP_URL"]? || env(settings["url"].to_s)
-      host, port = url.split(":")
-      @@client ||= SMTP::Client.new(host), port.to_i)
+      if url.includes? ":"
+        host, port = url.split(":")
+      else
+        host, port = url, "25"
+      end
+      @@client ||= SMTP::Client.new(host, port.to_i)
       @message = SMTP::Message.new
     else
       raise "smtp url needs to be set in the config/mailer.yml or SMTP_URL environment variable"
@@ -23,7 +27,7 @@ class Kemalyst::Mailer
         (settings = yaml["smtp"])
         settings
       else
-        return {"url": ""}
+        return {"url": "localhost:25"}
       end
   end
 
