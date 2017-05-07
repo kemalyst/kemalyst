@@ -1,5 +1,5 @@
 name: kemalyst
-version: 0.6.1
+version: 0.6.2
 
 authors:
   - drujensen <drujensen@gmail.com>
@@ -33,4 +33,8 @@ dependencies:
 
   smtp:
     github: raydf/smtp.cr
+    branch: master
+
+  sidekiq:
+    github: drujensen/sidekiq.cr
     branch: master
