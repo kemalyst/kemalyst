@@ -3,7 +3,7 @@ require "./spec_helper"
 describe Kemalyst::Mailer do
   it "loads settings from mailer.yml" do
     mailer = Kemalyst::Mailer.new
-    mailer.settings["host"].to_s.should eq "localhost"
+    mailer.settings["url"].to_s.should eq "localhost:25"
   end
 
   it "sets the from for the message" do
