@@ -50,9 +50,9 @@ module Kemalyst
         @handlers << Kemalyst::Handler::Error.instance
         @handlers << Kemalyst::Handler::Static.instance
         @handlers << Kemalyst::Handler::Session.instance
-        @handlers << Kemalyst::Handler::CSRF.instance
         @handlers << Kemalyst::Handler::Flash.instance
         @handlers << Kemalyst::Handler::Params.instance
+        @handlers << Kemalyst::Handler::CSRF.instance
         @handlers << Kemalyst::Handler::Router.instance
       end
     end
