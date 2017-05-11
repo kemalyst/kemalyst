@@ -1,5 +1,5 @@
 require "http/server"
-require "delimiter_tree"
+require "radix"
 
 module Kemalyst::Handler
   HTTP_METHODS = %w(get post put patch delete)
@@ -124,7 +124,7 @@ module Kemalyst::Handler
   # You can use `:variable` in the path and it will set a
   # context.params["variable"] to the value in the url.
   class Router < Base
-    property tree : Delimiter::Tree(Nil | Kemalyst::Handler::Route)
+    property tree :  Radix::Tree(Array(Kemalyst::Handler::Route))
 
     # class method to return a singleton instance of this Controller
     def self.instance
@@ -132,24 +132,12 @@ module Kemalyst::Handler
     end
 
     def initialize
-      @tree = Delimiter::Tree(Nil | Kemalyst::Handler::Route).new
+      @tree = Radix::Tree(Array(Kemalyst::Handler::Route)).new
     end
 
     def call(context)
       context.response.content_type = "text/html"
       process_request(context)
-    end
-
-    # Adds a given route to routing tree. As an exception each `GET` route additionaly defines
-    # a corresponding `HEAD` route.
-    def add_route(method, path, handler)
-      add_to_tree method, path, Route.new(method, path, handler)
-      add_to_tree("HEAD", path, Route.new("HEAD", path, handler)) if method == "GET"
-    end
-
-    # Check if a route is defined and returns the lookup
-    def lookup_route(verb, path)
-      @tree.find delimiter_path(verb, path)
     end
 
     # Processes the route if it's a match. Otherwise renders 404.
@@ -191,13 +179,32 @@ module Kemalyst::Handler
       context
     end
 
-    private def delimiter_path(method : String, path)
-      "#{method.downcase}/#{path}"
+    # Adds a given route to routing tree. As an exception each `GET` route additionaly defines
+    # a corresponding `HEAD` route.
+    def add_route(method, path, handler)
+      add_to_tree(method, path, Route.new(method, path, handler))
+      add_to_tree("HEAD", path, Route.new("HEAD", path, handler)) if method == "GET"
+    end
+
+    # Check if a route is defined and returns the lookup
+    def lookup_route(verb, path)
+      @tree.find method_path(verb, path)
     end
 
     private def add_to_tree(method, path, route)
-      node = delimiter_path(method, path)
-      @tree.add(node, route)
+      node = method_path(method, path)
+      result = @tree.find(node)
+      if result && result.found?
+        result.payload << route
+      else
+        routes = [] of Kemalyst::Handler::Route
+        routes << route
+        @tree.add(node, routes)
+      end
+    end
+
+    private def method_path(method : String, path)
+      "#{method.downcase}/#{path}"
     end
   end
 end
