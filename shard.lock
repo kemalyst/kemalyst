@@ -4,9 +4,9 @@ shards:
     github: crystal-lang/crystal-db
     version: 0.4.2
 
-  delimiter_tree:
-    github: drujensen/delimiter_tree
-    version: 0.1.4
+  kemal:
+    github: kemalcr/kemal
+    commit: ce9e924d00d07bf9ca7184a41bc81579da0122ec
 
   kemalyst-model:
     github: drujensen/kemalyst-model
@@ -27,6 +27,10 @@ shards:
   pool:
     github: ysbaddaden/pool
     version: 0.2.3
+
+  radix:
+    github: luislavena/radix
+    version: 0.3.8
 
   redis:
     github: stefanwille/crystal-redis

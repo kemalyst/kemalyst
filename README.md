@@ -120,19 +120,19 @@ app.
 
 ### Middleware HTTP::Handlers
 
-There are 7 handlers that are pre-configured for Kemalyst:
+There are 8 handlers that are pre-configured for Kemalyst:
  - Logger - Logs all requests/responses to the logger configured.
  - Error - Handles any Exceptions and renders a response.
  - Static - Delivers any static assets from the `./public` folder.
  - Session - Provides a Cookie Session hash that can be accessed from the `context.session["key"]`
  - Flash - Provides flash message hash that can be accessed from the `context.flash["danger"]`
  - Params - Unifies the parameters into `context.params["key"]`
+ - CSRF - Helps prevent Cross Site Request Forgery.
  - Router - Routes requests to other handlers based on the method and path.
 
 Other handlers available for Kemalyst:
- - BasicAuth - Provides Basic Authentication.
  - CORS - Handles Cross Origin Resource Sharing.
- - CSRF - Helps prevent Cross Site Request Forgery.
+ - BasicAuth - Provides Basic Authentication.
 
 You may want to add, replace or remove handlers based on your situation.  You can do that in the
 Application configuration `config/application.cr`:
@@ -155,6 +155,8 @@ end
 The router will perform a lookup based on the method and path and return the
 chain of handlers you specify in the `/config/routes.cr` file.
 
+You can use any of the following methods: `get, post, put, patch, delete, all`
+
 An example of a route would be:
 ```crystal
 get "/",   DemoController::Index
@@ -176,10 +178,14 @@ This is how you would configure a WebSocket Controller:
 get "/", ChatController::Chat
 get "/", ChatController::Index
 ```
-
 See below for more information on how to create a WebSocket Handler.
 
-You can use any of the following methods: `get, post, put, patch, delete, all`
+You can use `:variable` in the path and it will set a
+context.params["variable"] to the value in the url.
+
+```crystal
+get    "/posts/:id", DemoController::Show
+```
 
 You can use a `*` to chain a handler for all children of this path:
 ```crystal
@@ -189,25 +195,7 @@ all    "/posts/*",   BasicAuth.instance("admin", "password")
 get    "/posts/:id", DemoController::Show
 put    "/posts/:id", DemoController::Update
 delete "/posts/:id", DemoController::Delete
-
 ```
-
-You can enable CSRF protection for all `post` and `put` calls:
-```crystal
-post "/*",   CSRF
-put  "/*",   CSRF
-```
-
-Then in your forms, add the `csrf_tag` using the helper method:
-```erb
-<form action="/demos/<%= demo.id %>" method="post">
-  <%= csrf_tag(context) %>
-  ...
-</form>
-```
-
-You can use `:variable` in the path and it will set a
-context.params["variable"] to the value in the url.
 
 ### Controllers
 
@@ -330,6 +318,14 @@ And an example of `views/layouts/main.ecr`:
 </html>
 ```
 The `<%= content %>` is where the template will be rendered in the layout.
+
+CSRF middleware is built in.  In your forms, add the `csrf_tag` using the helper method:
+```erb
+<form action="/demos/<%= demo.id %>" method="post">
+  <%= csrf_tag(context) %>
+  ...
+</form>
+```
 
 ### Models
 
