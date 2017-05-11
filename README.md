@@ -187,16 +187,6 @@ context.params["variable"] to the value in the url.
 get    "/posts/:id", DemoController::Show
 ```
 
-You can use a `*` to chain a handler for all children of this path:
-```crystal
-all    "/posts/*",   BasicAuth.instance("admin", "password")
-
-# all of these will be secured with the BasicAuth handler.
-get    "/posts/:id", DemoController::Show
-put    "/posts/:id", DemoController::Update
-delete "/posts/:id", DemoController::Delete
-```
-
 ### Controllers
 
 The Controller inherits from HTTP::Handler which is the middleware similar to
