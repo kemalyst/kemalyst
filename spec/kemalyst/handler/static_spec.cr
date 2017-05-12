@@ -10,7 +10,7 @@ describe Kemalyst::Handler::Static do
     context.response.close
     io.rewind
     client_response = HTTP::Client::Response.from_io(io, decompress: false)
-    client_response.body.should eq "<head></head><body>Hello World!</body>\n"
+    expect(client_response.body).to eq "<head></head><body>Hello World!</body>\n"
   end
 
   it "returns Not Found when file doesn't exist" do
@@ -22,7 +22,7 @@ describe Kemalyst::Handler::Static do
     context.response.close
     io.rewind
     client_response = HTTP::Client::Response.from_io(io, decompress: false)
-    client_response.body.should eq "Not Found\n"
+    expect(client_response.body).to eq "Not Found\n"
   end
 
   it "delivers index.html if path ends with /" do
@@ -34,6 +34,6 @@ describe Kemalyst::Handler::Static do
     context.response.close
     io.rewind
     client_response = HTTP::Client::Response.from_io(io, decompress: false)
-    client_response.body.should eq "<head></head><body>Hello World!</body>\n"
+    expect(client_response.body).to eq "<head></head><body>Hello World!</body>\n"
   end
 end

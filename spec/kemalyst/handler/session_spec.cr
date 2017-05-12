@@ -6,7 +6,7 @@ describe Kemalyst::Handler::Session do
     io, context = create_context(request)
     session = Kemalyst::Handler::Session.instance
     session.call(context)
-    context.response.headers.has_key?("set-cookie").should be_true
+    expect(context.response.headers.has_key?("set-cookie")).to be_true
   end
 
   it "encodes the session data" do
@@ -16,7 +16,7 @@ describe Kemalyst::Handler::Session do
     context.session["authorized"] = "true"
     session.call(context)
     cookie = context.response.headers["set-cookie"]
-    cookie.should eq "kemalyst.session=6f9654b549f1e60103fc4e9bc34bc7f85d4f290a--eyJhdXRob3JpemVkIjoidHJ1ZSJ9%0A; path=/"
+    expect(cookie).to eq "kemalyst.session=6f9654b549f1e60103fc4e9bc34bc7f85d4f290a--eyJhdXRob3JpemVkIjoidHJ1ZSJ9%0A; path=/"
   end
 
   it "uses a secret" do
@@ -27,6 +27,6 @@ describe Kemalyst::Handler::Session do
     context.session["authorized"] = "true"
     session.call(context)
     cookie = context.response.headers["set-cookie"]
-    cookie.should eq "kemalyst.session=d5374f304c4a343e14fca421e4c372c777207337--eyJhdXRob3JpemVkIjoidHJ1ZSJ9%0A; path=/"
+    expect(cookie).to eq "kemalyst.session=d5374f304c4a343e14fca421e4c372c777207337--eyJhdXRob3JpemVkIjoidHJ1ZSJ9%0A; path=/"
   end
 end

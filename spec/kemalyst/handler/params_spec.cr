@@ -7,7 +7,7 @@ describe Kemalyst::Handler::Params do
       io, context = create_context(request)
       params = Kemalyst::Handler::Params.instance
       params.call(context)
-      context.params["test"].should eq "test"
+      expect(context.params["test"]).to eq "test"
     end
 
     it "parses multiple query params" do
@@ -15,7 +15,7 @@ describe Kemalyst::Handler::Params do
       io, context = create_context(request)
       params = Kemalyst::Handler::Params.instance
       params.call(context)
-      context.params["test2"].should eq "test2"
+      expect(context.params["test2"]).to eq "test2"
     end
   end
 
@@ -28,7 +28,7 @@ describe Kemalyst::Handler::Params do
       io, context = create_context(request)
       params = Kemalyst::Handler::Params.instance
       params.call(context)
-      context.params["test"].should eq "test"
+      expect(context.params["test"]).to eq "test"
     end
 
     it "parses body params with charset" do
@@ -39,7 +39,7 @@ describe Kemalyst::Handler::Params do
       io, context = create_context(request)
       params = Kemalyst::Handler::Params.instance
       params.call(context)
-      context.params["test"]?.should eq "test"
+      expect(context.params["test"]?).to eq "test"
     end
 
     it "parses multiple body params" do
@@ -50,7 +50,7 @@ describe Kemalyst::Handler::Params do
       io, context = create_context(request)
       params = Kemalyst::Handler::Params.instance
       params.call(context)
-      context.params["test2"].should eq "test2"
+      expect(context.params["test2"]).to eq "test2"
     end
   end
 
@@ -63,7 +63,7 @@ describe Kemalyst::Handler::Params do
       io, context = create_context(request)
       params = Kemalyst::Handler::Params.instance
       params.call(context)
-      context.params["test"].should eq "test"
+      expect(context.params["test"]).to eq "test"
     end
 
     it "parses json array" do
@@ -74,7 +74,7 @@ describe Kemalyst::Handler::Params do
       io, context = create_context(request)
       params = Kemalyst::Handler::Params.instance
       params.call(context)
-      context.params["_json"].should eq "[\"test\", \"test2\"]"
+      expect(context.params["_json"]).to eq "[\"test\", \"test2\"]"
     end
   end
 
@@ -89,9 +89,9 @@ describe Kemalyst::Handler::Params do
       io, context = create_context(request)
       params = Kemalyst::Handler::Params.instance
       params.call(context)
-      context.files["picture"].filename.should eq "index.html"
-      context.params["title"].should eq "title field"
-      context.params["_csrf"].should eq "PcCFp4oKJ1g-hZ-P7-phg0alC51pz7Pl12r0ZOncgxI"
+      expect(context.files["picture"].filename).to eq "index.html"
+      expect(context.params["title"]).to eq "title field"
+      expect(context.params["_csrf"]).to eq "PcCFp4oKJ1g-hZ-P7-phg0alC51pz7Pl12r0ZOncgxI"
     end
   end
 end

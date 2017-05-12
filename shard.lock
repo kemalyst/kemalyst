@@ -4,6 +4,10 @@ shards:
     github: crystal-lang/crystal-db
     version: 0.4.2
 
+  expect:
+    github: dukex/expect.cr
+    commit: 17c31a0f42815cd914a630852bb2ee0da6a39dc0
+
   kemal:
     github: kemalcr/kemal
     commit: ce9e924d00d07bf9ca7184a41bc81579da0122ec

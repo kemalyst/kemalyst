@@ -18,6 +18,6 @@ describe Kemalyst::WebSocket do
     context.response.close
     io.rewind
 
-    io.to_s.should contain("HTTP/1.1 101 Switching Protocols")
+    expect(io.to_s).to contain("HTTP/1.1 101 Switching Protocols")
   end
 end

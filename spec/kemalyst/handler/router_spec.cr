@@ -3,17 +3,17 @@ require "./spec_helper"
 describe Kemalyst::Handler::Route do
   it "returns the method" do
     route = Kemalyst::Handler::Route.new("GET", "/", Kemalyst::Handler::Base.instance)
-    route.method.should eq "GET"
+    expect(route.method).to eq "GET"
   end
 
   it "returns the path" do
     route = Kemalyst::Handler::Route.new("GET", "/", Kemalyst::Handler::Base.instance)
-    route.path.should eq "/"
+    expect(route.path).to eq "/"
   end
 
   it "returns the handler" do
     route = Kemalyst::Handler::Route.new("GET", "/", Kemalyst::Handler::Base.instance)
-    route.handler.should eq Kemalyst::Handler::Base.instance
+    expect(route.handler).to eq Kemalyst::Handler::Base.instance
   end
 end
 
@@ -26,7 +26,7 @@ describe Kemalyst::Handler::Router do
     handler = Kemalyst::Handler::Block.new(->(context : HTTP::Server::Context) { "Hello World!" })
     router.add_route("GET", "/", handler)
     router.call(context)
-    context.response.headers["content_type"].should eq "text/html"
+    expect(context.response.headers["content_type"]).to eq "text/html"
   end
 
   it "set response body to Hello World!" do
@@ -40,7 +40,7 @@ describe Kemalyst::Handler::Router do
     context.response.close
     io.rewind
     client_response = HTTP::Client::Response.from_io(io, decompress: false)
-    client_response.body.should eq "Hello World!"
+    expect(client_response.body).to eq "Hello World!"
   end
 
   it "builds handler callstack for routes individually in order" do
@@ -50,7 +50,7 @@ describe Kemalyst::Handler::Router do
     router.add_route("GET", "/", socket)
     router.add_route("GET", "/", handler)
     result = router.lookup_route("GET", "/")
-    result.found?.should eq true
-    result.payload.size.should eq 2
+    expect(result.found?).to eq true
+    expect(result.payload.size).to eq 2
   end
 end

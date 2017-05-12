@@ -7,7 +7,7 @@ describe Kemalyst::Handler::Error do
     error = Kemalyst::Handler::Error.instance
     error.next = Kemalyst::Handler::Router.new
     error.call(context)
-    context.response.status_code.should eq 404
+    expect(context.response.status_code).to eq 404
   end
 
   it "handles all other exceptions" do
@@ -16,6 +16,6 @@ describe Kemalyst::Handler::Error do
     error = Kemalyst::Handler::Error.instance
     error.next = ->(c : HTTP::Server::Context) { raise "Oh no!" }
     error.call(context)
-    context.response.status_code.should eq 500
+    expect(context.response.status_code).to eq 500
   end
 end

@@ -30,7 +30,7 @@ describe Kemalyst::Handler::CSRF do
         csrf = Kemalyst::Handler::CSRF.instance
         csrf.call(context)
       rescue ex : Kemalyst::Exceptions::Forbidden
-        ex.message.should eq "CSRF check failed."
+        expect(ex.message).to eq "CSRF check failed."
       end
     end
 
@@ -41,7 +41,7 @@ describe Kemalyst::Handler::CSRF do
         csrf = Kemalyst::Handler::CSRF.instance
         csrf.call(context)
       rescue ex : Kemalyst::Exceptions::Forbidden
-        ex.message.should eq "CSRF check failed."
+        expect(ex.message).to eq "CSRF check failed."
       end
     end
 
@@ -52,7 +52,7 @@ describe Kemalyst::Handler::CSRF do
         csrf = Kemalyst::Handler::CSRF.instance
         csrf.call(context)
       rescue ex : Kemalyst::Exceptions::Forbidden
-        ex.message.should eq "CSRF check failed."
+        expect(ex.message).to eq "CSRF check failed."
       end
     end
 
@@ -63,7 +63,7 @@ describe Kemalyst::Handler::CSRF do
         csrf = Kemalyst::Handler::CSRF.instance
         csrf.call(context)
       rescue ex : Kemalyst::Exceptions::Forbidden
-        ex.message.should eq "CSRF check failed."
+        expect(ex.message).to eq "CSRF check failed."
       end
     end
   end
@@ -87,7 +87,7 @@ describe Kemalyst::Handler::CSRF do
         csrf = Kemalyst::Handler::CSRF.instance
         csrf.call(context)
       rescue ex : Kemalyst::Exceptions::Forbidden
-        ex.message.should eq "CSRF check failed."
+        expect(ex.message).to eq "CSRF check failed."
       end
     end
   end
@@ -111,7 +111,7 @@ describe Kemalyst::Handler::CSRF do
         csrf = Kemalyst::Handler::CSRF.instance
         csrf.call(context)
       rescue ex : Kemalyst::Exceptions::Forbidden
-        ex.message.should eq "CSRF check failed."
+        expect(ex.message).to eq "CSRF check failed."
       end
     end
   end

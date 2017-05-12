@@ -34,3 +34,7 @@ dependencies:
   sidekiq:
     github: drujensen/sidekiq-cli.cr
     branch: master
+
+development_dependencies:
+  expect:
+    github: dukex/expect.cr
