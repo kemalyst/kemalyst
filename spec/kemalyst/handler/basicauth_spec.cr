@@ -6,7 +6,7 @@ describe Kemalyst::Handler::BasicAuth do
     io, context = create_context(request)
     basicauth = Kemalyst::Handler::BasicAuth.instance("username", "password")
     basicauth.call(context)
-    expect(context.response.status_code.should eq 401
+    expect(context.response.status_code).to eq 401
   end
 
   it "returns 401 if Authorization Header doesn't start with Basic" do
@@ -15,7 +15,7 @@ describe Kemalyst::Handler::BasicAuth do
     io, context = create_context(request)
     basicauth = Kemalyst::Handler::BasicAuth.instance("username", "password")
     basicauth.call(context)
-    expect(context.response.status_code.should eq 401
+    expect(context.response.status_code).to eq 401
   end
 
   it "returns 401 if bad:user" do
@@ -24,7 +24,7 @@ describe Kemalyst::Handler::BasicAuth do
     io, context = create_context(request)
     basicauth = Kemalyst::Handler::BasicAuth.instance("username", "password")
     basicauth.call(context)
-    expect(context.response.status_code.should eq 401
+    expect(context.response.status_code).to eq 401
   end
 
   it "continues if username:password" do
@@ -33,6 +33,6 @@ describe Kemalyst::Handler::BasicAuth do
     io, context = create_context(request)
     basicauth = Kemalyst::Handler::BasicAuth.instance("username", "password")
     basicauth.call(context)
-    expect(context.response.status_code.should eq 404
+    expect(context.response.status_code).to eq 404
   end
 end
