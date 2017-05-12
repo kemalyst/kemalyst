@@ -172,9 +172,13 @@ leverages http handlers which are similar to Rack middleware.</p>
 
 <p>Kemalyst follows the MVC pattern:</p>
 
-<ul><li>M - the models are a simple ORM mapping and supports MySQL, PG and SQLite.</li><li>V - the views are handled using <a href="https://github.com/jeromegn/kilt" target="_blank">kilt</a> which support ECR (Erb like), SLang (Slim like), Crustache (Mustache like) or Temel (not sure what it's like).</li><li>C - the controllers are http handlers that continue the chain of handlers after the routing takes place.</li></ul></ul>
+<ul><li>Models are a simple ORM mapping and supports MySQL, PG and SQLite.</li><li>Views are handled using <a href="https://github.com/jeromegn/kilt" target="_blank">kilt</a> which support ECR (Erb like), SLang (Slim like), Crustache (Mustache like) or Temel (not sure what it's like).</li><li>Controllers are http handlers that continue the chain of handlers after the routing takes place.</li></ul></ul>
 
-<p>Kemalyst also comes with a command line tool similar to Rails called <code>kgen</code> to help you get started quickly.</p>
+<p>Kemalyst also supports:</p>
+
+<ul><li>WebSockets provide two way communication for webapps that need dynamic updates</li><li>Mailers render and deliver email via <a href="https://github.com/raydf/smtp.cr" target="_blank">smtp.cr</a></li><li>Jobs perform background tasks using <a href="https://github.com/mperham/sidekiq.cr" target="_blank">sidekiq.cr</a></li><li>Migrations provide ability to maintain your database schema's using <a href="https://github.com/juanedi/micrate" target="_blank">Micrate</a></li></ul></ul>
+
+<p>Kemalyst also comes with a command line tool similar to <code>rails</code> called <code>kgen</code> to help you get started quickly.</p>
 
 <h2>Installation</h2>
 
@@ -192,13 +196,12 @@ brew install kgen</code></pre>
 
 <ol><li>Initialize a new Kemalyst App using <code>kgen</code></li></ol>
 
-<pre><code class='language-sh'>kgen init app [your_app]
+<pre><code class='language-sh'>kgen init app [your_app] [options]
 cd [your_app]</code></pre>
 
-<p>There are several options:
--d [pg | mysql | sqlite] - defaults to pg
--t [slang | ecr] - defaults to slang
---deps - install dependencies.  Same as running <code>shards install</code></p>
+<p>There are several options:</p>
+
+<ul><li>-d [pg | mysql | sqlite] - defaults to pg</li><li>-t [slang | ecr] - defaults to slang</li><li>--deps - install dependencies quickly.  This is the same as running <code>shards install</code></li></ul></ul>
 
 <p>This will generate a traditional web application:</p>
 
@@ -206,7 +209,11 @@ cd [your_app]</code></pre>
 
 <h2>Generators</h2>
 
-<p>Generate scaffolding for a resource:</p>
+<p><code>kgen generate</code> provides several generators:</p>
+
+<ul><li>scaffold [name] [fields]</li><li>model [name] [fields]</li><li>controller [name] [methods]</li><li>mailer [name] [fields]</li><li>job [name] [fields]</li><li>migration [name]</li></ul></ul>
+
+<p>An example to generate scaffolding for a resource:</p>
 
 <pre><code class='language-sh'>kgen generate scaffold Post name:string body:text draft:bool</code></pre>
 
@@ -231,16 +238,16 @@ OK   [datetimestamp]_create_shop.sql</code></li><li>Run the specs: <code>crystal
 <h3>Run with Docker</h3>
 
 <p>Another option is to run using Docker.  A <code>Dockerfile</code> and <code>docker-compose.yml</code> is provided. If
-you have docker setup, you should be able to run:</p>
+you have docker setup, you can run:</p>
 
 <pre><code class='language-sh'>docker-compose up -d
 docker-compose logs -f</code></pre>
 
-<p>Now you should be able to hit the site:</p>
+<p>Now visit the site:</p>
 
 <pre><code class='language-sh'>open "http://localhost:3000"</code></pre>
 
-<p>Docker Compose is running <a href="https://github.com/samueleaton/sentry" target="_blank">Sentry</a> so
+<p>Docker Compose is running <a href="https://github.com/samueleaton/sentry" target="_blank">Sentry</a> as well so
 any changes to your <code>/src</code> or <code>/config</code> will re-build and run your
 application.</p>
 
@@ -260,6 +267,11 @@ chain of handlers you specify in the <code>/config/routes.cr</code> file.</p>
 
 <pre><code class='language-crystal'>get <span class="s">&quot;/&quot;</span>,   <span class="t">DemoController</span><span class="t">::</span><span class="t">Index</span></code></pre>
 
+<p>You can use <code>:variable</code> in the path and it will set a
+context.params["variable"] to the value in the url.</p>
+
+<pre><code class='language-crystal'>get    <span class="s">&quot;/posts/:id&quot;</span>, <span class="t">DemoController</span><span class="t">::</span><span class="t">Show</span></code></pre>
+
 <p>You may chain multiple handlers in a route using an array:</p>
 
 <pre><code class='language-crystal'>get <span class="s">&quot;/&quot;</span>, [ <span class="t">BasicAuth</span>.instance(<span class="s">&quot;username&quot;</span>, <span class="s">&quot;password&quot;</span>),
@@ -276,11 +288,6 @@ get <span class="s">&quot;/&quot;</span>, <span class="t">DemoController</span><
 get <span class="s">&quot;/&quot;</span>, <span class="t">ChatController</span><span class="t">::</span><span class="t">Index</span></code></pre>
 
 <p>See below for more information on how to create a WebSocket Handler.</p>
-
-<p>You can use <code>:variable</code> in the path and it will set a
-context.params["variable"] to the value in the url.</p>
-
-<pre><code class='language-crystal'>get    <span class="s">&quot;/posts/:id&quot;</span>, <span class="t">DemoController</span><span class="t">::</span><span class="t">Show</span></code></pre>
 
 <h3>Controllers</h3>
 
@@ -315,15 +322,18 @@ returned as the body and then the chain will unwind and perform post handling.</
   <span class="k">end</span>
 <span class="k">end</span></code></pre>
 
-<p>There are several helper macros that set content type and response.</p>
+<p>There are several helper macros that will set the contenttype and responses status.</p>
+
+<pre><code class='language-crystal'>  redirect <span class="s">&quot;path&quot;</span>                       <span class="c"># redirect to path</span>
+  html     <span class="s">&quot;&lt;html&gt;&lt;/html&gt;&quot;</span>, <span class="n">200</span>         <span class="c"># content type &#96;text/html&#96; with status code of 200</span>
+  text     <span class="s">&quot;text&quot;</span>, <span class="n">200</span>                  <span class="c"># content type &#96;text/plain&#96; with status code of 200</span>
+  json     <span class="s">&quot;&#123;&#125;&quot;</span>.to_json, <span class="n">200</span>            <span class="c"># content type &#96;application/json&#96; with status code of 200</span>
+  xml      <span class="s">&quot;&#123;&#125;&quot;</span>.to_xml, <span class="n">200</span>            <span class="c"># content type &#96;application/xml&#96; with status code of 200</span></code></pre>
+
+<p>There are two render methods that will generate a string that can be passed to the above macros:</p>
 
 <pre><code class='language-crystal'>  render   <span class="s">&quot;filename.ecr&quot;</span>               <span class="c"># renders an .ecr template</span>
-  render   <span class="s">&quot;filename.ecr&quot;</span>, <span class="s">&quot;layout.ecr&quot;</span> <span class="c"># renders an .ecr template with layout</span>
-  redirect <span class="s">&quot;path&quot;</span>                       <span class="c"># redirect to path</span>
-  text     <span class="s">&quot;body&quot;</span>, <span class="n">200</span>                  <span class="c"># render text/plain with status code of 200</span>
-  json     <span class="s">&quot;&#123;&#125;&quot;</span>.to_json, <span class="n">200</span>            <span class="c"># render application/json with status code of 200</span>
-  xml      <span class="s">&quot;&#123;&#125;&quot;</span>.to_xml, <span class="n">200</span>            <span class="c"># render application/xml with status code of 200</span>
-  html     <span class="s">&quot;&lt;html&gt;&lt;/html&gt;&quot;</span>, <span class="n">200</span>         <span class="c"># render text/html with status code of 200</span></code></pre>
+  render   <span class="s">&quot;filename.ecr&quot;</span>, <span class="s">&quot;layout.ecr&quot;</span> <span class="c"># renders an .ecr template with layout</span></code></pre>
 
 <p>You can use the rendering engine to generate <code>html</code>, <code>json</code>, <code>xml</code> or <code>text</code>:</p>
 
@@ -407,10 +417,7 @@ variables assigned in the controller are available in the templates.</p>
 
 <h3>Models</h3>
 
-<p>The models are a simple ORM mechanism that will map objects to rows in the
-database.</p>
-
-<p>The mapping is done using several macros.</p>
+<p>The models are a simple ORM mechanism that will map objects to rows in the database.  The mapping is done using several macros.</p>
 
 <p>An example <code>models/post.cr</code></p>
 
@@ -424,10 +431,10 @@ database.</p>
   timestamps
 <span class="k">end</span></code></pre>
 
-<p>The mapping will automatically create the id.  If you include <code>timestamps</code>, a created_at and updated_at field
-mapping is created that follows the active_record convention in Rails.</p>
+<p>The mapping will automatically create the id of type Int64.  If you include <code>timestamps</code>, a created_at and updated_at field
+mapping is created that will automatically get updated for you.</p>
 
-<p>You can also override the table name:</p>
+<p>You can override the table name:</p>
 
 <pre><code class='language-crystal'><span class="k">require</span> <span class="s">&quot;kemalyst-model/adapter/pg&quot;</span>
 
@@ -439,9 +446,19 @@ mapping is created that follows the active_record convention in Rails.</p>
   field body : <span class="t">Text</span>
 <span class="k">end</span></code></pre>
 
+<p>You can override the <code>id</code> field:</p>
+
+<pre><code class='language-crystal'><span class="k">require</span> <span class="s">&quot;kemalyst-model/adapter/pg&quot;</span>
+
+<span class="k">class</span> <span class="t">Comment</span> <span class="o"><</span> <span class="t">Kemalyst</span><span class="t">::</span><span class="t">Model</span>
+  adapter pg
+  primary my_id : <span class="t">Int32</span>
+  ...
+<span class="k">end</span></code></pre>
+
 <p>There are several methods that are provided in the model.</p>
 
-<ul><li>self.clear - "DELETE from table;"</li><li>save - Insert or update depending on if id is set</li><li>destroy(id) - "DELETE FROM table WHERE id = #{id}"</li><li>all(where) "SELECT * FROM table #{where};"</li><li>find(id) - "SELECT * FROM table WHERE id = #{id} LIMIT 1;"</li><li>find_by(field, value) - "SELECT * FROM table WHERE #{field} = #{value} LIMIT 1;"</li></ul>
+<ul><li>self.clear - "DELETE from table;" that will help with specs</li><li>save - Insert or update depending on if id is set</li><li>destroy(id) - "DELETE FROM table WHERE id = #{id}"</li><li>all(where) "SELECT * FROM table #{where};"</li><li>find(id) - "SELECT * FROM table WHERE id = #{id} LIMIT 1;"</li><li>find_by(field, value) - "SELECT * FROM table WHERE #{field} = #{value} LIMIT 1;"</li></ul>
 
 <p>You can find more details at <a href="https://github.com/drujensen/kemalyst-model" target="_blank">Kemalyst Model</a></p>
 
@@ -454,14 +471,12 @@ Connection.</p>
 
 <pre><code class='language-crystal'><span class="k">class</span> <span class="t">Chat</span> <span class="o"><</span> <span class="t">Kemalyst</span><span class="t">::</span><span class="t">WebSocket</span>
   @sockets <span class="o">=</span> <span class="o">[]</span> <span class="k">of</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">WebSocket</span>
-  @messages <span class="o">=</span> <span class="o">[]</span> <span class="k">of</span> <span class="t">String</span>
 
   <span class="k">def</span> <span class="m">call</span>(socket : <span class="t">HTTP</span><span class="t">::</span><span class="t">WebSocket</span>)
     @sockets.push socket
     socket.on_message <span class="k">do</span> <span class="o">|</span>message<span class="o">|</span>
-      @messages.push message
       @sockets.each <span class="k">do</span> <span class="o">|</span>a_socket<span class="o">|</span>
-        a_socket.send @messages.to_json
+        a_socket.send message.to_json
       <span class="k">end</span>
     <span class="k">end</span>
   <span class="k">end</span>
@@ -488,7 +503,7 @@ get <span class="s">&quot;/&quot;</span>, <span class="t">ChatController</span><
 Controller.  If the request is not a WebSocket upgrade request, it will
 pass-through and call the second one that will return the html page.</p>
 
-<p>To see a full example application, checkout
+<p>To see an example application, checkout
 <a href="https://github.com/drujensen/chat-kemalyst" target="_blank">Chat Kemalyst</a></p>
 
 <h3>Mailers</h3>
@@ -499,14 +514,24 @@ pass-through and call the second one that will return the html page.</p>
 
 <p>This will generate the following files:</p>
 
-<p>config/mailer.yml
-spec/mailers/welcome_mailer_spec.cr
-src/mailers/welcome_mailer.cr
-src/views/layouts/mailer.slang
-src/views/mailers/welcome_mailer.slang</p>
+<ul><li>config/mailer.yml</li><li>spec/mailers/welcome_mailer_spec.cr</li><li>src/mailers/welcome_mailer.cr</li><li>src/views/layouts/mailer.slang</li><li>src/views/mailers/welcome_mailer.slang</li></ul></ul>
 
-<p>The mailer has the ability to set the from, to, cc, bcc, subject and body.
-You may use the <code>render</code> using your preferred templating language to create the body.</p>
+<p>The mailer has the ability to set the <code>from</code>, <code>to</code>, <code>cc</code>, <code>bcc</code>, <code>subject</code> and <code>body</code>.
+You may use the <code>render</code> helper to create the body of the email.</p>
+
+<pre><code class='language-crystal'><span class="k">class</span> <span class="t">WelcomeMailer</span> <span class="o"><</span> <span class="t">Kemalyst</span><span class="t">::</span><span class="t">Mailer</span>
+  <span class="k">def</span> <span class="m">initialize</span>
+    <span class="k">super</span>
+    from <span class="s">&quot;from&#64;example.com&quot;</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="m">deliver</span>(name: <span class="t">String</span>, email: <span class="t">String</span>)
+    to name: name, email: email
+    subject <span class="s">&quot;Welcome to Kemalyst&quot;</span>
+    body render(<span class="s">&quot;mailers/welcome_mailer.slang&quot;</span>, <span class="s">&quot;mailer.slang&quot;</span>)
+    <span class="k">super</span>()
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
 
 <p>To delivery a new email:</p>
 
@@ -523,27 +548,50 @@ mailer.deliver(name, email)</code></pre>
 
 <p>This will generate:</p>
 
-<p>config/sidekiq.cr
-docker-sidekiq.yml
-spec/jobs/spec_helper.cr
-spec/jobs/welcome_job_spec.cr
-src/jobs/welcome_job.cr
-src/sidekiq.cr</p>
+<ul><li>config/sidekiq.cr</li><li>docker-sidekiq.yml</li><li>spec/jobs/spec_helper.cr</li><li>spec/jobs/welcome_job_spec.cr</li><li>src/jobs/welcome_job.cr</li><li>src/sidekiq.cr</li></ul></ul>
 
-<p>The job will have a `perform(name, email) method where you would call the <code>mailer.deliver</code> code.  You will need to run the background service.  The <code>src/sidekiq.cr</code> is the sidekiq service that will spawn threads and start processing the jobs.  Sidekiq uses Redis to manage the queues.</p>
+<p>Jobs are using <code>sidekiq.cr</code> for handling the background process.  Sidekiq uses <code>redis</code> to handle the queues and spins up several fibers to handle processing each job from the queue.</p>
+
+<p>You will either need to install <code>redis</code> locally or you can use the <code>docker-sidekiq.yml</code> which is a pre-configured docker-compose file that will spin up the needed services.</p>
+
+<p>To install redis locally and start the service:</p>
 
 <pre><code class='language-sh'>brew install redis
-brew service redis start</code></pre>
+brew services start redis</code></pre>
 
-<p>To start the sidekiq service:</p>
+<p>Sidekiq is expecting two environment variables to be configured:</p>
 
-<pre><code class='language-sh'>crystal run src/sidekiq.cr</code></pre>
+<pre><code class='language-sh'>export REDIS_PROVIDER = REDIS_URL
+export REDIS_URL = redis://localhost:6379</code></pre>
 
-<p>or you can use:</p>
+<p>Then you can start and watch the sidekiq service using <code>kgen</code>:</p>
 
 <pre><code class='language-sh'>kgen sidekiq</code></pre>
 
 <p>This will watch for any changes to the jobs and recompile and launch sidekiq.</p>
+
+<p>Or you can compile and run the sidekiq.cr manually:</p>
+
+<pre><code class='language-sh'>crystal build --release src/sidekiq.cr
+./sidekiq</code></pre>
+
+<p>Here is an example background job that will deliver the email we created earlier:</p>
+
+<pre><code class='language-crystal'><span class="k">require</span> <span class="s">&quot;sidekiq&quot;</span>
+<span class="k">require</span> <span class="s">&quot;../mailers/welcome_job&quot;</span>
+
+<span class="k">class</span> <span class="t">WelcomeJob</span>
+  <span class="k">include</span> <span class="t">Sidekiq</span><span class="t">::</span><span class="t">Worker</span>
+
+  <span class="k">def</span> <span class="m">perform</span>(name : <span class="t">String</span>, email : <span class="t">String</span>)
+    mailer <span class="o">=</span> <span class="t">WelcomeMailer</span>.<span class="k">new</span>
+    mailer.deliver(name: name, email: email)
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
+
+<p>To execute the job, in your controller call:</p>
+
+<pre><code class='language-crystal'><span class="t">WelcomeJob</span>.async.perform(name, email)</code></pre>
 
 <h3>Validation</h3>
 
@@ -585,7 +633,7 @@ Application configuration <code>config/application.cr</code>:</p>
 
 <ul><li>First and foremost the <a href="https://github.com/crystal-lang/crystal/graphs/contributors" target="_blank">Crystal Team</a>.</li><li><a href="https://github.com/kemalcr/kemal" target="_blank">Kemal</a> Originally forked from here - <a href="https://github.com/sdogruyol" target="_blank">Serdar Dogruyol</a></li><li><a href="https://github.com/kemalcr/spec-kemal" target="_blank">spec-kemal</a> - Kemal Spec for easy testing  <a href="https://github.com/sdogruyol" target="_blank">Serdar Dogruyol</a></li></ul></ul>
 
-<ul><li><a href="https://github.com/jeromegn/kilt" target="_blank">Kilt</a> Rendering templates - <a href="https://github.com/jeromegn" target="_blank">Jerome Gravel-Niquet</a></li><li><a href="https://github.com/jeromegn/slang" target="_blank">Slang</a> Slim-inspired templating language - <a href="https://github.com/jeromegn" target="_blank">Jerome Gravel-Niquet</a></li><li><a href="https://github.com/luislavena/radix" target="_blank">Radix</a> Router is mostly copied from here - <a href="https://github.com/luislavena" target="_blank">Luis Lavena</a></li><li><a href="https://github.com/raydf/smtp.cr" target="_blank">smtp.cr</a> SMTP Client for mailers - <a href="https://github.com/raydf" target="_blank">Rayner De Los Santos F.</a></li><li><a href="https://github.com/crystal-lang/crystal-db" target="_blank">crystal-db</a> Common database driver - <a href="https://github.com/bcardiff" target="_blank">Brian J. Cardiff</a></li><li><a href="https://github.com/crystal-lang/crystal-sqlite" target="_blank">crystal-sqlite</a> Sqlite Driver - <a href="https://github.com/bcardiff" target="_blank">Brian J. Cardiff</a></li><li><a href="https://github.com/crystal-lang/crystal-mysql" target="_blank">crystal-mysql</a> Mysql Driver - <a href="https://github.com/bcardiff" target="_blank">Brian J. Cardiff</a></li><li><a href="https://github.com/will/crystal-pg" target="_blank">crystal-pg</a> Postgres Driver - <a href="https://github.com/will" target="_blank">Will Leinweber</a></li></ul></ul>
+<ul><li><a href="https://github.com/jeromegn/kilt" target="_blank">Kilt</a> Rendering templates - <a href="https://github.com/jeromegn" target="_blank">Jerome Gravel-Niquet</a></li><li><a href="https://github.com/jeromegn/slang" target="_blank">Slang</a> Slim-inspired templating language - <a href="https://github.com/jeromegn" target="_blank">Jerome Gravel-Niquet</a></li><li><a href="https://github.com/luislavena/radix" target="_blank">Radix</a> Router is mostly copied from here - <a href="https://github.com/luislavena" target="_blank">Luis Lavena</a></li><li><a href="https://github.com/raydf/smtp.cr" target="_blank">smtp.cr</a> SMTP Client for mailers - <a href="https://github.com/raydf" target="_blank">Rayner De Los Santos F.</a></li><li><a href="https://github.com/crystal-lang/crystal-db" target="_blank">crystal-db</a> Common database driver - <a href="https://github.com/bcardiff" target="_blank">Brian J. Cardiff</a></li><li><a href="https://github.com/crystal-lang/crystal-sqlite" target="_blank">crystal-sqlite</a> Sqlite Driver - <a href="https://github.com/bcardiff" target="_blank">Brian J. Cardiff</a></li><li><a href="https://github.com/crystal-lang/crystal-mysql" target="_blank">crystal-mysql</a> Mysql Driver - <a href="https://github.com/bcardiff" target="_blank">Brian J. Cardiff</a></li><li><a href="https://github.com/will/crystal-pg" target="_blank">crystal-pg</a> Postgres Driver - <a href="https://github.com/will" target="_blank">Will Leinweber</a></li><li><a href="https://github.com/mperham/sidekiq.cr" target="_blank">sidekiq.cr</a> Sidekiq - <a href="https://github.com/mperham" target="_blank">Mike Perham</a></li></ul></ul>
 
 <p>For Kemalyst Generator</p>
 
