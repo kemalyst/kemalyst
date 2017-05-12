@@ -107,8 +107,7 @@ If you don't want to use Sentry, you can compile and run manually:
 Another option is to run using Docker.  A `Dockerfile` and `docker-compose.yml` is provided. If
 you have docker setup, you can run:
 ```sh
-docker-compose up -d
-docker-compose logs -f
+docker-compose up
 ```
 Now visit the site:
 ```sh
@@ -499,6 +498,21 @@ To execute the job, in your controller call:
 ```crystal
 WelcomeJob.async.perform(name, email)
 ```
+#### docker-sidekiq.yml
+
+If you have docker installed, you can spin up all of the services needed with:
+```sh
+docker-compose -f docker-sidekiq.yml up
+```
+
+This will spin up the following containers:
+  - web: your web application using the command `kgen watch`
+  - sidekiq: sidekiq service using the command `kgen sidekiq`
+  - migrate: runs the migration scripts using the command `kgen migrate up`
+  - sidekiqweb: web interface to manage the sidekiq queues at http://localhost:3001
+  - mail: mail catcher smtp service on port 1025. You can view the email at http://localhost:1080
+  - redis: runs a redis instance version 3.2 on port 6379
+  - db: Mysql on port 3306 or Postgres on port 5432.  Sqlite doesn't need a db since it file based.
 
 ### Validation
 
