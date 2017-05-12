@@ -6,26 +6,26 @@
 
 Kemalyst is a yarlf (yet another rails like framework) that is based on on
 super fast [kemal](https://github.com/sdogruyol/kemal). The framework
-leverages the http handlers which are similar to Rack middleware.
+leverages http handlers which are similar to Rack middleware.
 
-The router and controllers are an extension of the same middleware so you can
-chain any compatible HTTP::Handler before or after the routing handler so you
-can limit a particular handler to a sub-tree of your routes.
+Kemalyst follows the MVC pattern:
+  - M - the models are a simple ORM mapping and supports MySQL, PG and SQLite.
+  - V - the views are handled using [kilt](https://github.com/jeromegn/kilt) which support ECR (Erb like), SLang (Slim like), Crustache (Mustache like) or Temel (not sure what it's like).
+  - C - the controllers are http handlers that continue the chain of handlers after the routing takes place.
 
-The model is a simple ORM mapping and supports MySQL, PG and SQLite.
-
-The views are handled using [kilt](https://github.com/jeromegn/kilt) and several macros to simplify
-development.
+Kemalyst also comes with a command line tool similar to Rails called `kgen` to help you get started quickly.
 
 ## Installation
 
+### Brew
 1. Install Crystal
 
-You can find instructions on how to install Crystal from [Crystal's Website](http://crystal-lang.org).
+```sh
+brew update
+brew install crystal-lang
+```
 
 2. Install Kemalyst Generator
-
-[Kemalyst Generator](https://github.com/TechMagister/kemalyst-generator) is a command line tool similar to `rails`.
 
 ```sh
 brew tap drujensen/kgen
@@ -34,19 +34,22 @@ brew install kgen
 
 3. Initialize a new Kemalyst App using `kgen`
 ```sh
-kgen init app [your_app] -d [pg | mysql | sqlite] -t [slang | ecr] --deps
+kgen init app [your_app]
 cd [your_app]
 ```
-options: `-d` defaults to pg. `-t` defaults to slang. `--deps` will run `crystal deps` for you.
+There are several options:
+-d [pg | mysql | sqlite] - defaults to pg
+-t [slang | ecr] - defaults to slang
+--deps - install dependencies.  Same as running `shards install`
 
 This will generate a traditional web application:
- - /config - Application and HTTP::Handler config's goes here.  The database.yml and routes.cr are here.
- - /lib - shards are installed here.
- - /public - Default location for html/css/js files.  The static handler points to this directory.
+ - /config - The `database.yml` and `routes.cr` are here.
+ - /lib - shards (similar to gems in rails) are installed here.
+ - /public - Default location for html/css/js files.
  - /spec - all the crystal specs go here.
  - /src - all the source code goes here.
 
-## Usage
+## Generators
 
 Generate scaffolding for a resource:
 ```sh
@@ -64,10 +67,10 @@ This will generate scaffolding for a Post:
  - appends navigation to src/layouts/_nav.slang
 
 ### Run Locally
-To test the demo app locally:
+To test the app locally:
 
-1. Create a new Postgres database called `[your_app]`
-2. Run `export DATABASE_URL=postgres://[username]:[password]@localhost:5432/[your_app]` which exposes the database url to `config/database.yml`.
+1. Create a new database called `[your_app]` in the db you chose.
+2. Run `export DATABASE_URL=postgres://[username]:[password]@localhost:5432/[your_app]`or update the database url in `config/database.yml`.
 3. Migrate the database: `kgen migrate up`. You should see output like `
 Migrating db, current version: 0, target: [datetimestamp]
 OK   [datetimestamp]_create_shop.sql`
@@ -89,11 +92,9 @@ If you don't want to use Sentry, you can compile and run manually:
 Another option is to run using Docker.  A `Dockerfile` and `docker-compose.yml` is provided. If
 you have docker setup, you should be able to run:
 ```sh
-docker-compose build
 docker-compose up -d
 docker-compose logs -f
 ```
-
 Now you should be able to hit the site:
 ```sh
 open "http://localhost:3000"
@@ -103,52 +104,11 @@ Docker Compose is running [Sentry](https://github.com/samueleaton/sentry) so
 any changes to your `/src` or `/config` will re-build and run your
 application.
 
-### Sample Applications
-
-Several sample applications are provided:
-
- - [Blog Kemalyst](https://github.com/drujensen/blog-kemalyst)
- - [Chat Kemalyst](https://github.com/drujensen/chat-kemalyst)
- - [ToDo Backend Kemalyst](https://github.com/drujensen/todo-backend-kemalyst)
-
 ### Configure App
 
 All config settings are in the `/config` folder.  Each handler has its own
-settings.  You will find the `database.yml` and `routes.cr` here. Checkout
-the samples that demonstrates a traditional blog site and a websocket chat
-app.
+settings.  You will find the `database.yml` and `routes.cr` here.
 
-### Middleware HTTP::Handlers
-
-There are 8 handlers that are pre-configured for Kemalyst:
- - Logger - Logs all requests/responses to the logger configured.
- - Error - Handles any Exceptions and renders a response.
- - Static - Delivers any static assets from the `./public` folder.
- - Session - Provides a Cookie Session hash that can be accessed from the `context.session["key"]`
- - Flash - Provides flash message hash that can be accessed from the `context.flash["danger"]`
- - Params - Unifies the parameters into `context.params["key"]`
- - CSRF - Helps prevent Cross Site Request Forgery.
- - Router - Routes requests to other handlers based on the method and path.
-
-Other handlers available for Kemalyst:
- - CORS - Handles Cross Origin Resource Sharing.
- - BasicAuth - Provides Basic Authentication.
-
-You may want to add, replace or remove handlers based on your situation.  You can do that in the
-Application configuration `config/application.cr`:
-
-```crystal
-Kemalyst::Application.config do |config|
-  # handlers will be chained in the order provided
-  config.handlers = [
-    Kemalyst::Handler::Logger.instance,
-    Kemalyst::Handler::Error.instance,
-    Kemalyst::Handler::Params.instance,
-    Kemalyst::Handler::CORS.instance,
-    Kemalyst::Handler::Router.instance
-  ]
-end
-```
 
 ### Router
 
@@ -410,6 +370,66 @@ pass-through and call the second one that will return the html page.
 To see a full example application, checkout
 [Chat Kemalyst](https://github.com/drujensen/chat-kemalyst)
 
+### Mailers
+
+Kemalyst provides the ability to generate mailers:
+```sh
+kgen g mailer Welcome email:string name:string
+```
+
+This will generate the following files:
+
+config/mailer.yml
+spec/mailers/welcome_mailer_spec.cr
+src/mailers/welcome_mailer.cr
+src/views/layouts/mailer.slang
+src/views/mailers/welcome_mailer.slang
+
+The mailer has the ability to set the from, to, cc, bcc, subject and body.
+You may use the `render` using your preferred templating language to create the body.
+
+To delivery a new email:
+```crystal
+mailer = WelcomeMailer.new
+mailer.deliver(name, email)
+```
+
+You can deliver this in the controller but most agree this should be done in a background job.
+
+### Jobs
+
+Kemalyst provides a generator for with integration user sidekiq.cr for background jobs:
+```sh
+kgen g job Welcome name:string email:string
+```
+
+This will generate:
+
+config/sidekiq.cr
+docker-sidekiq.yml
+spec/jobs/spec_helper.cr
+spec/jobs/welcome_job_spec.cr
+src/jobs/welcome_job.cr
+src/sidekiq.cr
+
+The job will have a `perform(name, email) method where you would call the `mailer.deliver` code.  You will need to run the background service.  The `src/sidekiq.cr` is the sidekiq service that will spawn threads and start processing the jobs.  Sidekiq uses Redis to manage the queues.
+
+```sh
+brew install redis
+brew service redis start
+```
+
+To start the sidekiq service:
+```sh
+crystal run src/sidekiq.cr
+```
+or you can use:
+```sh
+kgen sidekiq
+```
+
+This will watch for any changes to the jobs and recompile and launch sidekiq.
+
 ### Validation
 
 Another Library included with Kemalyst is validation of your models.
@@ -419,6 +439,38 @@ You can find more details at [Kemalyst Validators](https://github.com/drujensen/
 
 [TechMagister](https://github.com/TechMagister) has created a HTTP::Handler that will integrate his i18n library.
 You can find more details at [Kemalyst i18n](https://github.com/TechMagister/kemalyst-i18n)
+
+### Middleware HTTP::Handlers
+
+There are 8 handlers that are pre-configured for Kemalyst.  This is similar in architecture to Rack Middleware:
+ - Logger - Logs all requests/responses to the logger configured.
+ - Error - Handles any Exceptions and renders a response.
+ - Static - Delivers any static assets from the `./public` folder.
+ - Session - Provides a Cookie Session hash that can be accessed from the `context.session["key"]`
+ - Flash - Provides flash message hash that can be accessed from the `context.flash["danger"]`
+ - Params - Unifies the parameters into `context.params["key"]`
+ - CSRF - Helps prevent Cross Site Request Forgery.
+ - Router - Routes requests to other handlers based on the method and path.
+
+Other handlers available for Kemalyst:
+ - CORS - Handles Cross Origin Resource Sharing.
+ - BasicAuth - Provides Basic Authentication.
+
+You may want to add, replace or remove handlers based on your situation.  You can do that in the
+Application configuration `config/application.cr`:
+
+```crystal
+Kemalyst::Application.config do |config|
+  # handlers will be chained in the order provided
+  config.handlers = [
+    Kemalyst::Handler::Logger.instance,
+    Kemalyst::Handler::Error.instance,
+    Kemalyst::Handler::Params.instance,
+    Kemalyst::Handler::CORS.instance,
+    Kemalyst::Handler::Router.instance
+  ]
+end
+```
 
 ## Acknowledgement
 

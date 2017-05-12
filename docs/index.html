@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta id="repository-name" content="github.com/drujensen/kemalyst">
@@ -19,6 +19,16 @@
   </ul>
 
   <ul>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/ActionHelper" data-name="actionhelper">
+      <a href="ActionHelper.html">ActionHelper</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/FileUpload" data-name="fileupload">
+      <a href="FileUpload.html">FileUpload</a>
+      
+    </li>
   
   <li class="parent " data-id="github.com/drujensen/kemalyst/Kemalyst" data-name="kemalyst">
       <a href="Kemalyst.html">Kemalyst</a>
@@ -130,6 +140,11 @@
       
     </li>
   
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Mailer" data-name="kemalyst::mailer">
+      <a href="Kemalyst/Mailer.html">Mailer</a>
+      
+    </li>
+  
   <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/WebSocket" data-name="kemalyst::websocket">
       <a href="Kemalyst/WebSocket.html">WebSocket</a>
       
@@ -153,416 +168,436 @@
 
 <p>Kemalyst is a yarlf (yet another rails like framework) that is based on on
 super fast <a href="https://github.com/sdogruyol/kemal" target="_blank">kemal</a>. The framework
-leverages the http handlers which are similar to Rack middleware.</p>
+leverages http handlers which are similar to Rack middleware.</p>
 
-<p>The router and controllers are an extension of the same middleware so you can
-chain any compatible HTTP::Handler before or after the routing handler so you
-can limit a particular handler to a sub-tree of your routes.</p>
+<p>Kemalyst follows the MVC pattern:</p>
 
-<p>The model is a simple ORM mapping and supports MySQL, PG and SQLite.</p>
+<ul><li>M - the models are a simple ORM mapping and supports MySQL, PG and SQLite.</li><li>V - the views are handled using <a href="https://github.com/jeromegn/kilt" target="_blank">kilt</a> which support ECR (Erb like), SLang (Slim like), Crustache (Mustache like) or Temel (not sure what it's like).</li><li>C - the controllers are http handlers that continue the chain of handlers after the routing takes place.</li></ul></ul>
 
-<p>The views are handled using <a href="https://github.com/jeromegn/kilt" target="_blank">kilt</a> and several macros to simplify
-development.</p>
+<p>Kemalyst also comes with a command line tool similar to Rails called <code>kgen</code> to help you get started quickly.</p>
 
 <h2>Installation</h2>
 
+<h3>Brew</h3>
+
 <ol><li>Install Crystal</li></ol>
 
-<p>You can find instructions on how to install Crystal from <a href="http://crystal-lang.org" target="_blank">Crystal's Website</a>.</p>
+<pre><code class='language-sh'>brew update
+brew install crystal-lang</code></pre>
 
 <ol><li>Install Kemalyst Generator</li></ol>
 
-<p><a href="https://github.com/TechMagister/kemalyst-generator" target="_blank">Kemalyst Generator</a> is a command line tool similar to <code>rails</code>.</p>
-
-<pre><code>brew tap drujensen<span class="s">/kgen
+<pre><code class='language-sh'>brew tap drujensen/kgen
 brew install kgen</code></pre>
 
 <ol><li>Initialize a new Kemalyst App using <code>kgen</code></li></ol>
 
-<pre><code class='language-kgen init app [your_app]
-cd [your_app]
-shards update'>```
-This will generate a traditional web application:
- - /config - Application and HTTP::Handler config's goes here.  The database.yml and routes.cr are here.
- - /db - holds the `migrate.cr` script and any other db related artifacts.
- - /lib - shards are installed here.
- - /public - Default location for html/css/js files.  The static handler points to this directory.
- - /spec - all the crystal specs go here.
- - /src - all the source code goes here.
+<pre><code class='language-sh'>kgen init app [your_app]
+cd [your_app]</code></pre>
 
-## Usage
+<p>There are several options:
+-d [pg | mysql | sqlite] - defaults to pg
+-t [slang | ecr] - defaults to slang
+--deps - install dependencies.  Same as running <code>shards install</code></p>
 
-Generate scaffolding for a resource:</code></pre>
+<p>This will generate a traditional web application:</p>
 
-<p>kgen generate scaffold Post name:string description:text</p>
+<ul><li>/config - The <code>database.yml</code> and <code>routes.cr</code> are here.</li><li>/lib - shards (similar to gems in rails) are installed here.</li><li>/public - Default location for html/css/js files.</li><li>/spec - all the crystal specs go here.</li><li>/src - all the source code goes here.</li></ul>
 
-<pre><code>
-<span class="t">This</span> will generate scaffolding <span class="k">for</span> a <span class="t">Post</span>:
- <span class="o">-</span> src<span class="s">/controllers/</span>post_controller.cr
- <span class="o">-</span> src<span class="s">/models/</span>post.cr
- <span class="o">-</span> src<span class="s">/views/</span>post<span class="s">/*
- - spec/</span>controllers<span class="s">/post_controller_spec.cr
- - spec/</span>models<span class="s">/post_spec.cr
- - appends route to config/</span>routes.cr
- <span class="o">-</span> appends migration to db<span class="s">/migrate.cr
- - appends navigation to src/</span>layouts<span class="s">/_nav.slang
+<h2>Generators</h2>
 
-### Run Locally
-To test the demo app locally:
+<p>Generate scaffolding for a resource:</p>
 
-1. create a postgres database called &#96;&#91;your_app&#93;&#96;
-2. run &#96;export DATABASE_URL&#61;postgres:/</span><span class="s">/&#91;username&#93;:&#91;password&#93;&#64;localhost:5432/</span>[your_app]<span class="s">&#96;
-3. migrate the database: &#96;</span>crystal db<span class="s">/migrate.cr&#96;
-4. run the specs: &#96;crystal spec&#96;
+<pre><code class='language-sh'>kgen generate scaffold Post name:string body:text draft:bool</code></pre>
 
-To run the demo app locally:
+<p>This will generate scaffolding for a Post:</p>
 
-1. build the app &#96;crystal build --release src/</span>app.cr<span class="s">&#96;
-2. run with &#96;</span>.<span class="s">/app&#96;
-3. visit &#96;http:/</span><span class="s">/0.0.0.0:3000/</span><span class="s">&#96;
+<ul><li>src/controllers/post_controller.cr</li><li>src/models/post.cr</li><li>src/views/post/*</li><li>db/migrations/[datetimestamp]_create_post.sql</li><li>spec/controllers/post_controller_spec.cr</li><li>spec/models/post_spec.cr</li><li>appends route to config/routes.cr</li><li>appends navigation to src/layouts/_nav.slang</li></ul>
 
-### Sentry
+<h3>Run Locally</h3>
 
-Kgen has the ability to watch for changes to your source files and recompiling them:</code></pre>
+<p>To test the app locally:</p>
 
-<p>kgen watch</p>
+<ol><li>Create a new database called <code>[your_app]</code> in the db you chose.</li><li>Run <code>export DATABASE_URL=postgres://[username]:[password]@localhost:5432/[your_app]</code>or update the database url in <code>config/database.yml</code>.</li><li>Migrate the database: <code>kgen migrate up</code>. You should see output like <code>
+Migrating db, current version: 0, target: [datetimestamp]
+OK   [datetimestamp]_create_shop.sql</code></li><li>Run the specs: <code>crystal spec</code></li><li>Start your app: <code>kgen watch</code></li><li>Then visit <code>http://0.0.0.0:3000</code></li></ol>
 
-<pre><code>
-<span class="c">### Run with Docker</span>
+<p>Note: The <code>kgen watch</code> command uses <a href="https://github.com/samueleaton/sentry" target="_blank">Sentry</a> to watch for any changes in your source files, recompiling automatically.</p>
 
-<span class="t">Another</span> option is to run using <span class="t">Docker</span>.  <span class="t">A</span> <span class="s">&#96;Dockerfile&#96;</span> and <span class="s">&#96;docker-compose.yml&#96;</span> is provided. <span class="t">If</span>
-you have docker setup, you should be able to run:</code></pre>
+<p>If you don't want to use Sentry, you can compile and run manually:</p>
 
-<p>docker-compose build
-docker-compose up -d
-docker-compose logs -f</p>
+<ol><li>Build the app <code>crystal build --release src/[your_app].cr</code></li><li>Run with <code>./[your_app]</code></li><li>Visit <code>http://0.0.0.0:3000</code></li></ol>
 
-<pre><code>
-<span class="t">Now</span> you should be able to hit the site:</code></pre>
+<h3>Run with Docker</h3>
 
-<p>open "http://localhost"</p>
+<p>Another option is to run using Docker.  A <code>Dockerfile</code> and <code>docker-compose.yml</code> is provided. If
+you have docker setup, you should be able to run:</p>
 
-<pre><code>
-<span class="t">Docker</span> <span class="t">Compose</span> is running [<span class="t">Sentry</span>](https<span class="n">:/</span><span class="s">/github.com/</span>samueleaton<span class="s">/sentry&#41; so
-any changes to your &#96;/</span>src<span class="s">&#96; or &#96;</span><span class="s">/config&#96; will re-build and run your
-application.
+<pre><code class='language-sh'>docker-compose up -d
+docker-compose logs -f</code></pre>
 
-### Cookie Session
-You will need to set a secret for the session.  Run the following
-command:</code></pre>
+<p>Now you should be able to hit the site:</p>
 
-<p>crystal eval "require \"secure_random\"; puts SecureRandom.hex(64)"</p>
+<pre><code class='language-sh'>open "http://localhost:3000"</code></pre>
 
-<pre><code>copy the secret and set this <span class="k">in</span> <span class="s">&#96;config/session.cr&#96;</span>.
+<p>Docker Compose is running <a href="https://github.com/samueleaton/sentry" target="_blank">Sentry</a> so
+any changes to your <code>/src</code> or <code>/config</code> will re-build and run your
+application.</p>
 
-<span class="c">### Sample Applications</span>
+<h3>Configure App</h3>
 
-<span class="t">Several</span> sample applications are provided:
+<p>All config settings are in the <code>/config</code> folder.  Each handler has its own
+settings.  You will find the <code>database.yml</code> and <code>routes.cr</code> here.</p>
 
- <span class="o">-</span> [<span class="t">Blog</span> <span class="t">Kemalyst</span>](https<span class="n">:/</span><span class="s">/github.com/</span>drujensen<span class="s">/blog-kemalyst&#41;
- - &#91;Chat Kemalyst&#93;&#40;https:/</span><span class="s">/github.com/</span>drujensen<span class="s">/chat-kemalyst&#41;
- - &#91;ToDo Backend Kemalyst&#93;&#40;https:/</span><span class="s">/github.com/</span>drujensen<span class="s">/todo-backend-kemalyst&#41;
+<h3>Router</h3>
 
-### Configure App
+<p>The router will perform a lookup based on the method and path and return the
+chain of handlers you specify in the <code>/config/routes.cr</code> file.</p>
 
-All config settings are in the &#96;/</span>config<span class="s">&#96; folder.  Each handler has its own
-settings.  You will find the &#96;</span>database.yml<span class="s">&#96; and &#96;</span>routes.cr<span class="s">&#96; here. Checkout
-the samples that demonstrates a traditional blog site and a websocket chat
-app.
+<p>You can use any of the following methods: <code>get, post, put, patch, delete, all</code></p>
 
-### Middleware HTTP::Handlers
+<p>An example of a route would be:</p>
 
-There are 7 handlers that are pre-configured for Kemalyst:
- - Logger - Logs all requests/responses to the logger configured.
- - Error - Handles any Exceptions and renders a response.
- - Static - Delivers any static assets from the &#96;</span>.<span class="s">/public&#96; folder.
- - Session - Provides a Cookie Session hash that can be accessed from the &#96;context.session&#91;&quot;key&quot;&#93;&#96;
- - Flash - Provides flash message hash that can be accessed from the &#96;context.flash&#91;&quot;danger&quot;&#93;&#96;
- - Params - Unifies the parameters into &#96;context.params&#91;&quot;key&quot;&#93;&#96;
- - Router - Routes requests to other handlers based on the method and path.
+<pre><code class='language-crystal'>get <span class="s">&quot;/&quot;</span>,   <span class="t">DemoController</span><span class="t">::</span><span class="t">Index</span></code></pre>
 
-Other handlers available for Kemalyst:
- - BasicAuth - Provides Basic Authentication.
- - CORS - Handles Cross Origin Resource Sharing.
- - CSRF - Helps prevent Cross Site Request Forgery.
+<p>You may chain multiple handlers in a route using an array:</p>
 
-You may want to add, replace or remove handlers based on your situation.  You can do that in the
-Application configuration &#96;config/</span>application.cr<span class="s">&#96;:
-</code></pre>
+<pre><code class='language-crystal'>get <span class="s">&quot;/&quot;</span>, [ <span class="t">BasicAuth</span>.instance(<span class="s">&quot;username&quot;</span>, <span class="s">&quot;password&quot;</span>),
+           <span class="t">DemoController</span><span class="t">::</span><span class="t">Index</span>.instance ]</code></pre>
 
-<p>Kemalyst::Application.config do |config|
-  # handlers will be chained in the order provided
-  config.handlers = [</p>
+<p>or add them individually in the correct order:</p>
 
-<pre><code><span class="t">Kemalyst</span><span class="t">::</span><span class="t">Handler</span><span class="t">::</span><span class="t">Logger</span>.instance,
-<span class="t">Kemalyst</span><span class="t">::</span><span class="t">Handler</span><span class="t">::</span><span class="t">Error</span>.instance,
-<span class="t">Kemalyst</span><span class="t">::</span><span class="t">Handler</span><span class="t">::</span><span class="t">Params</span>.instance,
-<span class="t">Kemalyst</span><span class="t">::</span><span class="t">Handler</span><span class="t">::</span><span class="t">CORS</span>.instance,
-<span class="t">Kemalyst</span><span class="t">::</span><span class="t">Handler</span><span class="t">::</span><span class="t">Router</span>.instance</code></pre>
+<pre><code class='language-crystal'>get <span class="s">&quot;/&quot;</span>, <span class="t">BasicAuth</span>.instance(<span class="s">&quot;username&quot;</span>, <span class="s">&quot;password&quot;</span>)
+get <span class="s">&quot;/&quot;</span>, <span class="t">DemoController</span><span class="t">::</span><span class="t">Index</span>.instance</code></pre>
 
-<p>]
-end</p>
+<p>This is how you would configure a WebSocket Controller:</p>
 
-<pre><code>
-<span class="c">### Router</span>
+<pre><code class='language-crystal'>get <span class="s">&quot;/&quot;</span>, <span class="t">ChatController</span><span class="t">::</span><span class="t">Chat</span>
+get <span class="s">&quot;/&quot;</span>, <span class="t">ChatController</span><span class="t">::</span><span class="t">Index</span></code></pre>
 
-<span class="t">The</span> router will perform a lookup based on the method and path and <span class="k">return</span> the
-chain <span class="k">of</span> handlers you specify <span class="k">in</span> the <span class="s">&#96;/config/routes.cr&#96;</span> file.
+<p>See below for more information on how to create a WebSocket Handler.</p>
 
-<span class="t">An</span> example <span class="k">of</span> a route would be:</code></pre>
+<p>You can use <code>:variable</code> in the path and it will set a
+context.params["variable"] to the value in the url.</p>
 
-<p>get "/",   DemoController::Index</p>
+<pre><code class='language-crystal'>get    <span class="s">&quot;/posts/:id&quot;</span>, <span class="t">DemoController</span><span class="t">::</span><span class="t">Show</span></code></pre>
 
-<pre><code>
-<span class="t">You</span> may chain multiple handlers <span class="k">in</span> a route using an array:</code></pre>
+<h3>Controllers</h3>
 
-<p>get "/", [ BasicAuth.instance("username", "password"),</p>
+<p>The Controller inherits from HTTP::Handler which is the middleware similar to
+Rack's middleware.  The handlers are chained together in a linked-list and
+each will perform some action against the HTTP::Server::Context and then call
+the next handler in the chain.  The router will continue this chain for a
+specific route.  The final handler should return the generated response that will be
+returned as the body and then the chain will unwind and perform post handling.</p>
 
-<pre><code>       <span class="t">DemoController</span><span class="t">::</span><span class="t">Index</span>.instance ]</code></pre>
+<p>An example of a controller:</p>
 
-<pre><code>or add them individually <span class="k">in</span> the correct order:</code></pre>
+<pre><code class='language-crystal'><span class="k">require</span> <span class="s">&quot;../models/post&quot;</span>
 
-<p>get "/", BasicAuth.instance("username", "password")
-get "/", DemoController::Index.instance</p>
+<span class="k">module</span> <span class="t">Post</span>
+  <span class="k">include</span> <span class="t">ActionHelper</span> <span class="c">#adds in helper method &quot;action&quot;</span>
 
-<pre><code>
-<span class="t">This</span> is how you would configure a <span class="t">WebSocket</span> <span class="t">Controller</span>:</code></pre>
-
-<p>get "/", ChatController::Chat
-get "/", ChatController::Index</p>
-
-<pre><code>
-<span class="t">See</span> below <span class="k">for</span> more information on how to create a <span class="t">WebSocket</span> <span class="t">Handler</span>.
-
-<span class="t">You</span> can use any <span class="k">of</span> the following methods: <span class="s">&#96;get, post, put, patch, delete, all&#96;</span>
-
-<span class="t">You</span> can use a <span class="s">&#96;*&#96;</span> to chain a handler <span class="k">for</span> all children <span class="k">of</span> this path:</code></pre>
-
-<p>all    "/posts/*",   BasicAuth.instance("admin", "password")</p>
-
-<h1>all of these will be secured with the BasicAuth handler.</h1>
-
-<p>get    "/posts/:id", DemoController::Show
-put    "/posts/:id", DemoController::Update
-delete "/posts/:id", DemoController::Delete</p>
-
-<pre><code>
-<span class="t">You</span> can enable <span class="t">CSRF</span> protection <span class="k">for</span> all <span class="s">&#96;post&#96;</span> and <span class="s">&#96;put&#96;</span> calls:</code></pre>
-
-<p>post "/<em>",   CSRF
-put  "/</em>",   CSRF</p>
-
-<pre><code>
-<span class="t">Then</span> <span class="k">in</span> your forms, add the <span class="s">&#96;csrf_tag&#96;</span> using the helper method:</code></pre>
-
-<p>&lt;form action="/demos/&lt;%= demo.id %>" method="post">
-  &lt;%= csrf_tag(context) %>
-  ...
-&lt;/form></p>
-
-<pre><code>
-<span class="t">You</span> can use <span class="s">&#96;:variable&#96;</span> <span class="k">in</span> the path and it will set a
-context.params[<span class="s">&quot;variable&quot;</span>] to the value <span class="k">in</span> the url.
-
-<span class="c">### Controllers</span>
-
-<span class="t">The</span> <span class="t">Controller</span> inherits from <span class="t">HTTP</span><span class="t">::</span><span class="t">Handler</span> which is the middleware similar to
-<span class="t">Rack</span></code></pre>
-
-<p>require "../models/post"</p>
-
-<p>class Index &lt; Kemalyst::Controller
-  def call(context)</p>
-
-<pre><code>posts <span class="o">=</span> <span class="t">Post</span>.all(<span class="s">&quot;ORDER BY created_at DESC&quot;</span>)
-render <span class="s">&quot;post/index.ecr&quot;</span>, <span class="s">&quot;main.ecr&quot;</span></code></pre>
-
-<p>end
-end</p>
-
-<pre><code>
-<span class="t">There</span> are several helper macros that set content <span class="k">type</span> and response.</code></pre>
-
-<p>render   "filename.ecr"               # renders an .ecr template
-  render   "filename.ecr", "layout.ecr" # renders an .ecr template with layout
-  redirect "path"                       # redirect to path
-  text     "body", 200                  # render text/plain with status code of 200
-  json     "{}".to_json, 200            # render application/json with status code of 200
-  html     "&lt;html>&lt;/html>", 200         # render text/html with status code of 200</p>
-
-<pre><code>
-<span class="c">### WebSocket Controllers</span>
-
-<span class="t">The</span> <span class="t">WebSocket</span> <span class="t">Controller</span> will handle upgrading a <span class="t">HTTP</span> <span class="t">Request</span> to a <span class="t">WebSocket</span>
-<span class="t">Connection</span>.
-
-<span class="t">An</span> example <span class="t">WebSocket</span> <span class="t">Controller</span>:</code></pre>
-
-<p>class Chat &lt; Kemalyst::WebSocket
-  @sockets = [] of HTTP::WebSocket
-  @messages = [] of String</p>
-
-<p>def call(socket : HTTP::WebSocket)</p>
-
-<pre><code>@sockets.push socket
-socket.on_message <span class="k">do</span> <span class="o">|</span>message<span class="o">|</span>
-  @messages.push message
-  @sockets.each <span class="k">do</span> <span class="o">|</span>a_socket<span class="o">|</span>
-    a_socket.send @messages.to_json
+  action <span class="t">Index</span> <span class="k">do</span>
+    posts <span class="o">=</span> <span class="t">Post</span>.all(<span class="s">&quot;ORDER BY created_at DESC&quot;</span>)
+    html render(<span class="s">&quot;post/index.ecr&quot;</span>, <span class="s">&quot;main.ecr&quot;</span>)
   <span class="k">end</span>
 <span class="k">end</span></code></pre>
 
-<p>end
-end</p>
+<p>Note: The above is shorthand for this:</p>
 
-<pre><code>
-<span class="t">The</span> <span class="s">&#96;Chat&#96;</span> <span class="k">class</span> will override the <span class="s">&#96;call&#96;</span> method that is expecting an
-<span class="s">&#96;HTTP::WebSocket&#96;</span> to be passed which it would maintain and properly handle
-messages to and from each socket.
+<pre><code class='language-crystal'><span class="k">require</span> <span class="s">&quot;../models/post&quot;</span>
 
-<span class="t">This</span> <span class="k">class</span> will manage an array <span class="k">of</span> <span class="s">&#96;HTTP::Websocket&#96;</span>s and configures the
-<span class="s">&#96;on_message&#96;</span> callback that will manage the messages that will be <span class="k">then</span> be
-passed on to all <span class="k">of</span> the other sockets.
+<span class="k">class</span> <span class="t">Index</span> <span class="o"><</span> <span class="t">Kemalyst</span><span class="t">::</span><span class="t">Controller</span>
+  <span class="k">def</span> <span class="m">call</span>(context)
+    posts <span class="o">=</span> <span class="t">Post</span>.all(<span class="s">&quot;ORDER BY created_at DESC&quot;</span>)
+    html render(<span class="s">&quot;post/index.ecr&quot;</span>, <span class="s">&quot;main.ecr&quot;</span>)
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
 
-<span class="t">It</span></code></pre>
+<p>There are several helper macros that set content type and response.</p>
 
-<p>get "/", ChatController::Chat
-get "/", ChatController::Index</p>
+<pre><code class='language-crystal'>  render   <span class="s">&quot;filename.ecr&quot;</span>               <span class="c"># renders an .ecr template</span>
+  render   <span class="s">&quot;filename.ecr&quot;</span>, <span class="s">&quot;layout.ecr&quot;</span> <span class="c"># renders an .ecr template with layout</span>
+  redirect <span class="s">&quot;path&quot;</span>                       <span class="c"># redirect to path</span>
+  text     <span class="s">&quot;body&quot;</span>, <span class="n">200</span>                  <span class="c"># render text/plain with status code of 200</span>
+  json     <span class="s">&quot;&#123;&#125;&quot;</span>.to_json, <span class="n">200</span>            <span class="c"># render application/json with status code of 200</span>
+  xml      <span class="s">&quot;&#123;&#125;&quot;</span>.to_xml, <span class="n">200</span>            <span class="c"># render application/xml with status code of 200</span>
+  html     <span class="s">&quot;&lt;html&gt;&lt;/html&gt;&quot;</span>, <span class="n">200</span>         <span class="c"># render text/html with status code of 200</span></code></pre>
 
-<pre><code><span class="t">The</span> first one is a <span class="t">WebSocket</span> <span class="t">Controller</span> and the second is a standard
-<span class="t">Controller</span>.  <span class="t">If</span> the request is not a <span class="t">WebSocket</span> upgrade request, it will
-pass<span class="o">-</span>through and call the second one that will <span class="k">return</span> the html page.
+<p>You can use the rendering engine to generate <code>html</code>, <code>json</code>, <code>xml</code> or <code>text</code>:</p>
 
+<pre><code class='language-crystal'><span class="k">require</span> <span class="s">&quot;../models/post&quot;</span>
 
-<span class="t">To</span> see a full example application, checkout
-[<span class="t">Chat</span> <span class="t">Kemalyst</span>](https<span class="n">:/</span><span class="s">/github.com/</span>drujensen<span class="s">/chat-kemalyst&#41;
+<span class="k">class</span> <span class="t">Index</span> <span class="o"><</span> <span class="t">Kemalyst</span><span class="t">::</span><span class="t">Controller</span>
+  <span class="k">def</span> <span class="m">call</span>(context)
+    posts <span class="o">=</span> <span class="t">Post</span>.all(<span class="s">&quot;ORDER BY created_at DESC&quot;</span>)
+    json render(<span class="s">&quot;post/index.json.ecr&quot;</span>)
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
 
-### Views
+<h3>Views</h3>
 
-Views are rendered using &#91;Kilt&#93;&#40;http:/</span><span class="s">/github.com/</span>jeromegn<span class="s">/kilt&#41;.  Currently,
-there are 4 different templating languages supported by Kilt: &#96;ecr&#96;, &#96;mustache&#96;,
-&#96;slang&#96; and &#96;temel&#96;.  Kilt will select the templating engine based on the
-extension of the file so &#96;index.ecr&#96; will render the file using the ECR
-engine.
+<p>Views are rendered using <a href="http://github.com/jeromegn/kilt" target="_blank">Kilt</a>.  Currently,
+there are 4 different templating languages supported by Kilt: <code>ecr</code>, <code>mustache</code>,
+<code>slang</code> and <code>temel</code>.  Kilt will select the templating engine based on the
+extension of the file so <code>index.ecr</code> will render the file using the ECR
+engine.</p>
 
-
-The render method is configured to look in the &quot;src/</span>views<span class="s">&quot; path to keep the
+<p>The render method is configured to look in the "src/views" path to keep the
 controllers simple.  You may also render with a layout which will look for
-this in the &quot;</span>src<span class="s">/views/</span>layouts<span class="s">&quot; directory.
-</code></pre>
+this in the "src/views/layouts" directory.</p>
 
-<p>render "post/index.ecr", "main.ecr"</p>
+<pre><code class='language-crystal'>html render <span class="s">&quot;post/index.ecr&quot;</span>, <span class="s">&quot;main.ecr&quot;</span></code></pre>
 
-<pre><code><span class="t">This</span> will render the index.ecr template inside the main.ecr layout. <span class="t">All</span> local
-variables assigned <span class="k">in</span> the controller are available <span class="k">in</span> the templates.
+<p>This will render the index.ecr template inside the main.ecr layout. All local
+variables assigned in the controller are available in the templates.</p>
 
-<span class="t">An</span> example <span class="s">&#96;views/post/index.ecr&#96;</span>:</code></pre>
+<p>An example <code>views/post/index.ecr</code>:</p>
 
-<p>&lt;% posts.each do |post| %>
-  &lt;div></p>
+<pre><code class='language-erb'>&lt;% posts.each do |post| %>
+  &lt;div>
+    &lt;h2>&lt;%= post.name %>&lt;/h2>
+    &lt;p>&lt;%= post.body %>&lt;/p>
+    &lt;p>
+      &lt;a href="/posts/&lt;%= post.id %>">read&lt;/a>
+      | &lt;a href="/posts/&lt;%= post.id %>/edit">edit&lt;/a> |
+      &lt;a href="/posts/&lt;%= post.id %>?_method=delete" onclick="return confirm('Are you sure?');">delete&lt;/a>
+    &lt;/p>
+  &lt;/div>
+&lt;% end %></code></pre>
 
-<pre><code><span class="o"><</span>h2<span class="o">></span><span class="o"><</span>%= post.name <span class="o">%</span><span class="o">></span><span class="o"><</span><span class="s">/h2&gt;
-&lt;p&gt;&lt;&#37;&#61; post.body &#37;&gt;&lt;/</span>p<span class="o">></span>
-<span class="o"><</span>p<span class="o">></span>
-  <span class="o"><</span>a href<span class="o">=</span><span class="s">&quot;/posts/&lt;&#37;&#61; post.id &#37;&gt;&quot;</span><span class="o">></span>read<span class="o"><</span><span class="s">/a&gt;
-  | &lt;a href&#61;&quot;/</span>posts<span class="s">/&lt;&#37;&#61; post.id &#37;&gt;/</span>edit<span class="s">&quot;&gt;edit&lt;/a&gt; |
-  &lt;a href&#61;&quot;</span><span class="s">/posts/</span><span class="o"><</span>%= post.id <span class="o">%</span><span class="o">></span>?_method<span class="o">=</span>delete<span class="s">&quot; onclick&#61;&quot;</span><span class="k">return</span> confirm(</code></pre>
+<p>And an example of <code>views/layouts/main.ecr</code>:</p>
 
-<p>&lt;/div>
-&lt;% end %></p>
-
-<pre><code>
-<span class="t">And</span> an example <span class="k">of</span> <span class="s">&#96;views/layouts/main.ecr&#96;</span>:</code></pre>
-
-<p>&lt;!DOCTYPE html>
+<pre><code class='language-html'>&lt;!DOCTYPE html>
 &lt;html>
-  &lt;head></p>
+  &lt;head>
+    &lt;title>Example Layout&lt;/title>
+    &lt;link rel="stylesheet" href="/stylesheets/main.css">
+  &lt;/head>
+  &lt;body>
+    &lt;div class="container">
 
-<pre><code><span class="o"><</span>title<span class="o">></span><span class="t">Example</span> <span class="t">Layout</span><span class="o"><</span><span class="s">/title&gt;
-&lt;link rel&#61;&quot;stylesheet&quot; href&#61;&quot;/</span>stylesheets<span class="s">/main.css&quot;&gt;</code></pre>
+      &lt;div class="row">
+      &lt;% context.flash.each do |key, value| %>
+        &lt;div class="alert alert-&lt;%= key %>">
+          &lt;p>&lt;%= value %>&lt;/p>
+        &lt;/div>
+      &lt;% end %>
+      &lt;/div>
 
-<p>&lt;/head>
-  &lt;body></p>
+      &lt;div class="row">
+        &lt;div class="col-sm-12">
+          &lt;%= content %>
+        &lt;/div>
+      &lt;/div>
 
-<pre><code><span class="o"><</span>div <span class="k">class</span><span class="o">=</span><span class="s">&quot;container&quot;</span><span class="o">></span>
+    &lt;/div>
+  &lt;/body>
+&lt;/html></code></pre>
 
-  <span class="o"><</span>div <span class="k">class</span><span class="o">=</span><span class="s">&quot;row&quot;</span><span class="o">></span>
-  <span class="o"><</span><span class="o">%</span> context.flash.each <span class="k">do</span> <span class="o">|</span>key, value<span class="o">|</span> <span class="o">%</span><span class="o">></span>
-    <span class="o"><</span>div <span class="k">class</span><span class="o">=</span><span class="s">&quot;alert alert-&lt;&#37;&#61; key &#37;&gt;&quot;</span><span class="o">></span>
-      <span class="o"><</span>p<span class="o">></span><span class="o"><</span>%= value <span class="o">%</span><span class="o">></span><span class="o"><</span><span class="s">/p&gt;
-    &lt;/</span>div<span class="o">></span>
-  <span class="o"><</span><span class="o">%</span> <span class="k">end</span> <span class="o">%</span><span class="o">></span>
-  <span class="o"><</span><span class="s">/div&gt;
+<p>The <code><%= content %></code> is where the template will be rendered in the layout.</p>
 
-  &lt;div class&#61;&quot;row&quot;&gt;
-    &lt;div class&#61;&quot;col-sm-12&quot;&gt;
-      &lt;&#37;&#61; content &#37;&gt;
-    &lt;/</span>div<span class="o">></span>
-  <span class="o"><</span><span class="s">/div&gt;
+<p>CSRF middleware is built in.  In your forms, add the <code>csrf_tag</code> using the helper method:</p>
 
-&lt;/</span>div<span class="o">></span></code></pre>
+<pre><code class='language-erb'>&lt;form action="/demos/&lt;%= demo.id %>" method="post">
+  &lt;%= csrf_tag(context) %>
+  ...
+&lt;/form></code></pre>
 
-<p>&lt;/body>
-&lt;/html></p>
+<h3>Models</h3>
 
-<pre><code><span class="t">The</span> <span class="s">&#96;&lt;&#37;&#61; content &#37;&gt;&#96;</span> is where the template will be rendered <span class="k">in</span> the layout.
+<p>The models are a simple ORM mechanism that will map objects to rows in the
+database.</p>
 
-<span class="c">### Models</span>
+<p>The mapping is done using several macros.</p>
 
-<span class="t">The</span> models are a simple <span class="t">ORM</span> mechanism that will map objects to rows <span class="k">in</span> the
-database. <span class="t">There</span> is no dependency on using this model.  <span class="t">I</span> recommend looking at
-[<span class="t">Active</span> <span class="t">Record</span>.cr](https<span class="n">:/</span><span class="s">/github.com/</span>waterlink<span class="s">/active_record.cr&#41; by waterlink
-as an alternative to this simplistic approach.
+<p>An example <code>models/post.cr</code></p>
 
-The mapping is done using a &#96;sql_mapping&#96; macro.
+<pre><code class='language-crystal'><span class="k">require</span> <span class="s">&quot;kemalyst-model/adapter/pg&quot;</span>
 
-An example &#96;models/</span>post.cr<span class="s">&#96;</code></pre>
+<span class="k">class</span> <span class="t">Post</span> <span class="o"><</span> <span class="t">Kemalyst</span><span class="t">::</span><span class="t">Model</span>
+  adapter pg
+  field name : <span class="t">String</span>
+  field body : <span class="t">Text</span>
+  field published : <span class="t">Bool</span>
+  timestamps
+<span class="k">end</span></code></pre>
 
-<p>require "kemalyst-model/adapter/pg"</p>
+<p>The mapping will automatically create the id.  If you include <code>timestamps</code>, a created_at and updated_at field
+mapping is created that follows the active_record convention in Rails.</p>
 
-<p>class Post &lt; Kemalyst::Model
-  adapter pg</p>
+<p>You can also override the table name:</p>
 
-<p>sql_mapping({</p>
+<pre><code class='language-crystal'><span class="k">require</span> <span class="s">&quot;kemalyst-model/adapter/pg&quot;</span>
 
-<pre><code>name: [<span class="s">&quot;VARCHAR&#40;255&#41;&quot;</span>, <span class="t">String</span>],
-body: [<span class="s">&quot;TEXT&quot;</span>, <span class="t">String</span>]</code></pre>
+<span class="k">class</span> <span class="t">Comment</span> <span class="o"><</span> <span class="t">Kemalyst</span><span class="t">::</span><span class="t">Model</span>
+  adapter pg
+  table_name post_comments
+  field post_id : <span class="t">Int64</span>
+  field name <span class="t">String</span>
+  field body : <span class="t">Text</span>
+<span class="k">end</span></code></pre>
 
-<p>})</p>
+<p>There are several methods that are provided in the model.</p>
 
-<p>end</p>
+<ul><li>self.clear - "DELETE from table;"</li><li>save - Insert or update depending on if id is set</li><li>destroy(id) - "DELETE FROM table WHERE id = #{id}"</li><li>all(where) "SELECT * FROM table #{where};"</li><li>find(id) - "SELECT * FROM table WHERE id = #{id} LIMIT 1;"</li><li>find_by(field, value) - "SELECT * FROM table WHERE #{field} = #{value} LIMIT 1;"</li></ul>
 
-<pre><code><span class="t">The</span> mapping will automatically create the id, created_at and updated_at column
-mapping that follows the active_record convention <span class="k">in</span> <span class="t">Rails</span>.
+<p>You can find more details at <a href="https://github.com/drujensen/kemalyst-model" target="_blank">Kemalyst Model</a></p>
 
-<span class="t">There</span> are several methods that are provided <span class="k">in</span> the model.
-<span class="o">-</span> <span class="k">self</span>.drop <span class="o">-</span> <span class="t">DROP</span> table...
-<span class="o">-</span> <span class="k">self</span>.create <span class="o">-</span> <span class="t">CREATE</span> table...
-<span class="o">-</span> <span class="k">self</span>.clear <span class="o">-</span> <span class="t">DELETE</span> from table
-<span class="o">-</span> <span class="k">self</span>.migrate <span class="o">=</span> <span class="t">Add</span><span class="s">/Update columns to match model definition
-- self.prune - Remove any undefined fields from the database
-- save - Insert or Update depending on if ID is set
-- destroy - DELETE FROM table WHERE id &#61; this.id
-- all&#40;where&#41; SELECT * FROM table </span><span class="i">#{</span></span><span class="t">WHERE</span> clause<span class="s"><span class="i">}</span>;&quot;
-- find&#40;id&#41; - SELECT * FROM table WHERE id &#61; this.id LIMIT 1;&quot;
+<h3>WebSocket Controllers</h3>
 
-You can find more details at &#91;Kemalyst Model&#93;&#40;https:/</span><span class="s">/github.com/</span>drujensen<span class="s">/kemalyst-model&#41;
+<p>The WebSocket Controller will handle upgrading a HTTP Request to a WebSocket
+Connection.</p>
 
-### Validation
+<p>An example WebSocket Controller:</p>
 
-Another Library included with Kemalyst is validation of your models.
-You can find more details at &#91;Kemalyst Validators&#93;&#40;https:/</span><span class="s">/github.com/</span>drujensen<span class="s">/kemalyst-validators&#41;
+<pre><code class='language-crystal'><span class="k">class</span> <span class="t">Chat</span> <span class="o"><</span> <span class="t">Kemalyst</span><span class="t">::</span><span class="t">WebSocket</span>
+  @sockets <span class="o">=</span> <span class="o">[]</span> <span class="k">of</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">WebSocket</span>
+  @messages <span class="o">=</span> <span class="o">[]</span> <span class="k">of</span> <span class="t">String</span>
 
-### i18n Support
+  <span class="k">def</span> <span class="m">call</span>(socket : <span class="t">HTTP</span><span class="t">::</span><span class="t">WebSocket</span>)
+    @sockets.push socket
+    socket.on_message <span class="k">do</span> <span class="o">|</span>message<span class="o">|</span>
+      @messages.push message
+      @sockets.each <span class="k">do</span> <span class="o">|</span>a_socket<span class="o">|</span>
+        a_socket.send @messages.to_json
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
 
-&#91;TechMagister&#93;&#40;https:/</span><span class="s">/github.com/</span><span class="t">TechMagister</span>) has created a <span class="t">HTTP</span><span class="t">::</span><span class="t">Handler</span> that will integrate his i18n library.
-<span class="t">You</span> can find more details at [<span class="t">Kemalyst</span> i18n](https<span class="n">:/</span><span class="s">/github.com/</span><span class="t">TechMagister</span><span class="s">/kemalyst-i18n&#41;
+<p>The <code>Chat</code> class will override the <code>call</code> method that is expecting an
+<code>HTTP::WebSocket</code> to be passed which it would maintain and properly handle
+messages to and from each socket.</p>
 
-## Contributing
+<p>This class will manage an array of <code>HTTP::Websocket</code>s and configures the
+<code>on_message</code> callback that will manage the messages that will be then be
+passed on to all of the other sockets.</p>
 
-1. Fork it &#40; https:/</span><span class="s">/github.com/</span>drujensen<span class="s">/kemalyst/</span>fork )
-<span class="n">2</span>. <span class="t">Create</span> your feature branch (git checkout <span class="o">-</span>b my<span class="o">-</span><span class="k">new</span><span class="o">-</span>feature)
-<span class="n">3</span>. <span class="t">Commit</span> your changes (git commit <span class="o">-</span>am </code></pre>
+<p>It's important to realize that if the request is not asking to be upgraded to
+a websocket, it will call the next handler in the path.  If there is no
+more handlers configured, a 404 will be returned.</p>
+
+<p>Here is an example routing configuration:</p>
+
+<pre><code class='language-crystal'>get <span class="s">&quot;/&quot;</span>, <span class="t">ChatController</span><span class="t">::</span><span class="t">Chat</span>
+get <span class="s">&quot;/&quot;</span>, <span class="t">ChatController</span><span class="t">::</span><span class="t">Index</span></code></pre>
+
+<p>The first one is a WebSocket Controller and the second is a standard
+Controller.  If the request is not a WebSocket upgrade request, it will
+pass-through and call the second one that will return the html page.</p>
+
+<p>To see a full example application, checkout
+<a href="https://github.com/drujensen/chat-kemalyst" target="_blank">Chat Kemalyst</a></p>
+
+<h3>Mailers</h3>
+
+<p>Kemalyst provides the ability to generate mailers:</p>
+
+<pre><code class='language-sh'>kgen g mailer Welcome email:string name:string</code></pre>
+
+<p>This will generate the following files:</p>
+
+<p>config/mailer.yml
+spec/mailers/welcome_mailer_spec.cr
+src/mailers/welcome_mailer.cr
+src/views/layouts/mailer.slang
+src/views/mailers/welcome_mailer.slang</p>
+
+<p>The mailer has the ability to set the from, to, cc, bcc, subject and body.
+You may use the <code>render</code> using your preferred templating language to create the body.</p>
+
+<p>To delivery a new email:</p>
+
+<pre><code class='language-crystal'>mailer <span class="o">=</span> <span class="t">WelcomeMailer</span>.<span class="k">new</span>
+mailer.deliver(name, email)</code></pre>
+
+<p>You can deliver this in the controller but most agree this should be done in a background job.</p>
+
+<h3>Jobs</h3>
+
+<p>Kemalyst provides a generator for with integration user sidekiq.cr for background jobs:</p>
+
+<pre><code class='language-sh'>kgen g job Welcome name:string email:string</code></pre>
+
+<p>This will generate:</p>
+
+<p>config/sidekiq.cr
+docker-sidekiq.yml
+spec/jobs/spec_helper.cr
+spec/jobs/welcome_job_spec.cr
+src/jobs/welcome_job.cr
+src/sidekiq.cr</p>
+
+<p>The job will have a `perform(name, email) method where you would call the <code>mailer.deliver</code> code.  You will need to run the background service.  The <code>src/sidekiq.cr</code> is the sidekiq service that will spawn threads and start processing the jobs.  Sidekiq uses Redis to manage the queues.</p>
+
+<pre><code class='language-sh'>brew install redis
+brew service redis start</code></pre>
+
+<p>To start the sidekiq service:</p>
+
+<pre><code class='language-sh'>crystal run src/sidekiq.cr</code></pre>
+
+<p>or you can use:</p>
+
+<pre><code class='language-sh'>kgen sidekiq</code></pre>
+
+<p>This will watch for any changes to the jobs and recompile and launch sidekiq.</p>
+
+<h3>Validation</h3>
+
+<p>Another Library included with Kemalyst is validation of your models.
+You can find more details at <a href="https://github.com/drujensen/kemalyst-validators" target="_blank">Kemalyst Validators</a></p>
+
+<h3>i18n Support</h3>
+
+<p><a href="https://github.com/TechMagister" target="_blank">TechMagister</a> has created a HTTP::Handler that will integrate his i18n library.
+You can find more details at <a href="https://github.com/TechMagister/kemalyst-i18n" target="_blank">Kemalyst i18n</a></p>
+
+<h3>Middleware HTTP::Handlers</h3>
+
+<p>There are 8 handlers that are pre-configured for Kemalyst.  This is similar in architecture to Rack Middleware:</p>
+
+<ul><li>Logger - Logs all requests/responses to the logger configured.</li><li>Error - Handles any Exceptions and renders a response.</li><li>Static - Delivers any static assets from the <code>./public</code> folder.</li><li>Session - Provides a Cookie Session hash that can be accessed from the <code>context.session["key"]</code></li><li>Flash - Provides flash message hash that can be accessed from the <code>context.flash["danger"]</code></li><li>Params - Unifies the parameters into <code>context.params["key"]</code></li><li>CSRF - Helps prevent Cross Site Request Forgery.</li><li>Router - Routes requests to other handlers based on the method and path.</li></ul>
+
+<p>Other handlers available for Kemalyst:</p>
+
+<ul><li>CORS - Handles Cross Origin Resource Sharing.</li><li>BasicAuth - Provides Basic Authentication.</li></ul>
+
+<p>You may want to add, replace or remove handlers based on your situation.  You can do that in the
+Application configuration <code>config/application.cr</code>:</p>
+
+<pre><code class='language-crystal'><span class="t">Kemalyst</span><span class="t">::</span><span class="t">Application</span>.config <span class="k">do</span> <span class="o">|</span>config<span class="o">|</span>
+  <span class="c"># handlers will be chained in the order provided</span>
+  config.handlers <span class="o">=</span> [
+    <span class="t">Kemalyst</span><span class="t">::</span><span class="t">Handler</span><span class="t">::</span><span class="t">Logger</span>.instance,
+    <span class="t">Kemalyst</span><span class="t">::</span><span class="t">Handler</span><span class="t">::</span><span class="t">Error</span>.instance,
+    <span class="t">Kemalyst</span><span class="t">::</span><span class="t">Handler</span><span class="t">::</span><span class="t">Params</span>.instance,
+    <span class="t">Kemalyst</span><span class="t">::</span><span class="t">Handler</span><span class="t">::</span><span class="t">CORS</span>.instance,
+    <span class="t">Kemalyst</span><span class="t">::</span><span class="t">Handler</span><span class="t">::</span><span class="t">Router</span>.instance
+  ]
+<span class="k">end</span></code></pre>
+
+<h2>Acknowledgement</h2>
+
+<p>Kemalyst is only possible with the use and help from many other crystal projects and developers.  Special thanks to you and your contributions!</p>
+
+<ul><li>First and foremost the <a href="https://github.com/crystal-lang/crystal/graphs/contributors" target="_blank">Crystal Team</a>.</li><li><a href="https://github.com/kemalcr/kemal" target="_blank">Kemal</a> Originally forked from here - <a href="https://github.com/sdogruyol" target="_blank">Serdar Dogruyol</a></li><li><a href="https://github.com/kemalcr/spec-kemal" target="_blank">spec-kemal</a> - Kemal Spec for easy testing  <a href="https://github.com/sdogruyol" target="_blank">Serdar Dogruyol</a></li></ul></ul>
+
+<ul><li><a href="https://github.com/jeromegn/kilt" target="_blank">Kilt</a> Rendering templates - <a href="https://github.com/jeromegn" target="_blank">Jerome Gravel-Niquet</a></li><li><a href="https://github.com/jeromegn/slang" target="_blank">Slang</a> Slim-inspired templating language - <a href="https://github.com/jeromegn" target="_blank">Jerome Gravel-Niquet</a></li><li><a href="https://github.com/luislavena/radix" target="_blank">Radix</a> Router is mostly copied from here - <a href="https://github.com/luislavena" target="_blank">Luis Lavena</a></li><li><a href="https://github.com/raydf/smtp.cr" target="_blank">smtp.cr</a> SMTP Client for mailers - <a href="https://github.com/raydf" target="_blank">Rayner De Los Santos F.</a></li><li><a href="https://github.com/crystal-lang/crystal-db" target="_blank">crystal-db</a> Common database driver - <a href="https://github.com/bcardiff" target="_blank">Brian J. Cardiff</a></li><li><a href="https://github.com/crystal-lang/crystal-sqlite" target="_blank">crystal-sqlite</a> Sqlite Driver - <a href="https://github.com/bcardiff" target="_blank">Brian J. Cardiff</a></li><li><a href="https://github.com/crystal-lang/crystal-mysql" target="_blank">crystal-mysql</a> Mysql Driver - <a href="https://github.com/bcardiff" target="_blank">Brian J. Cardiff</a></li><li><a href="https://github.com/will/crystal-pg" target="_blank">crystal-pg</a> Postgres Driver - <a href="https://github.com/will" target="_blank">Will Leinweber</a></li></ul></ul>
+
+<p>For Kemalyst Generator</p>
+
+<ul><li><a href="https://github.com/waterlink/mocks.cr" target="_blank">mocks</a> Mocking Library - <a href="https://github.com/waterlink" target="_blank">Oleksii Fedorov</a></li><li><a href="mosop/cli" target="_blank">Crystal CLI</a> CLI Library - <a href="https://github.com/mosop" target="_blank">mosop</a></li><li><a href="mosop/teeplate" target="_blank">Teeplate</a> Template Rendering Library - <a href="https://github.com/mosop" target="_blank">mosop</a></li><li><a href="https://github.com/greyblake/crystal-icr" target="_blank">ICR</a> Interactive Crystal - <a href="https://github.com/greyblake" target="_blank">Sergey Potapov</a></li><li><a href="https://github.com/samueleaton/sentry" target="_blank">Sentry</a> Watch files, recompile and run - <a href="https://github.com/samueleaton" target="_blank">Sam Eaton</a></li><li><a href="https://github.com/juanedi/micrate" target="_blank">Micrate</a> Rails like Migration Tool - <a href="juanedi" target="_blank">Juan Edi</a></li></ul></ul>
+
+<h2>Contributing</h2>
+
+<ol><li>Fork it ( https://github.com/drujensen/kemalyst/fork )</li><li>Create your feature branch (git checkout -b my-new-feature)</li><li>Commit your changes (git commit -am 'Add some feature')</li><li>Push to the branch (git push origin my-new-feature)</li><li>Create a new Pull Request</li></ol>
+
+<h2>Contributors</h2>
+
+<ul><li><a href="https://github.com/drujensen" target="_blank">drujensen</a> Dru Jensen - creator, maintainer</li><li><a href="https://github.com/TechMagister" target="_blank">TechMagister</a> Arnaud Fernandés - contributor</li><li><a href="https://github.com/elorest" target="_blank">elorest</a> Isaac Sloan - contributor</li></ul>
 </div>
 </body>
 </html>

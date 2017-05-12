@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta id="repository-name" content="github.com/drujensen/kemalyst">
@@ -19,6 +19,16 @@
   </ul>
 
   <ul>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/ActionHelper" data-name="actionhelper">
+      <a href="../ActionHelper.html">ActionHelper</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/FileUpload" data-name="fileupload">
+      <a href="../FileUpload.html">FileUpload</a>
+      
+    </li>
   
   <li class="parent open current" data-id="github.com/drujensen/kemalyst/Kemalyst" data-name="kemalyst">
       <a href="../Kemalyst.html">Kemalyst</a>
@@ -130,6 +140,11 @@
       
     </li>
   
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Mailer" data-name="kemalyst::mailer">
+      <a href="../Kemalyst/Mailer.html">Mailer</a>
+      
+    </li>
+  
   <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/WebSocket" data-name="kemalyst::websocket">
       <a href="../Kemalyst/WebSocket.html">WebSocket</a>
       
@@ -185,7 +200,7 @@ some macros that provide syntax sugar for rendering a response.</p>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/drujensen/kemalyst/blob/f1a72a3e17b89bcadb49dba763763a625fecc7c1/src/kemalyst/controller.cr#L7" target="_blank">kemalyst/controller.cr</a>
+      <a href="https://github.com/drujensen/kemalyst/blob/3f54b3a1dd93eb897ac41d711add0b4a1b0ccc59/src/kemalyst/controller.cr#L7" target="_blank">kemalyst/controller.cr</a>
     
     <br/>
   
@@ -256,7 +271,7 @@ some macros that provide syntax sugar for rendering a response.</p>
       <li class="entry-summary">
         <a href="#json%28body%2Cstatus_code%3D200%29-macro" class="signature"><strong>json</strong>(body, status_code = 200)</a>
         
-          <div class="summary"><p>helper to render json.</p></div>
+          <div class="summary"><p>helper to render xml.</p></div>
         
       </li>
     
@@ -268,7 +283,7 @@ some macros that provide syntax sugar for rendering a response.</p>
       </li>
     
       <li class="entry-summary">
-        <a href="#render%28filename%2Clayout%29-macro" class="signature"><strong>render</strong>(filename, layout)</a>
+        <a href="#render%28filename%2Clayout%2C%2Aargs%29-macro" class="signature"><strong>render</strong>(filename, layout, *args)</a>
         
           <div class="summary"><p>helper to render a view with a layout.</p></div>
         
@@ -333,7 +348,7 @@ some macros that provide syntax sugar for rendering a response.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/f1a72a3e17b89bcadb49dba763763a625fecc7c1/src/kemalyst/controller.cr#L11" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/3f54b3a1dd93eb897ac41d711add0b4a1b0ccc59/src/kemalyst/controller.cr#L11" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -353,14 +368,12 @@ some macros that provide syntax sugar for rendering a response.</p>
       
         <div class="doc"><p>Call is the execution method for this controller.  Controllers can be
 chained together and should <code>call_next(context)</code> if they do not provide
-the final rendering of the response.  If they are the last leaf in the
-chain, then they should return a String that will be printed to the
-response io.</p></div>
+the final rendering of the response.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/f1a72a3e17b89bcadb49dba763763a625fecc7c1/src/kemalyst/controller.cr#L20" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/3f54b3a1dd93eb897ac41d711add0b4a1b0ccc59/src/kemalyst/controller.cr#L18" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -378,7 +391,7 @@ response io.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/f1a72a3e17b89bcadb49dba763763a625fecc7c1/src/kemalyst/controller.cr#L35" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/3f54b3a1dd93eb897ac41d711add0b4a1b0ccc59/src/kemalyst/controller.cr#L33" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -396,7 +409,7 @@ response io.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/f1a72a3e17b89bcadb49dba763763a625fecc7c1/src/kemalyst/controller.cr#L30" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/3f54b3a1dd93eb897ac41d711add0b4a1b0ccc59/src/kemalyst/controller.cr#L28" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -414,7 +427,7 @@ response io.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/f1a72a3e17b89bcadb49dba763763a625fecc7c1/src/kemalyst/controller.cr#L25" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/3f54b3a1dd93eb897ac41d711add0b4a1b0ccc59/src/kemalyst/controller.cr#L23" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -437,7 +450,7 @@ response io.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/f1a72a3e17b89bcadb49dba763763a625fecc7c1/src/kemalyst/controller.cr#L67" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/3f54b3a1dd93eb897ac41d711add0b4a1b0ccc59/src/kemalyst/controller.cr#L64" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -450,12 +463,12 @@ response io.</p></div>
         <a class="method-permalink" href="#json%28body%2Cstatus_code%3D200%29-macro">#</a>
       </div>
       
-        <div class="doc"><p>helper to render json.  This sets the content_type to <code>application/json</code></p></div>
+        <div class="doc"><p>helper to render xml.  This sets the content_type to <code>application/xml</code></p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/f1a72a3e17b89bcadb49dba763763a625fecc7c1/src/kemalyst/controller.cr#L74" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/3f54b3a1dd93eb897ac41d711add0b4a1b0ccc59/src/kemalyst/controller.cr#L78" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -474,17 +487,17 @@ the url provided.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/f1a72a3e17b89bcadb49dba763763a625fecc7c1/src/kemalyst/controller.cr#L53" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/3f54b3a1dd93eb897ac41d711add0b4a1b0ccc59/src/kemalyst/controller.cr#L51" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="render&#40;filename,layout&#41;-macro">
+    <div class="entry-detail" id="render&#40;filename,layout,*args&#41;-macro">
       <div class="signature">
         
-        macro <strong>render</strong>(filename, layout)
+        macro <strong>render</strong>(filename, layout, *args)
 
-        <a class="method-permalink" href="#render%28filename%2Clayout%29-macro">#</a>
+        <a class="method-permalink" href="#render%28filename%2Clayout%2C%2Aargs%29-macro">#</a>
       </div>
       
         <div class="doc"><p>helper to render a view with a layout.  The view name is relative to <code>src/views</code>
@@ -493,7 +506,7 @@ directory and the layout is relative to <code>src/views/layouts</code> directory
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/f1a72a3e17b89bcadb49dba763763a625fecc7c1/src/kemalyst/controller.cr#L41" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/3f54b3a1dd93eb897ac41d711add0b4a1b0ccc59/src/kemalyst/controller.cr#L39" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -511,7 +524,7 @@ directory and the layout is relative to <code>src/views/layouts</code> directory
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/f1a72a3e17b89bcadb49dba763763a625fecc7c1/src/kemalyst/controller.cr#L47" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/3f54b3a1dd93eb897ac41d711add0b4a1b0ccc59/src/kemalyst/controller.cr#L45" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -529,7 +542,7 @@ directory and the layout is relative to <code>src/views/layouts</code> directory
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/f1a72a3e17b89bcadb49dba763763a625fecc7c1/src/kemalyst/controller.cr#L60" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/3f54b3a1dd93eb897ac41d711add0b4a1b0ccc59/src/kemalyst/controller.cr#L57" target="_blank">View source</a>]
         
       </div>
     </div>

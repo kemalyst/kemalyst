@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta id="repository-name" content="github.com/drujensen/kemalyst">
@@ -19,6 +19,16 @@
   </ul>
 
   <ul>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/ActionHelper" data-name="actionhelper">
+      <a href="../../ActionHelper.html">ActionHelper</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/drujensen/kemalyst/FileUpload" data-name="fileupload">
+      <a href="../../FileUpload.html">FileUpload</a>
+      
+    </li>
   
   <li class="parent open current" data-id="github.com/drujensen/kemalyst/Kemalyst" data-name="kemalyst">
       <a href="../../Kemalyst.html">Kemalyst</a>
@@ -130,6 +140,11 @@
       
     </li>
   
+  <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/Mailer" data-name="kemalyst::mailer">
+      <a href="../../Kemalyst/Mailer.html">Mailer</a>
+      
+    </li>
+  
   <li class=" " data-id="github.com/drujensen/kemalyst/Kemalyst/WebSocket" data-name="kemalyst::websocket">
       <a href="../../Kemalyst/WebSocket.html">WebSocket</a>
       
@@ -177,8 +192,8 @@ path and method handlers.  Routes should be defined in the
 
 <p>You may chain multiple handlers in a route using an array:</p>
 
-<pre><code>get <span class="s">&quot;/&quot;</span>, [ <span class="t">BasicAuth</span>.instance(<span class="s">&quot;username&quot;</span>, <span class="s">&quot;password&quot;</span>),
-           <span class="t">DemoController</span><span class="t">::</span><span class="t">Index</span>.instance ]</code></pre>
+<pre><code>get <span class="s">&quot;/&quot;</span>, [<span class="t">BasicAuth</span>.instance(<span class="s">&quot;username&quot;</span>, <span class="s">&quot;password&quot;</span>),
+          <span class="t">DemoController</span><span class="t">::</span><span class="t">Index</span>.instance]</code></pre>
 
 <p>or:</p>
 
@@ -188,8 +203,8 @@ path and method handlers.  Routes should be defined in the
 
 <p>This is how you would configure a WebSocket:</p>
 
-<pre><code>get <span class="s">&quot;/&quot;</span>, [ <span class="t">WebSocket</span>.instance(<span class="t">ChatController</span><span class="t">::</span><span class="t">Chat</span>.instance),
-           <span class="t">ChatController</span><span class="t">::</span><span class="t">Index</span>.instance ]</code></pre>
+<pre><code>get <span class="s">&quot;/&quot;</span>, [<span class="t">WebSocket</span>.instance(<span class="t">ChatController</span><span class="t">::</span><span class="t">Chat</span>.instance),
+          <span class="t">ChatController</span><span class="t">::</span><span class="t">Index</span>.instance]</code></pre>
 
 <p>The <code>Chat</code> class would have a <code><a href="../../Kemalyst/Handler/Router.html#call%28context%29-instance-method">#call</a></code> method that is expecting an
 <code>HTTP::WebSocket</code> to be passed which it would maintain and properly handle
@@ -200,11 +215,11 @@ on how to do this.</p>
 
 <p>You can use a <code>*</code> to chain a handler for all children of this path:</p>
 
-<pre><code>all    <span class="s">&quot;/posts/*&quot;</span>,   <span class="t">BasicAuth</span>.instance(<span class="s">&quot;admin&quot;</span>, <span class="s">&quot;password&quot;</span>)
+<pre><code>all <span class="s">&quot;/posts/*&quot;</span>, <span class="t">BasicAuth</span>.instance(<span class="s">&quot;admin&quot;</span>, <span class="s">&quot;password&quot;</span>)
 
 <span class="c"># all of these will be secured with the BasicAuth handler.</span>
-get    <span class="s">&quot;/posts/:id&quot;</span>, <span class="t">DemoController</span><span class="t">::</span><span class="t">Show</span>.instance
-put    <span class="s">&quot;/posts/:id&quot;</span>, <span class="t">DemoController</span><span class="t">::</span><span class="t">Update</span>.instance
+get <span class="s">&quot;/posts/:id&quot;</span>, <span class="t">DemoController</span><span class="t">::</span><span class="t">Show</span>.instance
+put <span class="s">&quot;/posts/:id&quot;</span>, <span class="t">DemoController</span><span class="t">::</span><span class="t">Update</span>.instance
 delete <span class="s">&quot;/posts/:id&quot;</span>, <span class="t">DemoController</span><span class="t">::</span><span class="t">Delete</span>.instance</code></pre>
 
 <p>You can use <code>:variable</code> in the path and it will set a
@@ -226,7 +241,7 @@ context.params["variable"] to the value in the url.</p>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/drujensen/kemalyst/blob/f1a72a3e17b89bcadb49dba763763a625fecc7c1/src/kemalyst/handler/router.cr#L114" target="_blank">kemalyst/handler/router.cr</a>
+      <a href="https://github.com/drujensen/kemalyst/blob/3f54b3a1dd93eb897ac41d711add0b4a1b0ccc59/src/kemalyst/handler/router.cr#L126" target="_blank">kemalyst/handler/router.cr</a>
     
     <br/>
   
@@ -284,12 +299,12 @@ context.params["variable"] to the value in the url.</p>
       </li>
     
       <li class="entry-summary">
-        <a href="#tree%3ADelimiter%3A%3ATree%28Kemalyst%3A%3AHandler%3A%3ARoute%3F%29-instance-method" class="signature"><strong>#tree</strong> : Delimiter::Tree(Kemalyst::Handler::Route?)</a>
+        <a href="#tree%3ARadix%3A%3ATree%28Array%28Kemalyst%3A%3AHandler%3A%3ARoute%29%29-instance-method" class="signature"><strong>#tree</strong> : Radix::Tree(Array(Kemalyst::Handler::Route))</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#tree%3D%28tree%3ADelimiter%3A%3ATree%28Kemalyst%3A%3AHandler%3A%3ARoute%3F%29%29-instance-method" class="signature"><strong>#tree=</strong>(tree : Delimiter::Tree(Kemalyst::Handler::Route?))</a>
+        <a href="#tree%3D%28tree%3ARadix%3A%3ATree%28Array%28Kemalyst%3A%3AHandler%3A%3ARoute%29%29%29-instance-method" class="signature"><strong>#tree=</strong>(tree : Radix::Tree(Array(Kemalyst::Handler::Route)))</a>
         
       </li>
     
@@ -380,7 +395,7 @@ context.params["variable"] to the value in the url.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/f1a72a3e17b89bcadb49dba763763a625fecc7c1/src/kemalyst/handler/router.cr#L118" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/3f54b3a1dd93eb897ac41d711add0b4a1b0ccc59/src/kemalyst/handler/router.cr#L130" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -396,7 +411,7 @@ context.params["variable"] to the value in the url.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/f1a72a3e17b89bcadb49dba763763a625fecc7c1/src/kemalyst/handler/router.cr#L122" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/3f54b3a1dd93eb897ac41d711add0b4a1b0ccc59/src/kemalyst/handler/router.cr#L134" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -420,7 +435,7 @@ a corresponding <code>HEAD</code> route.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/f1a72a3e17b89bcadb49dba763763a625fecc7c1/src/kemalyst/handler/router.cr#L133" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/3f54b3a1dd93eb897ac41d711add0b4a1b0ccc59/src/kemalyst/handler/router.cr#L184" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -436,7 +451,7 @@ a corresponding <code>HEAD</code> route.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/f1a72a3e17b89bcadb49dba763763a625fecc7c1/src/kemalyst/handler/router.cr#L126" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/3f54b3a1dd93eb897ac41d711add0b4a1b0ccc59/src/kemalyst/handler/router.cr#L138" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -454,7 +469,7 @@ a corresponding <code>HEAD</code> route.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/f1a72a3e17b89bcadb49dba763763a625fecc7c1/src/kemalyst/handler/router.cr#L139" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/3f54b3a1dd93eb897ac41d711add0b4a1b0ccc59/src/kemalyst/handler/router.cr#L190" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -472,39 +487,39 @@ a corresponding <code>HEAD</code> route.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/f1a72a3e17b89bcadb49dba763763a625fecc7c1/src/kemalyst/handler/router.cr#L144" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/3f54b3a1dd93eb897ac41d711add0b4a1b0ccc59/src/kemalyst/handler/router.cr#L144" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="tree:Delimiter::Tree&#40;Kemalyst::Handler::Route?&#41;-instance-method">
+    <div class="entry-detail" id="tree:Radix::Tree&#40;Array&#40;Kemalyst::Handler::Route&#41;&#41;-instance-method">
       <div class="signature">
         
-        def <strong>tree</strong> : Delimiter::Tree(<a href="../../Kemalyst/Handler/Route.html">Kemalyst::Handler::Route</a>?)
+        def <strong>tree</strong> : Radix::Tree(Array(<a href="../../Kemalyst/Handler/Route.html">Kemalyst::Handler::Route</a>))
 
-        <a class="method-permalink" href="#tree%3ADelimiter%3A%3ATree%28Kemalyst%3A%3AHandler%3A%3ARoute%3F%29-instance-method">#</a>
+        <a class="method-permalink" href="#tree%3ARadix%3A%3ATree%28Array%28Kemalyst%3A%3AHandler%3A%3ARoute%29%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/f1a72a3e17b89bcadb49dba763763a625fecc7c1/src/kemalyst/handler/router.cr#L115" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/3f54b3a1dd93eb897ac41d711add0b4a1b0ccc59/src/kemalyst/handler/router.cr#L127" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="tree&#61;&#40;tree:Delimiter::Tree&#40;Kemalyst::Handler::Route?&#41;&#41;-instance-method">
+    <div class="entry-detail" id="tree&#61;&#40;tree:Radix::Tree&#40;Array&#40;Kemalyst::Handler::Route&#41;&#41;&#41;-instance-method">
       <div class="signature">
         
-        def <strong>tree=</strong>(tree : Delimiter::Tree(<a href="../../Kemalyst/Handler/Route.html">Kemalyst::Handler::Route</a>?))
+        def <strong>tree=</strong>(tree : Radix::Tree(Array(<a href="../../Kemalyst/Handler/Route.html">Kemalyst::Handler::Route</a>)))
 
-        <a class="method-permalink" href="#tree%3D%28tree%3ADelimiter%3A%3ATree%28Kemalyst%3A%3AHandler%3A%3ARoute%3F%29%29-instance-method">#</a>
+        <a class="method-permalink" href="#tree%3D%28tree%3ARadix%3A%3ATree%28Array%28Kemalyst%3A%3AHandler%3A%3ARoute%29%29%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/drujensen/kemalyst/blob/f1a72a3e17b89bcadb49dba763763a625fecc7c1/src/kemalyst/handler/router.cr#L115" target="_blank">View source</a>]
+          [<a href="https://github.com/drujensen/kemalyst/blob/3f54b3a1dd93eb897ac41d711add0b4a1b0ccc59/src/kemalyst/handler/router.cr#L127" target="_blank">View source</a>]
         
       </div>
     </div>
