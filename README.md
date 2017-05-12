@@ -9,11 +9,17 @@ super fast [kemal](https://github.com/sdogruyol/kemal). The framework
 leverages http handlers which are similar to Rack middleware.
 
 Kemalyst follows the MVC pattern:
-  - M - the models are a simple ORM mapping and supports MySQL, PG and SQLite.
-  - V - the views are handled using [kilt](https://github.com/jeromegn/kilt) which support ECR (Erb like), SLang (Slim like), Crustache (Mustache like) or Temel (not sure what it's like).
-  - C - the controllers are http handlers that continue the chain of handlers after the routing takes place.
+  - Models are a simple ORM mapping and supports MySQL, PG and SQLite.
+  - Views are handled using [kilt](https://github.com/jeromegn/kilt) which support ECR (Erb like), SLang (Slim like), Crustache (Mustache like) or Temel (not sure what it's like).
+  - Controllers are http handlers that continue the chain of handlers after the routing takes place.
 
-Kemalyst also comes with a command line tool similar to Rails called `kgen` to help you get started quickly.
+Kemalyst also supports:
+  - WebSockets provide two way communication for webapps that need dynamic updates
+  - Mailers render and deliver email via [smtp.cr](https://github.com/raydf/smtp.cr)
+  - Jobs perform background tasks using [sidekiq.cr](https://github.com/mperham/sidekiq.cr)
+  - Migrations provide ability to maintain your database schema's using [Micrate](https://github.com/juanedi/micrate)
+
+Kemalyst also comes with a command line tool similar to `rails` called `kgen` to help you get started quickly.
 
 ## Installation
 
@@ -34,13 +40,14 @@ brew install kgen
 
 3. Initialize a new Kemalyst App using `kgen`
 ```sh
-kgen init app [your_app]
+kgen init app [your_app] [options]
 cd [your_app]
 ```
+
 There are several options:
--d [pg | mysql | sqlite] - defaults to pg
--t [slang | ecr] - defaults to slang
---deps - install dependencies.  Same as running `shards install`
+  - -d [pg | mysql | sqlite] - defaults to pg
+  - -t [slang | ecr] - defaults to slang
+  - --deps - install dependencies quickly.  This is the same as running `shards install`
 
 This will generate a traditional web application:
  - /config - The `database.yml` and `routes.cr` are here.
@@ -51,7 +58,15 @@ This will generate a traditional web application:
 
 ## Generators
 
-Generate scaffolding for a resource:
+`kgen generate` provides several generators:
+  - scaffold [name] [fields]
+  - model [name] [fields]
+  - controller [name] [methods]
+  - mailer [name] [fields]
+  - job [name] [fields]
+  - migration [name]
+
+An example to generate scaffolding for a resource:
 ```sh
 kgen generate scaffold Post name:string body:text draft:bool
 ```
@@ -90,17 +105,17 @@ If you don't want to use Sentry, you can compile and run manually:
 ### Run with Docker
 
 Another option is to run using Docker.  A `Dockerfile` and `docker-compose.yml` is provided. If
-you have docker setup, you should be able to run:
+you have docker setup, you can run:
 ```sh
 docker-compose up -d
 docker-compose logs -f
 ```
-Now you should be able to hit the site:
+Now visit the site:
 ```sh
 open "http://localhost:3000"
 ```
 
-Docker Compose is running [Sentry](https://github.com/samueleaton/sentry) so
+Docker Compose is running [Sentry](https://github.com/samueleaton/sentry) as well so
 any changes to your `/src` or `/config` will re-build and run your
 application.
 
@@ -121,6 +136,12 @@ An example of a route would be:
 ```crystal
 get "/",   DemoController::Index
 ```
+You can use `:variable` in the path and it will set a
+context.params["variable"] to the value in the url.
+
+```crystal
+get    "/posts/:id", DemoController::Show
+```
 
 You may chain multiple handlers in a route using an array:
 ```crystal
@@ -139,13 +160,6 @@ get "/", ChatController::Chat
 get "/", ChatController::Index
 ```
 See below for more information on how to create a WebSocket Handler.
-
-You can use `:variable` in the path and it will set a
-context.params["variable"] to the value in the url.
-
-```crystal
-get    "/posts/:id", DemoController::Show
-```
 
 ### Controllers
 
@@ -181,15 +195,19 @@ class Index < Kemalyst::Controller
   end
 end
 ```
-There are several helper macros that set content type and response.
+There are several helper macros that will set the contenttype and responses status.
+```crystal
+  redirect "path"                       # redirect to path
+  html     "<html></html>", 200         # content type `text/html` with status code of 200
+  text     "text", 200                  # content type `text/plain` with status code of 200
+  json     "{}".to_json, 200            # content type `application/json` with status code of 200
+  xml      "{}".to_xml, 200            # content type `application/xml` with status code of 200
+```
+
+There are two render methods that will generate a string that can be passed to the above macros:
 ```crystal
   render   "filename.ecr"               # renders an .ecr template
   render   "filename.ecr", "layout.ecr" # renders an .ecr template with layout
-  redirect "path"                       # redirect to path
-  text     "body", 200                  # render text/plain with status code of 200
-  json     "{}".to_json, 200            # render application/json with status code of 200
-  xml      "{}".to_xml, 200            # render application/xml with status code of 200
-  html     "<html></html>", 200         # render text/html with status code of 200
 ```
 
 You can use the rendering engine to generate `html`, `json`, `xml` or `text`:
@@ -279,10 +297,7 @@ CSRF middleware is built in.  In your forms, add the `csrf_tag` using the helper
 
 ### Models
 
-The models are a simple ORM mechanism that will map objects to rows in the
-database.
-
-The mapping is done using several macros.
+The models are a simple ORM mechanism that will map objects to rows in the database.  The mapping is done using several macros.
 
 An example `models/post.cr`
 ```crystal
@@ -296,10 +311,10 @@ class Post < Kemalyst::Model
   timestamps
 end
 ```
-The mapping will automatically create the id.  If you include `timestamps`, a created_at and updated_at field
-mapping is created that follows the active_record convention in Rails.
+The mapping will automatically create the id of type Int64.  If you include `timestamps`, a created_at and updated_at field
+mapping is created that will automatically get updated for you.
 
-You can also override the table name:
+You can override the table name:
 ```crystal
 require "kemalyst-model/adapter/pg"
 
@@ -312,8 +327,19 @@ class Comment < Kemalyst::Model
 end
 ```
 
+You can override the `id` field:
+```crystal
+require "kemalyst-model/adapter/pg"
+
+class Comment < Kemalyst::Model
+  adapter pg
+  primary my_id : Int32
+  ...
+end
+```
+
 There are several methods that are provided in the model.
-- self.clear - "DELETE from table;"
+- self.clear - "DELETE from table;" that will help with specs
 - save - Insert or update depending on if id is set
 - destroy(id) - "DELETE FROM table WHERE id = #{id}"
 - all(where) "SELECT * FROM table #{where};"
@@ -331,14 +357,12 @@ An example WebSocket Controller:
 ```crystal
 class Chat < Kemalyst::WebSocket
   @sockets = [] of HTTP::WebSocket
-  @messages = [] of String
 
   def call(socket : HTTP::WebSocket)
     @sockets.push socket
     socket.on_message do |message|
-      @messages.push message
       @sockets.each do |a_socket|
-        a_socket.send @messages.to_json
+        a_socket.send message.to_json
       end
     end
   end
@@ -366,8 +390,7 @@ The first one is a WebSocket Controller and the second is a standard
 Controller.  If the request is not a WebSocket upgrade request, it will
 pass-through and call the second one that will return the html page.
 
-
-To see a full example application, checkout
+To see an example application, checkout
 [Chat Kemalyst](https://github.com/drujensen/chat-kemalyst)
 
 ### Mailers
@@ -379,14 +402,30 @@ kgen g mailer Welcome email:string name:string
 
 This will generate the following files:
 
-config/mailer.yml
-spec/mailers/welcome_mailer_spec.cr
-src/mailers/welcome_mailer.cr
-src/views/layouts/mailer.slang
-src/views/mailers/welcome_mailer.slang
+  - config/mailer.yml
+  - spec/mailers/welcome_mailer_spec.cr
+  - src/mailers/welcome_mailer.cr
+  - src/views/layouts/mailer.slang
+  - src/views/mailers/welcome_mailer.slang
 
-The mailer has the ability to set the from, to, cc, bcc, subject and body.
-You may use the `render` using your preferred templating language to create the body.
+The mailer has the ability to set the `from`, `to`, `cc`, `bcc`, `subject` and `body`.
+You may use the `render` helper to create the body of the email.
+
+```crystal
+class WelcomeMailer < Kemalyst::Mailer
+  def initialize
+    super
+    from "from@example.com"
+  end
+
+  def deliver(name: String, email: String)
+    to name: name, email: email
+    subject "Welcome to Kemalyst"
+    body render("mailers/welcome_mailer.slang", "mailer.slang")
+    super()
+  end
+end
+```
 
 To delivery a new email:
 ```crystal
@@ -404,31 +443,62 @@ kgen g job Welcome name:string email:string
 ```
 
 This will generate:
+  - config/sidekiq.cr
+  - docker-sidekiq.yml
+  - spec/jobs/spec_helper.cr
+  - spec/jobs/welcome_job_spec.cr
+  - src/jobs/welcome_job.cr
+  - src/sidekiq.cr
 
-config/sidekiq.cr
-docker-sidekiq.yml
-spec/jobs/spec_helper.cr
-spec/jobs/welcome_job_spec.cr
-src/jobs/welcome_job.cr
-src/sidekiq.cr
+Jobs are using `sidekiq.cr` for handling the background process.  Sidekiq uses `redis` to handle the queues and spins up several fibers to handle processing each job from the queue.
 
-The job will have a `perform(name, email) method where you would call the `mailer.deliver` code.  You will need to run the background service.  The `src/sidekiq.cr` is the sidekiq service that will spawn threads and start processing the jobs.  Sidekiq uses Redis to manage the queues.
+You will either need to install `redis` locally or you can use the `docker-sidekiq.yml` which is a pre-configured docker-compose file that will spin up the needed services.
+
+To install redis locally and start the service:
 
 ```sh
 brew install redis
-brew service redis start
+brew services start redis
 ```
 
-To start the sidekiq service:
+Sidekiq is expecting two environment variables to be configured:
+
 ```sh
-crystal run src/sidekiq.cr
+export REDIS_PROVIDER = REDIS_URL
+export REDIS_URL = redis://localhost:6379
 ```
-or you can use:
+
+Then you can start and watch the sidekiq service using `kgen`:
 ```sh
 kgen sidekiq
 ```
-
 This will watch for any changes to the jobs and recompile and launch sidekiq.
+
+Or you can compile and run the sidekiq.cr manually:
+```sh
+crystal build --release src/sidekiq.cr
+./sidekiq
+```
+
+Here is an example background job that will deliver the email we created earlier:
+```crystal
+require "sidekiq"
+require "../mailers/welcome_job"
+
+class WelcomeJob
+  include Sidekiq::Worker
+
+  def perform(name : String, email : String)
+    mailer = WelcomeMailer.new
+    mailer.deliver(name: name, email: email)
+  end
+end
+```
+
+To execute the job, in your controller call:
+```crystal
+WelcomeJob.async.perform(name, email)
+```
 
 ### Validation
 
@@ -488,6 +558,7 @@ Kemalyst is only possible with the use and help from many other crystal projects
   - [crystal-sqlite](https://github.com/crystal-lang/crystal-sqlite) Sqlite Driver - [Brian J. Cardiff](https://github.com/bcardiff)
   - [crystal-mysql](https://github.com/crystal-lang/crystal-mysql) Mysql Driver - [Brian J. Cardiff](https://github.com/bcardiff)
   - [crystal-pg](https://github.com/will/crystal-pg) Postgres Driver - [Will Leinweber](https://github.com/will)
+  - [sidekiq.cr](https://github.com/mperham/sidekiq.cr) Sidekiq - [Mike Perham](https://github.com/mperham)
 
 For Kemalyst Generator
   - [mocks](https://github.com/waterlink/mocks.cr) Mocking Library - [Oleksii Fedorov](https://github.com/waterlink)
