@@ -195,7 +195,7 @@ class Index < Kemalyst::Controller
   end
 end
 ```
-There are several helper macros that will set the contenttype and responses status.
+There are several helper macros that will set the content type and responses status.
 ```crystal
   redirect "path"                       # redirect to path
   html     "<html></html>", 200         # content type `text/html` with status code of 200
@@ -415,7 +415,7 @@ You may use the `render` helper to create the body of the email.
 class WelcomeMailer < Kemalyst::Mailer
   def initialize
     super
-    from "from@example.com"
+    from "Kemalyst", "info@kemalyst.com"
   end
 
   def deliver(name: String, email: String)
@@ -433,7 +433,7 @@ mailer = WelcomeMailer.new
 mailer.deliver(name, email)
 ```
 
-You can deliver this in the controller but most agree this should be done in a background job.
+You can deliver this in the controller but you may want to do this in a background job.
 
 ### Jobs
 
@@ -483,7 +483,7 @@ crystal build --release src/sidekiq.cr
 Here is an example background job that will deliver the email we created earlier:
 ```crystal
 require "sidekiq"
-require "../mailers/welcome_job"
+require "../mailers/welcome_mailer"
 
 class WelcomeJob
   include Sidekiq::Worker
