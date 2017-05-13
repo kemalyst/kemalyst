@@ -34,7 +34,7 @@ brew install crystal-lang
 2. Install Kemalyst Generator
 
 ```sh
-brew tap drujensen/kgen
+brew tap kemalyst/kgen
 brew install kgen
 ```
 
