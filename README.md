@@ -129,14 +129,24 @@ settings.  You will find the `database.yml` and `routes.cr` here.
 The router will perform a lookup based on the method and path and return the
 chain of handlers you specify in the `/config/routes.cr` file.
 
-You can use any of the following methods: `get, post, put, patch, delete, all`
+You can use any of these simplified macros: `get, post, patch, delete`
 
-An example of a route would be:
 ```crystal
-get "/",   DemoController::Index
+get "/", home, index
+```
+
+You can specify the class directly:
+```crystal
+get "/",   HomeController::Index
 ```
 You can use `:variable` in the path and it will set a
 context.params["variable"] to the value in the url.
+
+```crystal
+get    "/posts/:id", demo, show
+```
+
+or using the class:
 
 ```crystal
 get    "/posts/:id", DemoController::Show
@@ -150,13 +160,13 @@ get "/", [ BasicAuth.instance("username", "password"),
 or add them individually in the correct order:
 ```crystal
 get "/", BasicAuth.instance("username", "password")
-get "/", DemoController::Index.instance
+get "/", home, index
 ```
 
 This is how you would configure a WebSocket Controller:
 ```crystal
-get "/", ChatController::Chat
-get "/", ChatController::Index
+get "/", chat, socket
+get "/", chat, index
 ```
 See below for more information on how to create a WebSocket Handler.
 
@@ -173,10 +183,8 @@ An example of a controller:
 ```crystal
 require "../models/post"
 
-module Post
-  include ActionHelper #adds in helper method "action"
-
-  action Index do
+class PostController < Kemalyst::Controller
+  action index do
     posts = Post.all("ORDER BY created_at DESC")
     html render("post/index.ecr", "main.ecr")
   end
@@ -187,14 +195,14 @@ Note: The above is shorthand for this:
 ```crystal
 require "../models/post"
 
-class Index < Kemalyst::Controller
+class PostController::Index < Kemalyst::Controller
   def call(context)
     posts = Post.all("ORDER BY created_at DESC")
     html render("post/index.ecr", "main.ecr")
   end
 end
 ```
-There are several helper macros that will set the content type and responses status.
+There are several helper macros that will set the content type and responses status:
 ```crystal
   redirect "path"                       # redirect to path
   html     "<html></html>", 200         # content type `text/html` with status code of 200
@@ -213,8 +221,8 @@ You can use the rendering engine to generate `html`, `json`, `xml` or `text`:
 ```crystal
 require "../models/post"
 
-class Index < Kemalyst::Controller
-  def call(context)
+class HomeController < Kemalyst::Controller
+  action index do
     posts = Post.all("ORDER BY created_at DESC")
     json render("post/index.json.ecr")
   end
