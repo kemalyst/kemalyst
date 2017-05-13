@@ -136,7 +136,6 @@ module Kemalyst::Handler
     end
 
     def call(context)
-      context.response.content_type = "text/html"
       process_request(context)
     end
 
@@ -171,12 +170,11 @@ module Kemalyst::Handler
             route.handler.next = nil if route
           end
         else
-          raise Kemalyst::Exceptions::RouteNotFound.new("Requested payload: '#{method.as(String)}:#{context.request.path}' was not found.")
+          call_next context
         end
       else
-        raise Kemalyst::Exceptions::RouteNotFound.new("Requested path: '#{method.as(String)}:#{context.request.path}' was not found.")
+        call_next context
       end
-      context
     end
 
     # Adds a given route to routing tree. As an exception each `GET` route additionaly defines

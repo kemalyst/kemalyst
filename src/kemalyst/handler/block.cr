@@ -12,8 +12,8 @@ module Kemalyst::Handler
     end
 
     def call(context)
-      content = @block.call(context)
-      context.response.print content
+      context.response.content_type = "text/html"
+      context.response.print @block.call(context)
     end
   end
 end
