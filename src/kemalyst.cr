@@ -13,7 +13,7 @@ module Kemalyst
   # wide logger.  The `handlers` is the list of handlers used by this server.
   # You can add other custom handlers other than the ones provided.
   class Application
-    property host, port, env, logger, handlers
+    property host, port, env, logger, handlers, reuse_port
 
     # Singleton that will return the single instance of the Application.
     def self.instance
@@ -38,6 +38,7 @@ module Kemalyst
       @env = "development"
       @logger = Logger.new(STDOUT)
       @handlers = [] of HTTP::Handler
+      @reuse_port = false
 
       parse_command_line_options
     end
@@ -61,6 +62,7 @@ module Kemalyst
     def start
       setup_handlers
       server = HTTP::Server.new(@host, @port, @handlers)
+      server.bind(@reuse_port)
 
       Signal::INT.trap {
         server.close
@@ -68,6 +70,7 @@ module Kemalyst
       }
 
       puts "Server started on #{@host}:#{@port} in #{@env}."
+      puts "Reuse port enabled" if @reuse_port
       server.listen
     end
 
