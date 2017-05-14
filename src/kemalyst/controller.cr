@@ -85,7 +85,7 @@ class Kemalyst::Controller
   end
 
   # helper to render xml.  This sets the content_type to `application/xml`
-  macro json(body, status_code = 200)
+  macro xml(body, status_code = 200)
     context.response.status_code = {{status_code}}
     context.response.content_type = "application/xml"
     context.response.print({{body}})
