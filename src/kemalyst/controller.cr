@@ -73,7 +73,7 @@ class Kemalyst::Controller
   # helper to render html.  This sets the content_type to `text/html`
   macro html(body, status_code = 200)
     context.response.status_code = {{status_code}}
-    context.response.content_type = "text/html"
+    context.response.content_type = "text/html; charset=UTF-8"
     context.response.print({{body}})
   end
 
