@@ -38,7 +38,32 @@ brew tap kemalyst/kgen
 brew install kgen
 ```
 
-3. Initialize a new Kemalyst App using `kgen`
+### Linux / Ubuntu
+
+1. Install Crystal
+
+```sh
+curl https://dist.crystal-lang.org/apt/setup.sh | sudo bash
+sudo apt-get update
+sudo apt-get install build-essential crystal
+```
+2. Find the latest version of kgen at https://github.com/kemalyst/kemalyst-generator/releases
+
+2. Run the following. Make sure to update the version number to the latest:
+```
+export KGEN_VERSION=0.6.1
+curl -L https://github.com/kemalyst/kemalyst-generator/archive/v$KGEN_VERSION.tar.gz | sudo tar xvz -C /usr/local/share/. && cd /usr/local/share/kemalyst-generator-$KGEN_VERSION && sudo crystal deps && sudo make
+sudo ln -sf /usr/local/share/kemalyst-generator-$KGEN_VERSION/bin/kgen /usr/local/bin/kgen
+```
+
+3. Verify:
+```
+kgen --version
+```
+
+## Initialize
+
+Create a new Kemalyst App using `kgen`
 ```sh
 kgen init app [your_app] [options]
 cd [your_app]
