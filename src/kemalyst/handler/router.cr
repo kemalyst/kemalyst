@@ -2,7 +2,7 @@ require "http/server"
 require "radix"
 
 module Kemalyst::Handler
-  HTTP_METHODS = %w(get post put patch delete)
+  HTTP_METHODS = %w(get post patch delete)
 
   {% for method in HTTP_METHODS %}
     def {{method.id}}(path, &block : HTTP::Server::Context -> _)
@@ -29,7 +29,6 @@ module Kemalyst::Handler
 
   def all(path, handler : HTTP::Handler)
     get path, handler
-    put path, handler
     post path, handler
     patch path, handler
     delete path, handler
@@ -51,6 +50,36 @@ module Kemalyst::Handler
     Router.instance.add_route "delete", "{{path.id}}", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
   end
 
+  macro all(path, controller, action)
+    Router.instance.add_route "get", "{{path.id}}", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
+    Router.instance.add_route "post", "{{path.id}}", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
+    Router.instance.add_route "patch", "{{path.id}}", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
+    Router.instance.add_route "delete", "{{path.id}}", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
+  end
+
+  macro before_get(path, controller, action)
+    Router.instance.before_route "get", "{{path.id}}", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
+  end
+
+  macro before_post(path, controller, action)
+    Router.instance.before_route "post", "{{path.id}}", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
+  end
+
+  macro before_patch(path, controller, action)
+    Router.instance.before_route "patch", "{{path.id}}", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
+  end
+
+  macro before_delete(path, controller, action)
+    Router.instance.before_route "delete", "{{path.id}}", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
+  end
+
+  macro before_all(path, controller, action)
+    Router.instance.before_route "get", "{{path.id}}", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
+    Router.instance.before_route "post", "{{path.id}}", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
+    Router.instance.before_route "patch", "{{path.id}}", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
+    Router.instance.before_route "delete", "{{path.id}}", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
+  end
+
   # The resources macro will create a set of routes for a list of resources endpoint.
   macro resources(name)
     Router.instance.add_route "get", "/{{name.id.downcase}}s", {{name.id.capitalize}}Controller::Index.new
@@ -70,6 +99,27 @@ module Kemalyst::Handler
     Router.instance.add_route "get", "/{{name.id.downcase}}/edit", {{name.id.capitalize}}Controller::Edit.new
     Router.instance.add_route "patch", "/{{name.id.downcase}}s/:id", {{name.id.capitalize}}Controller::Update.new
     Router.instance.add_route "delete", "/{{name.id.downcase}}", {{name.id.capitalize}}Controller::Delete.new
+  end
+
+  # The resources macro will create a set of routes for a list of resources endpoint.
+  macro before_resources(name, controller, action)
+    Router.instance.before_route "get", "/{{name.id.downcase}}s", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
+    Router.instance.before_route "get", "/{{name.id.downcase}}s/new", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
+    Router.instance.before_route "post", "/{{name.id.downcase}}s", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
+    Router.instance.before_route "get", "/{{name.id.downcase}}s/:id", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
+    Router.instance.before_route "get", "/{{name.id.downcase}}s/:id/edit", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
+    Router.instance.before_route "patch", "/{{name.id.downcase}}s/:id", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
+    Router.instance.before_route "delete", "/{{name.id.downcase}}s/:id", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
+  end
+
+  # The resource macro will create a set of routes for a single resource endpoint
+  macro before_resource(name, controller, action)
+    Router.instance.before_route "get", "/{{name.id.downcase}}/new", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
+    Router.instance.before_route "post", "/{{name.id.downcase}}", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
+    Router.instance.before_route "get", "/{{name.id.downcase}}", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
+    Router.instance.before_route "get", "/{{name.id.downcase}}/edit", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
+    Router.instance.before_route "patch", "/{{name.id.downcase}}s/:id", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
+    Router.instance.before_route "delete", "/{{name.id.downcase}}", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
   end
 
   # The Route holds the information for the node in the tree.
@@ -196,6 +246,10 @@ module Kemalyst::Handler
     def add_route(method, path, handler)
       add_to_tree(method, path, Route.new(method, path, handler))
       add_to_tree("HEAD", path, Route.new("HEAD", path, handler)) if method == "GET"
+    end
+
+    def before_route(method, path, handler)
+      add_to_tree(method, path, Route.new(method, path, handler))
     end
 
     # Check if a route is defined and returns the lookup

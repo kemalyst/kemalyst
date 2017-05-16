@@ -195,6 +195,60 @@ get "/", chat, index
 ```
 See below for more information on how to create a WebSocket Handler.
 
+#### Before Routes
+
+There are times when you need to have handlers to process a request before 
+it gets to your controller like authentication.  There are a set of `before` 
+actions to make chaining the routes easier and more clear. 
+```
+before_get "/", session, authenticate
+get "/", home, index
+```
+The full list:
+before_get, before_post, before_patch, before_delete, before_all
+
+It's important to add these in the routes in the correct order.
+
+#### Resource Routes
+
+You can declare RESTful routes by using `resources` or `resource`:
+
+For multiple resources:
+```crystal
+resources Demo
+```
+
+is the same as:
+```crystal
+get "/demos", demo, index
+get "/demos/new", demo, new
+post "/demos", demo, create
+get "/demos/:id", demo, show
+get "/demos/:id/edit", demo, edit
+patch "/demos/:id", demo, patch
+delete "/demos/:id", demo, delete
+```
+
+For a single resource:
+```crystal
+resource Demo
+```
+
+is the same as:
+```crystal
+get "/demo/new", demo, new
+post "/demo", demo, create
+get "/demo", demo, show
+get "/demo/edit", demo, edit
+patch "/demo", demo, update
+delete "/demo", demo, delete
+```
+
+There is also the ability to specify a `before_resources` and `before_resource`:
+```
+before_resources Demo, session, authenticate
+```
+
 ### Controllers
 
 The Controller inherits from HTTP::Handler which is the middleware similar to
