@@ -94,4 +94,29 @@ describe Kemalyst::Handler::Params do
       expect(context.params["_csrf"]).to eq "PcCFp4oKJ1g-hZ-P7-phg0alC51pz7Pl12r0ZOncgxI"
     end
   end
+
+  context "context" do
+    it "holds params" do
+      request = HTTP::Request.new("GET", "/")
+      io, context = create_context(request)
+      context.params["test"] = "test"
+      expect(context.params.has_key?("test")).to eq true
+    end
+
+    it "clears params" do
+      request = HTTP::Request.new("GET", "/")
+      io, context = create_context(request)
+      context.params["test"] = "test"
+      context.clear_params
+      expect(context.params.has_key?("test")).to eq false
+    end
+
+    it "supports multiple params" do
+      request = HTTP::Request.new("GET", "/")
+      io, context = create_context(request)
+      context.params.add("test", "test1")
+      context.params.add("test", "test2")
+      expect(context.params.fetch_all("test")).to eq ["test1", "test2"]
+    end
+  end
 end
