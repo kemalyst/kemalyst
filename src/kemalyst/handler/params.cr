@@ -1,6 +1,31 @@
 require "json"
 require "tempfile"
 
+# Open Context and add `params` and `files` hash.
+class HTTP::Server::Context
+
+  # clear the params.
+  def clear_params
+    @params = HTTP::Params.new({} of String => Array(String))
+  end
+
+  # params hold all the parameters that may be passed in a request.  The
+  # parameters come from either the url or the body via json or form posts.
+  def params
+    @params ||= HTTP::Params.new({} of String => Array(String))
+  end
+
+  # clear the files
+  def clear_files
+    @files = {} of String => FileUpload
+  end
+
+  # files hold all the files that are uploaded as multipart form.
+  def files
+    @files ||= {} of String => FileUpload
+  end
+end
+
 module Kemalyst::Handler
   # The Params handler will parse parameters from a URL, a form post or a JSON
   # post and provide them in the context params hash.  This unifies access to
