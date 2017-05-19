@@ -29,4 +29,21 @@ describe Kemalyst::Handler::Session do
     cookie = context.response.headers["set-cookie"]
     expect(cookie).to eq "kemalyst.session=d5374f304c4a343e14fca421e4c372c777207337--eyJhdXRob3JpemVkIjoidHJ1ZSJ9%0A; path=/"
   end
+
+  context "context" do
+    it "holds session hash" do
+      request = HTTP::Request.new("GET", "/")
+      io, context = create_context(request)
+      context.session["test"] = "test"
+      expect(context.session.size).to eq 1
+    end
+
+    it "clears session hash" do
+      request = HTTP::Request.new("GET", "/")
+      io, context = create_context(request)
+      context.session["test"] = "test"
+      context.clear_session
+      expect(context.session.size).to eq 0
+    end
+  end
 end
