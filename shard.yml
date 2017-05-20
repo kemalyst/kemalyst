@@ -7,13 +7,17 @@ authors:
 license: MIT
 
 dependencies:
+  crack:
+    github: kemalyst/crack
+    version: ~> 0.1.1
+
   kilt:
     github: jeromegn/kilt
-    version: 0.3.3
+    version: ~> 0.3.3
 
   radix:
     github: luislavena/radix
-    version: 0.3.8
+    version: ~> 0.3.8
     
   slang:
     github: jeromegn/slang

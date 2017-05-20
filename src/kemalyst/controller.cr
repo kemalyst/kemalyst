@@ -1,4 +1,5 @@
 require "http"
+require "crack"
 require "kilt"
 require "kilt/slang"
 
@@ -26,12 +27,12 @@ class Kemalyst::Controller
 
   # Provides the CSRF token
   def csrf_token(context)
-    Kemalyst::Handler::CSRF.instance.token(context)
+    Crack::Handler::CSRF.instance.token(context)
   end
 
   # Helper method to generate a hidden csrf input tag
   def csrf_tag(context)
-    Kemalyst::Handler::CSRF.instance.tag(context)
+    Crack::Handler::CSRF.instance.tag(context)
   end
 
   # action helper to simplify the controllers

@@ -1,5 +1,9 @@
 version: 1.0
 shards:
+  crack:
+    github: kemalyst/crack
+    version: 0.1.3
+
   expect:
     github: dukex/expect.cr
     commit: 17c31a0f42815cd914a630852bb2ee0da6a39dc0

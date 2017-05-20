@@ -1,6 +1,7 @@
 require "http"
 require "option_parser"
 require "logger"
+require "crack"
 require "./kemalyst/*"
 require "./kemalyst/handler/*"
 
@@ -43,21 +44,6 @@ module Kemalyst
       parse_command_line_options
     end
 
-    # Handlers are processed in order. Each handler has their own configuration file.
-    def setup_handlers
-      # only setup handlers if they haven't been setup yet
-      if @handlers.empty?
-        @handlers << Kemalyst::Handler::Logger.instance
-        @handlers << Kemalyst::Handler::Error.instance
-        @handlers << Kemalyst::Handler::Static.instance
-        @handlers << Kemalyst::Handler::Session.instance
-        @handlers << Kemalyst::Handler::Flash.instance
-        @handlers << Kemalyst::Handler::Params.instance
-        @handlers << Kemalyst::Handler::CSRF.instance
-        @handlers << Kemalyst::Handler::Router.instance
-      end
-    end
-
     # Start the server.  This is what will get everything going.
     def start
       setup_handlers
@@ -69,9 +55,24 @@ module Kemalyst
         exit
       }
 
+      puts "Reuse port enabled." if @reuse_port
       puts "Server started on #{@host}:#{@port} in #{@env}."
-      puts "Reuse port enabled" if @reuse_port
       server.listen
+    end
+
+    # Handlers are processed in order. Each handler has their own configuration file.
+    def setup_handlers
+      # only setup handlers if they haven't been setup yet
+      if @handlers.empty?
+        @handlers << Crack::Handler::Logger.instance(@logger)
+        @handlers << Crack::Handler::Error.instance
+        @handlers << Crack::Handler::Static.instance
+        @handlers << Crack::Handler::Session.instance
+        @handlers << Crack::Handler::Flash.instance
+        @handlers << Crack::Handler::Params.instance
+        @handlers << Crack::Handler::CSRF.instance
+        @handlers << Kemalyst::Handler::Router.instance
+      end
     end
 
     private def parse_command_line_options
@@ -86,6 +87,9 @@ module Kemalyst
         opts.on("-e ENV", "--environment ENV", "Environment [development,
          production] (defaults to development).") do |opt_env|
           @env = opt_env
+        end
+        opts.on("--reuse_port", "Enable reuse port") do
+          @reuse_port = true
         end
       end
     end
