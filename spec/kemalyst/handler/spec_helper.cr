@@ -1,4 +1,3 @@
-require "crack"
 require "../spec_helper"
 
 class TestHandler < Kemalyst::Handler::Base
