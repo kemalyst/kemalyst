@@ -23,7 +23,7 @@ describe Kemalyst::Handler::Router do
     io, context = create_context(request)
 
     router = Kemalyst::Handler::Router.new
-    handler = Kemalyst::Handler::Block.new(->(context : HTTP::Server::Context) { "Hello World!" })
+    handler = Crack::Handler::Block.new(->(context : HTTP::Server::Context) { "Hello World!" })
     router.add_route("GET", "/", handler)
     router.call(context)
     expect(context.response.headers["content_type"]).to eq "text/html"
@@ -31,7 +31,7 @@ describe Kemalyst::Handler::Router do
 
   it "set response body to Hello World!" do
     router = Kemalyst::Handler::Router.new
-    handler = Kemalyst::Handler::Block.new(->(context : HTTP::Server::Context) { "Hello World!" })
+    handler = Crack::Handler::Block.new(->(context : HTTP::Server::Context) { "Hello World!" })
     router.add_route("GET", "/", handler)
 
     request = HTTP::Request.new("GET", "/")
@@ -45,7 +45,7 @@ describe Kemalyst::Handler::Router do
 
   it "builds handler callstack for routes individually in order" do
     router = Kemalyst::Handler::Router.new
-    handler = Kemalyst::Handler::Block.new(->(context : HTTP::Server::Context) { "Hello World!" })
+    handler = Crack::Handler::Block.new(->(context : HTTP::Server::Context) { "Hello World!" })
     socket = Kemalyst::WebSocket.new
     router.add_route("GET", "/", socket)
     router.add_route("GET", "/", handler)
