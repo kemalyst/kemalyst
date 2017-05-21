@@ -70,6 +70,7 @@ module Kemalyst
         @handlers << Crack::Handler::Session.instance
         @handlers << Crack::Handler::Flash.instance
         @handlers << Crack::Handler::Params.instance
+        @handlers << Crack::Handler::Method.instance
         @handlers << Crack::Handler::CSRF.instance
         @handlers << Kemalyst::Handler::Router.instance
       end

@@ -206,8 +206,6 @@ module Kemalyst::Handler
     # Processes the route if it's a match. Otherwise renders 404.
     def process_request(context)
       method = context.request.method
-      # Is there an overrided _method parameter?
-      method = context.params["_method"] if context.params.has_key? "_method"
       result = lookup_route(method.as(String), context.request.path)
       if result.found?
         if routes = result.payload
