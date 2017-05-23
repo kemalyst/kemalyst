@@ -214,22 +214,8 @@ module Kemalyst::Handler
             context.params[key] = value
           end
 
-          # chain the routes
-          0.upto(routes.size - 2) do |i|
-            if route = routes[i]
-              if next_route = routes[i + 1]
-                route.handler.next = next_route.handler
-              end
-            end
-          end
-
           if route = routes.first
             route.handler.call(context)
-          end
-
-          # clean state
-          routes.each do |route|
-            route.handler.next = nil if route
           end
         else
           call_next context
@@ -259,6 +245,7 @@ module Kemalyst::Handler
       node = method_path(method, path)
       result = @tree.find(node)
       if result && result.found?
+        result.payload.last.handler.next = route.handler
         result.payload << route
       else
         routes = [] of Kemalyst::Handler::Route

@@ -2,7 +2,7 @@ version: 1.0
 shards:
   crack:
     github: kemalyst/crack
-    version: 0.1.4
+    version: 0.1.5
 
   expect:
     github: dukex/expect.cr
