@@ -105,7 +105,7 @@ module Kemalyst::Handler
   # path and method handlers.  Routes should be defined in the
   # `config/routes.cr` file.
   class Router < Base
-    property tree :  Radix::Tree(Kemalyst::Handler::Route)
+    property tree : Radix::Tree(Kemalyst::Handler::Route)
 
     # class method to return a singleton instance of this Controller
     def self.instance
@@ -130,7 +130,6 @@ module Kemalyst::Handler
           result.params.each do |key, value|
             context.params[key] = value
           end
-          
           route.handler.call(context)
         else
           call_next context

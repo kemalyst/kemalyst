@@ -1,9 +1,5 @@
 version: 1.0
 shards:
-  crack:
-    github: kemalyst/crack
-    version: 0.1.5
-
   expect:
     github: dukex/expect.cr
     commit: 17c31a0f42815cd914a630852bb2ee0da6a39dc0
@@ -30,7 +26,7 @@ shards:
 
   slang:
     github: jeromegn/slang
-    commit: f86dbdec0fb2b63054a2656113b0f66939aa6058
+    commit: 3b657c48791d72c109fa55ce6431d3042efe2f9c
 
   smtp:
     github: raydf/smtp.cr

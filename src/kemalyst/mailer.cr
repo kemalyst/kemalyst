@@ -21,14 +21,15 @@ class Kemalyst::Mailer
   end
 
   SMTP_YML = "config/mailer.yml"
+
   def settings
-      if File.exists?(SMTP_YML) &&
-        (yaml = YAML.parse(File.read SMTP_YML)) &&
-        (settings = yaml["smtp"])
-        settings
-      else
-        return {"url": "localhost:25"}
-      end
+    if File.exists?(SMTP_YML) &&
+       (yaml = YAML.parse(File.read SMTP_YML)) &&
+       (settings = yaml["smtp"])
+      settings
+    else
+      return {"url": "localhost:25"}
+    end
   end
 
   def from(email : String = "", name : String = "")

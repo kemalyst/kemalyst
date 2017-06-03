@@ -6,7 +6,6 @@ describe Kemalyst::Handler::BasicAuth do
       config.username = "username"
       config.password = "password"
     end
-    
     request = HTTP::Request.new("GET", "/")
     request.headers["Authorization"] = "Basic dXNlcm5hbWU6cGFzc3dvcmQ="
     io, context = create_context(request)

@@ -2,7 +2,7 @@ require "secure_random"
 
 module Kemalyst::Handler
   # The CSRF Handler adds support for Cross Site Request Forgery.
-  # DEPENDENT: Session and Params Handlers.  
+  # DEPENDENT: Session and Params Handlers.
   class CSRF < Base
     property session_key, header_key, param_key, check_methods
 

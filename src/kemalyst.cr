@@ -1,7 +1,6 @@
 require "http"
 require "option_parser"
 require "logger"
-require "crack"
 require "./kemalyst/*"
 require "./kemalyst/handler/*"
 
