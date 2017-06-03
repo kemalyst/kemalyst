@@ -154,13 +154,13 @@ settings.  You will find the `database.yml` and `routes.cr` here.
 The router will perform a lookup based on the method and path and return the
 chain of handlers you specify in the `/config/routes.cr` file.
 
-You can use any of these simplified macros: `get, post, patch, delete`
+You can use any of these simplified macros: `get, post, patch, delete, all`
 
 ```crystal
 get "/", home, index
 ```
 
-You can specify the class directly:
+Or you can specify the class directly:
 ```crystal
 get "/",   HomeController::Index
 ```
@@ -171,43 +171,11 @@ context.params["variable"] to the value in the url.
 get    "/posts/:id", demo, show
 ```
 
-or using the class:
-
-```crystal
-get    "/posts/:id", DemoController::Show
-```
-
-You may chain multiple handlers in a route using an array:
-```crystal
-get "/", [ BasicAuth.instance("username", "password"),
-           DemoController::Index.instance ]
-```
-or add them individually in the correct order:
+You may chain multiple handlers in a route:
 ```crystal
 get "/", BasicAuth.instance("username", "password")
 get "/", home, index
 ```
-
-This is how you would configure a WebSocket Controller:
-```crystal
-get "/", chat, socket
-get "/", chat, index
-```
-See below for more information on how to create a WebSocket Handler.
-
-#### Before Routes
-
-There are times when you need to have handlers to process a request before 
-it gets to your controller like authentication.  There are a set of `before` 
-actions to make chaining the routes easier and more clear. 
-```
-before_get "/", session, authenticate
-get "/", home, index
-```
-The full list:
-before_get, before_post, before_patch, before_delete, before_all
-
-It's important to add these in the routes in the correct order.
 
 #### Resource Routes
 
@@ -262,25 +230,16 @@ An example of a controller:
 ```crystal
 require "../models/post"
 
-class PostController < Kemalyst::Controller
-  action index do
-    posts = Post.all("ORDER BY created_at DESC")
-    html render("post/index.ecr", "main.ecr")
+module PostController 
+  class Index < Kemalyst::Controller
+    def call(context)
+      posts = Post.all("ORDER BY created_at DESC")
+      html render("post/index.ecr", "main.ecr")
+    end
   end
 end
 ```
 
-Note: The above is shorthand for this:
-```crystal
-require "../models/post"
-
-class PostController::Index < Kemalyst::Controller
-  def call(context)
-    posts = Post.all("ORDER BY created_at DESC")
-    html render("post/index.ecr", "main.ecr")
-  end
-end
-```
 There are several helper macros that will set the content type and responses status:
 ```crystal
   redirect "path"                       # redirect to path
@@ -300,10 +259,12 @@ You can use the rendering engine to generate `html`, `json`, `xml` or `text`:
 ```crystal
 require "../models/post"
 
-class HomeController < Kemalyst::Controller
-  action index do
-    posts = Post.all("ORDER BY created_at DESC")
-    json render("post/index.json.ecr")
+module HomeController 
+  class Index < Kemalyst::Controller
+    def call(context)
+      posts = Post.all("ORDER BY created_at DESC")
+      json render("post/index.json.ecr")
+    end
   end
 end
 ```

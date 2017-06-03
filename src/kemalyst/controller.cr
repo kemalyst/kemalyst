@@ -1,5 +1,4 @@
 require "http"
-require "crack"
 require "kilt"
 require "kilt/slang"
 
