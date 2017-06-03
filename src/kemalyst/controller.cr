@@ -27,12 +27,12 @@ class Kemalyst::Controller
 
   # Provides the CSRF token
   def csrf_token(context)
-    Crack::Handler::CSRF.instance.token(context)
+    Kemalyst::Handler::CSRF.instance.token(context)
   end
 
   # Helper method to generate a hidden csrf input tag
   def csrf_tag(context)
-    Crack::Handler::CSRF.instance.tag(context)
+    Kemalyst::Handler::CSRF.instance.tag(context)
   end
 
   # action helper to simplify the controllers

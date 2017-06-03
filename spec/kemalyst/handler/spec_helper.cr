@@ -1,4 +1,12 @@
-require "../spec_helper"
+require "spec"
+require "expect"
+
+def create_context(request)
+  io = IO::Memory.new
+  response = HTTP::Server::Response.new(io)
+  context = HTTP::Server::Context.new(request, response)
+  return io, context
+end
 
 class TestHandler < Kemalyst::Handler::Base
   def call(context)

@@ -188,7 +188,7 @@ module Kemalyst::Handler
   # You can use `:variable` in the path and it will set a
   # context.params["variable"] to the value in the url.
   class Router < Base
-    property tree :  Radix::Tree(Array(Kemalyst::Handler::Route))
+    property tree :  Radix::Tree(Kemalyst::Handler::Route)
 
     # class method to return a singleton instance of this Controller
     def self.instance
@@ -196,7 +196,7 @@ module Kemalyst::Handler
     end
 
     def initialize
-      @tree = Radix::Tree(Array(Kemalyst::Handler::Route)).new
+      @tree = Radix::Tree(Kemalyst::Handler::Route).new
     end
 
     def call(context)
@@ -208,15 +208,13 @@ module Kemalyst::Handler
       method = context.request.method
       result = lookup_route(method.as(String), context.request.path)
       if result.found?
-        if routes = result.payload
+        if route = result.payload
           # Add routing params to context.params
           result.params.each do |key, value|
             context.params[key] = value
           end
-
-          if route = routes.first
-            route.handler.call(context)
-          end
+          
+          route.handler.call(context)
         else
           call_next context
         end
@@ -245,12 +243,9 @@ module Kemalyst::Handler
       node = method_path(method, path)
       result = @tree.find(node)
       if result && result.found?
-        result.payload.last.handler.next = route.handler
-        result.payload << route
+        result.payload.handler.next = route.handler
       else
-        routes = [] of Kemalyst::Handler::Route
-        routes << route
-        @tree.add(node, routes)
+        @tree.add(node, route)
       end
     end
 

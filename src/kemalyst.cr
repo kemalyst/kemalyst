@@ -64,14 +64,14 @@ module Kemalyst
     def setup_handlers
       # only setup handlers if they haven't been setup yet
       if @handlers.empty?
-        @handlers << Crack::Handler::Logger.instance(@logger)
-        @handlers << Crack::Handler::Error.instance
-        @handlers << Crack::Handler::Static.instance
-        @handlers << Crack::Handler::Session.instance
-        @handlers << Crack::Handler::Flash.instance
-        @handlers << Crack::Handler::Params.instance
-        @handlers << Crack::Handler::Method.instance
-        @handlers << Crack::Handler::CSRF.instance
+        @handlers << Kemalyst::Handler::Logger.instance(@logger)
+        @handlers << Kemalyst::Handler::Error.instance
+        @handlers << Kemalyst::Handler::Static.instance
+        @handlers << Kemalyst::Handler::Session.instance
+        @handlers << Kemalyst::Handler::Flash.instance
+        @handlers << Kemalyst::Handler::Params.instance
+        @handlers << Kemalyst::Handler::Method.instance
+        @handlers << Kemalyst::Handler::CSRF.instance
         @handlers << Kemalyst::Handler::Router.instance
       end
     end

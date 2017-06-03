@@ -10,7 +10,7 @@ describe Kemalyst::WebSocket do
     request = HTTP::Request.new("GET", "/", headers)
     io, context = create_context(request)
     websocket = Kemalyst::WebSocket.new
-    handler = Crack::Handler::Block.new(->(context : HTTP::Server::Context) { "Hello World!" })
+    handler = Kemalyst::Handler::Block.new(->(context : HTTP::Server::Context) { "Hello World!" })
     router = Kemalyst::Handler::Router.new
     router.add_route("GET", "/", websocket)
     router.add_route("GET", "/", handler)
