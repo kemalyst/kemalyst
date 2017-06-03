@@ -4,7 +4,7 @@
 
 # Kemalyst
 
-Kemalyst is a yarlf (yet another rails like framework) that is based on on
+Kemalyst is a yarlf (yet another rails like framework) that is based on
 super fast [kemal](https://github.com/sdogruyol/kemal). The framework
 leverages http handlers which are similar to Rack middleware.
 
