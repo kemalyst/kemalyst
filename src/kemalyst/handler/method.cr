@@ -3,26 +3,21 @@ module Kemalyst::Handler
   # This will allow form submits using POST to override the method to match a RESTful backend.
   # DEPENDENT: params handler
   class Method < Base
-    property params_key : String
-    property header_key : String
+    PARAMS_KEY = "_method"
+    HEADER_KEY = "X-HTTP-Method-Override"
 
     # class method to return a singleton instance of this Controller
     def self.instance
       @@instance ||= new
     end
 
-    def initialize
-      @params_key = "_method"
-      @header_key = "HTTP_X_HTTP_METHOD_OVERRIDE"
-    end
-
     def call(context)
-      if context.params.has_key? @params_key
-        context.request.method = context.params[@params_key]
+      if context.params.has_key? PARAMS_KEY
+        context.request.method = context.params[PARAMS_KEY]
       end
 
-      if context.request.headers.has_key? @header_key
-        context.request.method = context.request.headers[@header_key]
+      if context.request.headers.has_key? HEADER_KEY
+        context.request.method = context.request.headers[HEADER_KEY]
       end
 
       call_next(context)
