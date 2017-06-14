@@ -16,7 +16,7 @@ describe Kemalyst::Handler::Method do
 
   it "overrides method when header key exists" do
     request = HTTP::Request.new("GET", "/")
-    request.headers["HTTP_X_HTTP_METHOD_OVERRIDE"] = "delete"
+    request.headers["X_HTTP_METHOD_OVERRIDE"] = "delete"
     io, context = create_context(request)
 
     params_handler = Kemalyst::Handler::Params.instance

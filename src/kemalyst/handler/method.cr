@@ -13,7 +13,7 @@ module Kemalyst::Handler
 
     def initialize
       @params_key = "_method"
-      @header_key = "HTTP_X_HTTP_METHOD_OVERRIDE"
+      @header_key = "X_HTTP_METHOD_OVERRIDE"
     end
 
     def call(context)
