@@ -34,16 +34,6 @@ class Kemalyst::Controller
     Kemalyst::Handler::CSRF.instance.tag(context)
   end
 
-  # action helper to simplify the controllers
-  macro action(name, &content)
-    class {{name.id.camelcase}} < Kemalyst::Controller
-      def call(context)
-        params = context.params
-        {{content.body}}
-      end
-    end
-  end
-
   # helper to render a view with a layout.  The view name is relative to `src/views`
   # directory and the layout is relative to `src/views/layouts` directory.
   macro render(filename, layout, *args)
