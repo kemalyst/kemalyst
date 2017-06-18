@@ -64,7 +64,7 @@ module Kemalyst::Handler
     Router.instance.add_route "post", "/{{name.id.downcase}}", {{name.id.capitalize}}Controller::Create.new
     Router.instance.add_route "get", "/{{name.id.downcase}}", {{name.id.capitalize}}Controller::Show.new
     Router.instance.add_route "get", "/{{name.id.downcase}}/edit", {{name.id.capitalize}}Controller::Edit.new
-    Router.instance.add_route "patch", "/{{name.id.downcase}}s/:id", {{name.id.capitalize}}Controller::Update.new
+    Router.instance.add_route "patch", "/{{name.id.downcase}}", {{name.id.capitalize}}Controller::Update.new
     Router.instance.add_route "delete", "/{{name.id.downcase}}", {{name.id.capitalize}}Controller::Delete.new
   end
 
@@ -85,7 +85,7 @@ module Kemalyst::Handler
     Router.instance.add_route "post", "/{{name.id.downcase}}", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
     Router.instance.add_route "get", "/{{name.id.downcase}}", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
     Router.instance.add_route "get", "/{{name.id.downcase}}/edit", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
-    Router.instance.add_route "patch", "/{{name.id.downcase}}s/:id", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
+    Router.instance.add_route "patch", "/{{name.id.downcase}}", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
     Router.instance.add_route "delete", "/{{name.id.downcase}}", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
   end
 
