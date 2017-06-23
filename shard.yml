@@ -1,5 +1,5 @@
 name: kemalyst
-version: 0.9.0
+version: 0.10.0
 
 authors:
   - drujensen <drujensen@gmail.com>
@@ -14,13 +14,13 @@ dependencies:
   radix:
     github: luislavena/radix
     version: ~> 0.3.8
-    
+
   slang:
     github: jeromegn/slang
     branch: master
 
-  smtp:
-    github: raydf/smtp.cr
+  quartz-mailer:
+    github: amber-crystal/quartz-mailer
     branch: master
 
   sidekiq:

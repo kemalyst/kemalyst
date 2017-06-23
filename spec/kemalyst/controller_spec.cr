@@ -5,7 +5,7 @@ describe Kemalyst::Controller do
     request = HTTP::Request.new("GET", "/")
     io, context = create_context(request)
     context.session["csrf.token"] = "test"
-    controller = Kemalyst::Controller.instance
+    controller = Kemalyst::Controller.new(context)
     expect(controller.csrf_token(context)).to eq "test"
   end
 
@@ -13,7 +13,7 @@ describe Kemalyst::Controller do
     request = HTTP::Request.new("GET", "/")
     io, context = create_context(request)
     context.session["csrf.token"] = "test"
-    controller = Kemalyst::Controller.instance
+    controller = Kemalyst::Controller.new(context)
     expect(controller.csrf_tag(context)).to eq "<input type=\"hidden\" name=\"_csrf\" value=\"test\" />"
   end
 end

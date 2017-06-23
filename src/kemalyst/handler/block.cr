@@ -10,9 +10,14 @@ module Kemalyst::Handler
     def initialize(@block : (HTTP::Server::Context -> String))
     end
 
+    def initialize(@block : (HTTP::Server::Context -> Nil))
+    end
+
     def call(context)
-      context.response.content_type = "text/html"
-      context.response.print @block.call(context)
+      if content = @block.call(context)
+        context.response.content_type = "text/html"
+        context.response.print content
+      end
     end
   end
 end

@@ -2,7 +2,7 @@ require "http/server"
 require "radix"
 
 module Kemalyst::Handler
-  HTTP_METHODS = %w(get post patch delete)
+  HTTP_METHODS = %w(get post put patch delete)
 
   {% for method in HTTP_METHODS %}
     def {{method.id}}(path, &block : HTTP::Server::Context -> _)
@@ -25,68 +25,66 @@ module Kemalyst::Handler
   end
 
   macro get(path, controller, action)
-    Router.instance.add_route "get", "{{path.id}}", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
+    get("{{ path.id }}") do |context|
+      controller = {{ controller.id.capitalize }}Controller.new(context)
+      controller.run_before_filter(:all)
+      controller.run_before_filter(:{{ action.id }})
+      controller.{{ action.id }}
+      controller.run_after_filter(:{{ action.id }})
+      controller.run_after_filter(:all)
+    end
   end
 
   macro post(path, controller, action)
-    Router.instance.add_route "post", "{{path.id}}", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
+    post("{{ path.id }}") do |context|
+      controller = {{ controller.id.capitalize }}Controller.new(context)
+      controller.run_before_filter(:all)
+      controller.run_before_filter(:{{ action.id }})
+      controller.{{ action.id }}
+      controller.run_after_filter(:{{ action.id }})
+      controller.run_after_filter(:all)
+    end
   end
 
   macro patch(path, controller, action)
-    Router.instance.add_route "patch", "{{path.id}}", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
+    patch("{{ path.id }}") do |context|
+      controller = {{ controller.id.capitalize }}Controller.new(context)
+      controller.run_before_filter(:all)
+      controller.run_before_filter(:{{ action.id }})
+      controller.{{ action.id }}
+      controller.run_after_filter(:{{ action.id }})
+      controller.run_after_filter(:all)
+    end
   end
 
   macro delete(path, controller, action)
-    Router.instance.add_route "delete", "{{path.id}}", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
+    delete("{{ path.id }}") do |context|
+      controller = {{ controller.id.capitalize }}Controller.new(context)
+      controller.run_before_filter(:all)
+      controller.run_before_filter(:{{ action.id }})
+      controller.{{ action.id }}
+      controller.run_after_filter(:{{ action.id }})
+      controller.run_after_filter(:all)
+    end
   end
 
-  macro all(path, controller, action)
-    Router.instance.add_route "get", "{{path.id}}", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
-    Router.instance.add_route "post", "{{path.id}}", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
-    Router.instance.add_route "patch", "{{path.id}}", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
-    Router.instance.add_route "delete", "{{path.id}}", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
-  end
-
-  # The resources macro will create a set of routes for a list of resources endpoint.
   macro resources(name)
-    Router.instance.add_route "get", "/{{name.id.downcase}}s", {{name.id.capitalize}}Controller::Index.new
-    Router.instance.add_route "get", "/{{name.id.downcase}}s/new", {{name.id.capitalize}}Controller::New.new
-    Router.instance.add_route "post", "/{{name.id.downcase}}s", {{name.id.capitalize}}Controller::Create.new
-    Router.instance.add_route "get", "/{{name.id.downcase}}s/:id", {{name.id.capitalize}}Controller::Show.new
-    Router.instance.add_route "get", "/{{name.id.downcase}}s/:id/edit", {{name.id.capitalize}}Controller::Edit.new
-    Router.instance.add_route "patch", "/{{name.id.downcase}}s/:id", {{name.id.capitalize}}Controller::Update.new
-    Router.instance.add_route "delete", "/{{name.id.downcase}}s/:id", {{name.id.capitalize}}Controller::Delete.new
+    get "/{{name.id.downcase}}s", "{{name.id.capitalize}}", "index"
+    get "/{{name.id.downcase}}s/new", "{{name.id.capitalize}}", "new"
+    post "/{{name.id.downcase}}s", "{{name.id.capitalize}}", "create"
+    get "/{{name.id.downcase}}s/:id", "{{name.id.capitalize}}", "show"
+    get "/{{name.id.downcase}}s/:id/edit", "{{name.id.capitalize}}", "edit"
+    patch "/{{name.id.downcase}}s/:id", "{{name.id.capitalize}}", "update"
+    delete "/{{name.id.downcase}}s/:id", "{{name.id.capitalize}}", "delete"
   end
 
-  # The resource macro will create a set of routes for a single resource endpoint
   macro resource(name)
-    Router.instance.add_route "get", "/{{name.id.downcase}}/new", {{name.id.capitalize}}Controller::New.new
-    Router.instance.add_route "post", "/{{name.id.downcase}}", {{name.id.capitalize}}Controller::Create.new
-    Router.instance.add_route "get", "/{{name.id.downcase}}", {{name.id.capitalize}}Controller::Show.new
-    Router.instance.add_route "get", "/{{name.id.downcase}}/edit", {{name.id.capitalize}}Controller::Edit.new
-    Router.instance.add_route "patch", "/{{name.id.downcase}}", {{name.id.capitalize}}Controller::Update.new
-    Router.instance.add_route "delete", "/{{name.id.downcase}}", {{name.id.capitalize}}Controller::Delete.new
-  end
-
-  # The resources macro will create a set of routes for a list of resources endpoint.
-  macro before_resources(name, controller, action)
-    Router.instance.add_route "get", "/{{name.id.downcase}}s", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
-    Router.instance.add_route "get", "/{{name.id.downcase}}s/new", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
-    Router.instance.add_route "post", "/{{name.id.downcase}}s", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
-    Router.instance.add_route "get", "/{{name.id.downcase}}s/:id", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
-    Router.instance.add_route "get", "/{{name.id.downcase}}s/:id/edit", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
-    Router.instance.add_route "patch", "/{{name.id.downcase}}s/:id", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
-    Router.instance.add_route "delete", "/{{name.id.downcase}}s/:id", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
-  end
-
-  # The resource macro will create a set of routes for a single resource endpoint
-  macro before_resource(name, controller, action)
-    Router.instance.add_route "get", "/{{name.id.downcase}}/new", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
-    Router.instance.add_route "post", "/{{name.id.downcase}}", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
-    Router.instance.add_route "get", "/{{name.id.downcase}}", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
-    Router.instance.add_route "get", "/{{name.id.downcase}}/edit", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
-    Router.instance.add_route "patch", "/{{name.id.downcase}}", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
-    Router.instance.add_route "delete", "/{{name.id.downcase}}", {{controller.id.capitalize}}Controller::{{action.id.capitalize}}.new
+    get "/{{name.id.downcase}}/new", "{{name.id.capitalize}}", "new"
+    post "/{{name.id.downcase}}", "{{name.id.capitalize}}", "create"
+    get "/{{name.id.downcase}}", "{{name.id.capitalize}}", "show"
+    get "/{{name.id.downcase}}/edit", "{{name.id.capitalize}}", "update"
+    patch "/{{name.id.downcase}}", "{{name.id.capitalize}}", "update"
+    delete "/{{name.id.downcase}}", "{{name.id.capitalize}}", "delete"
   end
 
   # The Route holds the information for the node in the tree.
