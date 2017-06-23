@@ -230,12 +230,10 @@ An example of a controller:
 ```crystal
 require "../models/post"
 
-module PostController 
-  class Index < Kemalyst::Controller
-    def call(context)
-      posts = Post.all("ORDER BY created_at DESC")
-      html render("post/index.ecr", "main.ecr")
-    end
+class PostController < Kemalyst::Controller
+  def index
+    posts = Post.all("ORDER BY created_at DESC")
+    html render("post/index.ecr", "main.ecr")
   end
 end
 ```
@@ -259,12 +257,10 @@ You can use the rendering engine to generate `html`, `json`, `xml` or `text`:
 ```crystal
 require "../models/post"
 
-module HomeController 
-  class Index < Kemalyst::Controller
-    def call(context)
-      posts = Post.all("ORDER BY created_at DESC")
-      json render("post/index.json.ecr")
-    end
+class HomeController < Kemalyst::Controller
+  def index
+    posts = Post.all("ORDER BY created_at DESC")
+    json render("post/index.json.ecr")
   end
 end
 ```
