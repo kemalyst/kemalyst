@@ -157,7 +157,7 @@ chain of handlers you specify in the `/config/routes.cr` file.
 You can use any of these simplified macros: `get, post, patch, delete, all`
 
 ```crystal
-get "/", home, index
+get "/", HomeController, :index
 ```
 
 Or you can specify the class directly:
@@ -168,13 +168,13 @@ You can use `:variable` in the path and it will set a
 context.params["variable"] to the value in the url.
 
 ```crystal
-get    "/posts/:id", demo, show
+get    "/posts/:id", DemoController, :show
 ```
 
 You may chain multiple handlers in a route:
 ```crystal
 get "/", BasicAuth.instance("username", "password")
-get "/", home, index
+get "/", HomeController, :index
 ```
 
 #### Resource Routes
@@ -188,13 +188,13 @@ resources Demo
 
 is the same as:
 ```crystal
-get "/demos", demo, index
-get "/demos/new", demo, new
-post "/demos", demo, create
-get "/demos/:id", demo, show
-get "/demos/:id/edit", demo, edit
-patch "/demos/:id", demo, patch
-delete "/demos/:id", demo, delete
+get "/demos", DemoController, :index
+get "/demos/new", DemoController, :new
+post "/demos", DemoController, :create
+get "/demos/:id", DemoController, :show
+get "/demos/:id/edit", DemoController, :edit
+patch "/demos/:id", DemoController, :patch
+delete "/demos/:id", DemoController, :delete
 ```
 
 For a single resource:
@@ -204,17 +204,12 @@ resource Demo
 
 is the same as:
 ```crystal
-get "/demo/new", demo, new
-post "/demo", demo, create
-get "/demo", demo, show
-get "/demo/edit", demo, edit
-patch "/demo", demo, update
-delete "/demo", demo, delete
-```
-
-There is also the ability to specify a `before_resources` and `before_resource`:
-```
-before_resources Demo, session, authenticate
+get "/demo/new", DemoController, :new
+post "/demo", DemoController, :create
+get "/demo", DemoController, :show
+get "/demo/edit", DemoController, :edit
+patch "/demo", DemoController, :update
+delete "/demo", DemoController, :delete
 ```
 
 ### Controllers
@@ -570,13 +565,14 @@ You can find more details at [Kemalyst i18n](https://github.com/TechMagister/kem
 
 ### Middleware HTTP::Handlers
 
-There are 8 handlers that are pre-configured for Kemalyst.  This is similar in architecture to Rack Middleware:
+There are 9 handlers that are pre-configured for Kemalyst.  This is similar in architecture to Rack Middleware:
  - Logger - Logs all requests/responses to the logger configured.
  - Error - Handles any Exceptions and renders a response.
  - Static - Delivers any static assets from the `./public` folder.
  - Session - Provides a Cookie Session hash that can be accessed from the `context.session["key"]`
  - Flash - Provides flash message hash that can be accessed from the `context.flash["danger"]`
  - Params - Unifies the parameters into `context.params["key"]`
+ - Method - Provides ability to override the method using `_method` parameter
  - CSRF - Helps prevent Cross Site Request Forgery.
  - Router - Routes requests to other handlers based on the method and path.
 

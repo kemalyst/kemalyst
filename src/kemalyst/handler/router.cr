@@ -26,7 +26,7 @@ module Kemalyst::Handler
 
   macro get(path, controller, action)
     get("{{ path.id }}") do |context|
-      controller = {{ controller.id.capitalize }}Controller.new(context)
+      controller = {{ controller.id }}.new(context)
       controller.run_before_filter(:all)
       controller.run_before_filter(:{{ action.id }})
       controller.{{ action.id }}
@@ -37,7 +37,7 @@ module Kemalyst::Handler
 
   macro post(path, controller, action)
     post("{{ path.id }}") do |context|
-      controller = {{ controller.id.capitalize }}Controller.new(context)
+      controller = {{ controller.id }}.new(context)
       controller.run_before_filter(:all)
       controller.run_before_filter(:{{ action.id }})
       controller.{{ action.id }}
@@ -48,7 +48,7 @@ module Kemalyst::Handler
 
   macro patch(path, controller, action)
     patch("{{ path.id }}") do |context|
-      controller = {{ controller.id.capitalize }}Controller.new(context)
+      controller = {{ controller.id }}.new(context)
       controller.run_before_filter(:all)
       controller.run_before_filter(:{{ action.id }})
       controller.{{ action.id }}
@@ -59,7 +59,7 @@ module Kemalyst::Handler
 
   macro delete(path, controller, action)
     delete("{{ path.id }}") do |context|
-      controller = {{ controller.id.capitalize }}Controller.new(context)
+      controller = {{ controller.id }}.new(context)
       controller.run_before_filter(:all)
       controller.run_before_filter(:{{ action.id }})
       controller.{{ action.id }}
@@ -69,22 +69,22 @@ module Kemalyst::Handler
   end
 
   macro resources(name)
-    get "/{{name.id.downcase}}s", "{{name.id.capitalize}}", "index"
-    get "/{{name.id.downcase}}s/new", "{{name.id.capitalize}}", "new"
-    post "/{{name.id.downcase}}s", "{{name.id.capitalize}}", "create"
-    get "/{{name.id.downcase}}s/:id", "{{name.id.capitalize}}", "show"
-    get "/{{name.id.downcase}}s/:id/edit", "{{name.id.capitalize}}", "edit"
-    patch "/{{name.id.downcase}}s/:id", "{{name.id.capitalize}}", "update"
-    delete "/{{name.id.downcase}}s/:id", "{{name.id.capitalize}}", "delete"
+    get "/{{name.id.downcase}}s", "{{name.id.capitalize}}Controller", "index"
+    get "/{{name.id.downcase}}s/new", "{{name.id.capitalize}}Controller", "new"
+    post "/{{name.id.downcase}}s", "{{name.id.capitalize}}Controller", "create"
+    get "/{{name.id.downcase}}s/:id", "{{name.id.capitalize}}Controller", "show"
+    get "/{{name.id.downcase}}s/:id/edit", "{{name.id.capitalize}}Controller", "edit"
+    patch "/{{name.id.downcase}}s/:id", "{{name.id.capitalize}}Controller", "update"
+    delete "/{{name.id.downcase}}s/:id", "{{name.id.capitalize}}Controller", "delete"
   end
 
   macro resource(name)
-    get "/{{name.id.downcase}}/new", "{{name.id.capitalize}}", "new"
-    post "/{{name.id.downcase}}", "{{name.id.capitalize}}", "create"
-    get "/{{name.id.downcase}}", "{{name.id.capitalize}}", "show"
-    get "/{{name.id.downcase}}/edit", "{{name.id.capitalize}}", "update"
-    patch "/{{name.id.downcase}}", "{{name.id.capitalize}}", "update"
-    delete "/{{name.id.downcase}}", "{{name.id.capitalize}}", "delete"
+    get "/{{name.id.downcase}}/new", "{{name.id.capitalize}}Controller", "new"
+    post "/{{name.id.downcase}}", "{{name.id.capitalize}}Controller", "create"
+    get "/{{name.id.downcase}}", "{{name.id.capitalize}}Controller", "show"
+    get "/{{name.id.downcase}}/edit", "{{name.id.capitalize}}Controller", "update"
+    patch "/{{name.id.downcase}}", "{{name.id.capitalize}}Controller", "update"
+    delete "/{{name.id.downcase}}", "{{name.id.capitalize}}Controller", "delete"
   end
 
   # The Route holds the information for the node in the tree.

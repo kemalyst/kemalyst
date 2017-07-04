@@ -1,9 +1,11 @@
 require "http"
+require "../helpers"
 
 module Kemalyst::Handler
   # The base class for Kemalyst handlers.  This extension provides a singleton
   # method and ability to configure each handler.
   class Base
+    include Kemalyst::Helpers
     include HTTP::Handler
 
     # Ability to configure the singleton instance from the class
