@@ -1,4 +1,4 @@
-language: crystal
+language: c
 
 services:
   - docker
