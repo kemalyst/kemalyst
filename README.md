@@ -2,6 +2,10 @@
 
 [Documentation](http://drujensen.github.io/kemalyst/)
 
+# Moved to Amber
+
+I have joined forces with [Amber](http://www.ambercr.io) and we have migrated most of the code and functionality over there.  I recommend looking at the project before starting anything new.  I will continue to maintain Kemalyst for bug fixes and crystal updates.
+
 # Kemalyst
 
 Kemalyst is a yarlf (yet another rails like framework) that is based on
