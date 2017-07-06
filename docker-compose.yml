@@ -4,5 +4,3 @@ services:
     build: .
     command: 'bash -c "cd /app/user && crystal spec"'
     working_dir: /app/user
-    volumes:
-      - '.:/app/user'

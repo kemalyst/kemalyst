@@ -1,5 +1,4 @@
-require "spec"
-require "expect"
+require "../spec_helper"
 
 def create_context(request)
   io = IO::Memory.new
