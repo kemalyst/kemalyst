@@ -4,7 +4,7 @@
 
 ### Moved to Amber
 
-I have joined forces with [Amber](http://www.ambercr.io) and we have migrated most of the code and functionality over there.  I recommend looking at the project before starting anything new.  I will continue to maintain Kemalyst for bug fixes and crystal updates.
+We have joined forces with [Amber](http://www.ambercr.io) and have migrated most of the code and functionality over there.  We recommend looking at the project before starting anything new.  We will continue to maintain Kemalyst for bug fixes and crystal updates.
 
 # Kemalyst
 
